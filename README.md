@@ -101,3 +101,102 @@ Establecer el conjunto mínimo de requerimientos y recomendaciones técnicas que
 *Invalidos*
 
 ![image](https://user-images.githubusercontent.com/112608548/228629835-c9b0fc41-e2c8-4f11-af0f-a73c8bde750c.png)
+
+#### 3.5.	Normas de nombrado de Constantes
+
+**Ejemplos de nombrado de Constantes**
+
+*Validos*
+
+*Invalidos*
+
+### 4.	Estilo de código
+
+#### 4.1.	Estilo de indentación
+
+  Se utilizará el indentado por default que utiliza el IDE Visual Estudio 2022 solo para el código de C#, en cuanto al código en xaml si tendrá que ser indentado para un mayor orden y comprensión del código.
+  
+  #### 4.1.2.	Legibilidad
+  
+Un buen código ha de ser fácil de leer y tener una buena estructuración visual que acompañe a la lógica del algoritmo en cuestión. normalmente cada estándar define una serie de reglas sobre cómo han de posicionarse las llaves y uso de espacios.
+
+Uso de espacios: cada línea tiene que estar bien separado para que se facilite la 	lectura y comprensión.
+Colocación de llaves: deben estar en el mismo nivel que el código fuera de las 		llaves.
+
+
+**Ejemplos de indentacion del código C# y xaml**
+
+*Validos*
+
+![image](https://user-images.githubusercontent.com/112608548/228636610-7273f14d-5edd-4c95-a7c0-7574130187ba.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228636876-4f93310a-c1a9-4fa5-936a-838684d3f208.png)
+
+
+*Invalidos*
+
+![image](https://user-images.githubusercontent.com/112608548/228636491-1019dae9-c13d-40a5-bcbe-8d04f5eedc1c.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228636513-92cd1ece-dd2c-416c-b9d5-27c9b9ad1dea.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228636539-80a7e064-80c8-424c-b6e4-3b543cf9bcbc.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228637316-cc9f8eec-afe0-4e33-bbeb-ea4095d53a9e.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228637681-8f16e3d2-3973-44cf-900b-55cecc31f975.png)
+
+#### 4.2. Números mágicos
+
+Con fines de la comprensión, limpieza del código, y buenas prácticas, el uso de números mágicos no está permitida, se recomienda crear una variable o constante asignarle un valor y usarla.
+
+**Ejemplos**
+
+*Validos*
+
+![image](https://user-images.githubusercontent.com/112608548/228638352-637378cc-fd90-40d9-a79a-d82dd0037f2a.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228638378-7ebae080-90ad-470b-bd3d-d3c8b93521e6.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228638406-8d45a1aa-6b14-4ad2-a27a-c68551cf3de9.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228638577-c3a42436-e0fd-402a-acbc-fb48ad68d811.png)
+
+
+*Invalidos*
+
+![image](https://user-images.githubusercontent.com/112608548/228638449-d9102a42-a6fb-4d78-bcd5-10c12f106fe5.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228638479-2b2f3652-44d9-4236-9af3-5a0c950ebe9b.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228638522-05431409-904b-4cfa-8900-bdfd4caae14b.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228638592-5c339443-4e8f-469c-af70-3a9b70ae4336.png)
+
+
+#### 4.3.	Comentarios
+
+Los comentarios en C# y en cualquier lenguaje de programación son una herramienta que sirve para apoyar la documentación de los programas que desarrollamos y así facilitar su posterior comprensión por parte de alguna otra persona que comprenda algo de C# o el lenguaje en particular. Por este motivo es que se tiene permitido agregar comentario, respetando una serie de normas.
+
+•	Los comentarios no pueden ser muy largo máximo 50 caracteres.
+
+•	Cada que se coloque un comentario para explicar una parte de código, se tiene que colocar arriba de la línea de código donde inicia y no al frente.
+
+•	Evita tener líneas de código comentadas. Si el código ya no es útil mejor elimínalo.
+
+### 5.	Justificación de prefijos.
+
+**Se utilizan prefijos por las siguientes razones:**
+
+• Claridad: Los prefijos pueden ayudar a clarificar el propósito o función de un componente. Por ejemplo, el prefijo "btn" en un botón indica que el componente es un botón, lo que puede ayudar a un desarrollador a entender su propósito sin tener que examinar todo el código.
+
+• Consistencia: Los prefijos pueden ayudar a mantener la consistencia en el nombrado de componentes en un proyecto o código fuente. Al usar prefijos coherentes, se puede asegurar que todos los componentes estén claramente etiquetados y sean fáciles de encontrar.
+
+• Evita conflictos: Los prefijos también pueden ayudar a evitar conflictos de nombres entre diferentes componentes. Si varios componentes comparten el mismo nombre, un prefijo puede diferenciarlos y evitar ambigüedades o confusiones.
+
+• Facilita la navegación: Al utilizar prefijos significativos en los nombres de los componentes, la navegación dentro del código se hace más fácil y rápida, lo que puede ahorrar tiempo y esfuerzo en la búsqueda de un componente en particular.
+
+**Ejemplos**
+
+![image](https://user-images.githubusercontent.com/112608548/228638980-5bfe320d-3603-4064-b5c1-1164d0d432e7.png)
+
+
