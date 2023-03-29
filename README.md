@@ -25,11 +25,45 @@ Establecer el conjunto mínimo de requerimientos y recomendaciones técnicas que
 
 •	Todos los nombres de Clases, Variables, Objetos instanciados se deberán de escribir en idioma inglés.
       
-**Ejemplos de nombrado de Metodos y Clases**
+
+#### 3.2.	Normas de nombrado de Variables 
+
+• Notación de lowerCamelCase: es una convención de nomenclatura en la que un nombre está formado por múltiples palabras que se unen como una sola palabra con la primera letra de cada una de las múltiples palabras (excepto la primera) en mayúscula dentro de la nueva palabra que forma el nombre.
+
+• Prefijos: únicamente utilizar con variables de tipo boolean, de lo contario son invalidas.
+
+**Ejemplos de nombrado de variables**
 
 *Validos*
 
-[![v1.png](https://i.postimg.cc/mkcLLNCv/v1.png)](https://postimg.cc/9wh519xb)
+![image](https://user-images.githubusercontent.com/112608548/228631173-793f3223-5a26-4821-bd2c-a59de43fbaf7.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228631248-f0c6d683-a6d1-44d3-a588-c7094f2b7bc5.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228631319-733f4a14-1be9-4980-9cb5-85d2f3309066.png)
+
+*Invalidos*
+
+![image](https://user-images.githubusercontent.com/112608548/228631385-67e75de5-97bf-4cf0-ab98-fa65943549bf.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228631451-b74163ac-c225-4932-be29-3ef6cba5ab28.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228631491-441226db-09ae-4703-92bc-b4a65dcd54ca.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228631534-13d60ec5-2211-4ad9-8b2a-0cae33e7e3e5.png)
+
+![image](https://user-images.githubusercontent.com/112608548/228631577-2dceb4e8-9d9a-4f13-a207-faf2a9727229.png)
+
+#### 3.3.	Normas de nombrado de Metodos
+
+•	Cuidado con demasiadas líneas: un método contiene de 1 – 40 líneas. Se recomienda dividir un método complejo en varios más sencillos.
+
+•	Notación de UpperCamelCase: para fin de apegarse al estándar de C# todos los nombres de métodos serán escritos bajo la notación de upperCamelCase.
+
+
+**Ejemplos de nombrado de Metodos**
+
+*Validos*
 
 [![v2.png](https://i.postimg.cc/1R6CVVMP/v2.png)](https://postimg.cc/QV8kRtRn)
 
@@ -45,5 +79,25 @@ Establecer el conjunto mínimo de requerimientos y recomendaciones técnicas que
 
 [![i4.png](https://i.postimg.cc/jdMFR0ZJ/i4.png)](https://postimg.cc/KRgN5VXZ)
 
-![image](https://user-images.githubusercontent.com/112608548/228629835-c9b0fc41-e2c8-4f11-af0f-a73c8bde750c.png)
 
+**Excepciones en nombrado de Metodos**
+
+• Existen métodos nombrados automáticamente al generar eventos para botones y sus respectivos clics; el nombrado por el IDE asigna un estilo Snake Case.
+
+![image](https://user-images.githubusercontent.com/112608548/228633289-ad205e85-135e-496b-ae94-0a7465b6d2e7.png)
+
+#### 3.4.	Normas de nombrado de Clases
+
+• Aplican las normas de nombrado de los métodos.
+
+•	Nombres en singular: Con el fin de mejorar la lectura y entendimiento del código, re recomienda que al momento de nombrar una clase se haga de forma singular.
+
+**Ejemplos de nombrado de Clases**
+
+*Validos*
+
+[![v1.png](https://i.postimg.cc/mkcLLNCv/v1.png)](https://postimg.cc/9wh519xb)
+
+*Invalidos*
+
+![image](https://user-images.githubusercontent.com/112608548/228629835-c9b0fc41-e2c8-4f11-af0f-a73c8bde750c.png)
