@@ -147,7 +147,11 @@ Colocación de llaves: deben estar en el mismo nivel que el código fuera de las
 
 #### 4.2. Números mágicos
 
-Con fines de la comprensión, limpieza del código, y buenas prácticas, el uso de números mágicos no está permitida, se recomienda crear una variable o constante asignarle un valor y usarla.
+Los "números mágicos" en el código son valores literales utilizados directamente en el código en lugar de usar constantes con nombres descriptivos. Estos valores pueden ser enteros, flotantes o cualquier otro tipo de dato numérico.
+
+El problema con el uso de números mágicos es que, si se usan de forma indiscriminada, pueden dificultar la comprensión y mantenimiento del código. Por ejemplo, si un desarrollador encuentra un número mágico en el código, puede ser difícil saber qué significa y cómo afecta el comportamiento del programa.
+
+En lugar de usar números mágicos, es recomendable utilizar constantes con nombres significativos que se puedan reutilizar en diferentes partes del código, lo que facilita su mantenimiento y comprensión. Esto también hace que sea más fácil actualizar los valores numéricos en caso de que sea necesario hacer cambios en el código en el futuro.
 
 **Ejemplos**
 
