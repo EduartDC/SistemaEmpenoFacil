@@ -25,10 +25,25 @@ Establecer el conjunto mínimo de requerimientos y recomendaciones técnicas que
 
 •	Todos los nombres de Clases, Variables, Objetos instanciados se deberán de escribir en idioma inglés.
       
-**Ejemplos**
+**Ejemplos de nombrado de Metodos y Clases**
 
 *Validos*
 
 [![v1.png](https://i.postimg.cc/mkcLLNCv/v1.png)](https://postimg.cc/9wh519xb)
 
 [![v2.png](https://i.postimg.cc/1R6CVVMP/v2.png)](https://postimg.cc/QV8kRtRn)
+
+[![v3.png](https://i.postimg.cc/1zkdbGMC/v3.png)](https://postimg.cc/qtGQ3CPy)
+
+*Invalidos*
+
+[![i1.png](https://i.postimg.cc/wv9v5mJP/i1.png)](https://postimg.cc/d7SwwD5m)
+
+[![i2.png](https://i.postimg.cc/d31Vpc5j/i2.png)](https://postimg.cc/Vrxw0pQJ)
+
+[![i3.png](https://i.postimg.cc/GtQSBZRV/i3.png)](https://postimg.cc/m1PSJpty)
+
+[![i4.png](https://i.postimg.cc/jdMFR0ZJ/i4.png)](https://postimg.cc/KRgN5VXZ)
+
+![image](https://user-images.githubusercontent.com/112608548/228629835-c9b0fc41-e2c8-4f11-af0f-a73c8bde750c.png)
+
