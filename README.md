@@ -157,13 +157,11 @@ En lugar de usar números mágicos, es recomendable utilizar constantes con nomb
 
 *Validos*
 
-![image](https://user-images.githubusercontent.com/112608548/228638352-637378cc-fd90-40d9-a79a-d82dd0037f2a.png)
-
 ![image](https://user-images.githubusercontent.com/112608548/228638378-7ebae080-90ad-470b-bd3d-d3c8b93521e6.png)
 
-![image](https://user-images.githubusercontent.com/112608548/228638406-8d45a1aa-6b14-4ad2-a27a-c68551cf3de9.png)
+![image](https://user-images.githubusercontent.com/112608548/229173869-f51b99b4-bca1-44f0-9777-952e049528dc.png)
 
-![image](https://user-images.githubusercontent.com/112608548/228638577-c3a42436-e0fd-402a-acbc-fb48ad68d811.png)
+![image](https://user-images.githubusercontent.com/112608548/229174374-55ff68fe-41b0-4afb-b6f5-348aec3057af.png)
 
 
 *Invalidos*
