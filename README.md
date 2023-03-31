@@ -185,6 +185,26 @@ Los comentarios en C# y en cualquier lenguaje de programación son una herramien
 
 •	Evita tener líneas de código comentadas. Si el código ya no es útil mejor elimínalo.
 
+#### 4.2. Manejo de salidas
+
+Una buena práctica en programación es que un bloque de código solo tenga un return porque ayuda a mejorar la legibilidad y la mantenibilidad del código.
+
+Cuando hay múltiples return en un bloque de código, puede ser difícil entender qué valor se está devolviendo en un momento dado y cómo se llegó a ese punto en el código. Además, los múltiples return pueden hacer que el código sea más propenso a errores, ya que es fácil olvidar devolver un valor en un camino de ejecución.
+
+En cambio, tener un solo return al final del bloque de código facilita la comprensión del flujo de control del programa y hace que sea más fácil de depurar y modificar en el futuro. También puede mejorar el rendimiento del código al evitar la necesidad de saltar de un punto a otro dentro del bloque de código para encontrar el valor de retorno.
+
+Por lo tanto, se recomienda utilizar un solo return en un bloque de código siempre que sea posible y estructurar el código para que el camino de ejecución sea claro y fácil de seguir.
+
+**Ejemplos**
+
+*Validos*
+
+![image](https://user-images.githubusercontent.com/112608548/229177721-3541364c-1397-4db1-a97a-1e60d45a2aaa.png)
+
+*Invalidos*
+
+![image](https://user-images.githubusercontent.com/112608548/229177923-8d97c92b-0d33-400a-a8ac-b607b03e7e56.png)
+
 ### 5.	Justificación de prefijos.
 
 **Se utilizan prefijos por las siguientes razones:**
