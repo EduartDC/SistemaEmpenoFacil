@@ -5,7 +5,11 @@ Sistema para la gestion de una casa de empeños
 ### 1.	Introducción
 
 Para la realización de este proyecto se utilizará el lenguaje de C#, el cual es un lenguaje de programación moderno, basado en objetos y con seguridad de tipos. Este lenguaje permite a los desarrolladores crear muchos tipos de aplicaciones seguras y sólidas que se ejecutan en .NET
-Utilizaremos la plataforma Visual Studio para realizar la codificación, el cuál es un entorno de desarrollo integrado (IDE), un programa con numerosas características que respalda muchos aspectos del desarrollo de software. ¿Por qué lo usaremos?, debido a que el IDE de Visual Studio posee un panel de inicio muy creativo para que se puede usar para editar, depurar y compilar código y, después, publicar la aplicación. Aparte del editor y el depurador estándar que proporcionan la mayoría de IDE que se encuentran en el ambiente de programadores, Visual Studio incluye compiladores, herramientas de finalización de código, diseñadores gráficos y muchas más características para facilitar el proceso de desarrollo de software.
+Utilizaremos la plataforma Visual Studio para realizar la codificación, el cuál es un entorno de desarrollo integrado (IDE), un programa con numerosas características que respalda muchos aspectos del desarrollo de software. 
+
+¿Por qué lo usaremos?, 
+
+Visual Studio es una herramienta esencial para cualquier desarrollador de software debido a sus amplias funcionalidades. Ofrece un panel de inicio intuitivo que facilita la edición, depuración y compilación de código, lo que permite a los programadores concentrarse en la escritura de código y no en las tareas administrativas del proceso de desarrollo. Además de las características básicas que se encuentran en otros IDE, como el editor y el depurador, Visual Studio también incluye una gran cantidad de herramientas adicionales, como compiladores, finalización de código, diseñadores gráficos, entre otras, que aceleran el proceso de desarrollo. Esto permite a los desarrolladores de software crear aplicaciones de alta calidad de manera más rápida y eficiente. En resumen, Visual Studio es una herramienta imprescindible para cualquier desarrollador que desee optimizar su flujo de trabajo y crear software de manera más eficiente.
 
 ### 2.	Propósito
 
