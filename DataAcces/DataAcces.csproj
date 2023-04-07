@@ -50,9 +50,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ArticlesSetAside.cs" />
+    <Compile Include="Belonging.cs" />
+    <Compile Include="Belongings_Articles.cs" />
     <Compile Include="ConecctionModel.cs" />
+    <Compile Include="Contract.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="ImagesBelonging.cs" />
+    <Compile Include="ImagesIdentification.cs" />
+    <Compile Include="Metric.cs" />
+    <Compile Include="Operation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sale.cs" />
+    <Compile Include="SetAside.cs" />
+    <Compile Include="Staff.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
