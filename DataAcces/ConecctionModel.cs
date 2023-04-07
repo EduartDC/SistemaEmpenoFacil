@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 
-namespace BusinessLogic
+namespace DataAcces
 {
-    public partial class ConnectionModel : DbContext
+    public partial class ConecctionModel : DbContext
     {
-        public ConnectionModel()
-            : base("name=ConnectionModel")
+        public ConecctionModel()
+            : base("name=ConecctionModel")
         {
         }
 
@@ -19,11 +19,11 @@ namespace BusinessLogic
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<ImagesBelonging> ImagesBelongings { get; set; }
         public virtual DbSet<ImagesIdentification> ImagesIdentifications { get; set; }
+        public virtual DbSet<Metric> Metrics { get; set; }
         public virtual DbSet<Operation> Operations { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<SetAside> SetAsides { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,4 +1,4 @@
-namespace BusinessLogic
+namespace DataAcces
 {
     using System;
     using System.Collections.Generic;
