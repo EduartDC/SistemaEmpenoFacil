@@ -74,10 +74,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAcces\DataAcces.csproj">
-      <Project>{d7ce4a71-278d-49fb-91fe-f7d9d088eb0a}</Project>
-      <Name>DataAcces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{10e349ca-72ae-4cce-8792-d088a21c4076}</Project>
       <Name>Domain</Name>
