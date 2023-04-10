@@ -24,5 +24,15 @@ namespace View.Views
         {
             InitializeComponent();
         }
+
+        private void itemHome_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void itemExit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

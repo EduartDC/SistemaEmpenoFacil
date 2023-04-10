@@ -1,14 +1,155 @@
 ﻿<Page x:Class="View.Views.CutoffOperations"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:View.Views"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CutoffOperations">
 
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Padding" Value="20,15" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type MenuItem}">
+                            <Grid HorizontalAlignment="Center" Background="Transparent">
+                                <Border Padding="10,5" Background="Transparent">
+                                    <ContentPresenter Margin="10,0" ContentSource="Header" />
+                                </Border>
+                                <Popup
+                                    HorizontalOffset="-1"
+                                    IsOpen="{TemplateBinding IsSubmenuOpen}"
+                                    Placement="Bottom"
+                                    VerticalOffset="1">
+                                    <Border Padding="10" Background="#2E2E2E">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="Yellow" />
+                    </Trigger>
+                    <Trigger Property="IsSubmenuOpen" Value="True">
+                        <Setter Property="Foreground" Value="Yellow" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MenuSeparatorStyle" TargetType="{x:Type Separator}">
+                <Setter Property="Background" Value="Gray" />
+                <Setter Property="Height" Value="1" />
+                <Setter Property="Margin" Value="5,5" />
+            </Style>
+        </Grid.Resources>
+        <Grid
+            Grid.Row="0"
+            Background="#323D8F"
+            >
+            <Image
+                Width="100"
+                Height="80"
+                Margin="0,-20,0,-20"
+                HorizontalAlignment="Center"
+                Source="/Images/Logo.png" />
+            <Label x:Name="lblLocation" Content="Inicio" HorizontalAlignment="Left" Margin="4,14,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+        </Grid>
+        <!--  Encabezado  -->
+        <StackPanel
+            Grid.Row="1"
+            Background="#2E2E2E"
+            Orientation="Horizontal" Height="26" VerticalAlignment="Top">
+            <!--  Agrega tus elementos de encabezado aquí  -->
+            <!--  Menú  -->
+            <!--  Imagen del logo  -->
+
+            <!--  Menú  -->
+            <Menu
+                Grid.Row="1"
+                VerticalAlignment="Top"
+                Background="#2E2E2E">
+                <MenuItem
+                    x:Name="itemHome"
+                    Click="itemHome_Click"
+                    Header="Inicio"
+                    Style="{StaticResource MenuItemStyle}" />
+                <MenuItem
+                    x:Name="itemModels"
+                    Header="Apartados"
+                    Style="{StaticResource MenuItemStyle}">
+                    <MenuItem
+                        Name="itemConsultModels"
+                        Header="Consultar Apartados"
+                        Style="{StaticResource MenuItemStyle}" />
+                </MenuItem>
+                <MenuItem
+                    x:Name="itemPayments"
+                    Header="Ventas"
+                    Style="{StaticResource MenuItemStyle}">
+                    <MenuItem
+                        Name="itemConsultPayments"
+                        Header="Consultar Ventas"
+                        Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        Name="itemGeneratePayments"
+                        Header="Iniciar venta"
+                        Style="{StaticResource MenuItemStyle}" />
+                </MenuItem>
+                <MenuItem
+                    x:Name="itemPages"
+                    Header="Contratos"
+                    Style="{StaticResource MenuItemStyle}">
+                    <MenuItem
+                        Name="itemConsultPages"
+                        Header="Consultar Contratos"
+                        Style="{StaticResource MenuItemStyle}" />
+                </MenuItem>
+                <MenuItem
+                    x:Name="itemOptions"
+                    Header="Opciones"
+                    Style="{StaticResource MenuItemStyle}">
+                    <MenuItem
+                        Name="itemConfiguration"
+                        Header="Configuracion de Metricas"
+                        Style="{StaticResource MenuItemStyle}" />
+                </MenuItem>
+                <MenuItem
+                    x:Name="itemExit"
+                    Click="itemExit_Click"
+                    Header="Salir"
+                    Style="{StaticResource MenuItemStyle}" />
+            </Menu>
+
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,26,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Images/texturaFondo.jpg" Stretch="UniformToFill" />
+            </Grid.Background>
+            <!--  Contenido principal  -->
+            <Grid Background="#2E2E2E" Opacity="0.8">
+
+                <!--  Agrega tus elementos de contenido principal aquí  -->
+            </Grid>
+        </Grid>
     </Grid>
 </Page>
