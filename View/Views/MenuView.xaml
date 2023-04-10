@@ -75,10 +75,7 @@
         <StackPanel
             Grid.Row="1"
             Background="#2E2E2E"
-            Orientation="Horizontal">
-            <!--  Agrega tus elementos de encabezado aquí  -->
-            <!--  Menú  -->
-            <!--  Imagen del logo  -->
+            Orientation="Horizontal" Height="26" VerticalAlignment="Top">
 
             <!--  Menú  -->
             <Menu
@@ -139,24 +136,12 @@
 
         </StackPanel>
 
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <!--  Contenido principal  -->
-            <Grid>
-                <!--  Agrega tus elementos de contenido principal aquí  -->
-            </Grid>
-        </Grid>
-        <Grid Grid.Row="1" Margin="0,26,0,-313">
+        <Grid Grid.Row="1" Margin="0,26,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.Background>
-                <!--  Agrega la ruta de la imagen de fondo aquí  -->
                 <ImageBrush ImageSource="/Images/texturaFondo.jpg" Stretch="UniformToFill" />
             </Grid.Background>
             <!--  Contenido principal  -->

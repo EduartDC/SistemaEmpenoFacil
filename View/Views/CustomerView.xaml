@@ -9,6 +9,28 @@
       Title="CustomerView">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Encabezado -->
+        <StackPanel Grid.Row="0" Background="LightGray" Orientation="Horizontal">
+            <!-- Agrega tus elementos de encabezado aquí -->
+        </StackPanel>
+
+        <!-- Contenido -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Contenido principal -->
+            <Grid>
+                <!-- Agrega tus elementos de contenido principal aquí -->
+            </Grid>
+
+        </Grid>
     </Grid>
 </Page>
