@@ -53,7 +53,6 @@
     <Compile Include="ArticlesSetAside.cs" />
     <Compile Include="Belonging.cs" />
     <Compile Include="Belongings_Articles.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="ConnectionModel.cs" />
     <Compile Include="Contract.cs" />
     <Compile Include="Customer.cs" />

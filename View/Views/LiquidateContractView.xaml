@@ -74,9 +74,6 @@
             Grid.Row="1"
             Background="#2E2E2E"
             Orientation="Horizontal" Height="26" VerticalAlignment="Top">
-            <!--  Agrega tus elementos de encabezado aquí  -->
-            <!--  Menú  -->
-            <!--  Imagen del logo  -->
 
             <!--  Menú  -->
             <Menu
