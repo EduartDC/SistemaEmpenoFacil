@@ -25,14 +25,18 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type MenuItem}">
                             <Grid HorizontalAlignment="Center" Background="Transparent">
-                                <Border Padding="10,5" Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="39*"/>
+                                    <ColumnDefinition Width="29*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Padding="10,5" Background="Transparent" Grid.ColumnSpan="2">
                                     <ContentPresenter Margin="10,0" ContentSource="Header" />
                                 </Border>
                                 <Popup
                                     HorizontalOffset="-1"
                                     IsOpen="{TemplateBinding IsSubmenuOpen}"
                                     Placement="Bottom"
-                                    VerticalOffset="1">
+                                    VerticalOffset="1" Grid.ColumnSpan="2">
                                     <Border Padding="10" Background="#2E2E2E">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                                     </Border>
@@ -67,7 +71,6 @@
                 Margin="0,-20,0,-20"
                 HorizontalAlignment="Center"
                 Source="/Images/Logo.png" />
-            <Label x:Name="lblLocation" Content="Inicio" HorizontalAlignment="Left" Margin="4,14,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
         </Grid>
         <!--  Encabezado  -->
         <StackPanel
@@ -82,9 +85,9 @@
                 Background="#2E2E2E">
                 <MenuItem
                     x:Name="itemHome"
-                    Click="itemHome_Click"
+
                     Header="Inicio"
-                    Style="{StaticResource MenuItemStyle}" />
+                    Style="{StaticResource MenuItemStyle}" Click="itemHome_Click" />
                 <MenuItem
                     x:Name="itemModels"
                     Header="Apartados"
@@ -127,9 +130,9 @@
                 </MenuItem>
                 <MenuItem
                     x:Name="itemExit"
-                    Click="itemExit_Click"
+
                     Header="Salir"
-                    Style="{StaticResource MenuItemStyle}" />
+                    Style="{StaticResource MenuItemStyle}" Click="itemExit_Click" />
             </Menu>
 
         </StackPanel>
@@ -144,7 +147,6 @@
             </Grid.Background>
             <!--  Contenido principal  -->
             <Grid Background="#2E2E2E" Opacity="0.8">
-
                 <!--  Agrega tus elementos de contenido principal aquí  -->
             </Grid>
         </Grid>

@@ -23,6 +23,17 @@ namespace View.Views
         public LiquidateContractView()
         {
             InitializeComponent();
+
+        }
+
+        private void itemHome_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void itemExit_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

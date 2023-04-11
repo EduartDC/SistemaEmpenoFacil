@@ -9,5 +9,8 @@
     Width="1280"
     Height="920"
     mc:Ignorable="d">
-    <Grid />
+    <Grid>
+        <Frame x:Name="PrimaryContainer" NavigationUIVisibility="Hidden" />
+        <Frame x:Name="SecondaryContainer" NavigationUIVisibility="Hidden" />
+    </Grid>
 </Window>

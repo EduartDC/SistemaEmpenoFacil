@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAcces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using View.Views;
 
 namespace View
 {
@@ -20,9 +22,16 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static double _cashOnHand;
+        public static string _staffShift;
+        public static Staff _staffName;
+
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.WindowState = WindowState.Maximized;
+            PrimaryContainer.NavigationService.Navigate(new LiquidateContractView());
         }
     }
 }

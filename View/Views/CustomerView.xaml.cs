@@ -23,6 +23,7 @@ namespace View.Views
         public CustomerView()
         {
             InitializeComponent();
+
         }
     }
 }

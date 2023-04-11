@@ -67,7 +67,6 @@
                 Margin="0,-20,0,-20"
                 HorizontalAlignment="Center"
                 Source="/Images/Logo.png" />
-            <Label x:Name="lblLocation" Content="Inicio" HorizontalAlignment="Left" Margin="4,14,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
         </Grid>
         <!--  Encabezado  -->
         <StackPanel
