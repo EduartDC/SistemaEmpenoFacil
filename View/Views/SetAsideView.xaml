@@ -133,17 +133,14 @@
 
         </StackPanel>
 
-        <Grid Grid.Row="1" Margin="0,26,0,0">
+        <Grid Grid.Row="1" Margin="0,26,0,0" Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Grid.Background>
-                <ImageBrush ImageSource="/Images/texturaFondo.jpg" Stretch="UniformToFill" />
-            </Grid.Background>
-            <!--  Contenido principal  -->
-            <Grid Background="#2E2E2E" Opacity="0.8">
 
+            <!--  Contenido principal  -->
+            <Grid >
                 <!--  Agrega tus elementos de contenido principal aquí  -->
             </Grid>
         </Grid>

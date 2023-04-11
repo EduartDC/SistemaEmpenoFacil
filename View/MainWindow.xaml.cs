@@ -24,14 +24,12 @@ namespace View
     {
         public static double _cashOnHand;
         public static string _staffShift;
-        public static Staff _staffName;
+        public static Staff staffInfo;
 
         public MainWindow()
         {
             InitializeComponent();
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.WindowState = WindowState.Maximized;
-            PrimaryContainer.NavigationService.Navigate(new LiquidateContractView());
+
         }
     }
 }
