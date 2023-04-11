@@ -57,10 +57,8 @@
                 <TextBox
                     Grid.Row="0"
                     Grid.Column="0"
-                    Width="180"
-                    Margin="60,97,0,259"
+                    Margin="60,97,215,259"
                     Padding="8"
-                    HorizontalAlignment="Left"
                     Background="White"
                     BorderBrush="#323D8F"
                     BorderThickness="0,0,0,2"
@@ -72,10 +70,8 @@
                 <TextBox
                     Grid.Row="0"
                     Grid.Column="1"
-                    Width="180"
-                    Margin="30,104,0,259"
+                    Margin="117,119,159,245"
                     Padding="8"
-                    HorizontalAlignment="Left"
                     VerticalContentAlignment="Center"
                     Background="White"
                     BorderBrush="#323D8F"
@@ -87,10 +83,8 @@
                 <TextBox
                     Grid.Row="0"
                     Grid.Column="2"
-                    Width="270"
-                    Margin="0,104,0,259"
+                    Margin="92,104,93,259"
                     Padding="8"
-                    HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
                     Background="White"
                     BorderBrush="#323D8F"
@@ -101,10 +95,8 @@
                     IsEnabled="False" />
                 <TextBox
                     Grid.Row="0"
-                    Width="334"
-                    Margin="0,210,0,153"
+                    Margin="60,302,61,61"
                     Padding="8"
-                    HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
                     Background="White"
                     BorderBrush="#323D8F"
@@ -114,10 +106,8 @@
                     Foreground="Black" />
                 <TextBox
                     Grid.Column="1"
-                    Width="270"
-                    Margin="27,210,0,153"
+                    Margin="117,302,69,62"
                     Padding="8"
-                    HorizontalAlignment="Left"
                     VerticalContentAlignment="Center"
                     Background="White"
                     BorderBrush="#323D8F"
@@ -129,7 +119,7 @@
                     Grid.Column="0"
                     Width="72"
                     Height="26"
-                    Margin="60,176,0,0"
+                    Margin="59,268,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Dirección *"
@@ -138,9 +128,9 @@
                     Grid.Column="1"
                     Width="68"
                     Height="26"
-                    Margin="28,0,0,0"
+                    Margin="117,268,0,0"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Top"
                     Content="Telefono *"
                     FontWeight="Bold" />
                 <Label
@@ -156,7 +146,7 @@
                     Grid.Column="1"
                     Width="72"
                     Height="26"
-                    Margin="28,76,0,0"
+                    Margin="117,79,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Apellido(s)"
@@ -208,4 +198,5 @@
 
         </StackPanel>
     </Grid>
+
 </Page>
