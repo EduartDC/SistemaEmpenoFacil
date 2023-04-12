@@ -31,7 +31,7 @@ namespace View
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.WindowState = WindowState.Maximized;
-
+            PrimaryContainer.NavigationService.Navigate(new MenuView());
         }
     }
 }

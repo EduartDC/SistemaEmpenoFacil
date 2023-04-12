@@ -59,10 +59,7 @@
                 <Setter Property="Margin" Value="5,5" />
             </Style>
         </Grid.Resources>
-        <Grid
-            Grid.Row="0"
-            Background="#323D8F"
-            >
+        <Grid Grid.Row="0" Background="#323D8F">
             <Image
                 Width="100"
                 Height="80"
@@ -73,8 +70,10 @@
         <!--  Encabezado  -->
         <StackPanel
             Grid.Row="1"
+            Height="26"
+            VerticalAlignment="Top"
             Background="#2E2E2E"
-            Orientation="Horizontal" Height="26" VerticalAlignment="Top">
+            Orientation="Horizontal">
 
             <!--  Menú  -->
             <Menu
@@ -87,34 +86,42 @@
                     Header="Inicio"
                     Style="{StaticResource MenuItemStyle}" />
                 <MenuItem
-                    x:Name="itemModels"
+                    x:Name="itemSetAside"
                     Header="Apartados"
                     Style="{StaticResource MenuItemStyle}">
                     <MenuItem
-                        Name="itemConsultModels"
+                        Name="itemConsultSetAside"
                         Header="Consultar Apartados"
+                        Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        Name="itemNewSetAside"
+                        Header="Crear Apartado"
                         Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
                 <MenuItem
-                    x:Name="itemPayments"
+                    x:Name="itemSales"
                     Header="Ventas"
                     Style="{StaticResource MenuItemStyle}">
                     <MenuItem
-                        Name="itemConsultPayments"
+                        Name="itemConsultSels"
                         Header="Consultar Ventas"
                         Style="{StaticResource MenuItemStyle}" />
                     <MenuItem
-                        Name="itemGeneratePayments"
+                        Name="itemNewSale"
                         Header="Iniciar venta"
                         Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
                 <MenuItem
-                    x:Name="itemPages"
+                    x:Name="itemContracts"
                     Header="Contratos"
                     Style="{StaticResource MenuItemStyle}">
                     <MenuItem
-                        Name="itemConsultPages"
+                        Name="itemConsultConstracts"
                         Header="Consultar Contratos"
+                        Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        Name="itemNewContract"
+                        Header="Nuevo Contrato"
                         Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
                 <MenuItem
@@ -144,10 +151,7 @@
                 <ImageBrush ImageSource="/Images/texturaFondo.jpg" Stretch="UniformToFill" />
             </Grid.Background>
             <!--  Contenido principal  -->
-            <Grid Background="#2E2E2E" Opacity="0.8">
-
-                <!--  Agrega tus elementos de contenido principal aquí  -->
-            </Grid>
+            <Frame x:Name="Container" NavigationUIVisibility="Hidden" />
         </Grid>
     </Grid>
 </Page>

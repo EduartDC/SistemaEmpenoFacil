@@ -32,7 +32,7 @@ namespace View.Views
 
         private void itemExit_Click(object sender, RoutedEventArgs e)
         {
-
+            Container.NavigationService.Navigate(new CustomerView());
         }
     }
 }

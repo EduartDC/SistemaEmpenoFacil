@@ -10,22 +10,11 @@
     d:DesignWidth="1366"
     mc:Ignorable="d">
 
-    <Grid Background="#323D8F">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <!--  Encabezado  -->
-        <StackPanel
-            Grid.Row="0"
-            HorizontalAlignment="Center"
-            Background="#323D8F"
-            Orientation="Horizontal">
-            <Image Height="60" Source="/Images/logo.png" />
-            <!--  Agrega tus elementos de encabezado aquí  -->
-
-        </StackPanel>
 
         <!--  Contenido  -->
         <Grid Grid.Row="1" Background="White">
@@ -38,20 +27,7 @@
             <Grid>
                 <!--  Agrega tus elementos de contenido principal aquí  -->
             </Grid>
-
         </Grid>
-        <StackPanel
-            Grid.RowSpan="2"
-            Margin="0,0,0,354"
-            Orientation="Horizontal">
-            <Label
-                Width="Auto"
-                Height="24"
-                Content="OperaciónMonetaria"
-                FontWeight="Bold"
-                Foreground="White" />
-
-        </StackPanel>
     </Grid>
 
 </Page>

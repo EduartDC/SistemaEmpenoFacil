@@ -6,55 +6,35 @@
     xmlns:local="clr-namespace:View.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="CustomerView"
-    d:DesignHeight="768"
     d:DesignWidth="1366"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Height="1358">
 
-    <Grid VerticalAlignment="Top" Background="#323D8F">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-        <!--  Encabezado  -->
-        <StackPanel
-            Grid.Row="0"
-            HorizontalAlignment="Center"
-            Background="#323D8F"
-            Orientation="Horizontal">
-            <Image Height="60" Source="/Images/logo.png" />
-            <!--  Agrega tus elementos de encabezado aquí  -->
-
-        </StackPanel>
-
-        <!--  Contenido  -->
-        <Grid
+    <!--  Contenido  -->
+    <Grid
             Grid.Row="1"
-            Margin="0,0,0,-707"
-            Background="White">
+            Background="White"  >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!--  Contenido principal  -->
+        <Grid Grid.Column="0" >
+            <!--  Agrega tus elementos de contenido principal aquí  -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!--  Contenido principal  -->
-            <Grid Grid.Column="0">
-                <!--  Agrega tus elementos de contenido principal aquí  -->
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-
-
-                </Grid.ColumnDefinitions>
-
-                <TextBox
+            <TextBox
                     Grid.Row="0"
                     Grid.Column="0"
                     Margin="60,97,215,259"
@@ -67,7 +47,7 @@
                     Foreground="Black"
                     IsEnabled="False"
                     Text="hola" />
-                <TextBox
+            <TextBox
                     Grid.Row="0"
                     Grid.Column="1"
                     Margin="117,119,159,245"
@@ -80,7 +60,7 @@
                     FontSize="14"
                     Foreground="Black"
                     IsEnabled="False" />
-                <TextBox
+            <TextBox
                     Grid.Row="0"
                     Grid.Column="2"
                     Margin="92,104,93,259"
@@ -93,7 +73,7 @@
                     FontSize="14"
                     Foreground="Black"
                     IsEnabled="False" />
-                <TextBox
+            <TextBox
                     Grid.Row="0"
                     Margin="60,302,61,61"
                     Padding="8"
@@ -104,7 +84,7 @@
                     FontFamily="Segoe UI"
                     FontSize="14"
                     Foreground="Black" />
-                <TextBox
+            <TextBox
                     Grid.Column="1"
                     Margin="117,302,69,62"
                     Padding="8"
@@ -115,7 +95,7 @@
                     FontFamily="Segoe UI"
                     FontSize="14"
                     Foreground="Black" />
-                <Label
+            <Label
                     Grid.Column="0"
                     Width="72"
                     Height="26"
@@ -124,7 +104,7 @@
                     VerticalAlignment="Top"
                     Content="Dirección *"
                     FontWeight="Bold" />
-                <Label
+            <Label
                     Grid.Column="1"
                     Width="68"
                     Height="26"
@@ -133,7 +113,7 @@
                     VerticalAlignment="Top"
                     Content="Telefono *"
                     FontWeight="Bold" />
-                <Label
+            <Label
                     Grid.Column="0"
                     Width="71"
                     Height="26"
@@ -142,7 +122,7 @@
                     VerticalAlignment="Top"
                     Content="Nombre(s)"
                     FontWeight="Bold" />
-                <Label
+            <Label
                     Grid.Column="1"
                     Width="72"
                     Height="26"
@@ -151,7 +131,7 @@
                     VerticalAlignment="Top"
                     Content="Apellido(s)"
                     FontWeight="Bold" />
-                <Label
+            <Label
                     Grid.Column="2"
                     Width="41"
                     Height="26"
@@ -161,42 +141,22 @@
                     Content="CURP"
                     FontWeight="Bold" />
 
-                <Button
+            <Button
                     Width="120"
                     Height="40"
                     Click="btnSeleccionarImagen_Click"
-                    Content="Seleccionar Imagen" Margin="120,113,215,154" Grid.Row="1" />
-                <Image
+                    Content="Seleccionar Imagen" Margin="167,250,168,0" Grid.Row="1" VerticalAlignment="Top" />
+            <Image
                     x:Name="imgPreview"
                     Width="184"
                     Height="152"
                     Margin="135,57,136,98" Grid.Row="1" Grid.Column="1"
                     />
+            <Label Grid.Column="2" Content="Identificacion *" HorizontalAlignment="Left" Margin="93,268,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <ComboBox Margin="93,318,71,0" VerticalAlignment="Top" Grid.Column="2"/>
 
-            </Grid>
         </Grid>
-        <StackPanel
-            Height="24"
-            Margin="0,31,0,0"
-            VerticalAlignment="Top"
-            Orientation="Horizontal">
-
-            <Label
-                Width="Auto"
-                Height="24"
-                Margin="-2,0,0,0"
-                Content="Inicio/BuscarClientes/"
-                Foreground="White" />
-
-            <Label
-                Width="Auto"
-                Height="24"
-                Margin="-9,0,0,0"
-                Content="ModificarCliente"
-                FontWeight="Bold"
-                Foreground="White" />
-
-        </StackPanel>
     </Grid>
+
 
 </Page>
