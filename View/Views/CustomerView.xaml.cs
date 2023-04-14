@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using DataAcces;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,6 @@ namespace View.Views
                 imgPreview.Source = bitmapImage;
             }
         }
-
 
     }
 }

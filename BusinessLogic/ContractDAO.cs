@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
-    internal class ContractDAO
+    public class ContractDAO
     {
-        public static int LiquidateContract(Contract selectedContract )
+        public static int LiquidateContract(Contract selectedContract)
         {
             var resutl = CodeError.ERROR;
-            if(Utilitys.VerifyConnection())
+            if (Utilitys.VerifyConnection())
             {
-
             }
             return resutl;
+
         }
     }
 }
