@@ -27,8 +27,9 @@
                 Grid.Column="0"
                 Width="400"
                 Margin="20,20,0,20"
-                HorizontalAlignment="Left"
-                Background="#CCCCCC">
+                HorizontalAlignment="Center"
+                Background="#CCCCCC"
+                >
 
                 <TextBlock
                     FontSize="18"
@@ -36,12 +37,12 @@
                     Text="Información del Pago" />
                 <TextBlock Text="Total a Pagar:" />
                 <TextBlock Text="Descripción del Pago:" />
-                <Label Content="Etiqueta 1" />
-                <Label Content="Etiqueta 2" />
-                <Label Content="Etiqueta 3" />
-                <Label Content="Etiqueta 4" />
-                <Label Content="Etiqueta 5" />
-                <Label Content="Etiqueta 6" />
+                <Label Content="Etiqueta 1" HorizontalAlignment="Center"/>
+                <Label Content="Etiqueta 2" HorizontalAlignment="Center"/>
+                <Label Content="Etiqueta 3" HorizontalAlignment="Center"/>
+                <Label Content="Etiqueta 4" HorizontalAlignment="Center"/>
+                <Label Content="Etiqueta 5" HorizontalAlignment="Center"/>
+                <Label Content="Etiqueta 6" HorizontalAlignment="Center"/>
 
             </StackPanel>
 
