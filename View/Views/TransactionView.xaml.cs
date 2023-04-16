@@ -41,13 +41,17 @@ namespace View.Views
                 {
                 { MessageCode.OPERATION_SEAL, new Tuple<string, bool, bool>("Venta", true, false) },
                     { MessageCode.OPERATION_SETASIDE, new Tuple<string, bool, bool>("Apartado", true, false) },
-                        { MessageCode.OPERATION_LOAND, new Tuple<string, bool, bool>("Prestamo", false, true) },
-                            { MessageCode.OPERATION_PROFIT, new Tuple<string, bool, bool>("Pago de ganancia", false, true) }
+                        { MessageCode.OPERATION_LOAND, new Tuple<string, bool, bool>("Prestamo", false, false) },
+                            { MessageCode.OPERATION_PROFIT, new Tuple<string, bool, bool>("Pago de ganancia", false, false) }
                                 };
 
             if (operationMappings.ContainsKey(operation))
             {
                 var operationTuple = operationMappings[operation];
+                if (operation == MessageCode.OPERATION_LOAND || operation == MessageCode.OPERATION_PROFIT)
+                {
+                    textChange.Text = amount.ToString();
+                }
                 labelTypeOperation.Content = "Tipo de Operacion: " + operationTuple.Item1;
                 labelAmount.Content = "Monto de " + operationTuple.Item1 + ": $" + amount;
                 textAmountReceived.IsEnabled = operationTuple.Item2;
