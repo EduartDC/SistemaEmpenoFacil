@@ -33,7 +33,7 @@ namespace View
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.WindowState = WindowState.Maximized;
-            PrimaryContainer.NavigationService.Navigate(new TransactionView(MessageCode.OPERATION_SEAL, 436.00));
+            PrimaryContainer.NavigationService.Navigate(new MenuView());
             this.MinWidth = 1200;
             this.MinHeight = 800;
         }

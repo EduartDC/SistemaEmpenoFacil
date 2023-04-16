@@ -34,5 +34,10 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new CustomerView());
         }
+
+        private void BtmCreateContract(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new CreateContract());
+        }
     }
 }
