@@ -96,7 +96,7 @@ namespace View.Views
             window.PrimaryContainer.Effect = blurEffect;
 
             // Quitar el efecto de desenfoque del marco principal
-            //frame1.Effect = null
+            //.Effect = null
             window.SecundaryContainer.Navigate(new CustomerView());
 
         }
