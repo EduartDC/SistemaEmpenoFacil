@@ -31,10 +31,12 @@ namespace View.Views
 
         private void btnSeleccionarImagen_Click(object sender, RoutedEventArgs e)
         {
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Archivos de imagen (*.jpg;*.png;*.bmp)|*.jpg;*.png;*.bmp|Todos los archivos (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
+
                 string rutaImagen = openFileDialog.FileName;
                 BitmapImage bitmapImage = new BitmapImage(new Uri(rutaImagen));
                 imgPreview.Source = bitmapImage;

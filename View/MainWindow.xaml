@@ -11,13 +11,10 @@
     mc:Ignorable="d">
     <Grid>
         <Frame x:Name="PrimaryContainer" NavigationUIVisibility="Hidden" />
-        <Popup
-            x:Name="myPopup"
-            IsOpen="False"
-            Placement="Center"
-            PlacementTarget="{Binding ElementName=grid}"
-            StaysOpen="False">
-            <Frame x:Name="framePopup" NavigationUIVisibility="Hidden" />
-        </Popup>
+        <Frame
+            x:Name="SecundaryContainer"
+            Margin="200,100,200,100"
+            NavigationUIVisibility="Hidden" />
+
     </Grid>
 </Window>

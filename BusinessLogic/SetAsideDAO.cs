@@ -10,7 +10,7 @@ namespace BusinessLogic
     {
         public static int CreateSetAside()
         {
-            var result = CodeError.ERROR;
+            var result = MessageCode.ERROR;
             if (Utilitys.VerifyConnection())
             {
 

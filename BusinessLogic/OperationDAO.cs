@@ -11,7 +11,7 @@ namespace BusinessLogic
     {
         public static int AddOperation(Operation newOperation)
         {
-            var result = CodeError.ERROR;
+            var result = MessageCode.ERROR;
             if (Utilitys.VerifyConnection())
             {
 

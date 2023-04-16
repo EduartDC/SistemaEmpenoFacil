@@ -1,4 +1,5 @@
-﻿using DataAcces;
+﻿using BusinessLogic;
+using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,19 @@ namespace View
     public partial class MainWindow : Window
     {
         public static double _cashOnHand;
-        public static string _staffShift;
-        public static Staff staffInfo;
+        public static int _result;
+        public static bool _staffShift;
+        public static Staff _staffInfo;
 
         public MainWindow()
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.WindowState = WindowState.Maximized;
-            PrimaryContainer.NavigationService.Navigate(new MenuView());
+            PrimaryContainer.NavigationService.Navigate(new TransactionView(MessageCode.OPERATION_SEAL, 436.00));
+            this.MinWidth = 1200;
+            this.MinHeight = 800;
         }
     }
 }
+0

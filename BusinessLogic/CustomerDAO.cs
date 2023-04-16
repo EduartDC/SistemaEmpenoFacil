@@ -9,21 +9,21 @@ namespace BusinessLogic
 {
     public class CustomerDAO
     {
-        
+
         public static int AddCustomer(Customer newCustomer)
         {
-            var result = CodeError.ERROR;
+            var result = MessageCode.ERROR;
             if (Utilitys.VerifyConnection())
             {
-                
+
             }
             return result;
         }
 
         public static int UpdateCustomer(Customer selectedCustomer)
         {
-            var result = CodeError.ERROR;
-            if(Utilitys.VerifyConnection())
+            var result = MessageCode.ERROR;
+            if (Utilitys.VerifyConnection())
             {
 
             }
@@ -31,7 +31,7 @@ namespace BusinessLogic
         }
         public static int DeleteCustomer(Customer selectedCustomer)
         {
-            var result = CodeError.ERROR;
+            var result = MessageCode.ERROR;
             if (Utilitys.VerifyConnection())
             {
 

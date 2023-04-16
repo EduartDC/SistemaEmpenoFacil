@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
-    public  class BelongingDAO
+    public class BelongingDAO
     {
         public static int ReleaseBelongings()
         {
-            var returl = CodeError.ERROR;
+            var returl = MessageCode.ERROR;
 
             if (Utilitys.VerifyConnection())
             {

@@ -11,7 +11,7 @@ namespace BusinessLogic
     {
         public static int LiquidateContract(Contract selectedContract)
         {
-            var resutl = CodeError.ERROR;
+            var resutl = MessageCode.ERROR;
             if (Utilitys.VerifyConnection())
             {
             }

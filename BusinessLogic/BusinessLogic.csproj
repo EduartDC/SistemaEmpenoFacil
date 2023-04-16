@@ -52,9 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BelongingDAO.cs" />
-    <Compile Include="CodeError.cs" />
     <Compile Include="ContractDAO.cs" />
     <Compile Include="CustomerDAO.cs" />
+    <Compile Include="MessageCode.cs" />
     <Compile Include="MessageError.cs" />
     <Compile Include="OperationDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

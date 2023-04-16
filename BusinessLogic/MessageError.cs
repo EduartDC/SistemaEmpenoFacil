@@ -14,5 +14,6 @@ namespace BusinessLogic
         public static string CONNECTION_ERROR = "Error de conexión, intentelo de nuevo mas tarde o comuniquese con el administrador";
         public static string FIELDS_EMPTY = "Los campos no pueden estar vacíos, intentelo de nuevo llenando los campos marcados";
         public static string FIELDS_NOT_VALID = "Los campos no son validos, intentelo de nuevo llenando los campos marcados";
+        public static string DECIMAL_FORMAT_ERROR = "Error de Formato Decimal. Por favor, ingrese un punto decimal.";
     }
 }

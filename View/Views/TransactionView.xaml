@@ -23,28 +23,121 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel
+            <Grid
                 Grid.Column="0"
                 Width="400"
                 Margin="20,20,0,20"
                 HorizontalAlignment="Center"
-                Background="#CCCCCC"
-                >
+                Background="#CCCCCC">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
                 <TextBlock
-                    FontSize="18"
+                    Grid.Row="0"
+                    Margin="0,50,0,5"
+                    HorizontalAlignment="Center"
+                    FontSize="20"
                     FontWeight="Bold"
-                    Text="Información del Pago" />
-                <TextBlock Text="Total a Pagar:" />
-                <TextBlock Text="Descripción del Pago:" />
-                <Label Content="Etiqueta 1" HorizontalAlignment="Center"/>
-                <Label Content="Etiqueta 2" HorizontalAlignment="Center"/>
-                <Label Content="Etiqueta 3" HorizontalAlignment="Center"/>
-                <Label Content="Etiqueta 4" HorizontalAlignment="Center"/>
-                <Label Content="Etiqueta 5" HorizontalAlignment="Center"/>
-                <Label Content="Etiqueta 6" HorizontalAlignment="Center"/>
+                    Text="Información de la Operacion" />
 
-            </StackPanel>
+
+                <TextBlock
+                    x:Name="labelTotal"
+                    Grid.Row="4"
+                    MinWidth="200"
+                    Margin="20,0,0,5"
+                    HorizontalAlignment="Left"
+                    FontSize="15"
+                    FontWeight="Bold"
+                    Text="Etiqueta 0" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    Margin="0,0,0,30"
+                    HorizontalAlignment="Center"
+                    FontSize="17"
+                    FontWeight="Bold"
+                    Text="Descripción de la Operacion:" />
+
+                <Label
+                    x:Name="labelDate"
+                    Grid.Row="6"
+                    MinWidth="200"
+                    Margin="15,0,0,0"
+                    HorizontalAlignment="Left"
+                    Content="Etiqueta 1"
+                    FontSize="15"
+                    FontWeight="Bold" />
+
+                <Label
+                    x:Name="labelTime"
+                    Grid.Row="8"
+                    MinWidth="200"
+                    Margin="15,0,0,0"
+                    HorizontalAlignment="Left"
+                    Content="Etiqueta 2"
+                    FontSize="15"
+                    FontWeight="Bold" />
+
+                <Label
+                    x:Name="labelStaff"
+                    Grid.Row="10"
+                    MinWidth="200"
+                    Margin="15,0,0,0"
+                    HorizontalAlignment="Left"
+                    Content="Etiqueta 3"
+                    FontSize="15"
+                    FontWeight="Bold" />
+
+                <Label
+                    x:Name="labelTypeOperation"
+                    Grid.Row="12"
+                    MinWidth="200"
+                    Margin="15,0,0,0"
+                    HorizontalAlignment="Left"
+                    Content="Etiqueta 4"
+                    FontSize="15"
+                    FontWeight="Bold" />
+
+                <Label
+                    x:Name="labelBranch"
+                    Grid.Row="14"
+                    MinWidth="200"
+                    Margin="15,0,0,0"
+                    HorizontalAlignment="Left"
+                    Content="Etiqueta 5"
+                    FontSize="15"
+                    FontWeight="Bold" />
+
+                <Label
+                    x:Name="labelIdContract"
+                    Grid.Row="16"
+                    MinWidth="200"
+                    Margin="15,0,0,0"
+                    HorizontalAlignment="Left"
+                    Content="Etiqueta 6"
+                    FontSize="15"
+                    FontWeight="Bold" />
+            </Grid>
+
 
             <Grid
                 Grid.Column="1"
@@ -55,57 +148,91 @@
                 </Grid.ColumnDefinitions>
 
                 <Label
+                    x:Name="labelAmount"
                     Width="Auto"
-                    Margin="0,117,0,549"
+                    Height="60"
+                    Margin="0,100,0,0"
                     HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
                     Content="Formulario de Pago"
-                    FontSize="24"
+                    FontSize="30"
                     FontWeight="Bold"
                     Foreground="#333" />
 
                 <TextBox
+                    x:Name="textAmountReceived"
                     Width="Auto"
-                    MinHeight="100"
+                    MinWidth="200"
+                    MinHeight="30"
                     MaxHeight="200"
-                    Margin="0,259,0,0"
+                    Margin="0,319,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
-                    Background="#FFF"
-                    FontSize="16" />
+                    FontSize="25"
+                    FontWeight="Bold"
+                    GotFocus="textAmountReceived_GotFocus"
+                    PreviewTextInput="textAmountReceived_PreviewTextInput"
+                    Text="00.00"
+                    TextAlignment="Right" />
                 <TextBox
+                    x:Name="textChange"
                     Width="Auto"
-                    MinHeight="100"
+                    MinWidth="200"
+                    MinHeight="30"
                     MaxHeight="200"
                     Margin="0,454,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
-                    Background="#FFF"
-                    FontSize="16" />
+                    FontSize="25"
+                    FontWeight="Bold"
+                    Text="00.00"
+                    TextAlignment="Right" />
                 <Button
+                    x:Name="btnPay"
                     Grid.Column="0"
                     Width="200"
                     Height="40"
-                    Margin="0,0,150,30"
+                    Margin="0,0,150,56"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Background="#0078D7"
+                    Click="btnPay_Click"
                     Content="Pagar"
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="#FFF" />
                 <Button
+                    x:Name="btnCancel"
                     Width="200"
                     Height="40"
-                    Margin="150,0,0,30"
+                    Margin="150,0,0,56"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     Background="#CCC"
+                    Click="btnCancel_Click"
                     Content="Cancelar"
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="#333" />
+                <Label
+                    Margin="0,272,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Content="Cantidad recibida"
+                    FontSize="20"
+                    FontWeight="Bold" />
+                <Label
+                    Margin="0,407,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Content="Cambio"
+                    FontSize="20"
+                    FontWeight="Bold" />
             </Grid>
         </Grid>
+        <Popup Name="popup">
+            <Frame x:Name="framePopup" NavigationUIVisibility="Hidden" />
+        </Popup>
     </Grid>
 
 
