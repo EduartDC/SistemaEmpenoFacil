@@ -39,4 +39,3 @@ namespace View
         }
     }
 }
-0
