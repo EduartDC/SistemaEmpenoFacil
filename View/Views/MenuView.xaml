@@ -114,7 +114,7 @@
                 <MenuItem
                     x:Name="itemContracts"
                     Header="Contratos"
-                    Style="{StaticResource MenuItemStyle}">
+                    Style="{StaticResource MenuItemStyle}" Click="BtmCreateContract">
                     <MenuItem
                         Name="itemConsultConstracts"
                         Header="Consultar Contratos"
@@ -122,7 +122,8 @@
                     <MenuItem
                         Name="itemNewContract"
                         Header="Nuevo Contrato"
-                        Style="{StaticResource MenuItemStyle}" />
+                        Style="{StaticResource MenuItemStyle}"/>
+
                 </MenuItem>
                 <MenuItem
                     x:Name="itemOptions"
