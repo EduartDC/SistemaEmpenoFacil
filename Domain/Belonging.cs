@@ -18,8 +18,9 @@ namespace Domain.BelongingCreation
         public string Features { get; set;}
         public string SerialNumber { get; set;}
         public string Model { get; set;}
-        public int ?ApraisalAmount { get; set;}
-        public int ?LoanAmount { get; set;}
-        public int ?PorcentLoan { get; set; }
+        public int 
+            ApraisalAmount { get; set;}
+        public int LoanAmount { get; set;}
+        public float PorcentLoan { get; set; }
     }
 }
