@@ -88,6 +88,9 @@
     <Compile Include="Views\CutoffOperations.xaml.cs">
       <DependentUpon>CutoffOperations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\FindArticles.xaml.cs">
+      <DependentUpon>FindArticles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LiquidateContractView.xaml.cs">
       <DependentUpon>LiquidateContractView.xaml</DependentUpon>
     </Compile>
@@ -137,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CutoffOperations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FindArticles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

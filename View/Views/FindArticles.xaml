@@ -12,16 +12,94 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition  Height="275*"/>
+            <RowDefinition Height="75*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="*" />
+            <ColumnDefinition  Width="*"/>
+            <ColumnDefinition  Width="*"/>
+            <ColumnDefinition  Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <Button Content="Buscar artículo" HorizontalAlignment="Left" Margin="621,35,0,0" VerticalAlignment="Top" Height="34" Width="119"/>
-        <ComboBox HorizontalAlignment="Left" Margin="420,37,0,0" VerticalAlignment="Top" Width="142" Height="32"/>
-        <DataGrid Grid.Row="1"  Margin="32,0,32,79"/>
-        <DatePicker x:Name="dgArticles" HorizontalAlignment="Left" Margin="226,37,0,0" VerticalAlignment="Top" Height="32" Width="174"/>
-        <TextBox HorizontalAlignment="Left" Margin="32,37,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="173" Height="32"/>
-        <Button Content="Editar" HorizontalAlignment="Left" Margin="640,290,0,0" Grid.Row="1" VerticalAlignment="Top" Width="128" Height="34"/>
+        <Button
+            Content="Buscar artículo"
+            HorizontalAlignment="Center"
 
+            VerticalAlignment="Center"
+            Height="34"
+            Width="200"
+            Grid.Column="3"/>
+        <ComboBox
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="200"
+            Height="32"
+            Grid.Column="2"/>
+        <ScrollViewer
+            Background="Black"
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Margin="20,20,20,20">
+
+            <DataGrid
+                x:Name="dgArticles"
+                Grid.Row="1"
+                Grid.ColumnSpan="4"
+            />
+        </ScrollViewer>
+        <DatePicker
+
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="15"
+            Height="32"
+            Width="200"
+            Grid.Column="1" Focusable="False"/>
+        <TextBox
+            HorizontalAlignment="Center"
+            TextWrapping="Wrap"
+            Text=""
+            VerticalAlignment="Center"
+            Width="200"
+            Height="32"
+            Grid.Column="0"/>
+        <Button
+            Content="Editar"
+            HorizontalAlignment="Center"
+            Margin="0,-20,0,0"
+            Grid.Row="2"
+            VerticalAlignment="Center"
+            Width="128"
+            Height="34"
+            Grid.Column="3"/>
+        <Label
+            Content="Serie,Modelo,Etc"
+            Grid.Row="0"
+            Grid.Column="0"
+            FontWeight="Bold"
+            Margin="0,10,0,66"
+            HorizontalAlignment="Center"
+            Width="144"
+            HorizontalContentAlignment="Center"/>
+        <Label
+            Content="Serie,Modelo,Etc"
+            Grid.Row="0"
+            Grid.Column="1"
+            FontWeight="Bold"
+            Margin="0,10,0,66"
+            HorizontalAlignment="Center"
+            Width="144"
+            HorizontalContentAlignment="Center"/>
+        <Label
+            Content="Serie,Modelo,Etc"
+            Grid.Row="0"
+            Grid.Column="2"
+            FontWeight="Bold"
+            VerticalAlignment="Top"
+            Width="144"
+            HorizontalContentAlignment="Center"/>
 
     </Grid>
 </Page>
