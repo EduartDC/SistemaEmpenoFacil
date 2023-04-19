@@ -18,5 +18,29 @@ namespace BusinessLogic
             return resutl;
 
         }
+
+        public static Metric GetMetrics()
+        {
+            Metric newMetric = new Metric();
+            try
+            {
+                using (var dataBase = new ConnectionModel())
+                {
+                    Metric metrics = dataBase.Metrics.First();
+                    if (metrics != null)
+                    {
+                        newMetric.IVA = metrics.IVA;
+                        newMetric.interestRate = metrics.interestRate;
+                    }
+                } 
+            }
+            catch (Exception ex)
+            {
+                newMetric = null;
+                return newMetric;
+            }
+            return newMetric;
+        }
+
     }
 }
