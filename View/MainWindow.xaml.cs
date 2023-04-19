@@ -34,5 +34,11 @@ namespace View
             this.MinWidth = 1200;
             this.MinHeight = 800;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ConsultBlackList consultBlackList = new ConsultBlackList();
+            consultBlackList.Show();
+        }
     }
 }

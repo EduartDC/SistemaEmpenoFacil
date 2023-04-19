@@ -52,6 +52,10 @@
                             Width="Auto"
                             Binding="{Binding lastName}"
                             Header="Apellidos" />
+                <DataGridTextColumn
+                            Width="Auto"
+                            Binding="{Binding curp}"
+                            Header="CURP" />
             </DataGrid.Columns>
         </DataGrid>
         <Button Name="btn_Restore"  Content="Restablecer" HorizontalAlignment="Left" Margin="646,78,0,0" VerticalAlignment="Top" FontSize="16" Width="110" RenderTransformOrigin="0.228,1.827" Click="btn_Restore_Click"/>
