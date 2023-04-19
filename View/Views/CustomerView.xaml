@@ -6,21 +6,22 @@
     xmlns:local="clr-namespace:View.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="CustomerView"
+    d:DesignHeight="768"
     d:DesignWidth="1366"
-    mc:Ignorable="d" Height="1358">
+    mc:Ignorable="d">
 
-
-    <!--  Contenido  -->
-    <Grid
-            Grid.Row="1"
-            Background="White"  >
+    <Grid Grid.Row="1" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <!--  Contenido principal  -->
-        <Grid Grid.Column="0" >
+        <Grid Grid.Column="0" Grid.Row="0">
             <!--  Agrega tus elementos de contenido principal aquí  -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -29,132 +30,166 @@
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <TextBox
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Margin="60,97,215,259"
-                    Padding="8"
-                    Background="White"
-                    BorderBrush="#323D8F"
-                    BorderThickness="0,0,0,2"
-                    FontFamily="Segoe UI"
-                    FontSize="14"
-                    Foreground="Black"
-                    IsEnabled="False"
-                    Text="hola" />
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="60,97,215,259"
+                Padding="8"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                Foreground="Black"
+                IsEnabled="False"
+                Text="hola" />
             <TextBox
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="117,119,159,245"
-                    Padding="8"
-                    VerticalContentAlignment="Center"
-                    Background="White"
-                    BorderBrush="#323D8F"
-                    BorderThickness="0,0,0,2"
-                    FontFamily="Segoe UI"
-                    FontSize="14"
-                    Foreground="Black"
-                    IsEnabled="False" />
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="117,119,159,245"
+                Padding="8"
+                VerticalContentAlignment="Center"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                Foreground="Black"
+                IsEnabled="False" />
             <TextBox
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    Margin="92,104,93,259"
-                    Padding="8"
-                    VerticalContentAlignment="Center"
-                    Background="White"
-                    BorderBrush="#323D8F"
-                    BorderThickness="0,0,0,2"
-                    FontFamily="Segoe UI"
-                    FontSize="14"
-                    Foreground="Black"
-                    IsEnabled="False" />
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="92,104,93,259"
+                Padding="8"
+                VerticalContentAlignment="Center"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                Foreground="Black"
+                IsEnabled="False" />
             <TextBox
-                    Grid.Row="0"
-                    Margin="60,302,61,61"
-                    Padding="8"
-                    VerticalContentAlignment="Center"
-                    Background="White"
-                    BorderBrush="#323D8F"
-                    BorderThickness="0,0,0,2"
-                    FontFamily="Segoe UI"
-                    FontSize="14"
-                    Foreground="Black" />
+                Grid.Row="0"
+                Margin="60,302,61,61"
+                Padding="8"
+                VerticalContentAlignment="Center"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                Foreground="Black" />
             <TextBox
-                    Grid.Column="1"
-                    Margin="117,302,69,62"
-                    Padding="8"
-                    VerticalContentAlignment="Center"
-                    Background="White"
-                    BorderBrush="#323D8F"
-                    BorderThickness="0,0,0,2"
-                    FontFamily="Segoe UI"
-                    FontSize="14"
-                    Foreground="Black" />
+                Grid.Column="1"
+                Margin="117,302,69,62"
+                Padding="8"
+                VerticalContentAlignment="Center"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                Foreground="Black" />
             <Label
-                    Grid.Column="0"
-                    Width="72"
-                    Height="26"
-                    Margin="59,268,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Dirección *"
-                    FontWeight="Bold" />
+                Grid.Column="0"
+                Width="72"
+                Height="26"
+                Margin="59,268,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Dirección *"
+                FontWeight="Bold" />
             <Label
-                    Grid.Column="1"
-                    Width="68"
-                    Height="26"
-                    Margin="117,268,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Telefono *"
-                    FontWeight="Bold" />
+                Grid.Column="1"
+                Width="68"
+                Height="26"
+                Margin="117,268,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Telefono *"
+                FontWeight="Bold" />
             <Label
-                    Grid.Column="0"
-                    Width="71"
-                    Height="26"
-                    Margin="60,76,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Nombre(s)"
-                    FontWeight="Bold" />
+                Grid.Column="0"
+                Width="71"
+                Height="26"
+                Margin="60,76,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Nombre(s)"
+                FontWeight="Bold" />
             <Label
-                    Grid.Column="1"
-                    Width="72"
-                    Height="26"
-                    Margin="117,79,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Apellido(s)"
-                    FontWeight="Bold" />
+                Grid.Column="1"
+                Width="72"
+                Height="26"
+                Margin="117,79,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Apellido(s)"
+                FontWeight="Bold" />
             <Label
-                    Grid.Column="2"
-                    Width="41"
-                    Height="26"
-                    Margin="93,76,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="CURP"
-                    FontWeight="Bold" />
-
+                Grid.Column="2"
+                Width="65"
+                Height="26"
+                Margin="93,76,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="CURP"
+                FontWeight="Bold" />
+            <Label
+                Grid.Column="2"
+                Margin="93,268,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Identificacion *"
+                FontWeight="Bold" />
+            <ComboBox
+                Grid.Column="2"
+                Margin="93,318,71,0"
+                VerticalAlignment="Top" />
+        </Grid>
+        <Grid  Grid.Row="1" Margin="0,0,10,44">
             <Button
-                    Width="120"
-                    Height="40"
-                    Click="btnSeleccionarImagen_Click"
-                    Content="Seleccionar Imagen" Margin="167,250,168,0" Grid.Row="1" VerticalAlignment="Top" />
+                Width="120"
+                Height="40"
+                Margin="136,104,1032,0"
+                VerticalAlignment="Top"
+                Click="btnSeleccionarImagen_Click"
+                Content="Seleccionar Imagen" />
             <Image
-                    x:Name="imgPreview"
-                    Width="184"
-                    Height="152"
-                    Margin="135,57,136,98" Grid.Row="1" Grid.Column="1"
-                    />
-            <Label Grid.Column="2" Content="Identificacion *" HorizontalAlignment="Left" Margin="93,268,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-            <ComboBox Margin="93,318,71,0" VerticalAlignment="Top" Grid.Column="2"/>
+                x:Name="imgPreview"
+                Width="184"
+                Height="152"
+                Margin="570,31,534,75"
+                Source="/Images/photo.png" />
 
+            <Image
+                x:Name="imgPreview_Copy"
+                Width="184"
+                Height="152"
+                Margin="1008,31,96,75"
+                Source="/Images/photo.png" />
+        </Grid>
+        <Grid  Grid.Row="2">
+            <Button
+                Width="153"
+                Height="34"
+                Margin="845,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="Button" />
+            <Button
+                Width="156"
+                Height="34"
+                Margin="364,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Button" />
         </Grid>
     </Grid>
 

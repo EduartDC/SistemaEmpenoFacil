@@ -30,7 +30,7 @@ namespace View
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.WindowState = WindowState.Maximized;
-            PrimaryContainer.NavigationService.Navigate(new MenuView());
+            PrimaryContainer.NavigationService.Navigate(new CustomerView());
             this.MinWidth = 1200;
             this.MinHeight = 800;
         }
