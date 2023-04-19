@@ -92,7 +92,7 @@ namespace BusinessLogic
             {
                 _log.Add(ex.ToString());
             }
-            catch(DataException ex)
+            catch (DataException ex)
             {
                 _log.Add(ex.ToString());
             }
@@ -100,3 +100,4 @@ namespace BusinessLogic
         }
     }
 }
+

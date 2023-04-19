@@ -15,7 +15,6 @@
             x:Name="SecundaryContainer"
             Margin="200,100,200,100"
             NavigationUIVisibility="Hidden" />
-        <Button Content="Button" HorizontalAlignment="Left" Margin="371,452,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
     </Grid>
 </Window>
