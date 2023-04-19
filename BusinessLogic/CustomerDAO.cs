@@ -1,6 +1,7 @@
 ﻿using DataAcces;
 using System;
 using System.Collections.Generic;
+
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,23 @@ namespace BusinessLogic
             return result;
         }
 
+        public static (int, Customer) FindCustomer(string curp) {
+            List <Customer> customers = new List<Customer>();
+            if (Utilitys.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                     customers = connection.Customers.ToList();
+                }
+                foreach(var customer in customers) {
+                    if(customer.curp.Equals(curp))
+                    {
+                        return (1, customer);
+                    }
+                }
+            }
+            return (MessageCode.CONNECTION_ERROR, null);
+          
         public static List<Domain.Customer> RecoverCustomers()
         {
             List<Domain.Customer> resultCustomers = new List<Domain.Customer>();

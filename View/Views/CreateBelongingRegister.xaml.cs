@@ -1,4 +1,7 @@
-﻿using DataAcces;
+﻿/*
+ * Autor: Jonathan Hernandez Martinez
+ */
+using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +26,7 @@ namespace View.Views
     /// </summary>
     public partial class CreateBelongingRegister : Window
     {
-        private List<Domain.BelongingCreation.Belonging> belongingsList = new List<Domain.BelongingCreation.Belonging>();
+        private List<Domain.BelongingCreation.Belonging> belongingsList =  new List<Domain.BelongingCreation.Belonging>();
         Communication communication;
 
         //alamcenes de las imagenes para return Crear contratos
