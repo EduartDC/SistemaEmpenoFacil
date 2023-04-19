@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Views"
         mc:Ignorable="d"
-        Title="AddCustomerBlackList" Height="250" Width="600">
+        Title="AddCustomerBlackList" Height="280" Width="600">
     <Grid>
         <Label Content="Ingrese el numero del cliente que desea agregar a la lista negra" HorizontalAlignment="Left" Margin="32,32,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="Numero de cliente:" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Center" FontSize="18"/>

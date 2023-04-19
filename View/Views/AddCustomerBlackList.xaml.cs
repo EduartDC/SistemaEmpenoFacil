@@ -26,7 +26,7 @@ namespace View.Views
 
         private void btn_Cancelar_Click(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
 
         private void btn_Add_Click(object sender, RoutedEventArgs e)

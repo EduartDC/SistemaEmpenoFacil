@@ -34,5 +34,6 @@ namespace View
             this.MinWidth = 1200;
             this.MinHeight = 800;
         }
+
     }
 }
