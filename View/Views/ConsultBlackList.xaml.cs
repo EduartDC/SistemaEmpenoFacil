@@ -25,7 +25,7 @@ namespace View.Views
             InitializeComponent();
             comBox_TypeSearch.Items.Add("Numero de cliente");
             comBox_TypeSearch.Items.Add("Nombre del cliente");
-            //initializeTable();
+            initializeTable();
         }
 
         private void initializeTable()
@@ -39,7 +39,8 @@ namespace View.Views
 
         private void btn_Restore_Click(object sender, RoutedEventArgs e)
         {
-
+            text_SearchBy.Text = "";
+            initializeTable();
         }
 
         private void btn_Salir_Click(object sender, RoutedEventArgs e)
