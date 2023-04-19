@@ -96,7 +96,8 @@
                     <MenuItem
                         Name="itemNewSetAside"
                         Header="Crear Apartado"
-                        Style="{StaticResource MenuItemStyle}" />
+                        Style="{StaticResource MenuItemStyle}" 
+                        Click="itemSetAside_Click"/>
                 </MenuItem>
                 <MenuItem
                     x:Name="itemSales"

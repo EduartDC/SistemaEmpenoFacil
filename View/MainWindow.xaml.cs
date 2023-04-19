@@ -23,10 +23,7 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static double _cashOnHand;
-        public static int _result;
-        public static bool _staffShift;
-        public static Staff _staffInfo;
+
 
         public MainWindow()
         {

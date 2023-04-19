@@ -16,5 +16,7 @@ namespace BusinessLogic
         public static string FIELDS_NOT_VALID = "Los campos no son validos, intentelo de nuevo llenando los campos marcados";
         public static string DECIMAL_FORMAT_ERROR = "Error de Formato Decimal. Por favor, ingrese un punto decimal.";
         public static string CUSTOMER_IN_BLACK_LIST = "El cliente se encuentra en lista negra.\nOperacion cancelada.";
+        public static string CANCEL_OPERATION = "¿Desea cancelar la operacion?";
+        public static string ERROR_ADD_OPERATION = "Error al agregar la operacion";
     }
 }

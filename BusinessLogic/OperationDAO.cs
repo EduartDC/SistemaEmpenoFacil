@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
-    internal class OperationDAO
+    public class OperationDAO
     {
         public static int AddOperation(Operation newOperation)
         {

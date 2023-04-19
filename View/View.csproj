@@ -67,6 +67,15 @@
     </ApplicationDefinition>
     <Compile Include="Properties\ErrorManager.cs" />
     <Compile Include="Properties\Utility.cs" />
+    <Compile Include="Views\AddCustomerBlackList.xaml.cs">
+      <DependentUpon>AddCustomerBlackList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConfigureMetrics.xaml.cs">
+      <DependentUpon>ConfigureMetrics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConsultBlackList.xaml.cs">
+      <DependentUpon>ConsultBlackList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateBelongingRegister.xaml.cs">
       <DependentUpon>CreateBelongingRegister.xaml</DependentUpon>
     </Compile>
@@ -103,6 +112,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddCustomerBlackList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ConfigureMetrics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ConsultBlackList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\CreateBelongingRegister.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

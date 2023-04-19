@@ -23,5 +23,11 @@ namespace View.Properties
         {
             MessageBox.Show(mensaje, "Información", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        public static MessageBoxResult ShowQuestion(string mensaje)
+        {
+            MessageBoxResult result = MessageBox.Show(mensaje, "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            return result;
+        }
     }
 }
