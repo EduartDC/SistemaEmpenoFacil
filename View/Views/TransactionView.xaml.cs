@@ -25,7 +25,7 @@ namespace View.Views
     /// <summary>
     /// Interaction logic for TransactionView.xaml
     /// </summary>
-    public partial class TransactionView : Page 
+    public partial class TransactionView : Page
     {
         double _amount;
         int _operation;
@@ -38,7 +38,7 @@ namespace View.Views
                             { MessageCode.OPERATION_PROFIT, new Tuple<string, bool, bool>("Pago de ganancia", false, false) }
         };
 
-        public TransactionView(int operation, double amount, int id)
+        public TransactionView(int operation, double amount)
         {
             InitializeComponent();
             _amount = amount;
@@ -180,7 +180,12 @@ namespace View.Views
 
             if (result == MessageBoxResult.Yes)
             {
-                //cerrar ventana
+                var window = (MainWindow)Application.Current.MainWindow;
+                BlurEffect blurEffect = new BlurEffect();
+                blurEffect.Radius = 0;
+                window.PrimaryContainer.Effect = blurEffect;
+                window.SecundaryContainer.Content = null;
+                window.PrimaryContainer.IsHitTestVisible = true;
             }
 
         }

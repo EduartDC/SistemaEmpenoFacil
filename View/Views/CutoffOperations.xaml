@@ -23,8 +23,10 @@
             </Grid.ColumnDefinitions>
 
             <!--  Contenido principal  -->
-            <Grid >
+            <Grid Background="Black">
                 <!--  Agrega tus elementos de contenido principal aquí  -->
+                <Image Source="/Images/EF_Dinero_logo.png" />
+
             </Grid>
         </Grid>
     </Grid>
