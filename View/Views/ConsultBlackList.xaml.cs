@@ -23,7 +23,9 @@ namespace View.Views
         public ConsultBlackList()
         {
             InitializeComponent();
-            initializeTable();
+            comBox_TypeSearch.Items.Add("Numero de cliente");
+            comBox_TypeSearch.Items.Add("Nombre del cliente");
+            //initializeTable();
         }
 
         private void initializeTable()

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Views"
         mc:Ignorable="d"
-        Title="ConsultBlackList" Height="450" Width="800">
+        Title="ConsultBlackList" Height="500" Width="800">
     <Grid>
         <TextBox HorizontalAlignment="Left" Margin="51,79,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200" FontSize="16"/>
         <Button Name="btn_Search" Content="Buscar" HorizontalAlignment="Left" Margin="522,78,0,0" VerticalAlignment="Top" FontSize="16" Width="101" Click="btn_Search_Click"/>
