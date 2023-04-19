@@ -3,6 +3,7 @@ using DataAcces;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace View.Views
     /// <summary>
     /// Interaction logic for TransactionView.xaml
     /// </summary>
-    public partial class TransactionView : Page
+    public partial class TransactionView : Page 
     {
         double _amount;
         int _operation;
