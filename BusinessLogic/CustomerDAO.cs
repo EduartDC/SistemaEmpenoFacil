@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,12 +89,19 @@ namespace BusinessLogic
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                resultCustomers.Add(null);
+                _log.Add(ex.ToString());
+            }
             catch (ArgumentNullException ex)
             {
+                resultCustomers.Add(null);
                 _log.Add(ex.ToString());
             }
             catch (DataException ex)
             {
+                resultCustomers.Add(null);
                 _log.Add(ex.ToString());
             }
             return resultCustomers;
