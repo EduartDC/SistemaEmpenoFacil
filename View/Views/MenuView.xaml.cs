@@ -44,5 +44,10 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new SetAsideView());
         }
+
+        private void itemFindArticles_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new FindArticles());
+        }
     }
 }

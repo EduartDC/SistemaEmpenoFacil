@@ -1,6 +1,4 @@
-﻿using BusinessLogic;
-using DataAcces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,26 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using View.Views;
 
 namespace View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica de interacción para FindArticles.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FindArticles : Page
     {
-
-
-        public MainWindow()
+        public FindArticles()
         {
             InitializeComponent();
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.WindowState = WindowState.Maximized;
-            PrimaryContainer.NavigationService.Navigate(new MenuView());
-            this.MinWidth = 1200;
-            this.MinHeight = 800;
         }
-
     }
 }

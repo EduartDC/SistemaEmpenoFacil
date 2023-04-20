@@ -140,6 +140,16 @@
                     Click="itemExit_Click"
                     Header="Salir"
                     Style="{StaticResource MenuItemStyle}" />
+                <MenuItem
+                    x:Name="itemArticles"
+                    Header="Artículos"
+                    Style="{StaticResource MenuItemStyle}" >
+                    <MenuItem
+                        x:Name="itemFindArticles"
+                        Click="itemFindArticles_Click"
+                        Header="Buscar artículos"
+                        Style="{StaticResource MenuItemStyle}"/>
+                </MenuItem>
             </Menu>
 
         </StackPanel>
