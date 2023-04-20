@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="ConfigureMetrics" Height="350" Width="600">
     <Grid>
+        
         <Label Content="Ingrese los datos solicitados para configurar las metricas" HorizontalAlignment="Left" Margin="26,31,0,0" VerticalAlignment="Top" FontSize="20" />
         <Label Content="Tasa de interes*:" HorizontalAlignment="Left" Margin="26,92,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="IVA*:" HorizontalAlignment="Left" Margin="26,163,0,0" VerticalAlignment="Top" FontSize="20"/>

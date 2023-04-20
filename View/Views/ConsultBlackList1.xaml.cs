@@ -11,18 +11,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace View.Views
 {
     /// <summary>
-    /// Lógica de interacción para ConsultBlackList.xaml
+    /// Lógica de interacción para ConsultBlackList1.xaml
     /// </summary>
-    public partial class ConsultBlackList : Window
+    public partial class ConsultBlackList1 : Page
     {
+
         private NewLog _log = new NewLog();
 
-        public ConsultBlackList()
+        public ConsultBlackList1()
         {
             InitializeComponent();
             comBox_TypeSearch.Items.Add("Numero de cliente");
@@ -36,7 +38,7 @@ namespace View.Views
             {
                 tableCustomers.ItemsSource = CustomerDAO.RecoverCustomers();
             }
-            catch(NullReferenceException ex)
+            catch (NullReferenceException ex)
             {
                 _log.Add(ex.ToString());
             }
@@ -54,7 +56,7 @@ namespace View.Views
 
         private void btn_Salir_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            
         }
 
         private void btn_Add_Click(object sender, RoutedEventArgs e)
@@ -62,5 +64,6 @@ namespace View.Views
             AddCustomerBlackList addCustomerBlackList = new AddCustomerBlackList();
             addCustomerBlackList.Show();
         }
+
     }
 }
