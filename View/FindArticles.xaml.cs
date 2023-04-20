@@ -13,29 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace View.Views
+namespace View
 {
     /// <summary>
-    /// Interaction logic for LiquidateContractView.xaml
+    /// Lógica de interacción para FindArticles.xaml
     /// </summary>
-    public partial class LiquidateContractView : Page
+    public partial class FindArticles : Page
     {
-        public LiquidateContractView()
+        public FindArticles()
         {
             InitializeComponent();
-
         }
-
-        private void itemHome_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void itemExit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
     }
 }

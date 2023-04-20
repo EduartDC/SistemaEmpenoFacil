@@ -91,6 +91,9 @@
     <Compile Include="Views\CutoffOperations.xaml.cs">
       <DependentUpon>CutoffOperations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\FindArticles.xaml.cs">
+      <DependentUpon>FindArticles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LiquidateContractView.xaml.cs">
       <DependentUpon>LiquidateContractView.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CutoffOperations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FindArticles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +223,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\photo.png" />
+    <Resource Include="Images\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\EF_Dinero_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

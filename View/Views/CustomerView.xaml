@@ -6,155 +6,395 @@
     xmlns:local="clr-namespace:View.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="CustomerView"
-    d:DesignWidth="1366"
-    mc:Ignorable="d" Height="1358">
+    d:DesignHeight="720"
+    d:DesignWidth="1080"
+    mc:Ignorable="d">
 
+    <Page.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                    To="1.1"
+                                    Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                    To="1.1"
+                                    Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                    To="1"
+                                    Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                    To="1"
+                                    Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    <Grid Grid.Row="1" Background="Azure">
 
-    <!--  Contenido  -->
-    <Grid
-            Grid.Row="1"
-            Background="White"  >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <!--  Contenido principal  -->
-        <Grid Grid.Column="0" >
+        <Grid
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="15"
+            Background="#CCCCCC">
             <!--  Agrega tus elementos de contenido principal aquí  -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="auto" />
+
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <TextBox
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Margin="60,97,215,259"
-                    Padding="8"
-                    Background="White"
-                    BorderBrush="#323D8F"
-                    BorderThickness="0,0,0,2"
-                    FontFamily="Segoe UI"
-                    FontSize="14"
-                    Foreground="Black"
-                    IsEnabled="False"
-                    Text="hola" />
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="40,105,40,259"
+                Padding="8"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                Foreground="Black"
+                IsEnabled="False"
+                />
             <TextBox
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="117,119,159,245"
-                    Padding="8"
-                    VerticalContentAlignment="Center"
-                    Background="White"
-                    BorderBrush="#323D8F"
-                    BorderThickness="0,0,0,2"
-                    FontFamily="Segoe UI"
-                    FontSize="14"
-                    Foreground="Black"
-                    IsEnabled="False" />
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="61,105,42,259"
+                Padding="8"
+                VerticalContentAlignment="Center"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                Foreground="Black"
+                IsEnabled="False" />
             <TextBox
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    Margin="92,104,93,259"
-                    Padding="8"
-                    VerticalContentAlignment="Center"
-                    Background="White"
-                    BorderBrush="#323D8F"
-                    BorderThickness="0,0,0,2"
-                    FontFamily="Segoe UI"
-                    FontSize="14"
-                    Foreground="Black"
-                    IsEnabled="False" />
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="40,104,40,259"
+                Padding="8"
+                VerticalContentAlignment="Center"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                Foreground="Black"
+                IsEnabled="False" />
             <TextBox
-                    Grid.Row="0"
-                    Margin="60,302,61,61"
-                    Padding="8"
-                    VerticalContentAlignment="Center"
-                    Background="White"
-                    BorderBrush="#323D8F"
-                    BorderThickness="0,0,0,2"
-                    FontFamily="Segoe UI"
-                    FontSize="14"
-                    Foreground="Black" />
+                Grid.Row="0"
+                Height="38"
+                Margin="40,267,40,0"
+                Padding="8"
+                VerticalAlignment="Top"
+                VerticalContentAlignment="Center"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                Foreground="Black" />
             <TextBox
-                    Grid.Column="1"
-                    Margin="117,302,69,62"
-                    Padding="8"
-                    VerticalContentAlignment="Center"
-                    Background="White"
-                    BorderBrush="#323D8F"
-                    BorderThickness="0,0,0,2"
-                    FontFamily="Segoe UI"
-                    FontSize="14"
-                    Foreground="Black" />
+                Grid.Column="1"
+                Height="37"
+                Margin="61,268,42,0"
+                Padding="8"
+                VerticalAlignment="Top"
+                VerticalContentAlignment="Center"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontFamily="Segoe UI"
+                FontSize="14"
+                Foreground="Black" />
             <Label
-                    Grid.Column="0"
-                    Width="72"
-                    Height="26"
-                    Margin="59,268,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Dirección *"
-                    FontWeight="Bold" />
+                Grid.Column="0"
+                Width="72"
+                Height="26"
+                Margin="39,236,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Dirección *"
+                FontWeight="Bold" />
             <Label
-                    Grid.Column="1"
-                    Width="68"
-                    Height="26"
-                    Margin="117,268,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Telefono *"
-                    FontWeight="Bold" />
+                Grid.Column="1"
+                Width="68"
+                Height="26"
+                Margin="61,236,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Telefono *"
+                FontWeight="Bold" />
             <Label
-                    Grid.Column="0"
-                    Width="71"
-                    Height="26"
-                    Margin="60,76,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Nombre(s)"
-                    FontWeight="Bold" />
+                Grid.Column="0"
+                Width="71"
+                Height="26"
+                Margin="40,76,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Nombre(s)"
+                FontWeight="Bold" />
             <Label
-                    Grid.Column="1"
-                    Width="72"
-                    Height="26"
-                    Margin="117,79,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Apellido(s)"
-                    FontWeight="Bold" />
+                Grid.Column="1"
+                Width="72"
+                Height="26"
+                Margin="61,65,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Apellido(s)"
+                FontWeight="Bold" />
             <Label
-                    Grid.Column="2"
-                    Width="41"
-                    Height="26"
-                    Margin="93,76,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="CURP"
-                    FontWeight="Bold" />
-
+                Grid.Column="2"
+                Width="65"
+                Height="26"
+                Margin="39,76,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="CURP"
+                FontWeight="Bold" />
+            <Label
+                Grid.Column="2"
+                Margin="40,236,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Identificacion *"
+                FontWeight="Bold" />
+            <ComboBox
+                Grid.Column="2"
+                Height="37"
+                Margin="40,268,40,0"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2">
+                <ComboBoxItem>INE</ComboBoxItem>
+                <ComboBoxItem>Pasaporte</ComboBoxItem>
+                <ComboBoxItem>Cartilla Militar</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Height="160"
+            Margin="15,0,15,0"
+            VerticalAlignment="Center"
+            Background="#CCCCCC">
             <Button
-                    Width="120"
-                    Height="40"
-                    Click="btnSeleccionarImagen_Click"
-                    Content="Seleccionar Imagen" Margin="167,250,168,0" Grid.Row="1" VerticalAlignment="Top" />
+                x:Name="btnSearch"
+                Width="142"
+                Height="40"
+                Margin="114,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Background="#FF2F5990"
+                Click="btnSearchImagen_Click"
+                Content="Seleccionar Imagen"
+                FontSize="14"
+                FontWeight="Bold"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="#FF5768E6"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Blue"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
             <Image
-                    x:Name="imgPreview"
-                    Width="184"
-                    Height="152"
-                    Margin="135,57,136,98" Grid.Row="1" Grid.Column="1"
-                    />
-            <Label Grid.Column="2" Content="Identificacion *" HorizontalAlignment="Left" Margin="93,268,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-            <ComboBox Margin="93,318,71,0" VerticalAlignment="Top" Grid.Column="2"/>
+                x:Name="imgPreview"
+                MaxWidth="150"
+                MaxHeight="150"
+                Margin="750,0,150,0"
+                VerticalAlignment="Center"
+                Source="/Images/photo.png" />
 
+            <Image
+                x:Name="imgPreview_Copy"
+                MaxWidth="150"
+                MaxHeight="150"
+                Margin="410,0,490,0"
+                VerticalAlignment="Center"
+                Source="/Images/photo.png" />
+            <Button
+                x:Name="btnCleanImageOne"
+                Grid.Row="0"
+                Height="20"
+                Margin="560,6,469,0"
+                VerticalAlignment="Top"
+                BorderBrush="{x:Null}"
+                Click="btnCleanImageTwo_Click"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Background>
+
+                    <ImageBrush ImageSource="/Images/remove.png" />
+                </Button.Background>
+
+            </Button>
+            <Button
+                x:Name="btnCleanImageTwo"
+                Grid.Row="0"
+                Height="20"
+                Margin="900,6,129,0"
+                VerticalAlignment="Top"
+                BorderBrush="{x:Null}"
+                Click="btnCleanImageOne_Click"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Background>
+
+                    <ImageBrush ImageSource="/Images/remove.png" />
+                </Button.Background>
+
+            </Button>
+        </Grid>
+        <Grid
+            Grid.Row="2"
+            MinHeight="100"
+            Background="Azure">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="13*" />
+                <RowDefinition Height="12*" />
+            </Grid.RowDefinitions>
+            <Button
+                x:Name="btnSave"
+                Grid.RowSpan="2"
+                Height="34"
+                Margin="627,33,300,0"
+                VerticalAlignment="Top"
+                Background="#FF9900"
+                Click="btnSave_Click"
+                Content="Guardar"
+                FontSize="16"
+                FontWeight="Bold"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Green"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="#FF9900"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button
+                x:Name="btnCancel"
+                Grid.RowSpan="2"
+                Height="34"
+                Margin="300,33,622,0"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="#D47F00"
+                Click="btnCancel_Click"
+                Content="Cancelar"
+                FontSize="16"
+                FontWeight="Bold"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Red"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="#D47F00"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
         </Grid>
     </Grid>
 

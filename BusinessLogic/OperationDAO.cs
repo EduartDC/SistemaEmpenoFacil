@@ -14,7 +14,11 @@ namespace BusinessLogic
             var result = MessageCode.ERROR;
             if (Utilitys.VerifyConnection())
             {
-
+                using (var connection = new ConnectionModel())
+                {
+                    connection.Operations.Add(newOperation);
+                    result = connection.SaveChanges();
+                }
             }
             return result;
         }

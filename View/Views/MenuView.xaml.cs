@@ -40,9 +40,14 @@ namespace View.Views
             Container.NavigationService.Navigate(new CreateContract());
         }
 
-        private void itemSetAside_Click(object sender, RoutedEventArgs e)
+        private void itemNewSetAside_Click(object sender, RoutedEventArgs e)
         {
             Container.NavigationService.Navigate(new SetAsideView());
+        }
+
+        private void itemFindArticles_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new FindArticles());
         }
     }
 }
