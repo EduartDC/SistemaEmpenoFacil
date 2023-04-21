@@ -78,36 +78,41 @@ namespace View.Views
 
         private void btnSearchImagen_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Archivos de imagen (*.jpg;*.png;*.bmp)|*.jpg;*.png;*.bmp|Todos los archivos (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
+            if (_images[0] == null || _images[1] == null)
             {
-
-                string pathImagen = openFileDialog.FileName;
-
-                if (_images[0] != null && _images[1] != null)
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Archivos de imagen (*.jpg;*.png;*.bmp)|*.jpg;*.png;*.bmp|Todos los archivos (*.*)|*.*";
+                if (openFileDialog.ShowDialog() == true)
                 {
-                    ErrorManager.ShowInformation("Elimina una imagen para poder cargar otra.");
+                    string pathImagen = openFileDialog.FileName;
+                    LoadImages(pathImagen);
                 }
-                else if (_images[0] == null)
-                {
-
-                    BitmapImage bitmapImage = new BitmapImage(new Uri(pathImagen));
-                    _images[0] = bitmapImage;
-                    imgIdentificationOne.Source = bitmapImage;
-                    btnCleanImageOne.IsEnabled = true;
-                }
-                else
-                {
-                    btnSearch.IsEnabled = false;
-                    BitmapImage bitmapImage = new BitmapImage(new Uri(pathImagen));
-                    _images[1] = bitmapImage;
-                    imgIdentificationTwo.Source = bitmapImage;
-                    btnCleanImageTwo.IsEnabled = true;
-                }
+            }
+            else
+            {
+                ErrorManager.ShowInformation("Elimina una imagen para poder cargar otra.");
             }
         }
 
+        private void LoadImages(string pathImagen)
+        {
+            if (_images[0] == null)
+            {
+
+                BitmapImage bitmapImage = new BitmapImage(new Uri(pathImagen));
+                _images[0] = bitmapImage;
+                imgIdentificationOne.Source = bitmapImage;
+                btnCleanImageOne.IsEnabled = true;
+            }
+            else
+            {
+                btnSearch.IsEnabled = false;
+                BitmapImage bitmapImage = new BitmapImage(new Uri(pathImagen));
+                _images[1] = bitmapImage;
+                imgIdentificationTwo.Source = bitmapImage;
+                btnCleanImageTwo.IsEnabled = true;
+            }
+        }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
