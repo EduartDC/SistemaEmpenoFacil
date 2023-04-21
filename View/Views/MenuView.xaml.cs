@@ -32,7 +32,7 @@ namespace View.Views
 
         private void itemExit_Click(object sender, RoutedEventArgs e)
         {
-            Container.NavigationService.Navigate(new CustomerView());
+            Container.NavigationService.Navigate(new CustomerView(0));
         }
 
         private void BtmCreateContract(object sender, RoutedEventArgs e)

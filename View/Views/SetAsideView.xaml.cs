@@ -1,5 +1,9 @@
-﻿using System;
+﻿using BusinessLogic;
+using DataAcces;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,8 +49,36 @@ namespace View.Views
             blurEffect.Radius = 5;
             window.PrimaryContainer.Effect = blurEffect;
             //window.SecundaryContainer.Navigate(new TransactionView(0, 0.0));
-            window.SecundaryContainer.Navigate(new CustomerView());
+            window.SecundaryContainer.Navigate(new CustomerView(6));
             window.PrimaryContainer.IsHitTestVisible = false;
         }
+
+        /*private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+        ImagesIdentification newImage = new ImagesIdentification();
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+        openFileDialog.Filter = "Archivos de imagen (*.jpg;*.png;*.bmp)|*.jpg;*.png;*.bmp|Todos los archivos (*.*)|*.*";
+        if (openFileDialog.ShowDialog() == true)
+        {
+
+        string pathImagen = openFileDialog.FileName;
+        BitmapImage bitmapImage = new BitmapImage(new Uri(pathImagen));
+        byte[] byteArray;
+
+        using (MemoryStream stream = new MemoryStream())
+        {
+        // Crear un codificador de imagen a partir del BitmapImage
+        BitmapEncoder encoder = new PngBitmapEncoder();
+        encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
+        // Codificar la imagen y escribir los bytes en el MemoryStream
+        encoder.Save(stream);
+        byteArray = stream.ToArray();
+        newImage.imagen = byteArray;
+        newImage.Customer_idCustomer = 6;
+        }
+        }
+        CustomerDAO.AddImagecostumer(newImage);
+        }*/
     }
 }

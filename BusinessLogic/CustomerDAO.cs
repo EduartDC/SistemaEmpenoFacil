@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Linq;
@@ -28,20 +29,78 @@ namespace BusinessLogic
             var result = MessageCode.ERROR;
             if (Utilitys.VerifyConnection())
             {
-
+                using (var connection = new ConnectionModel())
+                {
+                    var customer = connection.Customers.Find(selectedCustomer.idCustomer);
+                    if (customer.address.Equals(selectedCustomer.address) ||
+                        customer.identification.Equals(selectedCustomer.identification) ||
+                        customer.telephonNumber.Equals(selectedCustomer.telephonNumber))
+                    {
+                        customer.address = selectedCustomer.address;
+                        customer.identification = selectedCustomer.identification;
+                        customer.telephonNumber = selectedCustomer.telephonNumber;
+                    }
+                    connection.Entry(customer).State = System.Data.Entity.EntityState.Modified;
+                    result = connection.SaveChanges();
+                }
             }
             return result;
         }
-        public static int DeleteCustomer(Customer selectedCustomer)
+
+        public static Customer GetCustomer(int id)
+        {
+            Customer customer = new Customer();
+            if (Utilitys.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    customer = connection.Customers.Find(id);
+                }
+            }
+            return customer;
+        }
+        public static int AddImagecostumer(ImagesIdentification newImage)
         {
             var result = MessageCode.ERROR;
             if (Utilitys.VerifyConnection())
             {
-
+                using (var connection = new ConnectionModel())
+                {
+                    connection.ImagesIdentifications.Add(newImage);
+                    connection.SaveChanges();
+                    result = MessageCode.SUCCESS;
+                }
             }
             return result;
         }
+        public static List<ImagesIdentification> GetImagesCustomer(int id)
+        {
+            List<ImagesIdentification> images = new List<ImagesIdentification>();
+            if (Utilitys.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    images = connection.ImagesIdentifications.Where(x => x.Customer_idCustomer == id).ToList();
+                }
+            }
+            return images;
+        }
+        public static int UpdateImageCustomer(ImagesIdentification selectedImage)
+        {
+            var result = MessageCode.ERROR;
+            if (Utilitys.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var image = connection.ImagesIdentifications.Find(selectedImage.idImagenIdentification);
 
+                    image.imagen = selectedImage.imagen;
+                    connection.SaveChanges();
+                    result = MessageCode.SUCCESS;
+                }
+            }
+            return result;
+        }
         public static (int, Customer) FindCustomer(string curp)
         {
             List<Customer> customers = new List<Customer>();

@@ -98,6 +98,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBox
+                x:Name="textName"
                 Grid.Row="0"
                 Grid.Column="0"
                 Margin="40,105,40,259"
@@ -108,9 +109,9 @@
                 FontFamily="Segoe UI"
                 FontSize="14"
                 Foreground="Black"
-                IsEnabled="False"
-                />
+                IsEnabled="False" />
             <TextBox
+                x:Name="textLastName"
                 Grid.Row="0"
                 Grid.Column="1"
                 Margin="61,105,42,259"
@@ -124,6 +125,7 @@
                 Foreground="Black"
                 IsEnabled="False" />
             <TextBox
+                x:Name="textCURP"
                 Grid.Row="0"
                 Grid.Column="2"
                 Margin="40,104,40,259"
@@ -137,6 +139,7 @@
                 Foreground="Black"
                 IsEnabled="False" />
             <TextBox
+                x:Name="textAddress"
                 Grid.Row="0"
                 Height="38"
                 Margin="40,267,40,0"
@@ -150,6 +153,7 @@
                 FontSize="14"
                 Foreground="Black" />
             <TextBox
+                x:Name="textPhonNomber"
                 Grid.Column="1"
                 Height="37"
                 Margin="61,268,42,0"
@@ -215,13 +219,15 @@
                 Content="Identificacion *"
                 FontWeight="Bold" />
             <ComboBox
+                x:Name="comBoxIdentificationType"
                 Grid.Column="2"
                 Height="37"
                 Margin="40,268,40,0"
                 VerticalAlignment="Top"
                 Background="White"
                 BorderBrush="#323D8F"
-                BorderThickness="0,0,0,2">
+                BorderThickness="0,0,0,2"
+                Text="Tipo de Identificacion">
                 <ComboBoxItem>INE</ComboBoxItem>
                 <ComboBoxItem>Pasaporte</ComboBoxItem>
                 <ComboBoxItem>Cartilla Militar</ComboBoxItem>
@@ -270,7 +276,7 @@
                 </Button.Triggers>
             </Button>
             <Image
-                x:Name="imgPreview"
+                x:Name="imgIdentificationTwo"
                 MaxWidth="150"
                 MaxHeight="150"
                 Margin="750,0,150,0"
@@ -278,7 +284,7 @@
                 Source="/Images/photo.png" />
 
             <Image
-                x:Name="imgPreview_Copy"
+                x:Name="imgIdentificationOne"
                 MaxWidth="150"
                 MaxHeight="150"
                 Margin="410,0,490,0"
@@ -287,11 +293,13 @@
             <Button
                 x:Name="btnCleanImageOne"
                 Grid.Row="0"
+                Width="21"
                 Height="20"
-                Margin="560,6,469,0"
+                Margin="560,6,0,0"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 BorderBrush="{x:Null}"
-                Click="btnCleanImageTwo_Click"
+                Click="btnCleanImageOne_Click"
                 Style="{StaticResource RoundedButtonStyle}">
                 <Button.Background>
 
@@ -302,11 +310,13 @@
             <Button
                 x:Name="btnCleanImageTwo"
                 Grid.Row="0"
+                Width="21"
                 Height="20"
-                Margin="900,6,129,0"
+                Margin="900,6,0,0"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 BorderBrush="{x:Null}"
-                Click="btnCleanImageOne_Click"
+                Click="btnCleanImageTwo_Click"
                 Style="{StaticResource RoundedButtonStyle}">
                 <Button.Background>
 

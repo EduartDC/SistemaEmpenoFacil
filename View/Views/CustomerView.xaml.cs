@@ -18,6 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using View.Properties;
+using System.IO;
+using Path = System.IO.Path;
 
 namespace View.Views
 {
@@ -26,9 +28,51 @@ namespace View.Views
     /// </summary>
     public partial class CustomerView : Page
     {
-        public CustomerView()
+        BitmapImage[] _images = new BitmapImage[2];
+        byte[][] _bytes = new byte[2][];
+        List<ImagesIdentification> imagesCustomers;
+        int id;
+        public CustomerView(int idCustomer)
         {
             InitializeComponent();
+            id = idCustomer;
+            SetInformation(idCustomer);
+            SetImages(idCustomer);
+        }
+
+        private void SetImages(int idCustomer)
+        {
+            imagesCustomers = CustomerDAO.GetImagesCustomer(idCustomer);
+            var count = 0;
+            foreach (var image in imagesCustomers)
+            {
+                byte[] imageData = image.imagen;
+
+                using (MemoryStream ms = new MemoryStream(imageData))
+                {
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = ms;
+                    bitmapImage.EndInit();
+                    _images[count] = bitmapImage;
+                    count++;
+                }
+
+            }
+            imgIdentificationOne.Source = _images[0];
+            imgIdentificationTwo.Source = _images[1];
+        }
+
+        private void SetInformation(int idCustomer)
+        {
+            var customer = CustomerDAO.GetCustomer(idCustomer);
+            textAddress.Text = customer.address;
+            textCURP.Text = customer.curp;
+            textPhonNomber.Text = customer.telephonNumber.ToString();
+            textName.Text = customer.firstName;
+            textLastName.Text = customer.lastName;
+            comBoxIdentificationType.SelectedIndex = int.Parse(customer.identification);
 
         }
 
@@ -39,11 +83,31 @@ namespace View.Views
             if (openFileDialog.ShowDialog() == true)
             {
 
-                string rutaImagen = openFileDialog.FileName;
-                BitmapImage bitmapImage = new BitmapImage(new Uri(rutaImagen));
-                imgPreview.Source = bitmapImage;
+                string pathImagen = openFileDialog.FileName;
+
+                if (_images[0] != null && _images[1] != null)
+                {
+                    ErrorManager.ShowInformation("Elimina una imagen para poder cargar otra.");
+                }
+                else if (_images[0] == null)
+                {
+
+                    BitmapImage bitmapImage = new BitmapImage(new Uri(pathImagen));
+                    _images[0] = bitmapImage;
+                    imgIdentificationOne.Source = bitmapImage;
+                    btnCleanImageOne.IsEnabled = true;
+                }
+                else
+                {
+                    btnSearch.IsEnabled = false;
+                    BitmapImage bitmapImage = new BitmapImage(new Uri(pathImagen));
+                    _images[1] = bitmapImage;
+                    imgIdentificationTwo.Source = bitmapImage;
+                    btnCleanImageTwo.IsEnabled = true;
+                }
             }
         }
+
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -62,17 +126,75 @@ namespace View.Views
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (_images[0] == null || _images[1] == null)
+            {
+                ErrorManager.ShowWarning("Es necesario seleccionar las dos imagenes de la identificacion.");
+            }
+            else if (string.IsNullOrEmpty(textName.Text) || string.IsNullOrEmpty(textLastName.Text) ||
+                    string.IsNullOrEmpty(textCURP.Text) || string.IsNullOrEmpty(textAddress.Text) ||
+                    comBoxIdentificationType.SelectedItem == null)
+            {
+                ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
+            }
+            else
+            {
+                SaveInformation();
+                SaveImages();
 
+                ErrorManager.ShowInformation("Se ha guardado la informacion correctamente.");
+            }
+        }
+
+        private void SaveImages()
+        {
+            var count = 0;
+            foreach (var image in _images)
+            {
+                BitmapImage bitmapImage = image;
+                MemoryStream stream = new MemoryStream();
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                encoder.Save(stream);
+                byte[] byteArray = stream.ToArray();
+                stream.Close();
+                _bytes[count] = byteArray;
+                count++;
+            }
+
+            var pos = 0;
+            foreach (var image in imagesCustomers)
+            {
+                image.imagen = _bytes[pos];
+                CustomerDAO.UpdateImageCustomer(image);
+                pos++;
+            }
+        }
+
+        private void SaveInformation()
+        {
+            Customer newCustomer = new Customer();
+            newCustomer.idCustomer = id;
+            newCustomer.address = textAddress.Text;
+            newCustomer.telephonNumber = int.Parse(textPhonNomber.Text);
+            newCustomer.identification = comBoxIdentificationType.SelectedIndex.ToString();
+            CustomerDAO.UpdateCustomer(newCustomer);
         }
 
         private void btnCleanImageOne_Click(object sender, RoutedEventArgs e)
         {
 
+            _images[0] = null;
+            imgIdentificationOne.Source = new BitmapImage(new Uri("C:\\Users\\Eduar\\Source\\Repos\\EduartDC\\SistemaEmpenoFacil\\View\\Images\\photo.png"));
+            btnSearch.IsEnabled = true;
+            btnCleanImageOne.IsEnabled = false;
         }
 
         private void btnCleanImageTwo_Click(object sender, RoutedEventArgs e)
         {
-
+            _images[1] = null;
+            imgIdentificationTwo.Source = new BitmapImage(new Uri("C:\\Users\\Eduar\\Source\\Repos\\EduartDC\\SistemaEmpenoFacil\\View\\Images\\photo.png"));
+            btnSearch.IsEnabled = true;
+            btnCleanImageTwo.IsEnabled = false;
         }
     }
 }
