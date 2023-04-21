@@ -48,8 +48,9 @@ namespace View.Views
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
             window.PrimaryContainer.Effect = blurEffect;
-            //window.SecundaryContainer.Navigate(new TransactionView(0, 0.0));
-            window.SecundaryContainer.Navigate(new CustomerView(6));
+            (App.Current as App)._cashOnHand = 1000;
+            window.SecundaryContainer.Navigate(new TransactionView(MessageCode.OPERATION_SEAL, 658.50));
+            //window.SecundaryContainer.Navigate(new CustomerView(6));
             window.PrimaryContainer.IsHitTestVisible = false;
         }
 

@@ -18,5 +18,6 @@ namespace BusinessLogic
         public static string CUSTOMER_IN_BLACK_LIST = "El cliente se encuentra en lista negra.\nOperacion cancelada.";
         public static string CANCEL_OPERATION = "¿Desea cancelar la operacion?";
         public static string ERROR_ADD_OPERATION = "Error al agregar la operacion";
+        public static string INSUFFICIENT_AMOUNT = "El monto ingresado es menor al monto a cubrir";
     }
 }

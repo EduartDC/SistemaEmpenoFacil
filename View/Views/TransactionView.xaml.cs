@@ -154,8 +154,12 @@ namespace View.Views
             else if (operationType == MessageCode.OPERATION_SETASIDE || operationType == MessageCode.OPERATION_SEAL)
             {
                 double change = amountReceived - _amount;
+                if (change < 0)
+                {
+                    ErrorManager.ShowWarning(MessageError.INSUFFICIENT_AMOUNT);
 
-                if (SaveOperation(change, amountReceived) == MessageCode.ERROR)
+                }
+                else if (SaveOperation(change, amountReceived) == MessageCode.ERROR)
                 {
                     ErrorManager.ShowWarning(MessageError.ERROR_ADD_OPERATION);
                 }
