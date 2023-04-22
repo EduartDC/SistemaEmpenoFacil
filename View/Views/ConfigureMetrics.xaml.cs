@@ -61,7 +61,7 @@ namespace View.Views
             {
                 switch (MetricsDAO.updateMetrics(text_InterestRate.Text, text_IVA.Text))
                 {
-                    case 200:
+                    case 500:
                         MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
                         break;
 
@@ -69,7 +69,7 @@ namespace View.Views
                         MessageBox.Show("Error al realizar el registro, favor de intentarlo más tarde");
                         break;
 
-                    case 500:
+                    case 200:
                         MessageBox.Show("Configuración Exitosa");
                         Close();
                         break;

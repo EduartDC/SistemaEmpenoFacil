@@ -73,9 +73,6 @@
     <Compile Include="Views\ConfigureMetrics.xaml.cs">
       <DependentUpon>ConfigureMetrics.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ConsultBlackList.xaml.cs">
-      <DependentUpon>ConsultBlackList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ConsultBlackList1.xaml.cs">
       <DependentUpon>ConsultBlackList1.xaml</DependentUpon>
     </Compile>
@@ -123,10 +120,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ConfigureMetrics.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ConsultBlackList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

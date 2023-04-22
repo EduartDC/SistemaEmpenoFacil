@@ -23,46 +23,109 @@ namespace View.Views
     {
 
         private NewLog _log = new NewLog();
+        private List<Domain.Customer> customersList = new List<Domain.Customer>();
+        private List<string> _listNamesCustomers = new List<string>();
+        private List<int> _listNumberCustomers = new List<int>();
 
         public ConsultBlackList1()
         {
             InitializeComponent();
-            comBox_TypeSearch.Items.Add("Numero de cliente");
+            comBox_TypeSearch.Items.Add("Numero del cliente");
             comBox_TypeSearch.Items.Add("Nombre del cliente");
-            //initializeTable();
+            initializeTable();
         }
 
         private void initializeTable()
         {
-            try
-            {
-                tableCustomers.ItemsSource = CustomerDAO.RecoverCustomers();
-            }
-            catch (NullReferenceException ex)
-            {
-                _log.Add(ex.ToString());
-            }
+            customersList = CustomerDAO.RecoverCustomers();
+            customersList.ForEach(customer => _listNamesCustomers.Add(customer.firstName));
+            customersList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
+            tableCustomers.ItemsSource = customersList;
         }
         private void btn_Search_Click(object sender, RoutedEventArgs e)
         {
-            //if(comBox_TypeSearch)
+            tableCustomers.ItemsSource = customersList;
+            switch (comBox_TypeSearch.SelectedIndex)
+            {
+                case -1:
+                    MessageBox.Show("Favor de seleccionar el tipo de dato con el que desea buscar al cliente");
+                    break;
+
+                case 0:
+                    if (!FormatValidation.ValidateFormat(text_SearchBy.Text, "^[0-9]+$"))
+                    {
+                        MessageBox.Show("Solo se aceptan numeros para esta busqueda");
+                    }
+                    else
+                    {
+                        searchByNumber();
+                    }
+                    break;
+
+                case 1:
+                    if (!FormatValidation.ValidateFormat(text_SearchBy.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+$"))
+                    {
+                        MessageBox.Show("Solo se aceptan letras para esta busqueda");
+                    }
+                    else
+                    {
+                        searchByName();
+                    }
+                    break;
+            }
+        }
+
+
+        private void searchByName()
+        {
+            if (!String.IsNullOrEmpty(text_SearchBy.Text.Trim()))
+            {
+                List<Domain.Customer> CustomersEquals = (_listNamesCustomers.Where(stringName =>
+                stringName.StartsWith(text_SearchBy.Text.Trim())).Select(stringName =>
+                customersList.Find(customerFind => customerFind.firstName.Contains(stringName)))).ToList();
+                tableCustomers.ItemsSource = CustomersEquals;
+            }
+            else if (text_SearchBy.Text.Trim() == "")
+            {
+                tableCustomers.ItemsSource = customersList;
+            }
+        }
+
+        private void searchByNumber()
+        {
+            if (!String.IsNullOrEmpty(text_SearchBy.Text.Trim()))
+            {
+                int readNumer = int.Parse(text_SearchBy.Text.Trim());
+                List<Domain.Customer> CustomersEquals = (_listNumberCustomers.Where(intNumber =>
+                intNumber.Equals(readNumer))).Select(intNumber => customersList.Find(customerFind =>
+                customerFind.idCustomer.Equals(intNumber))).ToList();
+                tableCustomers.ItemsSource = CustomersEquals;
+            }
+            else if (text_SearchBy.Text.Trim() == "")
+            {
+                tableCustomers.ItemsSource = customersList;
+            }
         }
 
         private void btn_Restore_Click(object sender, RoutedEventArgs e)
         {
             text_SearchBy.Text = "";
+            _listNumberCustomers.Clear();
+            _listNamesCustomers.Clear();
             initializeTable();
         }
 
         private void btn_Salir_Click(object sender, RoutedEventArgs e)
         {
-            
+            _listNumberCustomers.Clear();
+            _listNamesCustomers.Clear();
+            customersList.Clear();
         }
 
         private void btn_Add_Click(object sender, RoutedEventArgs e)
         {
             AddCustomerBlackList addCustomerBlackList = new AddCustomerBlackList();
-            addCustomerBlackList.Show();
+            addCustomerBlackList.ShowDialog();
         }
 
     }

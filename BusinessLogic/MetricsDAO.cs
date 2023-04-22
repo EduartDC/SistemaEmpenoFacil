@@ -47,7 +47,7 @@ namespace BusinessLogic
 
         public static int updateMetrics(string interestRate, string IVA)
         {
-            int result = 500;
+            int result = 200;
             try
             {
 
@@ -63,7 +63,7 @@ namespace BusinessLogic
             catch (DataException ex)
             {
                 
-                result = 200;
+                result = 500;
                 _log.Add(ex.ToString());
             }
             catch (InvalidOperationException ex)
@@ -76,7 +76,7 @@ namespace BusinessLogic
 
         private static int registerMetrics(string newInterestRate, string newIVA)
         {
-            int result = 500;
+            int result = 200;
             try
             {
                 using (var dataBase1 = new ConnectionModel())
@@ -91,7 +91,7 @@ namespace BusinessLogic
             }
             catch (DbUpdateException ex)
             {
-                result = 200;
+                result = 500;
                 _log.Add(ex.ToString());
             }
             catch (EntityException ex)

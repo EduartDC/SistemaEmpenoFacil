@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="920" d:DesignWidth="1280"
+      d:DesignHeight="800" d:DesignWidth="1200"
       Title="ConsultBlackList1"
       Background="White">
 
@@ -84,7 +84,7 @@
         <Label Content="Seleccione e ingrese los campos solicitados para la busqueda del cliente" Grid.Row="0" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="16"/>
 
         <Button Name="btn_Salir" Content="Salir" Grid.Row="2" HorizontalAlignment="Left" Margin="72,0,0,0" VerticalAlignment="Top" FontSize="16" Width="90" Click="btn_Salir_Click"/>
-        <Button Name="btn_Add" Content="Agregar" Grid.Row="2" HorizontalAlignment="Left" Margin="1112,0,0,0" VerticalAlignment="Top" FontSize="16" Width="96" Click="btn_Add_Click"/>
+        <Button Name="btn_Add" Content="Agregar" Grid.Row="2" HorizontalAlignment="Left" Margin="1046,0,0,0" VerticalAlignment="Top" FontSize="16" Width="96" Click="btn_Add_Click"/>
         <ComboBox Name="comBox_TypeSearch"  Grid.Row="0" HorizontalAlignment="Left" Margin="372,81,0,0" VerticalAlignment="Top" Width="196" FontSize="18"/>
     </Grid>
 </Page>

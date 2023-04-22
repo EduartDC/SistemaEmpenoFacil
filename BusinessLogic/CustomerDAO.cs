@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -150,20 +151,83 @@ namespace BusinessLogic
             }
             catch (SqlException ex)
             {
-                resultCustomers.Add(null);
                 _log.Add(ex.ToString());
             }
             catch (ArgumentNullException ex)
             {
-                resultCustomers.Add(null);
                 _log.Add(ex.ToString());
             }
             catch (DataException ex)
             {
-                resultCustomers.Add(null);
                 _log.Add(ex.ToString());
             }
             return resultCustomers;
+        }
+
+        public static int existCustomer(int id)
+        {
+            int result = 500;
+            try
+            {
+                using (var dataBase = new ConnectionModel())
+                {
+                    var existCustomer = (from Customer in dataBase.Customers
+                                         where Customer.idCustomer.Equals(id)
+                                         select Customer).Count();
+                    if(existCustomer > 0)
+                    {
+                        result = 200;
+                    }
+                }
+            }
+            catch(ArgumentNullException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (SqlException ex)
+            {
+                result = 505;
+                _log.Add(ex.ToString());
+            }
+            catch (EntityException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            return result;
+        }
+
+        public static int changeStatusBlackList(int id)
+        {
+            int result = 500;
+            try
+            {
+                using (var database = new ConnectionModel())
+                {
+                    var updateStatusBlackList = database.Customers.First(u => u.idCustomer == id);
+                    updateStatusBlackList.blackList = true;
+                    int resultValue = database.SaveChanges();
+                    if (resultValue > 0){
+                        result = 200;
+                    }
+                    else
+                    {
+                        result = 502;
+                    }
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (DbUpdateException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (EntityException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            return result;
         }
     }
 }
