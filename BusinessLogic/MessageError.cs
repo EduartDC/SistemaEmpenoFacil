@@ -19,5 +19,7 @@ namespace BusinessLogic
         public static string CANCEL_OPERATION = "¿Desea cancelar la operacion?";
         public static string ERROR_ADD_OPERATION = "Error al agregar la operacion";
         public static string INSUFFICIENT_AMOUNT = "El monto ingresado es menor al monto a cubrir";
+        public static string ITEM_NOT_SELECTED = "Para continuar favor de seleccionar un elemento de la tabla";
+        public static string CUSTOMER_NOT_INTRODUCED = "Para buscar un cliente, favor de introducir una informacion de curp (18 caracteres)";
     }
 }

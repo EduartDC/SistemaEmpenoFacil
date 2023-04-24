@@ -49,5 +49,10 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new FindArticles());
         }
+
+        private void itemGiveProfitToCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new GiveProfitToCustomer());
+        }
     }
 }
