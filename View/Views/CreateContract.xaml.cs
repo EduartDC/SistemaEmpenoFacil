@@ -260,13 +260,12 @@ namespace View.Views
         private void RegisterContract()
         {
             Contract newContract = new Contract();
-            newContract.state = "Active";//state
 
             newContract.loanAmount = float.Parse(tbLoanAmount.Text);//loanAmount
             //idContractPrevious
             newContract.deadlineDate = limitPaymentDate;//deadlineDate
             newContract.creationDate = currentlyDate;//CreationDate
-            newContract.state = "active";//state
+            newContract.stateContract = "active";//state
             newContract.iva = int.Parse(metrics.IVA);
             newContract.interestRate = int.Parse(metrics.interestRate);
             newContract.renewalFee = 0;//lo hace otro //renawalFee

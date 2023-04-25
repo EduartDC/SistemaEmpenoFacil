@@ -81,9 +81,8 @@ namespace DataAcces
 
             modelBuilder.Entity<Sale>()
                 .HasMany(e => e.Belongings_Articles)
-                .WithRequired(e => e.Sale)
-                .HasForeignKey(e => e.Sale_idSale)
-                .WillCascadeOnDelete(false);
+                .WithOptional(e => e.Sale)
+                .HasForeignKey(e => e.Sale_idSale);
 
             modelBuilder.Entity<Sale>()
                 .HasMany(e => e.Operations)

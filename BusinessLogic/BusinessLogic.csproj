@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAcces\DataAcces.csproj">
-      <Project>{5e613913-6d4e-4ac7-960a-9301d7fa5947}</Project>
+      <Project>{efe7ecbe-3697-44a7-8892-a1f059701299}</Project>
       <Name>DataAcces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">

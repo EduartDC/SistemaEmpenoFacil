@@ -18,7 +18,7 @@ namespace DataAcces
         public int idStaff { get; set; }
 
         [Required]
-        public string status { get; set; }
+        public string statusStaff { get; set; }
 
         [Required]
         public string password { get; set; }
