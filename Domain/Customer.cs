@@ -23,7 +23,7 @@ namespace Domain
 
         public string identification { get; set; }
 
-        public int telephonNumber { get; set; } 
+        public long telephonNumber { get; set; } 
 
         public Customer()
         {
@@ -38,7 +38,7 @@ namespace Domain
         }
 
         public Customer(int idCustomer, string curp, bool blackList, string address, 
-            string firstName, string lastName, string identification, int telephonNumber)
+            string firstName, string lastName, string identification, long telephonNumber)
         {
             this.idCustomer = idCustomer;
             this.curp = curp;
