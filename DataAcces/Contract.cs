@@ -27,7 +27,7 @@ namespace DataAcces
         public DateTime creationDate { get; set; }
 
         [Required]
-        public string state { get; set; }
+        public string stateContract { get; set; }
 
         public int iva { get; set; }
 
@@ -40,6 +40,14 @@ namespace DataAcces
         public int duration { get; set; }
 
         public int Customer_idCustomer { get; set; }
+
+        public string endorsementSettlementDates { get; set; }
+
+        [Required]
+        public string paymentsSettlement { get; set; }
+
+        [Required]
+        public string paymentsEndorsement { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Belonging> Belongings { get; set; }

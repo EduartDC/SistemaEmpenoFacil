@@ -8,7 +8,6 @@ namespace DataAcces
 
     public partial class Customer
     {
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
@@ -37,7 +36,7 @@ namespace DataAcces
 
         public string identification { get; set; }
 
-        public int telephonNumber { get; set; }
+        public long telephonNumber { get; set; }
 
         [Required]
         public string cumulativeProfit { get; set; }

@@ -19,16 +19,14 @@ namespace DataAcces
 
         public string barCode { get; set; }
 
-        public double? sellingPrice { get; set; }
+        public double sellingPrice { get; set; }
 
         [Required]
-        public string state { get; set; }
+        public string stateArticle { get; set; }
 
-        [Required]
-        public string customerProfit { get; set; }
+        public double customerProfit { get; set; }
 
-        [Required]
-        public string storeProfit { get; set; }
+        public double storeProfit { get; set; }
 
         public DateTime creationDate { get; set; }
 
@@ -36,7 +34,7 @@ namespace DataAcces
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int idBelonging { get; set; }
 
-        public int Sale_idSale { get; set; }
+        public int? Sale_idSale { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArticlesSetAside> ArticlesSetAsides { get; set; }
