@@ -1,0 +1,44 @@
+﻿<Page x:Class="View.Views.CreateCustomerRecord"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:View.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Background="White"
+      Title="CreateCustomerRecord">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="130"
+                />
+            <RowDefinition
+                Height="200*" 
+                />
+            <RowDefinition
+                Height="100"/>
+        </Grid.RowDefinitions>
+        <Label Content="Agregue los datos necesarios para registrar a un nuevo cliente" HorizontalAlignment="Left" Margin="64,26,0,0" VerticalAlignment="Top" FontSize="22" Grid.Row="0"/>
+        <Label Content="* Campos obligatorios" HorizontalAlignment="Left" Margin="64,86,0,0" VerticalAlignment="Top" FontSize="18" Foreground="#FFF70000" Grid.Row="0" />
+        <Label Content="Nombre*:" HorizontalAlignment="Left" Margin="64,56,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox Name="text_Name" HorizontalAlignment="Left" Margin="186,64,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" FontSize="20"/>
+        <Label Content="Apellidos*:" HorizontalAlignment="Left" Margin="64,140,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox Name="text_LastName" HorizontalAlignment="Left" Margin="186,144,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" FontSize="20"/>
+        <Label Content="CURP*:" HorizontalAlignment="Left" Margin="64,220,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox Name="text_CURP" HorizontalAlignment="Left" Margin="186,228,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" FontSize="20"/>
+        <Label Content="Dirección*:" HorizontalAlignment="Left" Margin="64,306,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox Name="text_Address" HorizontalAlignment="Left" Margin="186,314,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" FontSize="20"/>
+        <Label Content="Telefono*:" HorizontalAlignment="Left" Margin="64,416,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox Name="text_telephonNumber" HorizontalAlignment="Left" Margin="186,424,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" FontSize="20"/>
+        <Label Content="Identificación*:" HorizontalAlignment="Left" Margin="64,498,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
+        <ComboBox Name="comBox_Identification" HorizontalAlignment="Left" Margin="237,498,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" FontSize="20"/>
+        <Image x:Name="componentImageOne" Height="239" Margin="468,56,330,0" Grid.Row="1" VerticalAlignment="Top" Width="402" Source="/Images/photo.png" />
+        <Image x:Name="componentImageTwo" Height="239" Margin="468,300,330,0" Grid.Row="1" VerticalAlignment="Top" Width="402" Source="/Images/photo.png"/>
+        <Button Name="btn_AddImage1"  Background="LightGreen" Content="+" HorizontalAlignment="Left" Margin="964,173,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20" Height="50" Width="50" Click="Btn_AddImage1_Click"/>
+        <Button x:Name="btn_AddImage2"  Background="LightGreen" Content="+" HorizontalAlignment="Left" Margin="964,419,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20" Height="50" Width="50" Click="Btn_AddImage2_Click"/>
+        <Button Content="Salir" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="20" Width="97" Click="Btn_Exit_Click"/>
+        <Button  Content="Agregar" HorizontalAlignment="Left" Margin="936,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="20" Width="111" Click="Btn_Add_Click"/>
+    </Grid>
+</Page>
