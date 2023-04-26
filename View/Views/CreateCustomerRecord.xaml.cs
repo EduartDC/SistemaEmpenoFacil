@@ -21,10 +21,8 @@ namespace View.Views
     public partial class CreateCustomerRecord : Page
     {
 
-        private bool image1 = false;
-        private bool image2 = false;
-        BitmapImage bitMap3 = new BitmapImage();
-        BitmapImage bitMap4 = new BitmapImage();
+        private bool imageOne = false;
+        private bool imageTwo = false;
 
         public CreateCustomerRecord()
         {
@@ -51,14 +49,14 @@ namespace View.Views
             bool? result = ofd.ShowDialog();
             if (result == true)
             {
-                string ruta = ofd.FileName;
+                string rute = ofd.FileName;
                 Image imgOne = new Image();
                 BitmapImage bitMap = new BitmapImage();
                 bitMap.BeginInit();
-                bitMap.UriSource = new Uri(ruta);
+                bitMap.UriSource = new Uri(rute);
                 bitMap.EndInit();
                 componentImageOne.Source = bitMap;
-                image1 = false;
+                imageOne = true;
             }
 
             }
@@ -70,14 +68,14 @@ namespace View.Views
             bool? result = ofd.ShowDialog();
             if (result == true)
             {
-                string ruta = ofd.FileName;
+                string rute = ofd.FileName;
                 Image imgOne = new Image();
                 BitmapImage bitMap = new BitmapImage();
                 bitMap.BeginInit();
-                bitMap.UriSource = new Uri(ruta);
+                bitMap.UriSource = new Uri(rute);
                 bitMap.EndInit();
                 componentImageTwo.Source = bitMap;
-                image2 = false;
+                imageTwo = true;
             }
         }
 
