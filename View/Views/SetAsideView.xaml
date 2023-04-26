@@ -27,8 +27,8 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" MaxHeight="450" />
-                <RowDefinition Height="Auto" MinHeight="250"/>
-                <RowDefinition Height="Auto" MinHeight="50"/>
+                <RowDefinition Height="Auto" MinHeight="250" />
+                <RowDefinition Height="Auto" MinHeight="50" />
             </Grid.RowDefinitions>
 
             <DataGrid
@@ -130,18 +130,125 @@
                 VerticalAlignment="Top"
                 FontSize="16"
                 FontWeight="Bold" />
-            <TextBox x:Name="textCURP" HorizontalAlignment="Left" Margin="84,51,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="198" FontWeight="Bold" FontSize="16" Height="23"/>
-            <Button x:Name="btnAddCustomer" Content="Registrar Cliente" HorizontalAlignment="Left" Margin="84,86,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Width="132"/>
-            <Button x:Name="btnSearch" Content="Buscar" HorizontalAlignment="Left" Margin="221,86,0,0" Grid.Row="1" VerticalAlignment="Top" Width="61" FontWeight="Bold" FontSize="16" RenderTransformOrigin="0.459,0.065"/>
-            <Label Content="Nombre del Cleinte" HorizontalAlignment="Left" Margin="64,141,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
-            <TextBox x:Name="textCustomerName" HorizontalAlignment="Left" Margin="92,177,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="190" FontSize="16" FontWeight="Bold"/>
-            <Label x:Name="labelSubTotal" Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="46,17,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold" FontSize="26"/>
-            <Label x:Name="labelIva" Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="65,62,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
-            <Label x:Name="labelTotal" Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="46,110,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
-            <Label x:Name="labelAmount" Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="46,153,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
-            <Button x:Name="btnAddArticle" Grid.Column="1" Content="Agregar Articulo" HorizontalAlignment="Right" Margin="0,10,10,0" Grid.Row="1" VerticalAlignment="Top"/>
-            <Button x:Name="bntCancel" Grid.Column="1" Content="Cancelar" HorizontalAlignment="Left" Margin="303,25,0,0" Grid.Row="2" VerticalAlignment="Top" Click="Button_Click_1"/>
-            <Label x:Name="labelRemaining" Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="46,198,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+            <TextBox
+                x:Name="textCURP"
+                Grid.Row="1"
+                Width="198"
+                Height="23"
+                Margin="84,51,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="16"
+                FontWeight="Bold"
+                Text="TextBox"
+                TextWrapping="Wrap" />
+            <Button
+                x:Name="btnAddCustomer"
+                Grid.Row="1"
+                Width="132"
+                Margin="84,86,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Registrar Cliente"
+                FontSize="16"
+                FontWeight="Bold" />
+            <Button
+                x:Name="btnSearch"
+                Grid.Row="1"
+                Width="61"
+                Margin="221,86,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Buscar"
+                FontSize="16"
+                FontWeight="Bold"
+                RenderTransformOrigin="0.459,0.065" />
+            <Label
+                Grid.Row="1"
+                Margin="64,141,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Nombre del Cleinte"
+                FontSize="16"
+                FontWeight="Bold" />
+            <TextBox
+                x:Name="textCustomerName"
+                Grid.Row="1"
+                Width="190"
+                Margin="92,177,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="16"
+                FontWeight="Bold"
+                Text="TextBox"
+                TextWrapping="Wrap" />
+            <Label
+                x:Name="labelSubTotal"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="46,17,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Label"
+                FontSize="26"
+                FontWeight="Bold" />
+            <Label
+                x:Name="labelIva"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="65,62,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Label"
+                FontSize="20"
+                FontWeight="Bold" />
+            <Label
+                x:Name="labelTotal"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="46,110,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Label"
+                FontSize="24"
+                FontWeight="Bold" />
+            <Label
+                x:Name="labelAmount"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="46,153,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Label"
+                FontSize="24"
+                FontWeight="Bold" />
+            <Button
+                x:Name="btnAddArticle"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0,10,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="Agregar Articulo" />
+            <Button
+                x:Name="bntCancel"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="303,25,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+
+                Content="Cancelar" />
+            <Label
+                x:Name="labelRemaining"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="46,198,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Label"
+                FontSize="24"
+                FontWeight="Bold" />
         </Grid>
         <Button
             x:Name="btnPay"
@@ -150,7 +257,13 @@
             VerticalAlignment="Top"
             Click="Button_Click"
             Content="Pagar" />
-        <Label Content="CURP" HorizontalAlignment="Left" Margin="63,467,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Label
+            Margin="63,467,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="CURP"
+            FontSize="16"
+            FontWeight="Bold" />
 
 
     </Grid>
