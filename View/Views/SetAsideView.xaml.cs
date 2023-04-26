@@ -54,6 +54,31 @@ namespace View.Views
             window.PrimaryContainer.IsHitTestVisible = false;
         }
 
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddArticle_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
 
         /*private void Button_Click_1(object sender, RoutedEventArgs e)

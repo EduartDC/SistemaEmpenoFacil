@@ -165,7 +165,8 @@
                 BorderThickness="0,0,0,2"
                 FontFamily="Segoe UI"
                 FontSize="14"
-                Foreground="Black" PreviewTextInput="textPhonNomber_PreviewTextInput" />
+                Foreground="Black"
+                PreviewTextInput="textPhonNomber_PreviewTextInput" />
             <Label
                 Grid.Column="0"
                 Width="72"
@@ -281,7 +282,7 @@
                 MaxHeight="150"
                 Margin="750,0,150,0"
                 VerticalAlignment="Center"
-                Source="/Images/photo.png" />
+                Source="/Icons/photo.png" />
 
             <Image
                 x:Name="imgIdentificationOne"
@@ -289,7 +290,7 @@
                 MaxHeight="150"
                 Margin="410,0,490,0"
                 VerticalAlignment="Center"
-                Source="/Images/photo.png" />
+                Source="/Icons/photo.png" />
             <Button
                 x:Name="btnCleanImageOne"
                 Grid.Row="0"
@@ -303,7 +304,7 @@
                 Style="{StaticResource RoundedButtonStyle}">
                 <Button.Background>
 
-                    <ImageBrush ImageSource="/Images/remove.png" />
+                    <ImageBrush ImageSource="/Icons/remove.png" />
                 </Button.Background>
 
             </Button>
@@ -320,7 +321,7 @@
                 Style="{StaticResource RoundedButtonStyle}">
                 <Button.Background>
 
-                    <ImageBrush ImageSource="/Images/remove.png" />
+                    <ImageBrush ImageSource="/Icons/remove.png" />
                 </Button.Background>
 
             </Button>
