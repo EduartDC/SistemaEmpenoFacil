@@ -82,6 +82,9 @@
     <Compile Include="Views\CreateContract.xaml.cs">
       <DependentUpon>CreateContract.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CreateCustomerRecord.xaml.cs">
+      <DependentUpon>CreateCustomerRecord.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreateContract.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateCustomerRecord.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
