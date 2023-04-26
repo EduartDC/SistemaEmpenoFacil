@@ -21,5 +21,7 @@ namespace BusinessLogic
         public static string INSUFFICIENT_AMOUNT = "El monto ingresado es menor al monto a cubrir";
         public static string ITEM_NOT_SELECTED = "Para continuar favor de seleccionar un elemento de la tabla";
         public static string CUSTOMER_NOT_INTRODUCED = "Para buscar un cliente, favor de introducir una informacion de curp (18 caracteres)";
+        public static string INVALID_NUMBER = "El campo de telefono debe tener 10 digitos y todos tiene que ser numeros.";
+        public static string UPLOAD_SUCCESS = "Se ha subido la informacion correctamente";
     }
 }

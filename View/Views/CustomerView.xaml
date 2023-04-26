@@ -165,7 +165,7 @@
                 BorderThickness="0,0,0,2"
                 FontFamily="Segoe UI"
                 FontSize="14"
-                Foreground="Black" />
+                Foreground="Black" PreviewTextInput="textPhonNomber_PreviewTextInput" />
             <Label
                 Grid.Column="0"
                 Width="72"

@@ -137,17 +137,39 @@ namespace View.Views
             }
             else if (string.IsNullOrEmpty(textName.Text) || string.IsNullOrEmpty(textLastName.Text) ||
                     string.IsNullOrEmpty(textCURP.Text) || string.IsNullOrEmpty(textAddress.Text) ||
-                    comBoxIdentificationType.SelectedItem == null)
+                    comBoxIdentificationType.SelectedItem == null || string.IsNullOrEmpty(textPhonNomber.Text))
             {
                 ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
             }
-            else
+            else if (ValidateNumber(textPhonNomber.Text))
             {
                 SaveInformation();
                 SaveImages();
 
-                ErrorManager.ShowInformation("Se ha guardado la informacion correctamente.");
+                ErrorManager.ShowInformation(MessageError.UPLOAD_SUCCESS);
             }
+        }
+
+        private bool ValidateNumber(string text)
+        {
+            var result = false;
+            try
+            {
+                var number = int.Parse(text);
+                if (number == 10)
+                {
+                    result = true;
+                }
+                else
+                {
+                    ErrorManager.ShowWarning(MessageError.INVALID_NUMBER);
+                }
+            }
+            catch (Exception)
+            {
+                ErrorManager.ShowWarning(MessageError.INVALID_NUMBER);
+            }
+            return result;
         }
 
         private void SaveImages()
@@ -189,7 +211,7 @@ namespace View.Views
         {
 
             _images[0] = null;
-            imgIdentificationOne.Source = new BitmapImage(new Uri("C:\\Users\\Eduar\\Source\\Repos\\EduartDC\\SistemaEmpenoFacil\\View\\Images\\photo.png"));
+            imgIdentificationOne.Source = new BitmapImage(new Uri("\\View\\Images\\photo.png"));
             btnSearch.IsEnabled = true;
             btnCleanImageOne.IsEnabled = false;
         }
@@ -197,9 +219,21 @@ namespace View.Views
         private void btnCleanImageTwo_Click(object sender, RoutedEventArgs e)
         {
             _images[1] = null;
-            imgIdentificationTwo.Source = new BitmapImage(new Uri("C:\\Users\\Eduar\\Source\\Repos\\EduartDC\\SistemaEmpenoFacil\\View\\Images\\photo.png"));
+            imgIdentificationTwo.Source = new BitmapImage(new Uri("\\View\\Images\\photo.png"));
             btnSearch.IsEnabled = true;
             btnCleanImageTwo.IsEnabled = false;
+        }
+
+
+
+        private void textPhonNomber_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            string inputText = e.Text;
+
+            if (!string.IsNullOrEmpty(inputText) && !decimal.TryParse(inputText, out _))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

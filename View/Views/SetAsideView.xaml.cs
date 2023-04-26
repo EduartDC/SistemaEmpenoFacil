@@ -54,6 +54,8 @@ namespace View.Views
             window.PrimaryContainer.IsHitTestVisible = false;
         }
 
+
+
         /*private void Button_Click_1(object sender, RoutedEventArgs e)
         {
         ImagesIdentification newImage = new ImagesIdentification();
