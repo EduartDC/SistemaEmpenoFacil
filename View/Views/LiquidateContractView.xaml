@@ -99,7 +99,7 @@
                     MinHeight="50"
                     MaxHeight="200" />
             </Grid.RowDefinitions>
-
+            
             <DataGrid
                 x:Name="tableCustomers"
                 Grid.Row="0"
@@ -159,6 +159,9 @@
 
                 </DataGrid.Columns>
             </DataGrid>
+            <Grid Grid.Row="0" Grid.Column="0" Background="#CCC" Margin="20,20,20,0"></Grid>
+            <Grid Grid.Row="1" Grid.Column="0" Background="#CCC" Margin="20,0,20,0"></Grid>
+            <Grid Grid.Row="2" Grid.Column="0" Background="#CCC" Margin="20,0,20,20"></Grid>
             <Label
                 Margin="40,108,0,0"
                 HorizontalAlignment="Left"
