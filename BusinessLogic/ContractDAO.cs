@@ -55,7 +55,7 @@ namespace BusinessLogic
                         connection.SaveChanges();
                     }
                 }
-                catch(DbUpdateException)
+                catch (DbUpdateException)
                 {
                     return MessageCode.ERROR;
                 }
@@ -67,22 +67,20 @@ namespace BusinessLogic
 
         public static Contract GetContract(int idContract)
         {
-            Contract contract= null;
+            var result = new Contract();
             if (Utilitys.VerifyConnection())
             {
-                try
+
+                using (var connection = new ConnectionModel())
                 {
-                    using(var connection = new ConnectionModel())
-                    {
-                        contract = connection.Contracts.Find(idContract);
-                    }
-                }
-                catch(DbUpdateException)
-                {
-                    return contract;
+                    result = connection.Contracts.Find(idContract);
                 }
             }
-            return contract;
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return result;
         }
 
         public static int ModifyContract(Contract contract, int idContract)

@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace View.Views
 {
     /// <summary>
-    /// Interaction logic for CutoffOperations.xaml
+    /// Interaction logic for AuthorizationView.xaml
     /// </summary>
-    public partial class CutoffOperations : Page
+    public partial class AuthorizationView : Page
     {
-
-        public CutoffOperations()
+        public AuthorizationView()
         {
             InitializeComponent();
-
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -32,9 +30,7 @@ namespace View.Views
 
         }
 
-
-
-        private void btnCutoff_Click(object sender, RoutedEventArgs e)
+        private void btnAuthorization_Click(object sender, RoutedEventArgs e)
         {
 
         }
