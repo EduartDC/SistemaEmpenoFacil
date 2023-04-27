@@ -88,7 +88,6 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="16"
-                Text="TextBox"
                 TextWrapping="Wrap" />
             <Label
                 Margin="179,10,0,0"
@@ -124,7 +123,7 @@
                 VerticalAlignment="Top"
                 Background="#215ECA"
                 Click="btnAuthorization_Click"
-                Content="Agregar"
+                Content="Autorizar"
                 FontSize="16"
                 FontWeight="Bold"
                 Foreground="White"
@@ -197,7 +196,6 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="16"
-                Text="TextBox"
                 TextWrapping="Wrap" />
         </Grid>
     </Grid>

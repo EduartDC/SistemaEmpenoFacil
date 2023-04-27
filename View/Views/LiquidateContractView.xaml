@@ -101,7 +101,7 @@
             </Grid.RowDefinitions>
 
             <DataGrid
-                x:Name="tableCustomers"
+                x:Name="tableBelongings"
                 Grid.Row="0"
                 Grid.Column="1"
                 Margin="20"
@@ -136,25 +136,25 @@
                     <DataGridTextColumn
                         Width="*"
                         MaxWidth="100"
-                        Binding="{Binding idCustomer}"
+                        Binding="{Binding idBelonging}"
                         Header="Id Prenda" />
                     <DataGridTextColumn
                         Width="*"
-                        Binding="{Binding firstName}"
-                        Header="Cescripcion" />
+                        Binding="{Binding description}"
+                        Header="Descripcion" />
                     <DataGridTextColumn
                         Width="*"
-                        Binding="{Binding lastName}"
+                        Binding="{Binding characteristics}"
                         Header="Caracterisiticas" />
                     <DataGridTextColumn
                         Width="*"
                         MaxWidth="130"
-                        Binding="{Binding curp}"
+                        Binding="{Binding appraisalValue}"
                         Header="Monto Avaluo" />
                     <DataGridTextColumn
                         Width="*"
                         MaxWidth="130"
-                        Binding="{Binding curp}"
+                        Binding="{Binding loanAmount}"
                         Header="Monto Prestamo" />
 
                 </DataGrid.Columns>
@@ -171,41 +171,34 @@
                     Content="Liquidar Contrato"
                     FontSize="24"
                     FontWeight="Bold" />
-                <Label x:Name="labelMount"
-                    Margin="25,110,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Mensualidades"
-                    FontSize="16"
-                    FontWeight="Bold" />
                 <Label x:Name="labelTime"
-                    Margin="25,0,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="tiempo transcurrido"
-                    FontSize="16"
-                    FontWeight="Bold" />
+                       Margin="25,149,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="Tiempo transcurrido"
+                       FontSize="16"
+                       FontWeight="Bold" />
                 <Label x:Name="labelDeadLine"
-                    Margin="25,186,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="fecha limite"
-                    FontSize="16"
-                    FontWeight="Bold" />
+                       Margin="25,113,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="fecha limite"
+                       FontSize="16"
+                       FontWeight="Bold" />
                 <Label x:Name="labelPayDay"
-                    Margin="25,222,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Fecha de pago"
-                    FontSize="16"
-                    FontWeight="Bold" />
+                       Margin="25,186,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="Fecha de pago"
+                       FontSize="16"
+                       FontWeight="Bold" />
                 <Label x:Name="labelSatartDate"
-                    Margin="25,74,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Fecha de Inicio"
-                    FontSize="16"
-                    FontWeight="Bold" />
+                       Margin="25,74,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="Fecha de Inicio"
+                       FontSize="16"
+                       FontWeight="Bold" />
             </Grid>
             <Grid
                 Grid.Row="1"
@@ -213,19 +206,19 @@
                 Margin="20,0,20,0"
                 Background="#CCC">
                 <Label x:Name="labelNameCustomer"
-                    Margin="41,55,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Cliente"
-                    FontSize="16"
-                    FontWeight="Bold" />
+                       Margin="41,55,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="Cliente"
+                       FontSize="16"
+                       FontWeight="Bold" />
                 <Label x:Name="labelCURPCustomer"
-                    Margin="41,93,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="CURP"
-                    FontSize="16"
-                    FontWeight="Bold" />
+                       Margin="41,93,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="CURP"
+                       FontSize="16"
+                       FontWeight="Bold" />
                 <Label
                     Margin="30,10,0,0"
                     HorizontalAlignment="Left"
@@ -243,10 +236,8 @@
                 x:Name="labelSubTotal"
                 Grid.Row="1"
                 Grid.Column="1"
-                Height="45"
-                Margin="20,0,0,194"
+                Margin="20,11,0,194"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Content="Label"
                 FontSize="26"
                 FontWeight="Bold" />
@@ -254,10 +245,8 @@
                 x:Name="labelIva"
                 Grid.Row="1"
                 Grid.Column="1"
-                Height="37"
-                Margin="55,0,0,151"
+                Margin="55,62,0,151"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Content="Label"
                 FontSize="20"
                 FontWeight="Bold" />
@@ -265,19 +254,9 @@
                 x:Name="labelTotal"
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="20,0,0,0"
+                Margin="20,104,0,0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Label"
-                FontSize="24"
-                FontWeight="Bold" />
-            <Label
-                x:Name="labelAmount"
-                Grid.Row="1"
-                Grid.Column="1"
-                Margin="20,0,0,61"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
+                VerticalAlignment="Top"
                 Content="Label"
                 FontSize="24"
                 FontWeight="Bold" />
@@ -357,17 +336,6 @@
                     </Button.Triggers>
                 </Button>
             </Grid>
-
-            <Label
-                x:Name="labelRemaining"
-                Grid.Row="1"
-                Grid.Column="1"
-                Margin="20,0,0,16"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Content="Label"
-                FontSize="24"
-                FontWeight="Bold" />
 
 
         </Grid>

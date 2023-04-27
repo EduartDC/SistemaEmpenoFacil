@@ -449,10 +449,10 @@ namespace View.Views
             newBelonging.GenericDescription = tbDescription.Text;
             newBelonging.Features = tbFeature.Text;
             newBelonging.SerialNumber = tbSerialNumber.Text;
-            newBelonging.Model = tbModel.Text;
+            newBelonging.Model = tbModel.Text;//no está en la BD
             newBelonging.ApraisalAmount = int.Parse(tbApraisalAmount.Text);
             newBelonging.LoanAmount = int.Parse(tbLoanAmount.Text);
-            newBelonging.PorcentLoan = ((int.Parse(tbApraisalAmount.Text)) * 100) / (int.Parse(tbLoanAmount.Text));
+            newBelonging.PorcentLoan = ((int.Parse(tbApraisalAmount.Text)) * 100) / (int.Parse(tbLoanAmount.Text));//no esta en la BD
             if (!edicion)
             {
                 belongingsList.Add(newBelonging);

@@ -20,31 +20,9 @@ namespace BusinessLogic
 
         }
 
-        public static Metric GetMetrics()
+        public static (int ,int) RegisterContract(Contract contract)
         {
-            Metric newMetric = new Metric();
-            try
-            {
-                using (var dataBase = new ConnectionModel())
-                {
-                    Metric metrics = dataBase.Metrics.First();
-                    if (metrics != null)
-                    {
-                        newMetric.IVA = metrics.IVA;
-                        newMetric.interestRate = metrics.interestRate;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                newMetric = null;
-                return newMetric;
-            }
-            return newMetric;
-        }
-
-        public static int RegisterContract(Contract contract)
-        {
+            int idObject = 0;
             if (Utilitys.VerifyConnection())
             {
                 try
@@ -53,36 +31,35 @@ namespace BusinessLogic
                     {
                         connection.Contracts.Add(contract);
                         connection.SaveChanges();
+                        idObject = contract.idContract;
                     }
                 }
-                catch(DbUpdateException)
+                catch (DbUpdateException)
                 {
-                    return MessageCode.ERROR;
+                    return (MessageCode.ERROR, idObject);
                 }
             }
             else
-                return MessageCode.CONNECTION_ERROR;
-            return MessageCode.SUCCESS;
+                return (MessageCode.CONNECTION_ERROR, idObject);
+            return (MessageCode.SUCCESS, idObject);
         }
 
-        public static Contract GetContract(string idContract)
+        public static Contract GetContract(int idContract)
         {
-            Contract contract= null;
+            var result = new Contract();
             if (Utilitys.VerifyConnection())
             {
-                try
+
+                using (var connection = new ConnectionModel())
                 {
-                    using(var connection = new ConnectionModel())
-                    {
-                        contract = connection.Contracts.Find(idContract);
-                    }
-                }
-                catch(DbUpdateException)
-                {
-                    return contract;
+                    result = connection.Contracts.Find(idContract);
                 }
             }
-            return contract;
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return result;
         }
 
     }
