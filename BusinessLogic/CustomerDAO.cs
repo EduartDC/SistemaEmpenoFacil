@@ -34,8 +34,8 @@ namespace BusinessLogic
                 {
                     var customer = connection.Customers.Find(selectedCustomer.idCustomer);
                     if (customer.address.Equals(selectedCustomer.address) ||
-                        customer.identification.Equals(selectedCustomer.identification) ||
-                        customer.telephonNumber.Equals(selectedCustomer.telephonNumber))
+                    customer.identification.Equals(selectedCustomer.identification) ||
+                    customer.telephonNumber.Equals(selectedCustomer.telephonNumber))
                     {
                         customer.address = selectedCustomer.address;
                         customer.identification = selectedCustomer.identification;
