@@ -20,31 +20,9 @@ namespace BusinessLogic
 
         }
 
-        public static Metric GetMetrics()
+        public static (int ,int) RegisterContract(Contract contract)
         {
-            Metric newMetric = new Metric();
-            try
-            {
-                using (var dataBase = new ConnectionModel())
-                {
-                    Metric metrics = dataBase.Metrics.First();
-                    if (metrics != null)
-                    {
-                        newMetric.IVA = metrics.IVA;
-                        newMetric.interestRate = metrics.interestRate;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                newMetric = null;
-                return newMetric;
-            }
-            return newMetric;
-        }
-
-        public static int RegisterContract(Contract contract)
-        {
+            int idObject = 0;
             if (Utilitys.VerifyConnection())
             {
                 try
@@ -53,16 +31,17 @@ namespace BusinessLogic
                     {
                         connection.Contracts.Add(contract);
                         connection.SaveChanges();
+                        idObject = contract.idContract;
                     }
                 }
                 catch(DbUpdateException)
                 {
-                    return MessageCode.ERROR;
+                    return (MessageCode.ERROR, idObject);
                 }
             }
             else
-                return MessageCode.CONNECTION_ERROR;
-            return MessageCode.SUCCESS;
+                return (MessageCode.CONNECTION_ERROR, idObject);
+            return (MessageCode.SUCCESS, idObject);
         }
 
     }

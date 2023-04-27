@@ -144,7 +144,7 @@ namespace BusinessLogic
                         newCustomer.firstName = customer1.firstName;
                         newCustomer.lastName = customer1.lastName;
                         newCustomer.identification = customer1.identification;
-                        newCustomer.telephonNumber = customer1.telephonNumber;
+                        newCustomer.telephonNumber = (int)customer1.telephonNumber;
                         resultCustomers.Add(newCustomer);
                     }
                 }

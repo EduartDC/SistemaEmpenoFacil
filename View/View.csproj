@@ -91,6 +91,9 @@
     <Compile Include="Views\FindArticles.xaml.cs">
       <DependentUpon>FindArticles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GenerateSalesReport.xaml.cs">
+      <DependentUpon>GenerateSalesReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GiveProfitToCustomer.xaml.cs">
       <DependentUpon>GiveProfitToCustomer.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FindArticles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GenerateSalesReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
