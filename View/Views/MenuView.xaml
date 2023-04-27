@@ -290,6 +290,7 @@
                                 FontSize="16"
                                 FontWeight="Bold"
                                 Text="Opciones" />
+                            
                         </StackPanel>
 
                     </MenuItem.Header>
@@ -298,6 +299,11 @@
                         Click="itemOptions_Click"
                         Header="Configuracion de Metricas"
                         Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem 
+                        x:Name="SalesReport"
+                        Click="GenerateSalesReport_Click"
+                        Header="Generar reporte de ventas "
+                        Style="{StaticResource MenuItemStyle}"/>
                 </MenuItem>
                 <MenuItem
                     x:Name="itemExit"
@@ -318,6 +324,11 @@
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
+                
+                    
+
+                    
+               
             </Menu>
 
         </StackPanel>

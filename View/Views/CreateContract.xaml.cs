@@ -20,6 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BusinessLogic;
 using View.Properties;
+using System.IO;
 
 namespace View.Views
 {
@@ -31,7 +32,8 @@ namespace View.Views
         private Metric metrics;
         private List<Domain.BelongingCreation.Belonging> belongingList = new List<Domain.BelongingCreation.Belonging>();
         private List<BitmapImage> bitmapImgList = new List<BitmapImage>();
-
+        //private List<BitmapImage> bitmapUtil = new List<BitmapImage>();//lista usada para pasar a byte y eliminar de lista sin alterar la original
+        private List<byte[]> byteImages = new List<byte[]>();
 
         private DateTime currentlyDate;//fecha actual
         private DateTime comercializationDate;//fecha de comercializacion-NO ESTA EN LA BD
@@ -41,10 +43,6 @@ namespace View.Views
         private int totalLoan = 0;
 
         private string totalPaymentForEndorsement = "";// total de pago por refrendo
-
-
-        private bool customerAcepted = false;
-        private bool dateAcepted = false;
 
 
 
@@ -170,7 +168,7 @@ namespace View.Views
 
         private void LoadMetrics()
         {
-            metrics = ContractDAO.GetMetrics();
+            metrics = MetricsDAO.recoverMetrics();
             if (metrics != null)
             {
                 tbInterests.Text = metrics.interestRate + "%";
@@ -201,7 +199,8 @@ namespace View.Views
                 }
                 else
                     ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
-            }else
+            }
+            else
             {
                 ErrorManager.ShowError(MessageError.CUSTOMER_NOT_INTRODUCED);
             }
@@ -271,6 +270,9 @@ namespace View.Views
             newContract.renewalFee = 0;//lo hace otro //renawalFee
             newContract.settlementAmount = 0;//lo hace otro //settlementAmount
             newContract.Customer_idCustomer = customer.idCustomer;//Customer_idCustomer
+            newContract.endorsementSettlementDates = tbDateEndorsementSettlement.Text;
+            newContract.paymentsSettlement = "Pagos1";//tbTotalPaymentForEndorsement
+            newContract.paymentsEndorsement = "Pagos1";// tbTotalPerformancePay
             SaveInfo(newContract);
             /*
              * faltaria guardar en la base un string para:
@@ -283,8 +285,8 @@ namespace View.Views
 
         private void SaveInfo(Contract contrat)
         {
-            int operationResult = ContractDAO.RegisterContract(contrat);
-            if (operationResult == MessageCode.ERROR)
+            (int operationResult, int idContract) = ContractDAO.RegisterContract(contrat);
+            if (operationResult == MessageCode.CONNECTION_ERROR)
             {
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
             }
@@ -293,9 +295,87 @@ namespace View.Views
                 ErrorManager.ShowError(MessageError.ERROR_ADD_OPERATION);
             else
             {
-                MessageBox.Show("Registro de contrato exitoso");
-                //lineas para limpiar campos o regresar a menu
+                SaveBelongings(idContract);
             }
+        }
+
+        private void SaveBelongings(int idContract)
+        {
+
+            List<Belonging> belongingsPrepared = new List<Belonging>();
+
+            foreach (var belonging in belongingList)
+            {
+                Belonging util = new Belonging();
+                util.category = belonging.Category;
+                util.characteristics = belonging.Features;
+                util.serialNumber = belonging.SerialNumber;
+                util.appraisalValue = belonging.ApraisalAmount;
+                util.loanAmount = belonging.LoanAmount;
+                util.description = belonging.GenericDescription;
+                util.Contract_idContract = idContract;
+                belongingsPrepared.Add(util);
+            }
+            (int result, List<int> idBelongings) = BelongingDAO.SaveBelongings(belongingsPrepared);
+            if (result == MessageCode.CONNECTION_ERROR)
+            {
+                ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
+                //cerrar frame
+            }
+            else
+            {
+                //bitmapUtil = bitmapImgList;
+                //for(int i=0; i<belongingsPrepared.Count; i++)
+                ConvertBitmapToBytes();
+                SaveImageBelongings(idBelongings);
+            }
+        }
+
+        private void SaveImageBelongings(List<int> idBelongingsSaved)
+        {
+            List<ImagesBelonging> imgBelongingsPrepared = new List<ImagesBelonging>();
+            List<byte[]> imagesClone = byteImages;
+            
+            for(int i = 0; i < idBelongingsSaved.Count;i++) 
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    ImagesBelonging util = new ImagesBelonging();
+                    util.imagen = imagesClone[0];
+                    util.Belonging_idBelonging = idBelongingsSaved[i];
+                    imgBelongingsPrepared.Add(util);
+                    imagesClone.RemoveAt(0);
+                }
+            }
+            int result = BelongingDAO.SaveimagesBelongings(imgBelongingsPrepared);
+            if (result == MessageCode.CONNECTION_ERROR)
+            {
+                ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
+            }
+            else
+                if (result == MessageCode.SUCCESS)
+            {
+                MessageBox.Show("IMAGENES REGISTRADAS");
+            }
+            else
+            {
+                ErrorManager.ShowWarning("ALGO SALIO MAL");
+            }
+        }
+
+        private void ConvertBitmapToBytes(/*int position*/)
+        {
+            for (int i = 0; i < bitmapImgList.Count; i++)
+            {
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    PngBitmapEncoder encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bitmapImgList[i]));
+                    encoder.Save(stream);
+                    byteImages.Add(stream.ToArray());
+                }
+            }
+
         }
 
 
