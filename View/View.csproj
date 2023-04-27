@@ -70,6 +70,9 @@
     <Compile Include="Views\AddCustomerBlackList.xaml.cs">
       <DependentUpon>AddCustomerBlackList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AuthorizationView.xaml.cs">
+      <DependentUpon>AuthorizationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConfigureMetrics.xaml.cs">
       <DependentUpon>ConfigureMetrics.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,9 @@
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ScanCodeView.xaml.cs">
+      <DependentUpon>ScanCodeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SetAsideView.xaml.cs">
       <DependentUpon>SetAsideView.xaml</DependentUpon>
     </Compile>
@@ -124,6 +130,10 @@
     <Page Include="Views\AddCustomerBlackList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AuthorizationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConfigureMetrics.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -166,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScanCodeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

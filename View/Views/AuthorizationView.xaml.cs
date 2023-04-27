@@ -16,23 +16,21 @@ using System.Windows.Shapes;
 namespace View.Views
 {
     /// <summary>
-    /// Interaction logic for LiquidateContractView.xaml
+    /// Interaction logic for AuthorizationView.xaml
     /// </summary>
-    public partial class LiquidateContractView : Page
+    public partial class AuthorizationView : Page
     {
-        public LiquidateContractView()
+        public AuthorizationView()
         {
             InitializeComponent();
-
         }
-
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void btnLiquidate_Click(object sender, RoutedEventArgs e)
+        private void btnAuthorization_Click(object sender, RoutedEventArgs e)
         {
 
         }

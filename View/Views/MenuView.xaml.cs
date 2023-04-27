@@ -27,7 +27,7 @@ namespace View.Views
 
         private void itemHome_Click(object sender, RoutedEventArgs e)
         {
-
+            Container.NavigationService.Navigate(new LiquidateContractView());
         }
 
         private void itemExit_Click(object sender, RoutedEventArgs e)

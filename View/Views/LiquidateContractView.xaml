@@ -99,7 +99,7 @@
                     MinHeight="50"
                     MaxHeight="200" />
             </Grid.RowDefinitions>
-            
+
             <DataGrid
                 x:Name="tableCustomers"
                 Grid.Row="0"
@@ -159,16 +159,86 @@
 
                 </DataGrid.Columns>
             </DataGrid>
-            <Grid Grid.Row="0" Grid.Column="0" Background="#CCC" Margin="20,20,20,0"></Grid>
-            <Grid Grid.Row="1" Grid.Column="0" Background="#CCC" Margin="20,0,20,0"></Grid>
-            <Grid Grid.Row="2" Grid.Column="0" Background="#CCC" Margin="20,0,20,20"></Grid>
-            <Label
-                Margin="40,108,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="Fecha Limite"
-                FontSize="16"
-                FontWeight="Bold" />
+            <Grid
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="20,20,20,0"
+                Background="#CCC">
+                <Label
+                    Margin="65,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Liquidar Contrato"
+                    FontSize="24"
+                    FontWeight="Bold" />
+                <Label x:Name="labelMount"
+                    Margin="25,110,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Mensualidades"
+                    FontSize="16"
+                    FontWeight="Bold" />
+                <Label x:Name="labelTime"
+                    Margin="25,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="tiempo transcurrido"
+                    FontSize="16"
+                    FontWeight="Bold" />
+                <Label x:Name="labelDeadLine"
+                    Margin="25,186,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="fecha limite"
+                    FontSize="16"
+                    FontWeight="Bold" />
+                <Label x:Name="labelPayDay"
+                    Margin="25,222,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Fecha de pago"
+                    FontSize="16"
+                    FontWeight="Bold" />
+                <Label x:Name="labelSatartDate"
+                    Margin="25,74,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Fecha de Inicio"
+                    FontSize="16"
+                    FontWeight="Bold" />
+            </Grid>
+            <Grid
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="20,0,20,0"
+                Background="#CCC">
+                <Label x:Name="labelNameCustomer"
+                    Margin="41,55,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Cliente"
+                    FontSize="16"
+                    FontWeight="Bold" />
+                <Label x:Name="labelCURPCustomer"
+                    Margin="41,93,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="CURP"
+                    FontSize="16"
+                    FontWeight="Bold" />
+                <Label
+                    Margin="30,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Informacion del Cliente"
+                    FontSize="22"
+                    FontWeight="Bold" />
+            </Grid>
+            <Grid
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="20,0,20,20"
+                Background="#CCC" />
             <Label
                 x:Name="labelSubTotal"
                 Grid.Row="1"
@@ -219,7 +289,7 @@
                     Margin="159,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Background="#D47F00"
+                    Background="Gray"
                     Click="btnCancel_Click"
                     Content="Cancelar"
                     FontSize="16"
@@ -242,7 +312,7 @@
                                 <Storyboard>
                                     <ColorAnimation
                                         Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                        To="#D47F00"
+                                        To="Gray"
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -250,15 +320,15 @@
                     </Button.Triggers>
                 </Button>
                 <Button
-                    x:Name="btnPay"
+                    x:Name="btnLiquidate"
                     Width="154"
                     Height="40"
                     Margin="0,0,220,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Background="#D47F00"
-                    Click="Button_Click"
-                    Content="Pagar"
+                    Background="#215ECA"
+                    Click="btnLiquidate_Click"
+                    Content="Liquidar"
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="White"
@@ -279,7 +349,7 @@
                                 <Storyboard>
                                     <ColorAnimation
                                         Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                        To="#D47F00"
+                                        To="#215ECA"
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -299,7 +369,7 @@
                 FontSize="24"
                 FontWeight="Bold" />
 
-            
+
         </Grid>
     </Grid>
 </Page>
