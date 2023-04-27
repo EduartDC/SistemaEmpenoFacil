@@ -21,8 +21,10 @@ namespace View.Views
     public partial class CreateCustomerRecord : Page
     {
 
-        private bool imageOne = false;
-        private bool imageTwo = false;
+        private bool imageOneValidation = false;
+        private bool imageTwoValidation = false;
+        private BitmapImage imageOneCopy;
+        private BitmapImage imageTwoCopy;
 
         public CreateCustomerRecord()
         {
@@ -56,7 +58,8 @@ namespace View.Views
                 bitMap.UriSource = new Uri(rute);
                 bitMap.EndInit();
                 componentImageOne.Source = bitMap;
-                imageOne = true;
+                imageOneValidation = true;
+                imageOneCopy = bitMap;
             }
 
             }
@@ -75,10 +78,17 @@ namespace View.Views
                 bitMap.UriSource = new Uri(rute);
                 bitMap.EndInit();
                 componentImageTwo.Source = bitMap;
-                imageTwo = true;
+                imageTwoValidation = true;
+                imageTwoCopy = bitMap;
             }
         }
 
-        
+        private void text_telephonNumber_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            if(!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
