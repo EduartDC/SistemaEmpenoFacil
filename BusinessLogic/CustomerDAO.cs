@@ -17,11 +17,39 @@ namespace BusinessLogic
         private static NewLog _log = new NewLog();
         public static int AddCustomer(Customer newCustomer)
         {
-            var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            int result = -1;
+            try
             {
-
+                using (var database = new ConnectionModel())
+                {
+                    var addNewCustomer = database.Customers.Add(new Customer()
+                    {
+                        firstName = newCustomer.firstName,
+                        lastName = newCustomer.lastName,
+                        curp = newCustomer.curp,
+                        blackList = newCustomer.blackList,
+                        telephonNumber = newCustomer.telephonNumber,
+                        address = newCustomer.address,
+                        cumulativeProfit = "0",
+                        identification = newCustomer.identification
+                    });
+                    database.SaveChanges();
+                    result = addNewCustomer.idCustomer;
+                }
+                
             }
+            catch(ArgumentNullException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (DbUpdateException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (EntityException ex)
+            {
+                _log.Add(ex.ToString());
+            }                   
             return result;
         }
 

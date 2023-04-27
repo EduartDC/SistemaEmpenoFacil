@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessLogic;
+using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,7 +43,22 @@ namespace View.Views
 
         private void Btn_Add_Click(object sender, RoutedEventArgs e)
         {
+            if (ValidateCamps())
+            {
+                Domain.Customer customer = new Domain.Customer
+                {
+                    firstName = text_Name.Text.Trim(),
+                    lastName = text_LastName.Text.Trim(),
+                    curp = text_CURP.Text.Trim(),
+                    blackList = false,
+                    telephonNumber = long.Parse(text_telephonNumber.Text.Trim()),
+                    address = text_Address.Text.Trim(),
+                    identification = comBox_Identification.SelectedItem.ToString()
+                };
 
+
+
+            }
         }
 
         private void Btn_AddImage1_Click(object sender, RoutedEventArgs e)
@@ -83,12 +100,54 @@ namespace View.Views
             }
         }
 
-        private void text_telephonNumber_TextInput(object sender, TextCompositionEventArgs e)
+
+
+        private bool ValidateCamps()
         {
-            if(!char.IsDigit(e.Text, e.Text.Length - 1))
+            label_ErrorName.Visibility = Visibility.Hidden;
+            label_ErrorLastName.Visibility = Visibility.Hidden;
+            label_ErrorAddress.Visibility = Visibility.Hidden;
+            label_ErrorCurp.Visibility = Visibility.Hidden;
+            label_ErrorTelephonNumber.Visibility = Visibility.Hidden;
+            label_ErrorIdentification.Visibility = Visibility.Hidden;
+            bool result = true;
+            if (!FormatValidation.ValidateFormat(text_Name.Text.Trim(), "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
             {
-                e.Handled = true;
+                result = false;
+                label_ErrorName.Visibility = Visibility.Visible;
             }
+            if(!FormatValidation.ValidateFormat(text_LastName.Text.Trim(), "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
+            {
+                result = false;
+                label_ErrorLastName.Visibility = Visibility.Visible;
+            }
+            if(!FormatValidation.ValidateFormat(text_CURP.Text.Trim(), "^[A-Z]{4}[0-9]{6}[H,M][A-Z]{5}[0-9]{2}$"))
+            {
+                result = false;
+                label_ErrorCurp.Visibility = Visibility.Visible;
+            }
+            if(!FormatValidation.ValidateFormat(text_Address.Text.Trim(), "^[0-9]+\\s+([a-zA-Z]+\\s)*[a-zA-Z]+$"))
+            {
+                result = false;
+                label_ErrorAddress.Visibility = Visibility.Visible;
+            }
+            if(!FormatValidation.ValidateFormat(text_telephonNumber.Text.Trim(), "^[0-9]+$"))
+            {
+                result = false;
+                label_ErrorTelephonNumber.Visibility = Visibility.Visible;
+            }
+            if (comBox_Identification.SelectedIndex == -1)
+            {
+                result = false;
+                label_ErrorIdentification.Visibility = Visibility.Visible;
+            }
+            if(!imageOneValidation || !imageTwoValidation)
+            {
+                result = false;
+                MessageBox.Show("Favor de agregar las imagenes de la identificación del cliente");
+            }
+            return result;
         }
+        
     }
 }

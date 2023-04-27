@@ -31,19 +31,19 @@
         <Label Content="Dirección*:" HorizontalAlignment="Left" Margin="64,306,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
         <TextBox Name="text_Address" MaxLength="50" HorizontalAlignment="Left" Margin="186,314,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" FontSize="20"/>
         <Label Content="Telefono*:" HorizontalAlignment="Left" Margin="64,400,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox Name="text_telephonNumber"  MaxLength="10" HorizontalAlignment="Left" Margin="186,408,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" FontSize="20"/>
+        <TextBox Name="text_telephonNumber"  MaxLength="10" HorizontalAlignment="Left" Margin="186,408,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" FontSize="20" />
         <Label Content="Identificación*:" HorizontalAlignment="Left" Margin="64,484,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
         <ComboBox Name="comBox_Identification" HorizontalAlignment="Left" Margin="237,484,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" FontSize="20" Height="37"/>
         <Image x:Name="componentImageOne" Height="239" Margin="468,56,330,0" Grid.Row="1" VerticalAlignment="Top" Width="402" Source="/Icons/photo.png" />
         <Image x:Name="componentImageTwo" Height="239" Margin="468,300,330,0" Grid.Row="1" VerticalAlignment="Top" Width="402" Source="/Icons/photo.png"/>
         <Button Name="btn_AddImage1"  Background="LightGreen" Content="+" HorizontalAlignment="Left" Margin="964,173,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20" Height="50" Width="50" Click="Btn_AddImage1_Click"/>
         <Button x:Name="btn_AddImage2"  Background="LightGreen" Content="+" HorizontalAlignment="Left" Margin="964,419,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20" Height="50" Width="50" Click="Btn_AddImage2_Click"/>
-        <Label Name="label_ErrorCurp" Content="La CURP solo puede incluir letras mayusculas y numeros" Visibility="Visible" HorizontalAlignment="Left" Margin="139,262,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
-        <Label Name="label_ErrorName" Content="El nombre solo puede incluir letras" Visibility="Visible" HorizontalAlignment="Left" Margin="183,98,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
-        <Label Name="label_ErrorLastName" Content="Los apellidos solo puede incluir letras" Visibility="Visible" HorizontalAlignment="Left" Margin="173,178,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
-        <Label Name="label_ErrorAddress" Content="Error con el formarto de la dirección" Visibility="Visible" HorizontalAlignment="Left" Margin="163,348,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
-        <Label Name="label_ErrorTelephonNumber" Content="El telefono solo acepta numeros" Visibility="Visible" HorizontalAlignment="Left" Margin="177,442,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
-        <Label Name="label_ErrorIdentification" Content="Selecciona un tipo de identificación" Visibility="Visible" HorizontalAlignment="Left" Margin="212,517,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
+        <Label Name="label_ErrorCurp" Content="La CURP solo puede incluir letras mayusculas y numeros" Visibility="Hidden" HorizontalAlignment="Left" Margin="139,262,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
+        <Label Name="label_ErrorName" Content="El nombre solo puede incluir letras sin acentos" Visibility="Hidden" HorizontalAlignment="Left" Margin="183,98,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
+        <Label Name="label_ErrorLastName" Content="Los apellidos solo puede incluir letras sin acentos" Visibility="Hidden" HorizontalAlignment="Left" Margin="173,178,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
+        <Label Name="label_ErrorAddress" Content="La dirección debe incluir primero numero de la casa seguido del nombre de la calle" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,348,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="14" Foreground="Red"/>
+        <Label Name="label_ErrorTelephonNumber" Content="El telefono solo acepta numeros" Visibility="Hidden" HorizontalAlignment="Left" Margin="177,442,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
+        <Label Name="label_ErrorIdentification" Content="Selecciona un tipo de identificación" Visibility="Hidden" HorizontalAlignment="Left" Margin="212,517,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="Red"/>
         <Button Content="Salir" HorizontalAlignment="Left" Margin="60,30,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Width="97" Click="Btn_Exit_Click"/>
         <Button  Content="Agregar" HorizontalAlignment="Right" Margin="0,30,50,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Width="111" Click="Btn_Add_Click"/>
     </Grid>
