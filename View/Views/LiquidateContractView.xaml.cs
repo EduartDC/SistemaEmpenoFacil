@@ -26,22 +26,13 @@ namespace View.Views
 
         }
 
-        private void itemHome_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void itemExit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnLiquidate_Click(object sender, RoutedEventArgs e)
         {
 
         }

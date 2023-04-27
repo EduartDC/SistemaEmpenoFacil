@@ -31,15 +31,7 @@ namespace View.Views
 
         }
 
-        private void itemHome_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-
-        private void itemExit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -75,6 +67,11 @@ namespace View.Views
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnPay_Click(object sender, RoutedEventArgs e)
         {
 
         }

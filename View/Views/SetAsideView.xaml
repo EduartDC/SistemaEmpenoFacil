@@ -625,7 +625,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Background="#D47F00"
-                    Click="Button_Click"
+                    Click="btnPay_Click"
                     Content="Pagar"
                     FontSize="16"
                     FontWeight="Bold"

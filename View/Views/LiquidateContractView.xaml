@@ -320,15 +320,15 @@
                     </Button.Triggers>
                 </Button>
                 <Button
-                    x:Name="btnPay"
+                    x:Name="btnLiquidate"
                     Width="154"
                     Height="40"
                     Margin="0,0,220,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Background="#D47F00"
-                    Click="Button_Click"
-                    Content="Pagar"
+                    Click="btnLiquidate_Click"
+                    Content="Liquidar"
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="White"
