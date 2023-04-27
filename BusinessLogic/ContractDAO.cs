@@ -65,7 +65,7 @@ namespace BusinessLogic
             return MessageCode.SUCCESS;
         }
 
-        public static Contract GetContract(string idContract)
+        public static Contract GetContract(int idContract)
         {
             Contract contract= null;
             if (Utilitys.VerifyConnection())
@@ -83,6 +83,29 @@ namespace BusinessLogic
                 }
             }
             return contract;
+        }
+
+        public static int ModifyContract(Contract contract, int idContract)
+        {
+            var result = MessageCode.ERROR;
+            if (Utilitys.VerifyConnection())
+            {
+                try{
+                    using(var connection = new ConnectionModel())
+                    {
+                        var oldContract  = connection.Contracts.Find(idContract);
+                        oldContract = contract;
+                        connection.Entry(oldContract).State = System.Data.Entity.EntityState.Modified;
+                        result = connection.SaveChanges();
+                        return result;
+                    }
+                }
+                catch(DbUpdateException)
+                {
+                    return result;
+                }
+            }
+            return result;
         }
 
     }
