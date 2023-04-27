@@ -86,7 +86,14 @@ namespace View.Views
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            window.PrimaryContainer.Effect = blurEffect;
+            (App.Current as App)._cashOnHand = 1000;
+            window.SecundaryContainer.Navigate(new TransactionView(MessageCode.OPERATION_SEAL, 658.50));
+            //window.SecundaryContainer.Navigate(new CustomerView(6));
+            window.PrimaryContainer.IsHitTestVisible = false;
         }
 
         public void ScanCode(string code)

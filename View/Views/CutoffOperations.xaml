@@ -235,7 +235,7 @@
                     Margin="159,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Background="#D47F00"
+                    Background="Gray"
                     Click="btnCancel_Click"
                     Content="Cancelar"
                     FontSize="16"
@@ -258,7 +258,7 @@
                                 <Storyboard>
                                     <ColorAnimation
                                         Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                        To="#D47F00"
+                                        To="Gray"
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -272,7 +272,7 @@
                     Margin="0,0,220,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Background="#D47F00"
+                    Background="#215ECA"
                     Click="btnCutoff_Click"
                     Content="Terminar Turno"
                     FontSize="16"
@@ -285,7 +285,7 @@
                                 <Storyboard>
                                     <ColorAnimation
                                         Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                        To="Red"
+                                        To="Green"
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -295,7 +295,7 @@
                                 <Storyboard>
                                     <ColorAnimation
                                         Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                        To="#D47F00"
+                                        To="#215ECA"
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>

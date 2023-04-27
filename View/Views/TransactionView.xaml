@@ -263,7 +263,7 @@
                     Margin="266,498,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Background="#D47F00"
+                    Background="#215ECA"
                     Click="btnPay_Click"
                     Content="Pagar"
                     FontSize="16"
@@ -286,7 +286,7 @@
                                 <Storyboard>
                                     <ColorAnimation
                                         Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                        To="#D47F00"
+                                        To="#215ECA"
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -301,7 +301,7 @@
                     Margin="25,498,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Background="#D47F00"
+                    Background="Gray"
                     Click="btnCancel_Click"
                     Content="Cancelar"
                     FontSize="16"
@@ -324,7 +324,7 @@
                                 <Storyboard>
                                     <ColorAnimation
                                         Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                        To="#D47F00"
+                                        To="Gray"
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>

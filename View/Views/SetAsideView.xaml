@@ -407,10 +407,10 @@
                 Margin="84,86,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Background="#D47F00"
+                Background="Gray"
                 Click="btnAddCustomer_Click"
                 Content="Registrar Cliente"
-                FontSize="16"
+                FontSize="14"
                 FontWeight="Bold"
                 Foreground="White"
                 Style="{StaticResource RoundedButtonStyle}">
@@ -420,7 +420,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="Red"
+                                    To="#215ECA"
                                     Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -430,7 +430,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="#D47F00"
+                                    To="Gray"
                                     Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -445,10 +445,10 @@
                 Margin="246,86,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Background="#D47F00"
+                Background="#215ECA"
                 Click="btnSearch_Click"
                 Content="Buscar"
-                FontSize="16"
+                FontSize="14"
                 FontWeight="Bold"
                 Foreground="White"
                 RenderTransformOrigin="0.459,0.065"
@@ -459,7 +459,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="Red"
+                                    To="Green"
                                     Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -469,7 +469,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="#D47F00"
+                                    To="#215ECA"
                                     Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -562,7 +562,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="Red"
+                                    To="Green"
                                     Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -587,7 +587,7 @@
                     Margin="159,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Background="#D47F00"
+                    Background="Gray"
                     Click="btnCancel_Click"
                     Content="Cancelar"
                     FontSize="16"
@@ -610,7 +610,7 @@
                                 <Storyboard>
                                     <ColorAnimation
                                         Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                        To="#D47F00"
+                                        To="Gray"
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -624,7 +624,7 @@
                     Margin="0,0,220,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Background="#D47F00"
+                    Background="#215ECA"
                     Click="btnPay_Click"
                     Content="Pagar"
                     FontSize="16"
@@ -637,7 +637,7 @@
                                 <Storyboard>
                                     <ColorAnimation
                                         Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                        To="Red"
+                                        To="Green"
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -647,7 +647,7 @@
                                 <Storyboard>
                                     <ColorAnimation
                                         Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                        To="#D47F00"
+                                        To="#215ECA"
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
