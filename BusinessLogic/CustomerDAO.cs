@@ -34,7 +34,7 @@ namespace BusinessLogic
                         identification = newCustomer.identification
                     });
                     database.SaveChanges();
-                    result = addNewCustomer.idCustomer;
+                    result = newCustomer.idCustomer;
                 }
                 
             }
