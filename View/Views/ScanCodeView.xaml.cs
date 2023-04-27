@@ -52,7 +52,7 @@ namespace View.Views
         {
             // Lógica para buscar el código
             string code = "1234"; // Este es el código que encontraste
-            communication.test(code);
+            communication.ScanCode(code);
         }
         public void CommunicacionPages(MessageService communication)
         {

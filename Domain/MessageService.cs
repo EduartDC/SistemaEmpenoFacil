@@ -9,6 +9,7 @@ namespace Domain
     public interface MessageService
     {
 
-        void test(string code);
+        void ScanCode(string code);
+        void Authorization(bool result);
     }
 }

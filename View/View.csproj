@@ -70,6 +70,9 @@
     <Compile Include="Views\AddCustomerBlackList.xaml.cs">
       <DependentUpon>AddCustomerBlackList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AuthorizationView.xaml.cs">
+      <DependentUpon>AuthorizationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConfigureMetrics.xaml.cs">
       <DependentUpon>ConfigureMetrics.xaml</DependentUpon>
     </Compile>
@@ -127,6 +130,10 @@
     <Page Include="Views\AddCustomerBlackList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AuthorizationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConfigureMetrics.xaml">
       <Generator>MSBuild:Compile</Generator>
