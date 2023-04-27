@@ -88,8 +88,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition
                     Height="*"
-                    MinHeight="350"
-                    MaxHeight="450" />
+                    MinHeight="250"
+                    MaxHeight="350" />
                 <RowDefinition
                     Height="Auto"
                     MinHeight="250"
