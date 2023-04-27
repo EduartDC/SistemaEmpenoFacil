@@ -9,6 +9,7 @@ namespace Domain.Communitation
     public interface Communication
     {
         //comunicacion entre CU06Crear registro prendario y CU02Crear contratos
-        void refreshBelongings(List<Belonging> belongingsList , List<BitmapImage> bitmapImgList);
+        void refreshBelongings(List<Belonging> belongingsList, List<BitmapImage> bitmapImgList);
+
     }
 }

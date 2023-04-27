@@ -1,8 +1,10 @@
 ﻿using BusinessLogic;
 using DataAcces;
+using Domain;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,8 +25,10 @@ namespace View.Views
     /// <summary>
     /// Interaction logic for SetAsideView.xaml
     /// </summary>
-    public partial class SetAsideView : Page
+    public partial class SetAsideView : Page, MessageService
     {
+
+
         public SetAsideView()
         {
             InitializeComponent();
@@ -32,6 +36,15 @@ namespace View.Views
         }
 
 
+
+
+
+        private void OnCodeFound(string code)
+        {
+            // Actualiza el DataGrid con el código encontrado
+            // ...
+            Console.WriteLine(code);
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -53,7 +66,18 @@ namespace View.Views
 
         private void btnAddArticle_Click(object sender, RoutedEventArgs e)
         {
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            window.PrimaryContainer.Effect = blurEffect;
 
+            ScanCodeView scan = new ScanCodeView();
+            scan.CommunicacionPages(this);
+
+
+            window.SecundaryContainer.Navigate(scan);
+
+            window.PrimaryContainer.IsHitTestVisible = false;
         }
 
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
@@ -74,6 +98,11 @@ namespace View.Views
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void test(string code)
+        {
+            Console.WriteLine(code);
         }
 
 
