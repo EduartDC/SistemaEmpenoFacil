@@ -65,5 +65,25 @@ namespace BusinessLogic
             return MessageCode.SUCCESS;
         }
 
+        public static Contract GetContract(string idContract)
+        {
+            Contract contract= null;
+            if (Utilitys.VerifyConnection())
+            {
+                try
+                {
+                    using(var connection = new ConnectionModel())
+                    {
+                        contract = connection.Contracts.Find(idContract);
+                    }
+                }
+                catch(DbUpdateException)
+                {
+                    return contract;
+                }
+            }
+            return contract;
+        }
+
     }
 }
