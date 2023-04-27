@@ -38,19 +38,36 @@ namespace View.Views
         private void ShowContract(int idContract)
         {
             Contract contract = ContractDAO.GetContract(idContract);
-            labelEndorsementAmount.Content = GetAmounts(contract.paymentsEndorsement); // monto de refrendo buscar el monto de refrendo
+            labelEndorsementAmount.Content = GetAmounts(contract.paymentsEndorsement, contract.endorsementSettlementDates); // monto de refrendo buscar el monto de refrendo
             labelLoanAmount.Content = contract.loanAmount.ToString() + " $"; // monto de prestamo
-            labelSettlementAmount.Content= GetAmounts(contract.paymentsSettlement); //monto de liquidacion buscar el monto de liquidacion\
+            labelSettlementAmount.Content= GetAmounts(contract.paymentsSettlement, contract.endorsementSettlementDates); //monto de liquidacion buscar el monto de liquidacion\
             Customer customer = CustomerDAO.GetCustomer(contract.Customer_idCustomer);
             labelClientName.Content = customer.firstName + " " + customer.lastName;
             labelPawnNumber.Content = contract.idContract;
             actualContract = contract;
         }
 
-        private string GetAmounts(string amounts)
+        private string GetAmounts(string amounts, string endorsementSettlementsDates)
         {
+            string[] listDates = endorsementSettlementsDates.Split(';');
             string[] listAmounts = amounts.Split(';');
-            return listAmounts[0];
+            DateTime actualDate = DateTime.Now;
+            int indexAmount = 0;
+            for(int i=0; i<listDates.Length; i++)
+            {
+                int result = DateTime.Compare(DateTime.Parse(listDates[i]), actualDate);
+                if(result == 0)
+                {
+                    indexAmount = i;
+                    break;
+                }else if(result > 0)
+                {
+                    indexAmount = i - 1;
+                    break;
+                }
+            }
+            DateTime deadlineDate = actualContract.deadlineDate;
+            return listAmounts[indexAmount];
         }
 
         private void EndorseContractButtonEvent(object sender, RoutedEventArgs e)
