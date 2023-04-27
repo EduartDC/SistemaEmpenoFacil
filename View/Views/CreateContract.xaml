@@ -306,7 +306,9 @@
                 TextWrapping="Wrap" 
                 VerticalAlignment="Top"
                 Width="120" 
-                BorderBrush="#00ABADB3"/>
+                BorderBrush="#00ABADB3"
+                />
+            
             <Label
                 Content="Intereses"
                 HorizontalAlignment="Left"
@@ -477,6 +479,7 @@
             <Rectangle HorizontalAlignment="Left" Height="160" Margin="580,45,0,0" Grid.Row="3" Stroke="#FF330099" VerticalAlignment="Top" Width="1" />
             <Rectangle HorizontalAlignment="Left" Height="160" Margin="742,45,0,0" Grid.Row="3" Stroke="#FF330099" VerticalAlignment="Top" Width="1" />
             <Rectangle HorizontalAlignment="Left" Height="160" Margin="908,45,0,0" Grid.Row="3" Stroke="#FF330099" VerticalAlignment="Top" Width="1" />
+            <MediaElement HorizontalAlignment="Left" Height="100" Margin="1287,355,0,0" Grid.Row="3" VerticalAlignment="Top" Width="100"/>
 
             <!--<TextBox x:Name="lbTextBox" Text="Introduce tu texto aquí"
             Foreground="Gray"
