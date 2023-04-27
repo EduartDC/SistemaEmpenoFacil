@@ -165,7 +165,8 @@
                 BorderThickness="0,0,0,2"
                 FontFamily="Segoe UI"
                 FontSize="14"
-                Foreground="Black" />
+                Foreground="Black"
+                PreviewTextInput="textPhonNomber_PreviewTextInput" />
             <Label
                 Grid.Column="0"
                 Width="72"
@@ -246,7 +247,7 @@
                 Margin="114,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Background="#FF2F5990"
+                Background="#D47F00"
                 Click="btnSearchImagen_Click"
                 Content="Seleccionar Imagen"
                 FontSize="14"
@@ -258,7 +259,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="#FF5768E6"
+                                    To="Green"
                                     Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -268,7 +269,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="Blue"
+                                    To="#D47F00"
                                     Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -281,7 +282,7 @@
                 MaxHeight="150"
                 Margin="750,0,150,0"
                 VerticalAlignment="Center"
-                Source="/Images/photo.png" />
+                Source="/Icons/photo.png" />
 
             <Image
                 x:Name="imgIdentificationOne"
@@ -289,7 +290,7 @@
                 MaxHeight="150"
                 Margin="410,0,490,0"
                 VerticalAlignment="Center"
-                Source="/Images/photo.png" />
+                Source="/Icons/photo.png" />
             <Button
                 x:Name="btnCleanImageOne"
                 Grid.Row="0"
@@ -303,7 +304,7 @@
                 Style="{StaticResource RoundedButtonStyle}">
                 <Button.Background>
 
-                    <ImageBrush ImageSource="/Images/remove.png" />
+                    <ImageBrush ImageSource="/Icons/remove.png" />
                 </Button.Background>
 
             </Button>
@@ -320,7 +321,7 @@
                 Style="{StaticResource RoundedButtonStyle}">
                 <Button.Background>
 
-                    <ImageBrush ImageSource="/Images/remove.png" />
+                    <ImageBrush ImageSource="/Icons/remove.png" />
                 </Button.Background>
 
             </Button>
@@ -339,7 +340,7 @@
                 Height="34"
                 Margin="627,33,300,0"
                 VerticalAlignment="Top"
-                Background="#FF9900"
+                Background="#215ECA"
                 Click="btnSave_Click"
                 Content="Guardar"
                 FontSize="16"
@@ -361,7 +362,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="#FF9900"
+                                    To="#215ECA"
                                     Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -376,7 +377,7 @@
                 VerticalAlignment="Top"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                Background="#D47F00"
+                Background="Gray"
                 Click="btnCancel_Click"
                 Content="Cancelar"
                 FontSize="16"
@@ -398,7 +399,7 @@
                             <Storyboard>
                                 <ColorAnimation
                                     Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="#D47F00"
+                                    To="Gray"
                                     Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>

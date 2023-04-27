@@ -20,13 +20,17 @@ namespace BusinessLogic
             return returl;
         }
 
+
         public static (int, List<int>) SaveBelongings(List<Belonging> belongingList)
         {
             List<int> idBelongings = new List<int>();
+
+
             if (Utilitys.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
+
                     connection.Belongings.AddRange(belongingList);
                     connection.SaveChanges();
                     foreach (var util in belongingList)
@@ -52,6 +56,24 @@ namespace BusinessLogic
             else
                 return MessageCode.CONNECTION_ERROR;
             return MessageCode.SUCCESS;
+
+        }
+
+        public static List<Belonging> GetAllBelongingsFromContract(int idContract)
+        {
+            List<Belonging> belongings = new List<Belonging>();
+            if (Utilitys.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    belongings = connection.Belongings.Where(b => b.Contract_idContract == idContract).ToList();
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return belongings;
         }
     }
 }

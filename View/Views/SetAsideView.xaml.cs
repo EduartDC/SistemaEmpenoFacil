@@ -1,8 +1,10 @@
 ﻿using BusinessLogic;
 using DataAcces;
+using Domain;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,27 +25,67 @@ namespace View.Views
     /// <summary>
     /// Interaction logic for SetAsideView.xaml
     /// </summary>
-    public partial class SetAsideView : Page
+    public partial class SetAsideView : Page, MessageService
     {
+
+
         public SetAsideView()
         {
             InitializeComponent();
 
         }
 
-        private void itemHome_Click(object sender, RoutedEventArgs e)
+        /*private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        var window = (MainWindow)Application.Current.MainWindow;
+        BlurEffect blurEffect = new BlurEffect();
+        blurEffect.Radius = 5;
+        window.PrimaryContainer.Effect = blurEffect;
+        (App.Current as App)._cashOnHand = 1000;
+        window.SecundaryContainer.Navigate(new TransactionView(MessageCode.OPERATION_SEAL, 658.50));
+        //window.SecundaryContainer.Navigate(new CustomerView(6));
+        window.PrimaryContainer.IsHitTestVisible = false;
+        }*/
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void itemExit_Click(object sender, RoutedEventArgs e)
+        private void btnAddArticle_Click(object sender, RoutedEventArgs e)
+        {
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            window.PrimaryContainer.Effect = blurEffect;
+
+            ScanCodeView scan = new ScanCodeView();
+            scan.CommunicacionPages(this);
+
+
+            window.SecundaryContainer.Navigate(scan);
+
+            window.PrimaryContainer.IsHitTestVisible = false;
+        }
+
+        private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnPay_Click(object sender, RoutedEventArgs e)
+        {
             var window = (MainWindow)Application.Current.MainWindow;
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
@@ -53,6 +95,18 @@ namespace View.Views
             //window.SecundaryContainer.Navigate(new CustomerView(6));
             window.PrimaryContainer.IsHitTestVisible = false;
         }
+
+        public void ScanCode(string code)
+        {
+            Console.WriteLine(code);
+        }
+
+        public void Authorization(bool result)
+        {
+            throw new NotImplementedException();
+        }
+
+
 
         /*private void Button_Click_1(object sender, RoutedEventArgs e)
         {

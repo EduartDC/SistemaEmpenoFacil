@@ -31,8 +31,8 @@ namespace View
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.WindowState = WindowState.Maximized;
             PrimaryContainer.NavigationService.Navigate(new MenuView());
-            this.MinWidth = 1200;
-            this.MinHeight = 800;
+            this.MinWidth = 1366;
+            this.MinHeight = 850;
         }
 
     }

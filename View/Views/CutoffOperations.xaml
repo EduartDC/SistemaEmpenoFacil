@@ -9,25 +9,302 @@
       d:DesignWidth="1366"
       Title="CutoffOperations">
 
-    <Grid>
+    <Page.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                    To="1.1"
+                                    Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                    To="1.1"
+                                    Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                    To="1"
+                                    Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                    To="1"
+                                    Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid Background="White">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Margin="0,26,0,0" Background="White">
+        <!--  Contenido principal  -->
+        <Grid Grid.Row="2" Grid.Column="0">
+            <!--  Agrega tus elementos de contenido principal aquí  -->
+
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="380" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="*"
+                    MinHeight="350"
+                    MaxHeight="450" />
+                <RowDefinition
+                    Height="Auto"
+                    MinHeight="250"
+                    MaxHeight="250" />
+                <RowDefinition
+                    Height="*"
+                    MinHeight="50"
+                    MaxHeight="200" />
+            </Grid.RowDefinitions>
 
-            <!--  Contenido principal  -->
-            <Grid Background="Black">
-                <!--  Agrega tus elementos de contenido principal aquí  -->
-                <Image Source="/Images/EF_Dinero_logo.png" />
+            <DataGrid
+                x:Name="tableCustomers"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="20"
+                AlternatingRowBackground="#E0E0E0"
+                AutoGenerateColumns="False"
+                Background="#F5F5F5"
+                BorderBrush="#2E2E2E"
+                BorderThickness="2,2,2,2"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                CanUserResizeRows="False"
+                HeadersVisibility="Column"
+                ItemsSource="{Binding Items}"
+                RowHeaderWidth="0">
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Foreground" Value="#FFFFFF" />
+                        <Setter Property="Background" Value="#2E2E2E" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Height" Value="40" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Foreground" Value="#000000" />
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="Padding" Value="10,0,0,0" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        MaxWidth="100"
+                        Binding="{Binding idCustomer}"
+                        Header="Id Operacion" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding firstName}"
+                        Header="Concepto" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding lastName}"
+                        Header="Descripcion" />
+                    <DataGridTextColumn
+                        Width="*"
+                        MaxWidth="130"
+                        Binding="{Binding curp}"
+                        Header="Monto Fecha/hora" />
+                    <DataGridTextColumn
+                        Width="*"
+                        MaxWidth="130"
+                        Binding="{Binding curp}"
+                        Header="Monto" />
 
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="20,20,20,0"
+                Background="#CCC">
+                <Label
+                    Margin="65,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Corte de Caja"
+                    FontSize="24"
+                    FontWeight="Bold" />
+                <Label x:Name="labelNameStaff"
+                    Margin="25,110,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Nombre"
+                    FontSize="16"
+                    FontWeight="Bold" />
+                <Label x:Name="label"
+                    Margin="25,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Turno"
+                    FontSize="16"
+                    FontWeight="Bold" />
+                <Label x:Name="labelDate"
+                    Margin="25,186,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="fecha"
+                    FontSize="16"
+                    FontWeight="Bold" />
+                <Label x:Name="labelTime"
+                    Margin="25,222,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Hora"
+                    FontSize="16"
+                    FontWeight="Bold" />
+                <Label x:Name="labelIdStaff"
+                    Margin="25,74,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="No. Empleado"
+                    FontSize="16"
+                    FontWeight="Bold" />
             </Grid>
+            <Grid
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="20,0,20,0"
+                Background="#CCC"/>
+            <Grid
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="20,0,20,20"
+                Background="#CCC" />
+            <Label
+                x:Name="labelSubTotal"
+                Grid.Row="1"
+                Grid.Column="1"
+                Height="45"
+                Margin="20,0,0,194"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Content="Label"
+                FontSize="26"
+                FontWeight="Bold" />
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Button
+                    x:Name="bntCancel"
+                    Width="153"
+                    Height="40"
+                    Margin="159,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="Gray"
+                    Click="btnCancel_Click"
+                    Content="Cancelar"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Style="{StaticResource RoundedButtonStyle}">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation
+                                        Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                        To="Red"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation
+                                        Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                        To="Gray"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button
+                    x:Name="btnCutoff"
+                    Width="154"
+                    Height="40"
+                    Margin="0,0,220,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Background="#215ECA"
+                    Click="btnCutoff_Click"
+                    Content="Terminar Turno"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Style="{StaticResource RoundedButtonStyle}">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation
+                                        Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                        To="Green"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation
+                                        Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                        To="#215ECA"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+
+
         </Grid>
     </Grid>
 </Page>

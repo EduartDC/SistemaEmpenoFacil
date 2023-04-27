@@ -27,12 +27,12 @@ namespace View.Views
 
         private void itemHome_Click(object sender, RoutedEventArgs e)
         {
-
+            Container.NavigationService.Navigate(new LiquidateContractView(9));
         }
 
         private void itemExit_Click(object sender, RoutedEventArgs e)
         {
-            Container.NavigationService.Navigate(new CustomerView(0));
+
         }
 
         private void BtmCreateContract(object sender, RoutedEventArgs e)
@@ -55,9 +55,21 @@ namespace View.Views
             Container.NavigationService.Navigate(new GiveProfitToCustomer());
         }
 
+
         private void GenerateSalesReport_Click(object sender, RoutedEventArgs e)
         {
-            Container.NavigationService.Navigate(new GenerateSalesReport());
+            Container.NavigationService.Navigate(new GenerateSalesReport()); 
+        }
+
+        private void itemCutOff_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void itemOptions_Click(object sender, RoutedEventArgs e)
+        {
+
+
         }
     }
 }

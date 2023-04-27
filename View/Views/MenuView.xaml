@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:View.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MenuView"
-    d:DesignHeight="768"
+    d:DesignHeight="800"
     d:DesignWidth="1366"
     mc:Ignorable="d">
 
@@ -23,6 +23,11 @@
                 <Setter Property="Padding" Value="20,15" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type MenuItem}">
@@ -50,6 +55,36 @@
                     <Trigger Property="IsSubmenuOpen" Value="True">
                         <Setter Property="Foreground" Value="Yellow" />
                     </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                        To="1.1"
+                                        Duration="0:0:0.1" />
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                        To="1.1"
+                                        Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                        To="1"
+                                        Duration="0:0:0.1" />
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                        To="1"
+                                        Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                    </Trigger>
                 </Style.Triggers>
             </Style>
 
@@ -63,14 +98,13 @@
             <Image
                 Width="500"
                 Height="100"
-
                 HorizontalAlignment="Center"
                 Source="/Images/EF_Dinero_logo.png" />
         </Grid>
         <!--  Encabezado  -->
         <StackPanel
             Grid.Row="1"
-            Height="26"
+            Height="50"
             VerticalAlignment="Top"
             Background="#2E2E2E"
             Orientation="Horizontal">
@@ -83,26 +117,65 @@
                 <MenuItem
                     x:Name="itemHome"
                     Click="itemHome_Click"
-                    Header="Inicio"
-                    Style="{StaticResource MenuItemStyle}" />
-                <MenuItem
-                    x:Name="itemSetAside"
-                    Header="Apartados"
                     Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,5,0"
+                                Source="/Icons/home.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Inicio" />
+                        </StackPanel>
+
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem x:Name="itemSetAside" Style="{StaticResource MenuItemStyle}" MinWidth="80" >
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,5,0"
+                                Source="/Icons/clock.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Apartados" />
+                        </StackPanel>
+
+                    </MenuItem.Header>
                     <MenuItem
                         Name="itemConsultSetAside"
                         Header="Consultar Apartados"
                         Style="{StaticResource MenuItemStyle}" />
                     <MenuItem
                         Name="itemNewSetAside"
+                        Click="itemNewSetAside_Click"
                         Header="Crear Apartado"
-                        Style="{StaticResource MenuItemStyle}"
-                        Click="itemNewSetAside_Click"/>
+                        Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
-                <MenuItem
-                    x:Name="itemSales"
-                    Header="Ventas"
-                    Style="{StaticResource MenuItemStyle}">
+                <MenuItem x:Name="itemSales" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,5,0"
+                                Source="/Icons/sale.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Ventas" />
+                        </StackPanel>
+
+                    </MenuItem.Header>
                     <MenuItem
                         Name="itemConsultSels"
                         Header="Consultar Ventas"
@@ -112,72 +185,155 @@
                         Header="Iniciar venta"
                         Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
-                <MenuItem
-                    x:Name="itemContracts"
-                    Header="Contratos"
-                    Style="{StaticResource MenuItemStyle}" Click="BtmCreateContract">
+
+                <MenuItem x:Name="itemContracts" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,5,0"
+                                Source="/Icons/contract.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Contratos" />
+                        </StackPanel>
+
+                    </MenuItem.Header>
                     <MenuItem
                         Name="itemConsultConstracts"
                         Header="Consultar Contratos"
-                        Style="{StaticResource MenuItemStyle}"/>
+                        Style="{StaticResource MenuItemStyle}" />
                     <MenuItem
                         Name="itemNewContract"
                         Header="Nuevo Contrato"
-                        Style="{StaticResource MenuItemStyle}"/>
-
-                </MenuItem>
-                <MenuItem
-                    x:Name="itemOptions"
-                    Header="Opciones"
-                    Style="{StaticResource MenuItemStyle}">
-                    <MenuItem
-                        Name="itemConfiguration"
-                        Header="Configuracion de Metricas"
                         Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
-                <MenuItem
-                    x:Name="itemExit"
-                    Click="itemExit_Click"
-                    Header="Salir"
-                    Style="{StaticResource MenuItemStyle}" />
-                <MenuItem
-                    x:Name="itemArticles"
-                    Header="Artículos"
-                    Style="{StaticResource MenuItemStyle}" >
+
+                <MenuItem x:Name="itemArticles" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,5,0"
+                                Source="/Icons/stock.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Artículos" />
+                        </StackPanel>
+
+                    </MenuItem.Header>
                     <MenuItem
                         x:Name="itemFindArticles"
                         Click="itemFindArticles_Click"
                         Header="Buscar artículos"
-                        Style="{StaticResource MenuItemStyle}"/>
+                        Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
-                <MenuItem
-                    x:Name="itemCustomers"
-                    Header="Clientes"
-                    Style="{StaticResource MenuItemStyle}" >
+
+                <MenuItem x:Name="itemCustomers" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,5,0"
+                                Source="/Icons/customer.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Clientes" />
+                        </StackPanel>
+
+                    </MenuItem.Header>
                     <MenuItem
                         x:Name="itemGiveProfitToCustomer"
                         Click="itemGiveProfitToCustomer_Click"
                         Header="Ganacia de clientes "
-                        Style="{StaticResource MenuItemStyle}"/>
-                    
+                        Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
-                <MenuItem 
-                    x:Name="itemReports"
-                    Header="Reportes"
+
+                <MenuItem
+                    x:Name="itemCutOff"
+                    Click="itemCutOff_Click"
                     Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,5,0"
+                                Source="/Icons/budget.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Corte de Caja" />
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem x:Name="itemOptions" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,5,0"
+                                Source="/Icons/option.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Opciones" />
+                            
+                        </StackPanel>
+
+                    </MenuItem.Header>
+                    <MenuItem
+                        Name="itemConfiguration"
+                        Click="itemOptions_Click"
+                        Header="Configuracion de Metricas"
+                        Style="{StaticResource MenuItemStyle}" />
                     <MenuItem 
                         x:Name="SalesReport"
                         Click="GenerateSalesReport_Click"
                         Header="Generar reporte de ventas "
                         Style="{StaticResource MenuItemStyle}"/>
+                </MenuItem>
+                <MenuItem
+                    x:Name="itemExit"
+                    Click="itemExit_Click"
+                    Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,5,0"
+                                Source="/Icons/logout.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Salir" />
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                
+                    
 
                     
-                </MenuItem>
+               
             </Menu>
 
         </StackPanel>
 
-        <Grid Grid.Row="1" Margin="0,26,0,0">
+        <Grid Grid.Row="1" Margin="0,50,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -186,7 +342,10 @@
                 <ImageBrush ImageSource="/Images/texturaFondo.jpg" Stretch="UniformToFill" />
             </Grid.Background>
             <!--  Contenido principal  -->
-            <Frame x:Name="Container" NavigationUIVisibility="Hidden" IsHitTestVisible="True"/>
+            <Frame
+                x:Name="Container"
+                IsHitTestVisible="True"
+                NavigationUIVisibility="Hidden" />
         </Grid>
     </Grid>
 </Page>

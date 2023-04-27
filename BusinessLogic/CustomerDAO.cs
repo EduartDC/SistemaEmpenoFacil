@@ -34,8 +34,8 @@ namespace BusinessLogic
                 {
                     var customer = connection.Customers.Find(selectedCustomer.idCustomer);
                     if (customer.address.Equals(selectedCustomer.address) ||
-                        customer.identification.Equals(selectedCustomer.identification) ||
-                        customer.telephonNumber.Equals(selectedCustomer.telephonNumber))
+                    customer.identification.Equals(selectedCustomer.identification) ||
+                    customer.telephonNumber.Equals(selectedCustomer.telephonNumber))
                     {
                         customer.address = selectedCustomer.address;
                         customer.identification = selectedCustomer.identification;
@@ -174,13 +174,13 @@ namespace BusinessLogic
                     var existCustomer = (from Customer in dataBase.Customers
                                          where Customer.idCustomer.Equals(id)
                                          select Customer).Count();
-                    if(existCustomer > 0)
+                    if (existCustomer > 0)
                     {
                         result = 200;
                     }
                 }
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 _log.Add(ex.ToString());
             }
@@ -206,7 +206,8 @@ namespace BusinessLogic
                     var updateStatusBlackList = database.Customers.First(u => u.idCustomer == id);
                     updateStatusBlackList.blackList = true;
                     int resultValue = database.SaveChanges();
-                    if (resultValue > 0){
+                    if (resultValue > 0)
+                    {
                         result = 200;
                     }
                     else

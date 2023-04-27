@@ -34,7 +34,7 @@ namespace BusinessLogic
                         idObject = contract.idContract;
                     }
                 }
-                catch(DbUpdateException)
+                catch (DbUpdateException)
                 {
                     return (MessageCode.ERROR, idObject);
                 }
@@ -42,6 +42,24 @@ namespace BusinessLogic
             else
                 return (MessageCode.CONNECTION_ERROR, idObject);
             return (MessageCode.SUCCESS, idObject);
+        }
+
+        public static Contract GetContract(int idContract)
+        {
+            var result = new Contract();
+            if (Utilitys.VerifyConnection())
+            {
+
+                using (var connection = new ConnectionModel())
+                {
+                    result = connection.Contracts.Find(idContract);
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return result;
         }
 
     }
