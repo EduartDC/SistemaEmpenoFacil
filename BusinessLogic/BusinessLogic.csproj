@@ -64,6 +64,7 @@
     <Compile Include="OperationDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetAsideDAO.cs" />
+    <Compile Include="StaffDAO.cs" />
     <Compile Include="StatesContract.cs" />
     <Compile Include="Utilitys.cs" />
   </ItemGroup>
