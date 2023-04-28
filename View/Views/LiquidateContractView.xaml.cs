@@ -98,7 +98,7 @@ namespace View.Views
             blurEffect.Radius = 5;
             window.PrimaryContainer.Effect = blurEffect;
             (App.Current as App)._cashOnHand = 1000;
-            window.SecundaryContainer.Navigate(new TransactionView(MessageCode.ope, _total));
+            window.SecundaryContainer.Navigate(new TransactionView(OperationType.OPERATION_LOAND, _total,0));
             window.PrimaryContainer.IsHitTestVisible = false;
         }
     }

@@ -20,6 +20,10 @@ namespace BusinessLogic
                     result = connection.SaveChanges();
                 }
             }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
             return result;
         }
 
