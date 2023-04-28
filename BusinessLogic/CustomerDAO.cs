@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
@@ -15,9 +16,10 @@ namespace BusinessLogic
     public class CustomerDAO
     {
         private static NewLog _log = new NewLog();
-        public static int AddCustomer(Customer newCustomer)
+        public static (int,int) AddCustomer(Domain.Customer newCustomer)
         {
-            int result = -1;
+            int result = 500;
+            int idCustomer = 0;
             try
             {
                 using (var database = new ConnectionModel())
@@ -34,13 +36,10 @@ namespace BusinessLogic
                         identification = newCustomer.identification
                     });
                     database.SaveChanges();
-                    result = newCustomer.idCustomer;
+                    idCustomer = newCustomer.idCustomer;
+                    result = 200;
                 }
                 
-            }
-            catch(ArgumentNullException ex)
-            {
-                _log.Add(ex.ToString());
             }
             catch (DbUpdateException ex)
             {
@@ -50,7 +49,7 @@ namespace BusinessLogic
             {
                 _log.Add(ex.ToString());
             }                   
-            return result;
+            return (result, idCustomer);
         }
 
         public static int UpdateCustomer(Customer selectedCustomer)
@@ -88,6 +87,31 @@ namespace BusinessLogic
             }
             return customer;
         }
+
+
+        public static int AddTwoImageIdentification(List<ImagesIdentification> imagesIdentifications)
+        {
+            int result = 500;
+
+            try
+            {
+                using (var database = new ConnectionModel())
+                {
+                    database.ImagesIdentifications.AddRange(imagesIdentifications);
+                    database.SaveChanges();
+                    result = 200;
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (EntityException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            return result;
+        } 
         public static int AddImagecostumer(ImagesIdentification newImage)
         {
             var result = MessageCode.ERROR;

@@ -1,7 +1,9 @@
 ﻿using BusinessLogic;
+using DataAcces;
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +27,7 @@ namespace View.Views
 
         private bool imageOneValidation = false;
         private bool imageTwoValidation = false;
+        private List<byte[]> imagesBytes = new List<byte[]>();
         private BitmapImage imageOneCopy;
         private BitmapImage imageTwoCopy;
 
@@ -56,8 +59,53 @@ namespace View.Views
                     identification = comBox_Identification.SelectedItem.ToString()
                 };
 
+                AddCustomer(customer);
+            }
+        }
 
+        private void AddCustomer(Domain.Customer customer)
+        {
+            (int result, int idCustomer) = CustomerDAO.AddCustomer(customer);
+            if (result == 200)
+            {
+                convertToBytes(imageOneCopy);
+                convertToBytes(imageTwoCopy);
+                ImagesIdentification imageOne = new ImagesIdentification();
+                imageOne.imagen = imagesBytes[0];
+                imageOne.Customer_idCustomer = idCustomer;
+                ImagesIdentification imageTwo = new ImagesIdentification();
+                imageTwo.imagen = imagesBytes[1];
+                imageTwo.Customer_idCustomer = idCustomer;
+                List<ImagesIdentification> imagesIdentifications = new List<ImagesIdentification>
+                {
+                    imageOne,
+                    imageTwo
+                };
+                if (CustomerDAO.AddTwoImageIdentification(imagesIdentifications) == 200)
+                {
+                    MessageBox.Show("Cliente registrado con exito");
+                }
+                else
+                {
+                    MessageBox.Show("Error al registrar las imagenes en la base de datos");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error al registrar al cliente en la base de datos");
+            }
+            
+        }
 
+        private void convertToBytes(BitmapImage bitmap)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmap));
+                encoder.Save(stream);
+                ImagesIdentification imagesIdentification = new ImagesIdentification();
+                imagesBytes.Add(stream.ToArray());
             }
         }
 
