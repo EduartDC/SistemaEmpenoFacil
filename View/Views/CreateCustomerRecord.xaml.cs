@@ -48,7 +48,7 @@ namespace View.Views
         {
             if (ValidateCamps())
             {
-                Domain.Customer customer = new Domain.Customer
+                Customer customer = new Customer
                 {
                     firstName = text_Name.Text.Trim(),
                     lastName = text_LastName.Text.Trim(),
@@ -63,7 +63,7 @@ namespace View.Views
             }
         }
 
-        private void AddCustomer(Domain.Customer customer)
+        private void AddCustomer(Customer customer)
         {
             (int result, int idCustomer) = CustomerDAO.AddCustomer(customer);
             if (result == 200)
@@ -169,7 +169,7 @@ namespace View.Views
                 result = false;
                 label_ErrorLastName.Visibility = Visibility.Visible;
             }
-            if(!FormatValidation.ValidateFormat(text_CURP.Text.Trim(), "^[A-Z]{4}[0-9]{6}[H,M][A-Z]{5}[0-9]{2}$"))
+            if(!FormatValidation.ValidateFormat(text_CURP.Text.Trim(), "^[A-Z0-9]+$"))
             {
                 result = false;
                 label_ErrorCurp.Visibility = Visibility.Visible;

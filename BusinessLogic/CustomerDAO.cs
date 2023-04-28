@@ -16,7 +16,7 @@ namespace BusinessLogic
     public class CustomerDAO
     {
         private static NewLog _log = new NewLog();
-        public static (int,int) AddCustomer(Domain.Customer newCustomer)
+        public static (int,int) AddCustomer(Customer newCustomer)
         {
             int result = 500;
             int idCustomer = 0;
@@ -36,7 +36,7 @@ namespace BusinessLogic
                         identification = newCustomer.identification
                     });
                     database.SaveChanges();
-                    idCustomer = newCustomer.idCustomer;
+                    idCustomer = addNewCustomer.idCustomer;
                     result = 200;
                 }
                 
