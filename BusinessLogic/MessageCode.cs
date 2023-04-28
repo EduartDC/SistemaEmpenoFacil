@@ -17,5 +17,7 @@ namespace BusinessLogic
         public static int OPERATION_SETASIDE = 301;
         public static int OPERATION_LOAND = 302;
         public static int OPERATION_PROFIT = 303;
+        public static int OPERATION_LIQUIDATE = 304;
+        public static int OPERATION_RENEWAL = 305;
     }
 }
