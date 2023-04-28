@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,20 +30,24 @@ namespace View.Views
     {
         double _amount;
         int _operation;
+        int _id;
 
         Dictionary<int, Tuple<string, bool, bool>> operationMappings = new Dictionary<int, Tuple<string, bool, bool>>()
         {
-                { MessageCode.OPERATION_SEAL, new Tuple<string, bool, bool>("Venta", true, false) },
-                    { MessageCode.OPERATION_SETASIDE, new Tuple<string, bool, bool>("Apartado", true, false) },
-                        { MessageCode.OPERATION_LOAND, new Tuple<string, bool, bool>("Prestamo", false, false) },
-                            { MessageCode.OPERATION_PROFIT, new Tuple<string, bool, bool>("Pago de ganancia", false, false) }
+                { OperationType.OPERATION_SEAL, new Tuple<string, bool, bool>("Venta", true, false) },
+                    { OperationType.OPERATION_SETASIDE, new Tuple<string, bool, bool>("Apartado", true, false) },
+                        { OperationType.OPERATION_LOAND, new Tuple<string, bool, bool>("Prestamo", false, false) },
+                            { OperationType.OPERATION_PROFIT, new Tuple<string, bool, bool>("Pago de ganancia", false, false) },
+                                { OperationType.OPERATION_LIQUIDATE, new Tuple<string, bool, bool>("Liquidacion de contrato", true, false)},
+                                    { OperationType.OPERATION_RENEWAL, new Tuple < string, bool, bool >("Renovacion de contrato", true, false)             }
         };
 
-        public TransactionView(int operation, double amount)
+        public TransactionView(int operation, double amount, int id)
         {
             InitializeComponent();
             _amount = amount;
             _operation = operation;
+            _id = id;
             var date = DateTime.Now.ToString("dd/MM/yyyy");
             var time = DateTime.Now.ToString("hh:mm:ss");
             labelTotal.Text = "Monto Total: $" + amount;
@@ -53,7 +58,7 @@ namespace View.Views
             if (operationMappings.ContainsKey(operation))
             {
                 var operationTuple = operationMappings[operation];
-                if (operation == MessageCode.OPERATION_LOAND || operation == MessageCode.OPERATION_PROFIT)
+                if (operation == OperationType.OPERATION_LOAND || operation == OperationType.OPERATION_PROFIT)
                 {
                     textChange.Text = amount.ToString();
                 }
@@ -93,24 +98,76 @@ namespace View.Views
             var operationType = _operation;
             var operation = new Operation();
             var result = MessageCode.ERROR;
+            try
+            {
 
-            if (operationType == MessageCode.OPERATION_LOAND || operationType == MessageCode.OPERATION_PROFIT)
-            {
-                operation.paymentAmount = 0.0;
-                operation.changeAmount = change;
-                operation.receivedAmount = amountReceived;
-                operation.operationDate = DateTime.Now;
-                operation.Staff_idStaff = 1;
-                result = OperationDAO.AddOperation(operation);
+
+                switch (operationType)
+                {
+                    case OperationType.OPERATION_SEAL:
+
+                        operation.paymentAmount = _amount;
+                        operation.changeAmount = change;
+                        operation.receivedAmount = amountReceived;
+                        operation.operationDate = DateTime.Now;
+                        operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
+                        operation.Sale_idSale = _id;
+                        result = OperationDAO.AddOperation(operation);
+                        break;
+                    case OperationType.OPERATION_SETASIDE:
+
+                        operation.paymentAmount = _amount;
+                        operation.changeAmount = change;
+                        operation.receivedAmount = amountReceived;
+                        operation.operationDate = DateTime.Now;
+                        operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
+                        operation.SetAside_idSetAside = _id;
+                        result = OperationDAO.AddOperation(operation);
+                        break;
+                    case OperationType.OPERATION_LOAND:
+
+                        operation.paymentAmount = _amount;
+                        operation.changeAmount = change;
+                        operation.receivedAmount = amountReceived;
+                        operation.operationDate = DateTime.Now;
+                        operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
+                        operation.Contract_idContract = _id;
+                        result = OperationDAO.AddOperation(operation);
+                        break;
+                    case OperationType.OPERATION_LIQUIDATE:
+
+                        operation.paymentAmount = _amount;
+                        operation.changeAmount = change;
+                        operation.receivedAmount = amountReceived;
+                        operation.operationDate = DateTime.Now;
+                        operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
+                        operation.Contract_idContract = _id;
+                        result = OperationDAO.AddOperation(operation);
+                        break;
+                    case OperationType.OPERATION_RENEWAL:
+
+                        operation.paymentAmount = _amount;
+                        operation.changeAmount = change;
+                        operation.receivedAmount = amountReceived;
+                        operation.operationDate = DateTime.Now;
+                        operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
+                        operation.Contract_idContract = _id;
+                        result = OperationDAO.AddOperation(operation);
+                        break;
+                    default:
+
+                        operation.paymentAmount = _amount;
+                        operation.changeAmount = change;
+                        operation.receivedAmount = amountReceived;
+                        operation.operationDate = DateTime.Now;
+                        operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
+                        result = OperationDAO.AddOperation(operation);
+                        break;
+                }
             }
-            else if (operationType == MessageCode.OPERATION_SETASIDE || operationType == MessageCode.OPERATION_SEAL)
+            catch
             {
-                operation.paymentAmount = _amount;
-                operation.changeAmount = change;
-                operation.receivedAmount = amountReceived;
-                operation.operationDate = DateTime.Now;
-                operation.Staff_idStaff = 1;
-                result = OperationDAO.AddOperation(operation);
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
             }
             return result;
         }
@@ -132,7 +189,7 @@ namespace View.Views
         private void SetOperation(double amountReceived)
         {
             var operationType = _operation;
-            if (operationType == MessageCode.OPERATION_LOAND || operationType == MessageCode.OPERATION_PROFIT)
+            if (operationType == OperationType.OPERATION_LOAND || operationType == OperationType.OPERATION_PROFIT)
             {
                 double change = _amount;
                 if (SaveOperation(change, amountReceived) == MessageCode.ERROR)
@@ -151,7 +208,7 @@ namespace View.Views
                     //llamar caso de uso para ingresar dinero
                 }
             }
-            else if (operationType == MessageCode.OPERATION_SETASIDE || operationType == MessageCode.OPERATION_SEAL)
+            else if (operationType == OperationType.OPERATION_SETASIDE || operationType == OperationType.OPERATION_SEAL)
             {
                 double change = amountReceived - _amount;
                 if (change < 0)

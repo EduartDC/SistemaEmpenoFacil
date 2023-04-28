@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
@@ -15,14 +16,40 @@ namespace BusinessLogic
     public class CustomerDAO
     {
         private static NewLog _log = new NewLog();
-        public static int AddCustomer(Customer newCustomer)
+        public static (int,int) AddCustomer(Customer newCustomer)
         {
-            var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            int result = 500;
+            int idCustomer = 0;
+            try
             {
-
+                using (var database = new ConnectionModel())
+                {
+                    var addNewCustomer = database.Customers.Add(new Customer()
+                    {
+                        firstName = newCustomer.firstName,
+                        lastName = newCustomer.lastName,
+                        curp = newCustomer.curp,
+                        blackList = newCustomer.blackList,
+                        telephonNumber = newCustomer.telephonNumber,
+                        address = newCustomer.address,
+                        cumulativeProfit = "0",
+                        identification = newCustomer.identification
+                    });
+                    database.SaveChanges();
+                    idCustomer = addNewCustomer.idCustomer;
+                    result = 200;
+                }
+                
             }
-            return result;
+            catch (DbUpdateException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (EntityException ex)
+            {
+                _log.Add(ex.ToString());
+            }                   
+            return (result, idCustomer);
         }
 
         public static int UpdateCustomer(Customer selectedCustomer)
@@ -60,6 +87,31 @@ namespace BusinessLogic
             }
             return customer;
         }
+
+
+        public static int AddTwoImageIdentification(List<ImagesIdentification> imagesIdentifications)
+        {
+            int result = 500;
+
+            try
+            {
+                using (var database = new ConnectionModel())
+                {
+                    database.ImagesIdentifications.AddRange(imagesIdentifications);
+                    database.SaveChanges();
+                    result = 200;
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (EntityException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            return result;
+        } 
         public static int AddImagecostumer(ImagesIdentification newImage)
         {
             var result = MessageCode.ERROR;

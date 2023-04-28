@@ -87,8 +87,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition
                     Height="*"
-                    MinHeight="350"
-                    MaxHeight="450" />
+                    MinHeight="250"
+                    MaxHeight="350" />
                 <RowDefinition
                     Height="Auto"
                     MinHeight="250"
@@ -178,21 +178,21 @@
                     FontSize="16"
                     FontWeight="Bold" />
                 <Label x:Name="label"
-                    Margin="25,0,0,0"
+                    Margin="25,133,0,0"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Top"
                     Content="Turno"
                     FontSize="16"
                     FontWeight="Bold" />
                 <Label x:Name="labelDate"
-                    Margin="25,186,0,0"
+                    Margin="25,160,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="fecha"
                     FontSize="16"
                     FontWeight="Bold" />
                 <Label x:Name="labelTime"
-                    Margin="25,222,0,0"
+                    Margin="25,196,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Hora"
