@@ -32,7 +32,7 @@ namespace View
             this.WindowState = WindowState.Maximized;
             PrimaryContainer.NavigationService.Navigate(new MenuView());
             this.MinWidth = 1366;
-            this.MinHeight = 850;
+            this.MinHeight = 750;
         }
 
     }

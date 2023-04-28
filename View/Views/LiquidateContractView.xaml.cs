@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -23,6 +24,7 @@ namespace View.Views
     /// </summary>
     public partial class LiquidateContractView : Page
     {
+        double _total;
         public LiquidateContractView(int idContract)
         {
             InitializeComponent();
@@ -91,7 +93,13 @@ namespace View.Views
 
         private void btnLiquidate_Click(object sender, RoutedEventArgs e)
         {
-
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            window.PrimaryContainer.Effect = blurEffect;
+            (App.Current as App)._cashOnHand = 1000;
+            window.SecundaryContainer.Navigate(new TransactionView(MessageCode.ope, _total));
+            window.PrimaryContainer.IsHitTestVisible = false;
         }
     }
 }

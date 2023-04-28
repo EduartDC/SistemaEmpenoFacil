@@ -35,7 +35,9 @@ namespace View.Views
                 { MessageCode.OPERATION_SEAL, new Tuple<string, bool, bool>("Venta", true, false) },
                     { MessageCode.OPERATION_SETASIDE, new Tuple<string, bool, bool>("Apartado", true, false) },
                         { MessageCode.OPERATION_LOAND, new Tuple<string, bool, bool>("Prestamo", false, false) },
-                            { MessageCode.OPERATION_PROFIT, new Tuple<string, bool, bool>("Pago de ganancia", false, false) }
+                            { MessageCode.OPERATION_PROFIT, new Tuple<string, bool, bool>("Pago de ganancia", false, false) },
+                                { MessageCode.OPERATION_LIQUIDATE, new Tuple<string, bool, bool>("Liquidacion de contrato", true, false)},
+                                    { MessageCode.OPERATION_RENEWAL, new Tuple < string, bool, bool >("Renovacion de contrato", true, false)             }
         };
 
         public TransactionView(int operation, double amount)
