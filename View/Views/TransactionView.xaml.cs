@@ -158,6 +158,7 @@ namespace View.Views
 
                         operation.paymentAmount = _amount;
                         operation.changeAmount = change;
+                        //concept
                         operation.receivedAmount = amountReceived;
                         operation.operationDate = DateTime.Now;
                         operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
