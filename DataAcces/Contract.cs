@@ -49,6 +49,12 @@ namespace DataAcces
         [Required]
         public string paymentsEndorsement { get; set; }
 
+        public string loanProcentage { get; set; }
+
+        public string totalAnnualCost { get; set; }
+
+        public string annualInterestRate { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Belonging> Belongings { get; set; }
 

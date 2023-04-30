@@ -21,14 +21,16 @@
             Width="400"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0180"
+            Margin="0,130"
             FontSize="25"
             HorizontalContentAlignment="Center" FontWeight="Bold"
             />
         <DatePicker 
+            
+            Background="#323D8F"
             HorizontalAlignment="Center" 
             VerticalAlignment="Top"
-            Margin="0,230" 
+            Margin="0,190" 
             Height="40"
             Width="300"
             VerticalContentAlignment="Center"
@@ -41,16 +43,16 @@
             Width="400"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0300"
+            Margin="0,250"
             FontSize="25"
             HorizontalContentAlignment="Center" FontWeight="Bold"
             />
 
         <DatePicker 
-            Background="Green"
+            Background="#323D8F"
             HorizontalAlignment="Center" 
             VerticalAlignment="Top"
-            Margin="0,340" 
+            Margin="0,308,0,0" 
             Height="40"
             Width="300"
             VerticalContentAlignment="Center"
@@ -58,28 +60,31 @@
             Focusable="False"
             />
         <ComboBox 
+            x:Name="cbFilter"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Margin="0,400,0,0" 
              Height="40"
-            Width="300">
-            <ComboBoxItem IsEnabled="false">Selecciona una opcion</ComboBoxItem>
+            Width="300"
+            
+            FontSize="20">
+            
         </ComboBox>
         <Button 
             Content="Generar reporte"
             FontSize="25"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Right"
             Height="40"
             Width="200"
-            Margin="651,500,0,0" 
+            Margin="0,480,332,0" 
             VerticalAlignment="Top"/>
         <Button 
             Content="Cancelar"
             FontSize="25"
             Height="40"
             Width="200"
-            HorizontalAlignment="Right" 
-            Margin="0,500,651,0"
-            VerticalAlignment="Top"/>
+            HorizontalAlignment="Left" 
+            Margin="349,480,0,0"
+            VerticalAlignment="Top" Click="ClosePage_btn"/>
     </Grid>
 </Page>

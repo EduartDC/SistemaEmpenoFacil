@@ -209,7 +209,8 @@
                     <MenuItem
                         Name="itemNewContract"
                         Header="Nuevo Contrato"
-                        Style="{StaticResource MenuItemStyle}" />
+                        Style="{StaticResource MenuItemStyle}"
+                        Click="BtmCreateContract"/>
                 </MenuItem>
 
                 <MenuItem x:Name="itemArticles" Style="{StaticResource MenuItemStyle}">
