@@ -335,7 +335,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
 
-                                <Button x:Name="btnDelete" Click="Delete_Click">
+                                <Button x:Name="btnDelete" Click="btnDelete_Click">
                                     <Image
                                         Width="16"
                                         Height="16"

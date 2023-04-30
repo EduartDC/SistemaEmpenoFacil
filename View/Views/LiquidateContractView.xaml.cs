@@ -75,10 +75,11 @@ namespace View.Views
             var interestRate = contract.interestRate;
             double interest = (double)(interestRate / 100.0);
             double iva = 1 + (contract.iva / 100.0);
-            var loan = 1500;//contract.loanAmount;
-            var duration = 6;// contract.duration;
+            var loan = contract.loanAmount;
+            var duration = contract.duration;
             var interestAmount = (loan * duration * interest * iva);
             var total = loan + interestAmount;
+            _total = total;
 
             labelSubTotal.Content = loan.ToString("0.00");
             labelIva.Content = interestAmount.ToString("0.00");
@@ -88,7 +89,7 @@ namespace View.Views
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Content = null;
         }
 
         private void btnLiquidate_Click(object sender, RoutedEventArgs e)
@@ -98,7 +99,7 @@ namespace View.Views
             blurEffect.Radius = 5;
             window.PrimaryContainer.Effect = blurEffect;
             (App.Current as App)._cashOnHand = 1000;
-            window.SecundaryContainer.Navigate(new TransactionView(OperationType.OPERATION_LOAND, _total,0));
+            window.SecundaryContainer.Navigate(new TransactionView(OperationType.OPERATION_LIQUIDATE, _total,0));
             window.PrimaryContainer.IsHitTestVisible = false;
         }
     }

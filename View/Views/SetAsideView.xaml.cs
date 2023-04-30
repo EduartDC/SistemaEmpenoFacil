@@ -35,20 +35,7 @@ namespace View.Views
 
         }
 
-        /*private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        var window = (MainWindow)Application.Current.MainWindow;
-        BlurEffect blurEffect = new BlurEffect();
-        blurEffect.Radius = 5;
-        window.PrimaryContainer.Effect = blurEffect;
-        (App.Current as App)._cashOnHand = 1000;
-        window.SecundaryContainer.Navigate(new TransactionView(MessageCode.OPERATION_SEAL, 658.50));
-        //window.SecundaryContainer.Navigate(new CustomerView(6));
-        window.PrimaryContainer.IsHitTestVisible = false;
-        }*/
-
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -59,13 +46,9 @@ namespace View.Views
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
             window.PrimaryContainer.Effect = blurEffect;
-
             ScanCodeView scan = new ScanCodeView();
             scan.CommunicacionPages(this);
-
-
             window.SecundaryContainer.Navigate(scan);
-
             window.PrimaryContainer.IsHitTestVisible = false;
         }
 
@@ -77,6 +60,8 @@ namespace View.Views
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
 
+            this.Content = null;
+            
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -92,12 +77,12 @@ namespace View.Views
             window.PrimaryContainer.Effect = blurEffect;
             (App.Current as App)._cashOnHand = 1000;
             window.SecundaryContainer.Navigate(new TransactionView(OperationType.OPERATION_SEAL, 658.50, 0));
-            //window.SecundaryContainer.Navigate(new CustomerView(6));
             window.PrimaryContainer.IsHitTestVisible = false;
         }
 
         public void ScanCode(string code)
         {
+            //codigo despues de scanear codigo
             Console.WriteLine(code);
         }
 
