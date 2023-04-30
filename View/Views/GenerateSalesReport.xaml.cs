@@ -20,9 +20,24 @@ namespace View.Views
     /// </summary>
     public partial class GenerateSalesReport : Page
     {
+        private List<string> filter = new List<string> {"Selecciona una opcion","Articulos en stock", "articulos vendidos"};
         public GenerateSalesReport()
         {
             InitializeComponent();
+            LoadFilter();
+        }
+
+        private void LoadFilter()
+        {
+            cbFilter.ItemsSource = filter;
+            cbFilter.SelectedIndex = 0;
+            
+        }
+
+        private void ClosePage_btn(object sender, RoutedEventArgs e)
+        {
+
+            this.Content = null;
         }
     }
 }
