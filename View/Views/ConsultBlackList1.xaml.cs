@@ -117,9 +117,7 @@ namespace View.Views
 
         private void btn_Salir_Click(object sender, RoutedEventArgs e)
         {
-            _listNumberCustomers.Clear();
-            _listNamesCustomers.Clear();
-            customersList.Clear();
+            
         }
 
         private void btn_Add_Click(object sender, RoutedEventArgs e)

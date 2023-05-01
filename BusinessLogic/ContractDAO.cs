@@ -79,12 +79,12 @@ namespace BusinessLogic
                     {
                         Domain.CompleteContract newContract = new Domain.CompleteContract();
                         newContract.idContract = contract1.idContract;
-                        newContract.idCustomer = contract1.idContract;
-                        newContract.firstName = contract1.stateContract;
+                        newContract.idCustomer = contract1.Customer_idCustomer;
+                        newContract.stateContract = contract1.stateContract;
                         Customer newCustomer= new Customer();
                         newCustomer = CustomerDAO.findCustomerById(contract1.Customer_idCustomer);
-                        newContract.firstName = newContract.firstName;
-                        newContract.lastName = newContract.lastName;
+                        newContract.firstName = newCustomer.firstName;
+                        newContract.lastName = newCustomer.lastName;
                         resultContracts.Add(newContract);
                     }
                 }
