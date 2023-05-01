@@ -1,4 +1,5 @@
 ﻿using DataAcces;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -10,17 +11,34 @@ namespace BusinessLogic
 {
     public class ContractDAO
     {
-        public static int LiquidateContract(Contract selectedContract)
+        public static int LiquidateContract(ContractDomain selectedContract)
         {
-            var resutl = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            var result = MessageCode.ERROR;
+            try
             {
+                if (Utilitys.VerifyConnection())
+                {
+                    using (var connection = new ConnectionModel())
+                    {
+                        var contract = connection.Contracts.Find(selectedContract.idContract);
+                        contract.stateContract = selectedContract.stateContract;
+                        contract.settlementAmount = selectedContract.settlementAmount;
+                        result = connection.SaveChanges();
+                    }
+                }
             }
-            return resutl;
-
+            catch (DbUpdateException)
+            {
+                result = MessageCode.ERROR_UPDATE;
+            }
+            catch (Exception)
+            {
+                result = MessageCode.CONNECTION_ERROR;
+            }
+            return result;
         }
 
-        public static (int ,int) RegisterContract(Contract contract)
+        public static (int, int) RegisterContract(Contract contract)
         {
             int idObject = 0;
             if (Utilitys.VerifyConnection())
@@ -60,6 +78,49 @@ namespace BusinessLogic
                 throw new Exception(MessageError.CONNECTION_ERROR);
             }
             return result;
+        }
+
+        public static async Task<ContractDomain> GetContractsDomainAsync(int idContrac)
+        {
+            if (!Utilitys.VerifyConnection())
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+
+            using (var connection = new ConnectionModel())
+            {
+                var contract = await connection.Contracts.FindAsync(idContrac);
+
+                if (contract == null)
+                {
+                    return null;
+                }
+
+                var contractDomain = new ContractDomain();
+                contractDomain.idContract = contract.idContract;
+                contractDomain.loanAmount = contract.loanAmount;
+                contractDomain.idContractPrevious = contract.idContractPrevious;
+                contractDomain.deadlineDate = contract.deadlineDate;
+                contractDomain.creationDate = contract.creationDate;
+                contractDomain.stateContract = contract.stateContract;
+                contractDomain.iva = contract.iva;
+                contractDomain.interestRate = contract.interestRate;
+                contractDomain.renewalFee = contract.renewalFee;
+                contractDomain.settlementAmount = contract.settlementAmount;
+                contractDomain.duration = contract.duration;
+                contractDomain.Customer_idCustomer = contract.Customer_idCustomer;
+                contractDomain.endorsementSettlementDates = contract.endorsementSettlementDates;
+                contractDomain.paymentsSettlement = contract.paymentsSettlement;
+                contractDomain.paymentsEndorsement = contract.paymentsEndorsement;
+                contractDomain.loanProcentage = contract.loanProcentage;
+                contractDomain.totalAnnualCost = contract.totalAnnualCost;
+                contractDomain.annualInterestRate = contract.annualInterestRate;
+                contractDomain.Belongings = contract.Belongings.ToList();
+                contractDomain.Operations = contract.Operations.ToList();
+                contractDomain.Customer = contract.Customer;
+
+                return contractDomain;
+            }
         }
 
     }

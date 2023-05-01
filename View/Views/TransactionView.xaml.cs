@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using DataAcces;
+using Domain;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace View.Views
         double _amount;
         int _operation;
         int _id;
-
+        MessageService communication;
         Dictionary<int, Tuple<string, bool, bool>> operationMappings = new Dictionary<int, Tuple<string, bool, bool>>()
         {
                 { OperationType.OPERATION_SEAL, new Tuple<string, bool, bool>("Venta", true, false) },
@@ -100,8 +101,6 @@ namespace View.Views
             var result = MessageCode.ERROR;
             try
             {
-
-
                 switch (operationType)
                 {
                     case OperationType.OPERATION_SEAL:
@@ -110,6 +109,7 @@ namespace View.Views
                         operation.changeAmount = change;
                         operation.receivedAmount = amountReceived;
                         operation.operationDate = DateTime.Now;
+                        operation.concept = "Venta de Articulos";
                         operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
                         operation.Sale_idSale = _id;
                         result = OperationDAO.AddOperation(operation);
@@ -120,6 +120,7 @@ namespace View.Views
                         operation.changeAmount = change;
                         operation.receivedAmount = amountReceived;
                         operation.operationDate = DateTime.Now;
+                        operation.concept = "Apartado de Articulos";
                         operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
                         operation.SetAside_idSetAside = _id;
                         result = OperationDAO.AddOperation(operation);
@@ -129,6 +130,7 @@ namespace View.Views
                         operation.paymentAmount = _amount;
                         operation.changeAmount = change;
                         operation.receivedAmount = amountReceived;
+                        operation.concept = "Creacion de contrato";
                         operation.operationDate = DateTime.Now;
                         operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
                         operation.Contract_idContract = _id;
@@ -140,6 +142,7 @@ namespace View.Views
                         operation.changeAmount = change;
                         operation.receivedAmount = amountReceived;
                         operation.operationDate = DateTime.Now;
+                        operation.concept = "Liquidacion de contrato";
                         operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
                         operation.Contract_idContract = _id;
                         result = OperationDAO.AddOperation(operation);
@@ -150,6 +153,7 @@ namespace View.Views
                         operation.changeAmount = change;
                         operation.receivedAmount = amountReceived;
                         operation.operationDate = DateTime.Now;
+                        operation.concept = "Renovacion de Contrato";
                         operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
                         operation.Contract_idContract = _id;
                         result = OperationDAO.AddOperation(operation);
@@ -158,7 +162,7 @@ namespace View.Views
 
                         operation.paymentAmount = _amount;
                         operation.changeAmount = change;
-                        //concept
+                        operation.concept = "Pago de Ganancia";
                         operation.receivedAmount = amountReceived;
                         operation.operationDate = DateTime.Now;
                         operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
@@ -180,7 +184,7 @@ namespace View.Views
             {
                 amountReceived = double.Parse(text);
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 ErrorManager.ShowWarning(MessageError.DECIMAL_FORMAT_ERROR);
             }
@@ -202,6 +206,9 @@ namespace View.Views
                     (App.Current as App)._cashOnHand -= change;
                     textChange.Text = change.ToString();
                     ErrorManager.ShowInformation("El Cambio es de: " + change.ToString());
+                    CloseView();
+                    communication.Communication("", true);
+
 
                 }
                 else
@@ -209,7 +216,7 @@ namespace View.Views
                     //llamar caso de uso para ingresar dinero
                 }
             }
-            else if (operationType == OperationType.OPERATION_SETASIDE || operationType == OperationType.OPERATION_SEAL)
+            else
             {
                 double change = amountReceived - _amount;
                 if (change < 0)
@@ -227,7 +234,9 @@ namespace View.Views
                     (App.Current as App)._cashOnHand -= change;
                     textChange.Text = change.ToString();
                     ErrorManager.ShowInformation("El Cambio es de: " + change.ToString());
-                    SaveOperation(change, amountReceived);
+                    CloseView();
+                    communication.Communication("", true);
+
                 }
                 else
                 {
@@ -242,16 +251,22 @@ namespace View.Views
 
             if (result == MessageBoxResult.Yes)
             {
-                var window = (MainWindow)Application.Current.MainWindow;
-                BlurEffect blurEffect = new BlurEffect();
-                blurEffect.Radius = 0;
-                window.PrimaryContainer.Effect = blurEffect;
-                window.SecundaryContainer.Content = null;
-                window.PrimaryContainer.IsHitTestVisible = true;
+                CloseView();
+                communication.Communication("", false);
+
+
             }
 
         }
-
+        private void CloseView()
+        {
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 0;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Content = null;
+            window.PrimaryContainer.IsHitTestVisible = true;
+        }
         private void textAmountReceived_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             string inputText = e.Text;
@@ -266,6 +281,13 @@ namespace View.Views
         {
             TextBox textBox = sender as TextBox;
             textBox.Text = string.Empty;
+        }
+
+        public void CommunicacionPages(MessageService communication)
+        {
+
+            this.communication = communication;
+
         }
     }
 }
