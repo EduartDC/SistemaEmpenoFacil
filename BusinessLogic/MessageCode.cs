@@ -13,9 +13,6 @@ namespace BusinessLogic
         public static int ERROR_USER_NOT_FOUND = 100;
         public static int ERROR_USER_ALREADY_EXISTS = 101;
         public static int CONNECTION_ERROR = 200;
-        public static int OPERATION_SEAL = 300;
-        public static int OPERATION_SETASIDE = 301;
-        public static int OPERATION_LOAND = 302;
-        public static int OPERATION_PROFIT = 303;
+        
     }
 }
