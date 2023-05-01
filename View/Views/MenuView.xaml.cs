@@ -63,7 +63,7 @@ namespace View.Views
 
         private void itemCutOff_Click(object sender, RoutedEventArgs e)
         {
-
+            Container.NavigationService.Navigate(new CutoffOperations());
         }
 
         private void itemOptions_Click(object sender, RoutedEventArgs e)

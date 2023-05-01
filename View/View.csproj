@@ -239,7 +239,7 @@
       <Name>BusinessLogic</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataAcces\DataAcces.csproj">
-      <Project>{efe7ecbe-3697-44a7-8892-a1f059701299}</Project>
+      <Project>{2cd36b35-ec13-4c97-b501-da2d11e4bf8f}</Project>
       <Name>DataAcces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">

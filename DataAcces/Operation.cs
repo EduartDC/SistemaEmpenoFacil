@@ -27,6 +27,9 @@ namespace DataAcces
 
         public int? Sale_idSale { get; set; }
 
+        [Required]
+        public string concept { get; set; }
+
         public virtual Contract Contract { get; set; }
 
         public virtual Sale Sale { get; set; }

@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:View.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="SetAsideView"
-    d:DesignHeight="800"
+    d:DesignHeight="750"
     d:DesignWidth="1366"
     mc:Ignorable="d">
     <Page.Resources>
@@ -255,8 +255,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition
                     Height="*"
-                    MinHeight="350"
-                    MaxHeight="450" />
+                    MinHeight="250"
+                    MaxHeight="350" />
                 <RowDefinition
                     Height="Auto"
                     MinHeight="250"
@@ -335,7 +335,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
 
-                                <Button x:Name="btnDelete" Click="Delete_Click">
+                                <Button x:Name="btnDelete" Click="btnDelete_Click">
                                     <Image
                                         Width="16"
                                         Height="16"
@@ -348,14 +348,14 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Label
-                Margin="40,108,0,0"
+                Margin="40,49,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Fecha Limite"
                 FontSize="16"
                 FontWeight="Bold" />
             <Label
-                Margin="40,233,0,0"
+                Margin="40,150,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Porcentaje del apartado"
@@ -365,7 +365,7 @@
                 x:Name="pickerDeadLineDate"
                 Width="223"
                 Height="30"
-                Margin="84,163,0,0"
+                Margin="84,85,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Background="White"
@@ -377,7 +377,7 @@
                 x:Name="comBoxPercentage"
                 Width="223"
                 Height="30"
-                Margin="84,285,0,0"
+                Margin="84,199,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="16"
@@ -586,7 +586,7 @@
                     Height="40"
                     Margin="159,0,0,0"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Top"
                     Background="Gray"
                     Click="btnCancel_Click"
                     Content="Cancelar"
@@ -623,7 +623,7 @@
                     Height="40"
                     Margin="0,0,220,0"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Top"
                     Background="#215ECA"
                     Click="btnPay_Click"
                     Content="Pagar"
