@@ -1,7 +1,9 @@
 ﻿using DataAcces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,8 @@ namespace BusinessLogic
 {
     public class ContractDAO
     {
+        private static NewLog _log = new NewLog();
+
         public static int LiquidateContract(Contract selectedContract)
         {
             var resutl = MessageCode.ERROR;
@@ -61,6 +65,45 @@ namespace BusinessLogic
             }
             return result;
         }
+
+        public static List<Domain.CompleteContract> RecoverContracts()
+        {
+            List<Domain.CompleteContract> resultContracts = new List<Domain.CompleteContract>();
+            try
+            {
+                using (var database = new ConnectionModel())
+                {
+                    var contract = (from Contract in database.Contracts select Contract).ToList();
+
+                    foreach (DataAcces.Contract contract1 in contract)
+                    {
+                        Domain.CompleteContract newContract = new Domain.CompleteContract();
+                        newContract.idContract = contract1.idContract;
+                        newContract.idCustomer = contract1.idContract;
+                        newContract.firstName = contract1.stateContract;
+                        Customer newCustomer= new Customer();
+                        newCustomer = CustomerDAO.findCustomerById(contract1.Customer_idCustomer);
+                        newContract.firstName = newContract.firstName;
+                        newContract.lastName = newContract.lastName;
+                        resultContracts.Add(newContract);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (ArgumentNullException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (DataException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            return resultContracts;
+        }
+
 
     }
 }

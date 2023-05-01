@@ -282,6 +282,28 @@ namespace BusinessLogic
             }
             return result;
         }
+
+        public static Customer findCustomerById(int id)
+        {
+            Customer customer = new Customer();
+            try
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    customer = connection.Customers.Find(id);
+                }
+            }
+            catch (DataException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (InvalidOperationException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            return customer;
+        }
+
     }
 }
 

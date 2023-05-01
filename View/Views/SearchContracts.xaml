@@ -77,6 +77,12 @@
                             Header="Numero de contrato"
                             MinWidth="200"    
                             />
+                <DataGridTextColumn
+                            Width="Auto"
+                            Binding="{Binding stateContract}"
+                            Header="Estado del contrato"
+                            MinWidth="200"    
+                            />
                 <DataGridTemplateColumn Header="Reactivar">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
