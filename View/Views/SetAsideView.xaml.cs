@@ -112,11 +112,10 @@ namespace View.Views
         {
             if (result)
             {
-                list = new ObservableCollection<ArticleDomain>();
+                //validar que el articulo no este en la lista
                 list.Add(article);
                 tableArticles.ItemsSource = list;
                 tableArticles.Items.Refresh();
-
             }
             else
             {
