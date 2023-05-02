@@ -26,5 +26,6 @@ namespace BusinessLogic
         public static string USER_NOT_FOUND = "El usuario o contraselña son erroneos.";
         public static string USER_FOUND = "Se han validado las credenciales.";
         public static string CUTOFF_SUCCESS = "Se ha realizado el corte correctamente, su turno ha finalizado, ya puede cerrar sesion.";
+        public static string ARTICLE_NOT_FOUND = "No se ha encontrado ningun articulo con ese codigo de barras.";
     }
 }

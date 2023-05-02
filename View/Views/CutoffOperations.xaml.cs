@@ -87,7 +87,7 @@ namespace View.Views
             window.PrimaryContainer.IsHitTestVisible = false;
         }
 
-        public void Communication(string code, bool result)
+        public void Communication(ArticleDomain code, bool result)
         {
             if (result)
             {

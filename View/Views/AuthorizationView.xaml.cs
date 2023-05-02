@@ -68,7 +68,7 @@ namespace View.Views
                 var result = ValidationStaff(userName, password);
                 if (result)
                 {
-                    communication.Communication("", result);
+                    communication.Communication(new ArticleDomain(), result);
                 }
             }
         }

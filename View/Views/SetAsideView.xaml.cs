@@ -29,10 +29,12 @@ namespace View.Views
     public partial class SetAsideView : Page, MessageService
     {
 
-
+        ObservableCollection<ArticleDomain> list = new ObservableCollection<ArticleDomain>();
         public SetAsideView()
         {
             InitializeComponent();
+            var date = DateTime.Now;
+            labelDateLine.Text = date.AddDays(15).ToString("dd/MM/yyyy");
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -41,6 +43,14 @@ namespace View.Views
         }
 
         private void btnAddArticle_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(textCustomerName.Text))
+            {
+                //error
+            }
+            OpenAddArticlePage();
+        }
+        private void OpenAddArticlePage()
         {
             var window = (MainWindow)Application.Current.MainWindow;
             BlurEffect blurEffect = new BlurEffect();
@@ -54,6 +64,10 @@ namespace View.Views
 
         private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
         {
+            OpenAddCustomerPage();
+        }
+        private void OpenAddCustomerPage()
+        {
             var window = (MainWindow)Application.Current.MainWindow;
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
@@ -61,7 +75,6 @@ namespace View.Views
             window.SecundaryContainer.Navigate(new CreateCustomerRecord());
             window.PrimaryContainer.IsHitTestVisible = false;
         }
-
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
 
@@ -71,17 +84,22 @@ namespace View.Views
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            //buscar cliente
         }
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
+        {
+            OpenPayPage();
+        }
+        private void OpenPayPage()
         {
             var window = (MainWindow)Application.Current.MainWindow;
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
             window.PrimaryContainer.Effect = blurEffect;
+            //campos estaticos para pruebas
             (App.Current as App)._cashOnHand = 1000;
-            window.SecundaryContainer.Navigate(new TransactionView(OperationType.OPERATION_SEAL, 658.50, 0));
+            window.SecundaryContainer.Navigate(new TransactionView(OperationType.OPERATION_SETASIDE, 658.50, 0));
             window.PrimaryContainer.IsHitTestVisible = false;
         }
         /// <summary>
@@ -90,17 +108,20 @@ namespace View.Views
         /// </summary>
         /// <param name="code"></param>
         /// <param name="result"></param>
-        public void Communication(string code, bool result)
+        public void Communication(ArticleDomain article, bool result)
         {
             if (result)
             {
+                list = new ObservableCollection<ArticleDomain>();
+                list.Add(article);
+                tableArticles.ItemsSource = list;
+                tableArticles.Items.Refresh();
 
             }
             else
             {
                 ErrorManager.ShowError("No pagado");
             }
-            Console.WriteLine(code);
         }
     }
 }
