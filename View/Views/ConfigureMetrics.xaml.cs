@@ -29,7 +29,7 @@ namespace View.Views
         public ConfigureMetrics()
         {
             InitializeComponent();
-            InitializateCamps(MetricsDAO.recoverMetrics());
+            InitializateCamps(MetricsDAO.RecoverMetrics());
         }
 
         private void InitializateCamps(Metric newMetrics)
@@ -48,38 +48,8 @@ namespace View.Views
         }
 
 
-        private void button_Salir_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
 
-        private void button_Registrar_Click(object sender, RoutedEventArgs e)
-        {
-            label_ErrorIVA.Content = "";
-            label_ErrorInterestRate.Content = "";
-            if (validateEmptyCamps() && validateFormat())
-            {
-                switch (MetricsDAO.updateMetrics(text_InterestRate.Text, text_IVA.Text))
-                {
-                    case 500:
-                        MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
-                        break;
-
-                    case 400:
-                        MessageBox.Show("Error al realizar el registro, favor de intentarlo más tarde");
-                        break;
-
-                    case 200:
-                        MessageBox.Show("Configuración Exitosa");
-                        Close();
-                        break;
-                }
-                
-                
-            }
-        }
-
-        private Boolean validateFormat()
+        private Boolean ValidateFormat()
         {
             Boolean resultado = true;
             if (!FormatValidation.ValidateFormat(text_InterestRate.Text, "^[0-9]+$"))
@@ -95,7 +65,7 @@ namespace View.Views
             return resultado;
         }
 
-        private Boolean validateEmptyCamps()
+        private Boolean ValidateEmptyCamps()
         {
             Boolean resultado = true;
             if (text_InterestRate.Text.Equals(""))
@@ -109,6 +79,39 @@ namespace View.Views
                 resultado = false;
             }
             return resultado;
+        }
+
+
+
+        private void Button_Registrar_Click(object sender, RoutedEventArgs e)
+        {
+            label_ErrorIVA.Content = "";
+            label_ErrorInterestRate.Content = "";
+            if (ValidateEmptyCamps() && ValidateFormat())
+            {
+                switch (MetricsDAO.UpdateMetrics(text_InterestRate.Text, text_IVA.Text))
+                {
+                    case 500:
+                        MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
+                        break;
+
+                    case 400:
+                        MessageBox.Show("Error al realizar el registro, favor de intentarlo más tarde");
+                        break;
+
+                    case 200:
+                        MessageBox.Show("Configuración Exitosa");
+                        Close();
+                        break;
+                }
+
+
+            }
+        }
+
+        private void Button_Salir_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

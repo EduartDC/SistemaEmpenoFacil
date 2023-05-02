@@ -68,8 +68,8 @@ namespace View.Views
             (int result, int idCustomer) = CustomerDAO.AddCustomer(customer);
             if (result == 200)
             {
-                convertToBytes(imageOneCopy);
-                convertToBytes(imageTwoCopy);
+                ConvertToBytes(imageOneCopy);
+                ConvertToBytes(imageTwoCopy);
                 ImagesIdentification imageOne = new ImagesIdentification();
                 imageOne.imagen = imagesBytes[0];
                 imageOne.Customer_idCustomer = idCustomer;
@@ -97,7 +97,7 @@ namespace View.Views
             
         }
 
-        private void convertToBytes(BitmapImage bitmap)
+        private void ConvertToBytes(BitmapImage bitmap)
         {
             using (MemoryStream stream = new MemoryStream())
             {
