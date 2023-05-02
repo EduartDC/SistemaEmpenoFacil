@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
-    internal class StatesContract
+    public class StatesContract
     {
         public static string ACTIVED_CONTRACT = "Activado";
         public static string CANCELED_CONTRACT = "Cancelado";
