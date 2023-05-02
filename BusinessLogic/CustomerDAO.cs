@@ -16,7 +16,7 @@ namespace BusinessLogic
     public class CustomerDAO
     {
         private static NewLog _log = new NewLog();
-        public static (int,int) AddCustomer(Customer newCustomer)
+        public static (int, int) AddCustomer(Customer newCustomer)
         {
             int result = 500;
             int idCustomer = 0;
@@ -39,7 +39,7 @@ namespace BusinessLogic
                     idCustomer = addNewCustomer.idCustomer;
                     result = 200;
                 }
-                
+
             }
             catch (DbUpdateException ex)
             {
@@ -48,7 +48,7 @@ namespace BusinessLogic
             catch (EntityException ex)
             {
                 _log.Add(ex.ToString());
-            }                   
+            }
             return (result, idCustomer);
         }
 
@@ -111,7 +111,7 @@ namespace BusinessLogic
                 _log.Add(ex.ToString());
             }
             return result;
-        } 
+        }
         public static int AddImagecostumer(ImagesIdentification newImage)
         {
             var result = MessageCode.ERROR;
@@ -302,6 +302,22 @@ namespace BusinessLogic
                 _log.Add(ex.ToString());
             }
             return customer;
+        }
+        public static DataAcces.Customer GetCustomerByCURP(string CURP)
+        {
+            var result = new DataAcces.Customer();
+            if (Utilitys.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    result = connection.Customers.Where(x => x.curp == CURP).FirstOrDefault();
+                }
+            }
+            else
+            {
+                throw new Exception("No hay conexion a la base de datos");
+            }
+            return result;
         }
 
     }

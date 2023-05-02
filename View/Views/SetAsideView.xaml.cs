@@ -20,6 +20,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using View.Properties;
 
 namespace View.Views
@@ -35,6 +36,7 @@ namespace View.Views
         double _total;
         double _amount;
         double _remaining;
+        double _discount;
         public SetAsideView()
         {
             InitializeComponent();
@@ -52,16 +54,36 @@ namespace View.Views
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            Button btn = sender as Button;
 
+            // Obtener el objeto correspondiente en el DataGrid
+            if (btn != null)
+            {
+                // Obtener la fila correspondiente al botón pulsado
+                var row = DataGridRow.GetRowContainingElement(btn);
+
+                // Obtener el objeto correspondiente a la fila
+                var item = row.Item;
+
+                // Eliminar el objeto del DataGrid
+                if (item != null && tableArticles.Items.Contains(item))
+                {
+
+                    list.Remove((ArticleDomain)item);
+                }
+            }
         }
-
         private void btnAddArticle_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(textCustomerName.Text))
             {
-                //error
+                ErrorManager.ShowWarning("Primero busque un cliente");
             }
-            OpenAddArticlePage();
+            else
+            {
+                OpenAddArticlePage();
+            }
+
         }
         private void OpenAddArticlePage()
         {
@@ -90,14 +112,32 @@ namespace View.Views
         }
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
             this.Content = null;
-
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            //buscar cliente
+            var curp = textCURP.Text;
+            if (!string.IsNullOrEmpty(curp))
+            {
+                var customerInfo = CustomerDAO.GetCustomerByCURP(curp);
+                if (customerInfo.idCustomer != 0)
+                {
+                    SetInformationCustomer(customerInfo);
+                }
+            }
+        }
+
+        private void SetInformationCustomer(DataAcces.Customer customerInfo)
+        {
+            if ((bool)customerInfo.blackList)
+            {
+                ErrorManager.ShowInformation("El cliente esta en lista negra");
+            }
+            else
+            {
+                textCustomerName.Text = customerInfo.firstName + " " + customerInfo.lastName;
+            }
         }
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
@@ -170,27 +210,67 @@ namespace View.Views
 
         private void comBoxPercentage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (comBoxPercentage.SelectedItem != null && list.Count > 0)
-            {
-                string selectedValue = comBoxPercentage.SelectedItem.ToString();
-                int selectedPercentage = Convert.ToInt32(selectedValue);
-                double percentage = selectedPercentage / 100.0;
-                _amount = (_total * percentage);
-                _remaining = (_total - (_total * percentage));
-                labelPercentage.Content = "Porcentaje de Apartado: " + selectedPercentage + "%";
-                labelAmount.Content = "Cantidad para Apartado: " + _amount;
-                labelRemaining.Content = "Restante para Liquidar: " + _remaining;
-
-            }
-            else
+            if (comBoxPercentage.SelectedItem == null && list.Count <= 0)
             {
                 ErrorManager.ShowError("No hay articulos en la lista");
             }
+            else
+            {
+                CalculateSetAsideAmount();
+            }
+        }
+
+        private void CalculateSetAsideAmount()
+        {
+            string selectedValue = comBoxPercentage.SelectedItem.ToString();
+            int selectedPercentage = Convert.ToInt32(selectedValue);
+            double percentage = selectedPercentage / 100.0;
+            _amount = (_total * percentage);
+            _remaining = (_total - (_total * percentage));
+            labelPercentage.Content = "Porcentaje de Apartado: " + selectedPercentage + "%";
+            labelAmount.Content = "Cantidad para Apartado: " + _amount;
+            labelRemaining.Content = "Restante para Liquidar: " + _remaining;
         }
 
         private void comBoxDiscount_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (list.Count <= 0)
+            {
+                ErrorManager.ShowError("No hay articulos en la lista");
+            }
+            else if (_amount == 0)
+            {
+                ErrorManager.ShowError("Seleccione un procentaje de apartado");
+            }
+            else
+            {
+                CalculateDiscount();
 
+            }
+        }
+
+        private void CalculateDiscount()
+        {
+            string selectedValue = comBoxPercentage.SelectedItem.ToString();
+            int selectedPercentage = Convert.ToInt32(selectedValue);
+            double percentage = selectedPercentage / 100.0;
+
+            string selectedDiscount = comBoxDiscount.SelectedItem.ToString();
+            int selectedDiscountPercentage = Convert.ToInt32(selectedDiscount);
+
+            _discount = selectedDiscountPercentage / 100.0;
+            _subtotal = (_subtotal * (1 - _discount));
+            _total = _subtotal * 1.16;
+
+            _amount = (_total * percentage);
+            _remaining = (_total - (_total * percentage));
+
+            labelSubTotal.Content = "SubTotal: " + _subtotal;
+            labelIva.Content = "IVA(16%): " + (_subtotal * 0.16);
+            labelTotal.Content = "Total: " + _total;
+            labelPercentage.Content = "Porcentaje de Apartado: " + selectedPercentage + "%";
+            labelAmount.Content = "Cantidad para Apartado: " + _amount;
+            labelRemaining.Content = "Restante para Liquidar: " + _remaining;
         }
     }
 }

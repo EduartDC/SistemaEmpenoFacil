@@ -490,7 +490,7 @@
                 BorderThickness="0,0,0,2"
                 FontSize="16"
                 FontWeight="Bold"
-                TextWrapping="Wrap" />
+                TextWrapping="Wrap"  />
             <Label
                 x:Name="labelSubTotal"
                 Grid.Row="1"
@@ -681,14 +681,14 @@
                 </Button.Triggers>
             </Button>
             <Label x:Name="labelPercentage"
-                Grid.Row="1"
-                Grid.Column="1"
-                Margin="391,67,0,0"
-                FontSize="20"
-                FontWeight="Bold"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="Porcentaje:" />
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Margin="391,67,0,0"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Content="Porcentaje:" />
         </Grid>
     </Grid>
 </Page>
