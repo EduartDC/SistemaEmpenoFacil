@@ -140,11 +140,11 @@ namespace BusinessLogic
                     foreach (DataAcces.Contract contractOne in contract)
                     {
                         Domain.CompleteContract newContract = new Domain.CompleteContract();
-                        newContract.idContract = contract1.idContract;
-                        newContract.idCustomer = contract1.Customer_idCustomer;
-                        newContract.stateContract = contract1.stateContract;
+                        newContract.idContract = contractOne.idContract;
+                        newContract.idCustomer = contractOne.Customer_idCustomer;
+                        newContract.stateContract = contractOne.stateContract;
                         DataAcces.Customer newCustomer = new DataAcces.Customer();
-                        newCustomer = CustomerDAO.findCustomerById(contract1.Customer_idCustomer);
+                        newCustomer = CustomerDAO.FindCustomerById(contractOne.Customer_idCustomer);
                         newContract.firstName = newCustomer.firstName;
                         newContract.lastName = newCustomer.lastName;
                         resultContracts.Add(newContract);

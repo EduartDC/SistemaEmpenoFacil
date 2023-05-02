@@ -26,18 +26,14 @@ namespace View.Views
             InitializeComponent();
         }
 
-        private void btn_Cancelar_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
 
-        private void btn_Add_Click(object sender, RoutedEventArgs e)
+        private void Btn_Add_Click(object sender, RoutedEventArgs e)
         {
             int readNumer = int.Parse(text_NumberClient.Text.Trim());
-            int resultFindCustomer = CustomerDAO.existCustomer(readNumer);
-            if (resultFindCustomer ==200)
+            int resultFindCustomer = CustomerDAO.ExistCustomer(readNumer);
+            if (resultFindCustomer == 200)
             {
-                switch (CustomerDAO.changeStatusBlackList(readNumer))
+                switch (CustomerDAO.ChangeStatusBlackList(readNumer))
                 {
                     case 200:
                         MessageBox.Show("Se agrego un nuevo cliente a la lista negra");
@@ -51,7 +47,7 @@ namespace View.Views
                         break;
                 }
             }
-            else if(resultFindCustomer ==500)
+            else if (resultFindCustomer == 500)
             {
                 MessageBox.Show("Cliente no encontrado, favor de agregar un numero de cliente existente");
             }
@@ -59,6 +55,11 @@ namespace View.Views
             {
                 MessageBox.Show("Error con la base de datos, favor de intentarlo más tarde ");
             }
+        }
+
+        private void Btn_Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
