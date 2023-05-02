@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="SearchContracts"
     d:DesignHeight="800"
-    d:DesignWidth="1200"
+    d:DesignWidth="1300"
     Background="White"
     mc:Ignorable="d">
 
@@ -33,13 +33,13 @@
             Margin="688,78,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Click="btn_Search_Click"
+            Click="Btn_Search_Click"
             Content="Buscar"
             FontSize="16" />
         <DataGrid
             x:Name="tableCustomers"
             Grid.Row="1"
-            Width="1137"
+            Width="1279"
             Height="494"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -73,33 +73,54 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="Auto"
-                    MinWidth="200"
+                    MinWidth="150"
                     Binding="{Binding idCustomer}"
                     Header="Numero cliente" />
                 <DataGridTextColumn
                     Width="Auto"
-                    MinWidth="200"
+                    MinWidth="150"
                     Binding="{Binding firstName}"
                     Header="Nombre" />
                 <DataGridTextColumn
                     Width="Auto"
-                    MinWidth="200"
+                    MinWidth="150"
                     Binding="{Binding lastName}"
                     Header="Apellidos" />
                 <DataGridTextColumn
                     Width="Auto"
-                    MinWidth="200"
+                    MinWidth="150"
                     Binding="{Binding idContract}"
                     Header="Numero de contrato" />
                 <DataGridTextColumn
                     Width="Auto"
-                    MinWidth="200"
+                    MinWidth="150"
                     Binding="{Binding stateContract}"
                     Header="Estado del contrato" />
-                <DataGridTemplateColumn Header="Reactivar">
+                <DataGridTemplateColumn Header="Reactivar" MinWidth="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Click="Button_Reactivate_Click" Content="Reactivar" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Liquidar" MinWidth="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="Button_Liquidate_Click" Content="Liquidar"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Cancelar" MinWidth="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="Button_Cancel_Click" Content="Cancelar"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Refrendo" MinWidth="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="Button_Endorsement_Click" Content="Refrendo"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -112,7 +133,7 @@
             Margin="812,78,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Click="btn_Restore_Click"
+            Click="Btn_Restore_Click"
             Content="Restablecer"
             FontSize="16"
             RenderTransformOrigin="0.228,1.827" />
@@ -131,7 +152,7 @@
             Margin="72,0,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Click="btn_Salir_Click"
+            Click="Btn_Salir_Click"
             Content="Salir"
             FontSize="16" />
         <ComboBox

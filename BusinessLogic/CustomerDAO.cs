@@ -216,7 +216,7 @@ namespace BusinessLogic
             return resultCustomers;
         }
 
-        public static int existCustomer(int id)
+        public static int ExistCustomer(int id)
         {
             int result = 500;
             try
@@ -248,7 +248,7 @@ namespace BusinessLogic
             return result;
         }
 
-        public static int changeStatusBlackList(int id)
+        public static int ChangeStatusBlackList(int id)
         {
             int result = 500;
             try
@@ -283,7 +283,7 @@ namespace BusinessLogic
             return result;
         }
 
-        public static Customer findCustomerById(int id)
+        public static Customer FindCustomerById(int id)
         {
             Customer customer = new Customer();
             try

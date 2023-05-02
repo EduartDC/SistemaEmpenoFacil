@@ -30,10 +30,10 @@ namespace View.Views
             InitializeComponent();
             comBox_TypeSearch.Items.Add("Numero del cliente");
             comBox_TypeSearch.Items.Add("Nombre del cliente");
-            initializeTable();
+            InitializeTable();
         }
 
-        private void initializeTable()
+        private void InitializeTable()
         {
             contractList = ContractDAO.RecoverContracts();
             contractList.ForEach(customer => _listNamesCustomers.Add(customer.firstName));
@@ -47,40 +47,7 @@ namespace View.Views
             MessageBox.Show("Hola mundo");
         }
 
-        private void btn_Search_Click(object sender, RoutedEventArgs e)
-        {
-            tableCustomers.ItemsSource = contractList;
-            switch (comBox_TypeSearch.SelectedIndex)
-            {
-                case -1:
-                    MessageBox.Show("Favor de seleccionar el tipo de dato con el que desea buscar al cliente");
-                    break;
-
-                case 0:
-                    if (!FormatValidation.ValidateFormat(text_SearchBy.Text, "^[0-9]+$"))
-                    {
-                        MessageBox.Show("Solo se aceptan numeros para esta busqueda");
-                    }
-                    else
-                    {
-                        searchByNumber();
-                    }
-                    break;
-
-                case 1:
-                    if (!FormatValidation.ValidateFormat(text_SearchBy.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+$"))
-                    {
-                        MessageBox.Show("Solo se aceptan letras para esta busqueda");
-                    }
-                    else
-                    {
-                        searchByName();
-                    }
-                    break;
-            }
-        }
-
-        private void searchByName()
+        private void SearchByName()
         {
             if (!String.IsNullOrEmpty(text_SearchBy.Text.Trim()))
             {
@@ -95,7 +62,7 @@ namespace View.Views
             }
         }
 
-        private void searchByNumber()
+        private void SearchByNumber()
         {
             if (!String.IsNullOrEmpty(text_SearchBy.Text.Trim()))
             {
@@ -111,18 +78,65 @@ namespace View.Views
             }
         }
 
+        private void Button_Liquidate_Click(object sender, RoutedEventArgs e)
+        {
 
-        private void btn_Restore_Click(object sender, RoutedEventArgs e)
+        }
+
+        private void Button_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Endorsement_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Restore_Click(object sender, RoutedEventArgs e)
         {
             text_SearchBy.Text = "";
             _listNumberCustomers.Clear();
             _listNamesCustomers.Clear();
-            initializeTable();
+            InitializeTable();
         }
 
-        private void btn_Salir_Click(object sender, RoutedEventArgs e)
+        private void Btn_Salir_Click(object sender, RoutedEventArgs e)
         {
-            
+
+        }
+
+        private void Btn_Search_Click(object sender, RoutedEventArgs e)
+        {
+            tableCustomers.ItemsSource = contractList;
+            switch (comBox_TypeSearch.SelectedIndex)
+            {
+                case -1:
+                    MessageBox.Show("Favor de seleccionar el tipo de dato con el que desea buscar al cliente");
+                    break;
+
+                case 0:
+                    if (!FormatValidation.ValidateFormat(text_SearchBy.Text, "^[0-9]+$"))
+                    {
+                        MessageBox.Show("Solo se aceptan numeros para esta busqueda");
+                    }
+                    else
+                    {
+                        SearchByNumber();
+                    }
+                    break;
+
+                case 1:
+                    if (!FormatValidation.ValidateFormat(text_SearchBy.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+$"))
+                    {
+                        MessageBox.Show("Solo se aceptan letras para esta busqueda");
+                    }
+                    else
+                    {
+                        SearchByName();
+                    }
+                    break;
+            }
         }
     }
 }
