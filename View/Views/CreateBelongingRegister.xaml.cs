@@ -67,10 +67,10 @@ namespace View.Views
 
             tbDescription.Text = belongingsList[posicionEdicion].GenericDescription;
             tbFeature.Text = belongingsList[posicionEdicion].Features;
-            tbApraisalAmount.Text = belongingsList[posicionEdicion].ApraisalAmount.ToString();
+            tbApraisalAmount.Text = belongingsList[posicionEdicion].LoanAmount.ToString();
             tbModel.Text = belongingsList[posicionEdicion].Model;
             tbSerialNumber.Text = belongingsList[posicionEdicion].SerialNumber;
-            tbLoanAmount.Text = belongingsList[posicionEdicion].LoanAmount.ToString();
+            tbMaxValue.Text = belongingsList[posicionEdicion].ApraisalAmount.ToString();
             imageList[0] = true;
             imageList[1] = true;
 
@@ -409,15 +409,20 @@ namespace View.Views
             if (cbCategory.SelectedIndex > 0 || !string.IsNullOrEmpty(tbDescription.Text) ||
                 !string.IsNullOrEmpty(tbFeature.Text) || !string.IsNullOrEmpty(tbSerialNumber.Text) ||
                 !string.IsNullOrEmpty(tbModel.Text) || !string.IsNullOrEmpty(tbApraisalAmount.Text) ||
-                !string.IsNullOrEmpty(tbLoanAmount.Text))
+                !string.IsNullOrEmpty(tbMaxValue.Text))
             {
                 if (imageList[0] && imageList[1] && imageList[2] && imageList[3])
                 {
-                    if (IsNumeric(tbApraisalAmount.Text) && IsNumeric(tbLoanAmount.Text))
+                    if (IsNumeric(tbApraisalAmount.Text) && IsNumeric(tbMaxValue.Text))
                     {
+                        if(int.Parse(tbApraisalAmount.Text) <= int.Parse(tbMaxValue.Text))
                         return true;
+                        else
+                        {
+                            MessageBox.Show("El valor de prestamo del produrcto no puede ser mayor al valor de avalúo del producto. Favor de verificar");
+                        }
                     }
-                    else
+                    else 
                     {
                         MessageBox.Show("Valores no numericos en montos");
                     }
@@ -450,9 +455,9 @@ namespace View.Views
             newBelonging.Features = tbFeature.Text;
             newBelonging.SerialNumber = tbSerialNumber.Text;
             newBelonging.Model = tbModel.Text;//no está en la BD
-            newBelonging.ApraisalAmount = int.Parse(tbApraisalAmount.Text);
-            newBelonging.LoanAmount = int.Parse(tbLoanAmount.Text);
-            newBelonging.PorcentLoan = ((int.Parse(tbApraisalAmount.Text)) * 100) / (int.Parse(tbLoanAmount.Text));//no esta en la BD
+            newBelonging.ApraisalAmount = int.Parse(tbMaxValue.Text);
+            newBelonging.LoanAmount = int.Parse(tbApraisalAmount.Text);
+            newBelonging.PorcentLoan = ((int.Parse(tbApraisalAmount.Text)) * 100) / (int.Parse(tbMaxValue.Text));//no esta en la BD
             if (!edicion)
             {
                 belongingsList.Add(newBelonging);
@@ -475,7 +480,7 @@ namespace View.Views
             tbSerialNumber.Text = "";
             tbModel.Text = "";
             tbApraisalAmount.Text = "";
-            tbLoanAmount.Text = "";
+            tbMaxValue.Text = "";
         }
     }
 }

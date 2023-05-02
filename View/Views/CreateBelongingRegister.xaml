@@ -48,7 +48,7 @@
         <TextBox x:Name="tbApraisalAmount" HorizontalAlignment="Left" Margin="24,239,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" BorderBrush="#00ABADB3"/>
         <Label Content="valor maximo" HorizontalAlignment="Left" Margin="18,191,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="24,225,0,0" Grid.Row="1" VerticalAlignment="Top" Width="149"/>
-        <TextBox x:Name="tbLoanAmount" HorizontalAlignment="Left" Margin="24,209,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" BorderBrush="#00ABADB3"/>
+        <TextBox x:Name="tbMaxValue" HorizontalAlignment="Left" Margin="24,209,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" BorderBrush="#00ABADB3"/>
         <Label Content="prestamo" HorizontalAlignment="Left" Margin="18,221,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="23,255,0,0" Grid.Row="1" VerticalAlignment="Top" Width="149"/>
         <Button Content="Cerrar registro" HorizontalAlignment="Left" Margin="19,0,0,0" Grid.Row="2" VerticalAlignment="Center" Click="ClicClosePage"/>
