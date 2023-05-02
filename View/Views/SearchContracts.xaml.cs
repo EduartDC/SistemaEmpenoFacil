@@ -17,17 +17,15 @@ using System.Windows.Shapes;
 namespace View.Views
 {
     /// <summary>
-    /// Lógica de interacción para ConsultBlackList1.xaml
+    /// Lógica de interacción para SearchContracts.xaml
     /// </summary>
-    public partial class ConsultBlackList1 : Page
+    public partial class SearchContracts : Page
     {
-
-        private NewLog _log = new NewLog();
-        private List<Domain.Customer> customersList = new List<Domain.Customer>();
+        private List<Domain.CompleteContract> contractList = new List<Domain.CompleteContract>();
         private List<string> _listNamesCustomers = new List<string>();
         private List<int> _listNumberCustomers = new List<int>();
 
-        public ConsultBlackList1()
+        public SearchContracts()
         {
             InitializeComponent();
             comBox_TypeSearch.Items.Add("Numero del cliente");
@@ -37,14 +35,21 @@ namespace View.Views
 
         private void initializeTable()
         {
-            customersList = CustomerDAO.RecoverCustomers();
-            customersList.ForEach(customer => _listNamesCustomers.Add(customer.firstName));
-            customersList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
-            tableCustomers.ItemsSource = customersList;
+            contractList = ContractDAO.RecoverContracts();
+            contractList.ForEach(customer => _listNamesCustomers.Add(customer.firstName));
+            contractList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
+            tableCustomers.ItemsSource = contractList;
         }
+
+
+        private void Button_Reactivate_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Hola mundo");
+        }
+
         private void btn_Search_Click(object sender, RoutedEventArgs e)
         {
-            tableCustomers.ItemsSource = customersList;
+            tableCustomers.ItemsSource = contractList;
             switch (comBox_TypeSearch.SelectedIndex)
             {
                 case -1:
@@ -75,19 +80,18 @@ namespace View.Views
             }
         }
 
-
         private void searchByName()
         {
             if (!String.IsNullOrEmpty(text_SearchBy.Text.Trim()))
             {
-                List<Domain.Customer> CustomersEquals = (_listNamesCustomers.Where(stringName =>
+                List<Domain.CompleteContract> CustomersEquals = (_listNamesCustomers.Where(stringName =>
                 stringName.StartsWith(text_SearchBy.Text.Trim())).Select(stringName =>
-                customersList.Find(customerFind => customerFind.firstName.Contains(stringName)))).ToList();
+                contractList.Find(customerFind => customerFind.firstName.Contains(stringName)))).ToList();
                 tableCustomers.ItemsSource = CustomersEquals;
             }
             else if (text_SearchBy.Text.Trim() == "")
             {
-                tableCustomers.ItemsSource = customersList;
+                tableCustomers.ItemsSource = contractList;
             }
         }
 
@@ -96,16 +100,17 @@ namespace View.Views
             if (!String.IsNullOrEmpty(text_SearchBy.Text.Trim()))
             {
                 int readNumer = int.Parse(text_SearchBy.Text.Trim());
-                List<Domain.Customer> CustomersEquals = (_listNumberCustomers.Where(intNumber =>
-                intNumber.Equals(readNumer))).Select(intNumber => customersList.Find(customerFind =>
+                List<Domain.CompleteContract> CustomersEquals = (_listNumberCustomers.Where(intNumber =>
+                intNumber.Equals(readNumer))).Select(intNumber => contractList.Find(customerFind =>
                 customerFind.idCustomer.Equals(intNumber))).ToList();
                 tableCustomers.ItemsSource = CustomersEquals;
             }
             else if (text_SearchBy.Text.Trim() == "")
             {
-                tableCustomers.ItemsSource = customersList;
+                tableCustomers.ItemsSource = contractList;
             }
         }
+
 
         private void btn_Restore_Click(object sender, RoutedEventArgs e)
         {
@@ -119,12 +124,5 @@ namespace View.Views
         {
             
         }
-
-        private void btn_Add_Click(object sender, RoutedEventArgs e)
-        {
-            AddCustomerBlackList addCustomerBlackList = new AddCustomerBlackList();
-            addCustomerBlackList.ShowDialog();
-        }
-
     }
 }
