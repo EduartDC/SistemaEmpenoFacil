@@ -47,6 +47,7 @@
     <Compile Include="ContractDomain.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="MessageService.cs" />
+    <Compile Include="OperationDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

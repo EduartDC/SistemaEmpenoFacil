@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace View.Views
     /// </summary>
     public partial class AuthorizationView : Page
     {
+        MessageService communication;
         public AuthorizationView()
         {
             InitializeComponent();
@@ -45,6 +47,13 @@ namespace View.Views
 
         private void btnAuthorization_Click(object sender, RoutedEventArgs e)
         {
+            var result = false;
+            communication.Communication("", result);
+        }
+        public void CommunicacionPages(MessageService communication)
+        {
+
+            this.communication = communication;
 
         }
     }
