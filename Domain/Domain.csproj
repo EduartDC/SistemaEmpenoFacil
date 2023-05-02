@@ -43,12 +43,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Belonging.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Communication.cs" />
+    <Compile Include="ContractDomain.cs" />
     <Compile Include="CompleteContract.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="MessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAcces\DataAcces.csproj">
+      <Project>{2cd36b35-ec13-4c97-b501-da2d11e4bf8f}</Project>
+      <Name>DataAcces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
