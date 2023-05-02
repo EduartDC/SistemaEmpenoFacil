@@ -33,7 +33,6 @@ namespace View.Views
         public SetAsideView()
         {
             InitializeComponent();
-
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

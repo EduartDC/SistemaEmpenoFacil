@@ -37,44 +37,68 @@ namespace View.Views
 
             if (result == MessageBoxResult.Yes)
             {
-                var window = (MainWindow)Application.Current.MainWindow;
-                BlurEffect blurEffect = new BlurEffect();
-                blurEffect.Radius = 0;
-                window.PrimaryContainer.Effect = blurEffect;
-                window.SecundaryContainer.Content = null;
-                window.PrimaryContainer.IsHitTestVisible = true;
+                ClosePage();
+
             }
+        }
+
+        private void ClosePage()
+        {
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 0;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Content = null;
+            window.PrimaryContainer.IsHitTestVisible = true;
         }
 
         private void btnAuthorization_Click(object sender, RoutedEventArgs e)
         {
-            var result = false;
-            var infoStaff = ValidationStaff();
 
-            communication.Communication("", result);
+            var userName = textUser.Text;
+            var password = textPassword.Password;
+
+
+            if (string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(password))
+            {
+                ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
+            }
+            else
+            {
+                var result = ValidationStaff(userName, password);
+                if (result)
+                {
+                    communication.Communication("", result);
+                }
+            }
         }
 
-        private Staff ValidationStaff()
+        private bool ValidationStaff(string userName, string password)
         {
-            var infoStaff = new Staff();
+            var result = false;
             try
             {
-                var userName = textUser.Text;
-                var password = textPassword.Password;
-                if (string.IsNullOrEmpty(password) && string.IsNullOrEmpty(password))
+                var infoStaff = StaffDAO.LogingStaff(userName, password);
+                if (infoStaff == null)
                 {
-                    ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
+                    ErrorManager.ShowWarning(MessageError.USER_NOT_FOUND);
+                }
+                else if (!infoStaff.userName.Equals(textUser.Text) || !infoStaff.password.Equals(textPassword.Password))
+                {
+                    ErrorManager.ShowWarning(MessageError.USER_NOT_FOUND);
                 }
                 else
                 {
-                    infoStaff = StaffDAO.LogingStaff(userName, password);
+                    ErrorManager.ShowInformation(MessageError.USER_FOUND);
+                    result = true;
+                    ClosePage();
                 }
             }
             catch (Exception)
             {
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
             }
-            return infoStaff;
+            return result;
         }
 
         public void CommunicacionPages(MessageService communication)

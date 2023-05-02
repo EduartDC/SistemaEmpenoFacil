@@ -13,10 +13,10 @@ namespace BusinessLogic
 {
     public class ContractDAO
     {
-        public static int LiquidateContract(ContractDomain selectedContract)
+
         private static NewLog _log = new NewLog();
 
-        public static int LiquidateContract(Contract selectedContract)
+        public static int LiquidateContract(ContractDomain selectedContract)
         {
             var result = MessageCode.ERROR;
             try
@@ -143,7 +143,7 @@ namespace BusinessLogic
                         newContract.idContract = contract1.idContract;
                         newContract.idCustomer = contract1.Customer_idCustomer;
                         newContract.stateContract = contract1.stateContract;
-                        Customer newCustomer= new Customer();
+                        DataAcces.Customer newCustomer = new DataAcces.Customer();
                         newCustomer = CustomerDAO.findCustomerById(contract1.Customer_idCustomer);
                         newContract.firstName = newCustomer.firstName;
                         newContract.lastName = newCustomer.lastName;

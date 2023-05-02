@@ -23,5 +23,8 @@ namespace BusinessLogic
         public static string CUSTOMER_NOT_INTRODUCED = "Para buscar un cliente, favor de introducir una informacion de curp (18 caracteres)";
         public static string INVALID_NUMBER = "El campo de telefono debe tener 10 digitos y todos tiene que ser numeros.";
         public static string UPLOAD_SUCCESS = "Se ha subido la informacion correctamente";
+        public static string USER_NOT_FOUND = "El usuario o contraselña son erroneos.";
+        public static string USER_FOUND = "Se han validado las credenciales.";
+        public static string CUTOFF_SUCCESS = "Se ha realizado el corte correctamente, su turno ha finalizado, ya puede cerrar sesion.";
     }
 }

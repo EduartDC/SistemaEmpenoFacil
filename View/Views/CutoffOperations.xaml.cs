@@ -17,6 +17,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using View.Properties;
 
 namespace View.Views
 {
@@ -38,13 +39,12 @@ namespace View.Views
             var staff = (App.Current as App)._staffInfo;
             _list = await Task.Run(() => OperationDAO.GetAllOperationsByDate(DateTime.Now, 1));
             tableOperations.ItemsSource = _list;
-            labelIdStaff.Content = 1;//staff.idStaff;
-            //labelNameStaff.Content = "Nombre de Empleado: " + staff.fisrtName + " " + staff.lastName;
+            labelIdStaff.Content = "No. de Empleado: " + staff.idStaff;
+            labelNameStaff.Content = "Nombre de Empleado: " + staff.fisrtName + " " + staff.lastName;
             labelDate.Content = "Fecha: " + DateTime.Now.ToString("dd/MM/yyyy");
             labelTime.Content = DateTime.Now.ToString("hh:mm:ss tt");
             labelCountOperations.Content = "Cantidad de Operaciones: " + _list.Count.ToString();
             CalculateCachOnHand();
-
         }
 
         private void CalculateCachOnHand()
@@ -89,7 +89,11 @@ namespace View.Views
 
         public void Communication(string code, bool result)
         {
-            //guardar la operacion de retiro de dinero 
+            if (result)
+            {
+                (App.Current as App)._staffShift = false;
+                ErrorManager.ShowInformation(MessageError.CUTOFF_SUCCESS);
+            }
         }
     }
 }
