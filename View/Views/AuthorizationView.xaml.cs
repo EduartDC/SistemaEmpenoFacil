@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using DataAcces;
 using Domain;
 using System;
 using System.Collections.Generic;
@@ -48,8 +49,34 @@ namespace View.Views
         private void btnAuthorization_Click(object sender, RoutedEventArgs e)
         {
             var result = false;
+            var infoStaff = ValidationStaff();
+
             communication.Communication("", result);
         }
+
+        private Staff ValidationStaff()
+        {
+            var infoStaff = new Staff();
+            try
+            {
+                var userName = textUser.Text;
+                var password = textPassword.Password;
+                if (string.IsNullOrEmpty(password) && string.IsNullOrEmpty(password))
+                {
+                    ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
+                }
+                else
+                {
+                    infoStaff = StaffDAO.LogingStaff(userName, password);
+                }
+            }
+            catch (Exception)
+            {
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+            }
+            return infoStaff;
+        }
+
         public void CommunicacionPages(MessageService communication)
         {
 

@@ -46,8 +46,8 @@ namespace BusinessLogic
             var result = false;
 
             if (hasNumber.IsMatch(password) &&
-                hasUpperLetter.IsMatch(password) &&
-                hasMiniumDigits.IsMatch(password))
+            hasUpperLetter.IsMatch(password) &&
+            hasMiniumDigits.IsMatch(password))
             {
                 result = true;
             }
