@@ -85,7 +85,7 @@ namespace View.Views
                 try
                 {
                     var article = ArticleDAO.GetArticleDomainByCode(code);
-                    if (article != null)
+                    if (article.idArticle != 0)
                     {
                         _article = article;
                         SetInformation();
@@ -99,7 +99,6 @@ namespace View.Views
                 {
                     ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
                 }
-
             }
             else if (string.IsNullOrEmpty(code) && e.Key == Key.Enter)
             {
