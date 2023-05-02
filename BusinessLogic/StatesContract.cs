@@ -8,10 +8,10 @@ namespace BusinessLogic
 {
     public class StatesContract
     {
-        public static string ACTIVED_CONTRACT = "Activado";
+        public static string ACTIVED_CONTRACT = "Activo";
         public static string CANCELED_CONTRACT = "Cancelado";
         public static string COMPLETED_CONTRACT = "Liquidado";
-        public static string REACTIVED_CONTRACT = "Reactivado";
+        public static string REACTIVED_CONTRACT = "Renovado";
 
     }
 }

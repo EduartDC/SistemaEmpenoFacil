@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using DataAcces;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,44 +23,38 @@ namespace View.Views
     /// <summary>
     /// Interaction logic for LiquidateContractView.xaml
     /// </summary>
-    public partial class LiquidateContractView : Page
+    public partial class LiquidateContractView : Page, MessageService
     {
         double _total;
+        int _id;
         public LiquidateContractView(int idContract)
         {
             InitializeComponent();
-            SetInformation(idContract);
+            _id = idContract;
+            labelValidation.Visibility = Visibility.Hidden;
+            SetInformationAsync(idContract);
         }
 
-        private void SetInformation(int idContract)
+        private async Task SetInformationAsync(int idContract)
         {
             try
             {
-                //Contract information
-                var contract = ContractDAO.GetContract(idContract);
-                if (contract != null)
+                var contract = await Task.Run(() => ContractDAO.GetContractsDomainAsync(idContract));
+                if (contract.stateContract.Equals(StatesContract.CANCELED_CONTRACT) || contract.stateContract.Equals(StatesContract.COMPLETED_CONTRACT))
                 {
-                    labelDeadLine.Content = contract.deadlineDate;
-                    labelSatartDate.Content = contract.creationDate;
+                    ErrorManager.ShowWarning("Este contrato no es apto para su liquidacion, es posible que ya este liquidado o cancelado.");
+                    //regresa a consultar contratos
+                }
+                else if (contract != null)
+                {
+                    labelDeadLine.Content = "Fecha Limite: " + contract.deadlineDate;
+                    labelSatartDate.Content = "Fecha de Inicio: " + contract.creationDate;
                     var time = DateTime.Now - contract.creationDate;
-                    labelTime.Content = "Tiempo transcurrido: " + time.Days;
+                    labelTime.Content = "Tiempo transcurrido: " + time.Days + " Dias.";
                     labelPayDay.Content = "Fecha de Pago: " + contract.creationDate.Day;
-
-                    //Customer information
-                    var customer = CustomerDAO.GetCustomer(contract.Customer_idCustomer);
-                    if (customer != null)
-                    {
-                        labelNameCustomer.Content = customer.firstName + " " + customer.lastName;
-                        labelCURPCustomer.Content = customer.curp;
-                    }
-
-                    //Articles information
-                    var belongings = BelongingDAO.GetAllBelongingsFromContract(contract.idContract);
-                    if (belongings != null)
-                    {
-                        tableBelongings.ItemsSource = belongings;
-
-                    }
+                    labelNameCustomer.Content = "Nombre: " + contract.Customer.firstName + " " + contract.Customer.lastName;
+                    labelCURPCustomer.Content = "CURP: " + contract.Customer.curp;
+                    tableBelongings.ItemsSource = contract.Belongings;
                     CalculateFee(contract);
                 }
             }
@@ -67,10 +62,12 @@ namespace View.Views
             {
                 ErrorManager.ShowError(ex.Message);
             }
-
         }
-
-        private void CalculateFee(Contract contract)
+        /// <summary>
+        /// Metodo para calcular el total a pagar por la liquidacion
+        /// </summary>
+        /// <param name="contract"></param>
+        private void CalculateFee(ContractDomain contract)
         {
             var interestRate = contract.interestRate;
             double interest = (double)(interestRate / 100.0);
@@ -81,9 +78,9 @@ namespace View.Views
             var total = loan + interestAmount;
             _total = total;
 
-            labelSubTotal.Content = loan.ToString("0.00");
-            labelIva.Content = interestAmount.ToString("0.00");
-            labelTotal.Content = total.ToString("0.00");
+            labelSubTotal.Content = "SubTotal: " + loan.ToString("0.00");
+            labelIva.Content = "Intereses : " + interestAmount.ToString("0.00");
+            labelTotal.Content = "Total: " + total.ToString("0.00");
 
         }
 
@@ -99,8 +96,34 @@ namespace View.Views
             blurEffect.Radius = 5;
             window.PrimaryContainer.Effect = blurEffect;
             (App.Current as App)._cashOnHand = 1000;
-            window.SecundaryContainer.Navigate(new TransactionView(OperationType.OPERATION_LIQUIDATE, _total,0));
+            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LIQUIDATE, _total, _id);
+            newOperation.CommunicacionPages(this);
+            window.SecundaryContainer.Navigate(newOperation);
             window.PrimaryContainer.IsHitTestVisible = false;
+        }
+
+        public void Communication(string code, bool result)
+        {
+            if (result)
+            {
+                ErrorManager.ShowInformation("El pago se concreto.");
+                SaveChanges();
+                labelValidation.Visibility = Visibility.Visible;
+                btnLiquidate.IsEnabled = false;
+            }
+            else
+            {
+                ErrorManager.ShowWarning("El pago no se concreto.");
+            }
+        }
+
+        private async Task SaveChanges()
+        {
+            var contract = new ContractDomain();
+            contract.idContract = _id;
+            contract.stateContract = StatesContract.COMPLETED_CONTRACT;
+            contract.settlementAmount = _total;
+            ContractDAO.LiquidateContract(contract);
         }
     }
 }

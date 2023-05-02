@@ -589,7 +589,7 @@
                     VerticalAlignment="Top"
                     Background="Gray"
                     Click="btnCancel_Click"
-                    Content="Cancelar"
+                    Content="Regresar"
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="White"

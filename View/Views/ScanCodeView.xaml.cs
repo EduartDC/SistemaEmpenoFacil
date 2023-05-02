@@ -39,20 +39,25 @@ namespace View.Views
 
             if (result == MessageBoxResult.Yes)
             {
-                var window = (MainWindow)Application.Current.MainWindow;
-                BlurEffect blurEffect = new BlurEffect();
-                blurEffect.Radius = 0;
-                window.PrimaryContainer.Effect = blurEffect;
-                window.SecundaryContainer.Content = null;
-                window.PrimaryContainer.IsHitTestVisible = true;
+                CloseView();
             }
         }
-
+        private void CloseView()
+        {
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 0;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Content = null;
+            window.PrimaryContainer.IsHitTestVisible = true;
+        }
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            // Lógica para buscar el código
-            string code = "1234"; // Este es el código que encontraste
-            communication.ScanCode(code);
+            var result = false;
+            string code = "1234";
+            CloseView();
+            communication.Communication(code, result);
+
         }
         public void CommunicacionPages(MessageService communication)
         {

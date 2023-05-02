@@ -27,7 +27,7 @@ namespace View.Views
 
         private void itemHome_Click(object sender, RoutedEventArgs e)
         {
-            Container.NavigationService.Navigate(new LiquidateContractView(9));
+
         }
 
         private void itemExit_Click(object sender, RoutedEventArgs e)
@@ -58,7 +58,7 @@ namespace View.Views
 
         private void GenerateSalesReport_Click(object sender, RoutedEventArgs e)
         {
-            Container.NavigationService.Navigate(new GenerateSalesReport()); 
+            Container.NavigationService.Navigate(new GenerateSalesReport());
         }
 
         private void itemCutOff_Click(object sender, RoutedEventArgs e)
