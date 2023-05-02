@@ -45,6 +45,7 @@
     <Compile Include="Belonging.cs" />
     <Compile Include="Communication.cs" />
     <Compile Include="ContractDomain.cs" />
+    <Compile Include="CompleteContract.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="MessageService.cs" />
     <Compile Include="OperationDomain.cs" />

@@ -88,7 +88,8 @@
                 TextWrapping="Wrap" 
                 VerticalAlignment="Top"
                 Width="120" 
-                BorderBrush="#00ABADB3"/>
+                BorderBrush="#00ABADB3" 
+                Text="aaa"/>
             <Label 
                 Content="% de préstamo sobre avalúo" 
                 HorizontalAlignment="Left" 
@@ -233,31 +234,6 @@
                 VerticalAlignment="Top"
                 Width="148"/>
             <TextBox
-                x:Name="tbMountPaymentTerm"
-                HorizontalAlignment="Left"
-                Margin="219,122,0,0"
-                Grid.Row="3" 
-                TextWrapping="Wrap"
-                VerticalAlignment="Top"
-                Width="150" 
-                BorderBrush="#00ABADB3"/>
-            <Label
-                Content="monto de pago/plazo"
-                HorizontalAlignment="Left"
-                Margin="218,98,0,0" 
-                Grid.Row="3" 
-                VerticalAlignment="Top"
-                FontWeight="Bold"/>
-            <Border
-                BorderBrush="#FF330099"
-                BorderThickness="1" 
-                HorizontalAlignment="Left" 
-                Height="1" 
-                Margin="223,140,0,0" 
-                Grid.Row="3" 
-                VerticalAlignment="Top" 
-                Width="149"/>
-            <TextBox
                 x:Name="tbDateEndorsementSettlement" 
                 HorizontalAlignment="Left"
                 Margin="586,33,0,0" 
@@ -352,32 +328,6 @@
                 Grid.Row="3" 
                 VerticalAlignment="Top" 
                 Width="149"/>
-
-            <TextBox
-                x:Name="tbTotalAnnualCost"
-                HorizontalAlignment="Left"
-                Margin="409,122,0,0"
-                Grid.Row="3" 
-                TextWrapping="Wrap"
-                VerticalAlignment="Top"
-                Width="120" 
-                BorderBrush="#00ABADB3"/>
-            <Label
-                Content="Costo anual total"
-                HorizontalAlignment="Left"
-                Margin="401,98,0,0"
-                Grid.Row="3" 
-                VerticalAlignment="Top" 
-                FontWeight="Bold"/>
-            <Border
-                BorderBrush="#FF330099"
-                BorderThickness="1"
-                HorizontalAlignment="Left"
-                Height="1"
-                Margin="401,141,0,0"
-                Grid.Row="3" 
-                VerticalAlignment="Top"
-                Width="149"/>
             <TextBox
                 x:Name="tbAnnualInterestRate" 
                 HorizontalAlignment="Left"
@@ -442,7 +392,8 @@
                 Grid.Row="3"
                 VerticalAlignment="Top" 
                 Width="153"
-                SelectionChanged="ComboBoxListener"
+                SelectionChanged="ComboBoxListener" 
+                IsEnabled="false"
                 />
             <Label
                 Content="" 
