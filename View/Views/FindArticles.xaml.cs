@@ -22,66 +22,53 @@ using System.Windows.Controls.Primitives;
 
 namespace View.Views
 {
-    /*
-     * NOTA: tengo que buscar ARTICULO, PRENDA,
-     */
+
     public partial class FindArticles : Page
     {
-        private List<Belongings_Articles> articlesList;
+        private List<Belongings_Articles> articles = new List<Belongings_Articles>();
         private Boolean datePickerEnabled = true;
 
         public FindArticles()
         {
             InitializeComponent();
-            articlesList = new List<Belongings_Articles>();
-            LoadArticles2();
+            LoadArticles();
             LoadCategories();
         }
 
-        //ORIGINAL
         private void LoadArticles()
         {
-            int statusCode;
-            if (Utilitys.VerifyConnection())
+            int code = 0;
+            articles.Clear();
+            (code, articles) = ArticleDAO.getArticles();
+            MessageBox.Show(code.ToString());
+            if (code == MessageCode.SUCCESS)
             {
-                (statusCode, articlesList) = ArticleDAO.getArticles();
-                if(statusCode == MessageCode.CONNECTION_ERROR)
-                {
-                    ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
-                    this.Content = null;
-                }else
-                {
-                    LoadTable();
-                }
+                LoadTable();
             }
             else
+            if (code == MessageCode.CONNECTION_ERROR)
             {
-                ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
-                this.Content = null;
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+                //codigo para cerrar page
             }
         }
-
-       
-
         private void LoadCategories()
         {
             List<string> categoriesList = new List<string> { "Selecciona una categoria", "Joyeria", "Relojeria", "Herramientas" };
             cbCategory.ItemsSource = categoriesList;
             cbCategory.SelectedIndex = 0;
-
-
         }
 
         private void LoadTable()
         {
             dgArticles.Items.Clear();
-            dgArticles.ItemsSource = articlesList;
-            //dgArticles.RowHeight = double.NaN;//tamaño de filas automaticas al contenido
+            dgArticles.ItemsSource = articles;
+            dgArticles.RowHeight = double.NaN;//tamaño de filas automaticas al contenido
         }
 
         private void Btn_EditArticle(object sender, RoutedEventArgs e)
         {
-            if (dgArticles.SelectedIndex >= 0)
+            if (SelectedItem())
             {
                 // Container.NavigationService.Navigate(new EditArticle(articles[dgArticles.SelectedIndex]))
             }
@@ -89,14 +76,17 @@ namespace View.Views
                 ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);
         }
 
-
+        private bool SelectedItem()
+        {
+            if (dgArticles.SelectedIndex >= 0)
+                return true;
+            else
+                return false;
+        }
 
         private void btn_CleanFilters(object sender, RoutedEventArgs e)
         {
-            tbSearchField.Clear();
-            cbDateEnabled.IsChecked = false;
-            cbCategory.SelectedIndex = 0;
-
+            LoadArticles();
         }
 
         private void btn_FilterArticles(object sender, RoutedEventArgs e)
@@ -104,25 +94,22 @@ namespace View.Views
             string filter = tbSearchField.Text;
             var result = dgArticles.Items.Cast<Belongings_Articles>().Where(item => item.barCode.Contains(filter));
             result = dgArticles.Items.Cast<Belongings_Articles>().Where(item => item.Belonging.serialNumber.Contains(filter));
-            // if(cbCategory.SelectedIndex)
+           // if(cbCategory.SelectedIndex)
             //miDataGrid.ItemsSource = datosFiltrados;
         }
 
         private void Cb_CalendarEnabled(object sender, RoutedEventArgs e)
         {
-            if (cbDateEnabled.IsChecked == true)
-                dpDate.IsEnabled = true;
-            else
-                dpDate.IsEnabled = false;
+
+            dpDate.IsEnabled = false;
+            datePickerEnabled = false;
 
         }
 
         private void bt_dateUnabled(object sender, RoutedEventArgs e)
         {
-            if (cbDateEnabled.IsChecked == true)
-                dpDate.IsEnabled = true;
-            else
-                dpDate.IsEnabled = false;
+            dpDate.IsEnabled = true;
+            datePickerEnabled = true;
         }
     }
 }
