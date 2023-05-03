@@ -31,6 +31,39 @@ namespace BusinessLogic
             return result;
         }
 
+        /*public static List<OperationDomain> GetAllOperationsByDate(DateTime date)
+        {
+            List<OperationDomain> operationsList = new List<OperationDomain>();
+            if (Utilitys.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var operations = connection.Operations
+                        .Where(e => DbFunctions.TruncateTime(e.operationDate) == date.Date)
+                        .ToList();
+                    foreach (var operation in operations)
+                    {
+                        var operationDomain = new OperationDomain
+                        {
+                            idOperation = operation.idOperation,
+                            operationDate = operation.operationDate,
+                            concept = operation.concept,
+                            paymentAmount = operation.paymentAmount,
+                            changeAmount= operation.changeAmount,
+                            receivedAmount = operation.receivedAmount,
+                            staff = operation.Staff,
+                            fullNameStaff = operation.Staff.fisrtName + operation.Staff.lastName,
+                        };
+                        operationsList.Add(operationDomain);
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return operationsList;
+        }*/
         public static async Task<List<OperationDomain>> GetAllOperationsByDate(DateTime date, int idStaff)
         {
             List<OperationDomain> operationsList = new List<OperationDomain>();

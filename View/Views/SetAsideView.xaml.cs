@@ -49,7 +49,7 @@ namespace View.Views
         {
             InitializeComponent();
             var date = DateTime.Now;
-            textDateLine.Text = date.AddDays(15).ToString("dd/MM/yyyy");
+            labelDateLine.Text = date.AddDays(15).ToString("dd/MM/yyyy");
             for (int i = 10; i <= 90; i += 10)
             {
                 comBoxPercentage.Items.Add(i);
@@ -198,16 +198,15 @@ namespace View.Views
             {
                 ErrorManager.ShowWarning("Primero busque un cliente");
             }
-            else if (comBoxPercentage.SelectedItem == null)
+            else if (string.IsNullOrEmpty(comBoxPercentage.Text))
             {
                 ErrorManager.ShowWarning("Seleccione un porcentaje de apartado");
             }
             else
             {
                 CreateSetAside();
-                OpenPayPage();
             }
-
+            OpenPayPage();
         }
 
         private void CreateSetAside()
@@ -240,7 +239,6 @@ namespace View.Views
             {
                 //crear apartado
                 (var idSetAside, var result) = SetAsideDAO.CreateSetAside(newSetAside);
-                _idSetAside = idSetAside;
                 //crear union
                 if (result == MessageCode.SUCCESS)
                 {
@@ -406,59 +404,29 @@ namespace View.Views
             if (result)
             {
                 //actualizar estado de apartado
-                UpdateStates(true);
+                UpdateStates();
                 ErrorManager.ShowInformation("Operacion Exitosa");
             }
             else
             {
-                UpdateStates(false);
                 ErrorManager.ShowInformation("Operacion Cancelada");
             }
         }
 
-        private void UpdateStates(bool option)
+        private void UpdateStates()
         {
             try
             {
-                if (option)
+                SetAsideDAO.UpdateSetAsideState(StatesArticle.ASIDE_ARTICLE, _idSetAside);
+                foreach (var item in _listArticles)
                 {
-                    SetAsideDAO.UpdateSetAsideState(StatesAside.ACTIVED_ASIDE, _idSetAside);
-                    foreach (var item in _listArticles)
-                    {
-                        ArticleDAO.UpdateArticleState(item.Article_idBelonging, StatesArticle.ASIDE_ARTICLE);
-                        ClosePage();
-                    }
-                }
-                else
-                {
-                    SetAsideDAO.UpdateSetAsideState(StatesAside.CANCELED_ASIDE, _idSetAside);
-                    foreach (var item in _listArticles)
-                    {
-                        ArticleDAO.UpdateArticleState(item.Article_idBelonging, StatesArticle.SALE_ARTICLE);
-                    }
+                    ArticleDAO.UpdateArticleState(item.Article_idBelonging, StatesArticle.ASIDE_ARTICLE);
                 }
             }
             catch (Exception)
             {
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
             }
-
-        }
-
-        private void ClosePage()
-        {
-            list.Clear();
-            labelAmount.Content = "Cantidad para Apartado: ";
-            labelIva.Content = "IVA(16%): ";
-            labelPercentage.Content = "Porcentaje de Apartado: ";
-            labelRemaining.Content = "Restante para Liquidar: ";
-            labelSubTotal.Content = "SubTotal: ";
-            labelTotal.Content = "Total: ";
-            textCURP.Text = "";
-            textCustomerName.Text = "";
-            textDateLine.Text = "";
-            comBoxDiscount.SelectedItem = null;
-            comBoxPercentage.SelectedItem = null;
 
         }
     }
