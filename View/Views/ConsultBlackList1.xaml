@@ -1,0 +1,90 @@
+﻿<Page x:Class="View.Views.ConsultBlackList1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:View.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Title="ConsultBlackList1"
+      Background="White">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="130"
+                />
+            <RowDefinition
+                Height="200*" 
+                />
+            <RowDefinition
+                Height="50"/>
+        </Grid.RowDefinitions>
+        <TextBox Name="text_SearchBy" Grid.Row="0" HorizontalAlignment="Left" Margin="117,79,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200" FontSize="16"/>
+        <Button Name="btn_Search" Grid.Row="0" Content="Buscar" HorizontalAlignment="Left" Margin="688,78,0,0" VerticalAlignment="Top" FontSize="16" Width="101" Click="Btn_Search_Click"/>
+        <DataGrid
+                    x:Name="tableCustomers"
+            HorizontalAlignment="Center"
+                    Grid.Row="1"
+                    AlternatingRowBackground="#E0E0E0"
+                    AutoGenerateColumns="False"
+                    Background="#F5F5F5"
+                    BorderBrush="#2E2E2E"
+                    BorderThickness="2,2,2,2"
+                    CanUserAddRows="False"
+                    CanUserDeleteRows="False"
+                    CanUserResizeRows="False"
+                    HeadersVisibility="Column"
+                    ItemsSource="{Binding Items}"
+                    RowHeaderWidth="0" Height="494" Width="1137" VerticalAlignment="Center">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Foreground" Value="#FFFFFF" />
+                    <Setter Property="Background" Value="#2E2E2E" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="Height" Value="40" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Foreground" Value="#000000" />
+                    <Setter Property="FontSize" Value="12" />
+                    <Setter Property="Height" Value="30" />
+                    <Setter Property="Padding" Value="10,0,0,0" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                            Width="Auto"
+                            Binding="{Binding idCustomer}"
+                            Header="Numero cliente" 
+                            MinWidth="200"
+                    />
+                <DataGridTextColumn
+                            Width="Auto"
+                            Binding="{Binding firstName}"
+                            Header="Nombre" 
+                            MinWidth="200"/>
+                <DataGridTextColumn
+                            Width="Auto"
+                            Binding="{Binding lastName}"
+                            Header="Apellidos" 
+                            MinWidth="200"        
+                    />
+                <DataGridTextColumn
+                            Width="Auto"
+                            Binding="{Binding curp}"
+                            Header="CURP"
+                            MinWidth="200"    
+                            />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="btn_Restore" Grid.Row="0" Content="Restablecer" HorizontalAlignment="Left" Margin="812,78,0,0" VerticalAlignment="Top" FontSize="16" Width="110" RenderTransformOrigin="0.228,1.827" Click="Btn_Restore_Click"/>
+        <Label Content="Seleccione e ingrese los campos solicitados para la busqueda del cliente" Grid.Row="0" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="16"/>
+
+        <Button Name="btn_Salir" Content="Salir" Grid.Row="2" HorizontalAlignment="Left" Margin="72,0,0,0" VerticalAlignment="Top" FontSize="16" Width="90" Click="Btn_Salir_Click"/>
+        <Button Name="btn_Add" Content="Agregar" Grid.Row="2" HorizontalAlignment="Left" Margin="1046,0,0,0" VerticalAlignment="Top" FontSize="16" Width="96" Click="Btn_Add_Click"/>
+        <ComboBox Name="comBox_TypeSearch"  Grid.Row="0" HorizontalAlignment="Left" Margin="372,81,0,0" VerticalAlignment="Top" Width="196" FontSize="18"/>
+    </Grid>
+</Page>
