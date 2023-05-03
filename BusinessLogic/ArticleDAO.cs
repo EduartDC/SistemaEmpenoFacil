@@ -17,11 +17,18 @@ namespace BusinessLogic
             if (Utilities.VerifyConnection())
             {
 
+                using (var connecction = new ConnectionModel())
+                {
+                    articles = connecction.Belongings_Articles.ToList();
+                }
+
                 return (MessageCode.SUCCESS, articles);
             }
 
             return (MessageCode.CONNECTION_ERROR, null);
         }
+
+
 
         public static ArticleDomain GetArticleDomainByCode(string code)
         {
@@ -73,5 +80,6 @@ namespace BusinessLogic
                 throw new Exception("Error de conexión");
             }
         }
+
     }
 }
