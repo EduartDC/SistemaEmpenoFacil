@@ -58,7 +58,7 @@ namespace BusinessLogic
                     if (article != null)
                     {
                         article.stateAside = state;
-                        connection.SaveChanges();
+                        var result = connection.SaveChanges();
                     }
                 }
             }
