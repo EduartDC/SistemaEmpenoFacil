@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessLogic.Utility;
 using DataAcces;
-using Domain;
 
 namespace BusinessLogic
 {
@@ -14,9 +12,13 @@ namespace BusinessLogic
         public static (int, List<Belongings_Articles>) getArticles()
         {
             List<Belongings_Articles> articles = new List<Belongings_Articles>();
-            if (Utilities.VerifyConnection())
+            if (Utilitys.VerifyConnection())
             {
 
+                using (var connecction = new ConnectionModel())
+                {
+                    articles = connecction.Belongings_Articles.ToList();
+                }
                 return (MessageCode.SUCCESS, articles);
             }
 
@@ -73,5 +75,8 @@ namespace BusinessLogic
                 throw new Exception("Error de conexión");
             }
         }
+
+
+
     }
 }

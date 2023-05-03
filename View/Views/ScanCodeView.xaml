@@ -82,14 +82,15 @@
                 Content="Codigo de Articulo: "
                 FontSize="16"
                 FontWeight="Bold" />
-            <TextBox x:Name="textCode"
+            <TextBox
                 Width="254"
                 Height="26"
                 Margin="54,98,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="16"
-                TextWrapping="Wrap" KeyDown="textCode_KeyDown" />
+                Text="TextBox"
+                TextWrapping="Wrap" />
             <Label
                 Margin="154,10,0,0"
                 HorizontalAlignment="Left"

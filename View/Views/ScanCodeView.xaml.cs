@@ -27,7 +27,7 @@ namespace View.Views
     {
 
         MessageService communication;
-        ArticleDomain _article;
+
         public ScanCodeView()
         {
             InitializeComponent();
@@ -54,20 +54,10 @@ namespace View.Views
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             var result = false;
-            var article = _article;
-            if (article == null)
-            {
-                ErrorManager.ShowWarning("Primero busque un articulo disponible");
-            }
-            else if (!article.stateArticle.Equals("Activo"))
-            {
-                ErrorManager.ShowWarning("El articulo seleccionado no esta disponible para ser apartado.");
-            }
-            else
-            {
-                CloseView();
-                communication.ScanCommunication(article);
-            }
+            string code = "1234";
+            CloseView();
+            communication.Communication(code, result);
+
         }
         public void CommunicacionPages(MessageService communication)
         {
@@ -76,40 +66,6 @@ namespace View.Views
 
         }
 
-        private void textCode_KeyDown(object sender, KeyEventArgs e)
-        {
-            string code = textCode.Text;
-            if (!string.IsNullOrEmpty(code) && e.Key == Key.Enter)
-            {
-                try
-                {
-                    var article = ArticleDAO.GetArticleDomainByCode(code);
-                    if (article.idArticle != 0)
-                    {
-                        _article = article;
-                        SetInformation();
-                    }
-                    else
-                    {
-                        ErrorManager.ShowWarning(MessageError.ARTICLE_NOT_FOUND);
-                    }
-                }
-                catch (Exception)
-                {
-                    ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
-                }
-            }
-            else if (string.IsNullOrEmpty(code) && e.Key == Key.Enter)
-            {
-                ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
-            }
-        }
 
-        private void SetInformation()
-        {
-            labelIdArticle.Content = "No. Articulo" + _article.idArticle;
-            labelName.Content = "Estatus del Articulo:  " + _article.stateArticle;
-            labelPrice.Content = "Precio: " + _article.sellingPrice;
-        }
     }
 }

@@ -10,8 +10,8 @@
         <Label Content="Ingrese el numero del cliente que desea agregar a la lista negra" HorizontalAlignment="Left" Margin="32,32,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="Numero de cliente:" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Center" FontSize="18"/>
         <TextBox Name="text_NumberClient" HorizontalAlignment="Left" Margin="214,0,0,0" TextWrapping="Wrap"  VerticalAlignment="Center" Width="214" FontSize="18"/>
-        <Button Name="btn_Cancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="32,190,0,0" VerticalAlignment="Top" FontSize="18" Width="114" Click="Btn_Cancelar_Click"/>
-        <Button Name="btn_Add"  Content="Agregar" HorizontalAlignment="Left" Margin="268,190,0,0" VerticalAlignment="Top" FontSize="18" Width="106" Click="Btn_Add_Click"/>
+        <Button Name="btn_Cancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="32,190,0,0" VerticalAlignment="Top" FontSize="18" Width="114" Click="btn_Cancelar_Click"/>
+        <Button Name="btn_Add"  Content="Agregar" HorizontalAlignment="Left" Margin="268,190,0,0" VerticalAlignment="Top" FontSize="18" Width="106" Click="btn_Add_Click"/>
 
     </Grid>
 </Window>

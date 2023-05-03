@@ -13,8 +13,8 @@
         <Label Content="IVA*:" HorizontalAlignment="Left" Margin="26,163,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox Name="text_InterestRate" HorizontalAlignment="Left" Margin="198,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" FontSize="20"/>
         <TextBox Name="text_IVA" HorizontalAlignment="Left" Margin="98,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" FontSize="20"/>
-        <Button Name="btn_Salir" Content="Salir" HorizontalAlignment="Left" Margin="26,267,0,0" VerticalAlignment="Top" Height="36" Width="101" Click="Button_Salir_Click"/>
-        <Button Name="btn_Registrar" Content="Registrar" HorizontalAlignment="Left" Margin="395,267,0,0" VerticalAlignment="Top" Height="36" Width="101" Click="Button_Registrar_Click"/>
+        <Button Name="btn_Salir" Content="Salir" HorizontalAlignment="Left" Margin="26,267,0,0" VerticalAlignment="Top" Height="36" Width="101" Click="button_Salir_Click"/>
+        <Button Name="btn_Registrar" Content="Registrar" HorizontalAlignment="Left" Margin="395,267,0,0" VerticalAlignment="Top" Height="36" Width="101" Click="button_Registrar_Click"/>
         <Label Name="label_ErrorInterestRate" Foreground="Red" Content="" HorizontalAlignment="Left" Margin="198,134,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label x:Name="label_ErrorIVA" Foreground="Red" Content="" HorizontalAlignment="Left" Margin="98,205,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label Content="* Campos obligatorios" HorizontalAlignment="Left" Margin="198,247,0,0" VerticalAlignment="Top" FontSize="14"/>

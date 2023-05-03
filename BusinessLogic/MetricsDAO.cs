@@ -13,7 +13,7 @@ namespace BusinessLogic
     public static class MetricsDAO
     {
         static NewLog _log = new NewLog();
-        public static Metric RecoverMetrics()
+        public static Metric recoverMetrics()
         {
             
             Metric metric = new Metric();
@@ -45,7 +45,7 @@ namespace BusinessLogic
             return metric;
         }
 
-        public static int UpdateMetrics(string interestRate, string IVA)
+        public static int updateMetrics(string interestRate, string IVA)
         {
             int result = 200;
             try
@@ -69,12 +69,12 @@ namespace BusinessLogic
             catch (InvalidOperationException ex)
             {
                 _log.Add(ex.ToString());
-                result = RegisterMetrics(interestRate, IVA);
+                result = registerMetrics(interestRate, IVA);
             }
             return result;
         }
 
-        private static int RegisterMetrics(string newInterestRate, string newIVA)
+        private static int registerMetrics(string newInterestRate, string newIVA)
         {
             int result = 200;
             try

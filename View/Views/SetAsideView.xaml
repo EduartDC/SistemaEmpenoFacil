@@ -104,7 +104,7 @@
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
                     <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
-                    <Setter Property="Foreground" Value="#888888" />
+                    <Setter Property="Foreground" Value="#888888"/>
                     <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
                 </Trigger>
             </ControlTemplate.Triggers>
@@ -253,16 +253,25 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" MaxHeight="265" />
-
+                <RowDefinition
+                    Height="*"
+                    MinHeight="250"
+                    MaxHeight="350" />
+                <RowDefinition
+                    Height="Auto"
+                    MinHeight="250"
+                    MaxHeight="250" />
+                <RowDefinition
+                    Height="*"
+                    MinHeight="50"
+                    MaxHeight="200" />
             </Grid.RowDefinitions>
 
             <DataGrid
-                x:Name="tableArticles"
+                x:Name="tableCustomers"
                 Grid.Row="0"
                 Grid.Column="1"
-                Margin="0,20,20,10"
+                Margin="20"
                 AlternatingRowBackground="#E0E0E0"
                 AutoGenerateColumns="False"
                 Background="#F5F5F5"
@@ -294,30 +303,30 @@
                     <DataGridTextColumn
                         Width="*"
                         MaxWidth="100"
-                        Binding="{Binding idArticle}"
+                        Binding="{Binding idCustomer}"
                         Header="Id Prenda" />
                     <DataGridTextColumn
                         Width="*"
-                        Binding="{Binding description}"
-                        Header="Descripcion" />
+                        Binding="{Binding firstName}"
+                        Header="Cescripcion" />
                     <DataGridTextColumn
                         Width="*"
-                        Binding="{Binding characteristics}"
+                        Binding="{Binding lastName}"
                         Header="Caracterisiticas" />
                     <DataGridTextColumn
                         Width="*"
                         MaxWidth="130"
-                        Binding="{Binding appraisalValue}"
+                        Binding="{Binding curp}"
                         Header="Monto Avaluo" />
                     <DataGridTextColumn
                         Width="*"
                         MaxWidth="130"
-                        Binding="{Binding loanAmount}"
+                        Binding="{Binding curp}"
                         Header="Monto Prestamo" />
                     <DataGridTextColumn
                         Width="*"
                         MaxWidth="130"
-                        Binding="{Binding sellingPrice}"
+                        Binding="{Binding curp}"
                         Header="Monto Venta" />
                     <DataGridTemplateColumn
                         Width="*"
@@ -339,55 +348,48 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Label
-                Margin="40,20,0,0"
+                Margin="40,49,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Fecha Limite"
                 FontSize="16"
                 FontWeight="Bold" />
             <Label
-                Grid.Row="1"
-                Margin="40,8,0,0"
+                Margin="40,150,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Porcentaje del apartado"
                 FontSize="16"
                 FontWeight="Bold" />
-            <Label
-                Grid.Row="1"
-                Margin="40,84,0,0"
+            <DatePicker
+                x:Name="pickerDeadLineDate"
+                Width="223"
+                Height="30"
+                Margin="84,85,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Content="Porcentaje de descuento"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
                 FontSize="16"
                 FontWeight="Bold" />
             <ComboBox
                 x:Name="comBoxPercentage"
-                Grid.Row="1"
                 Width="223"
                 Height="30"
-                Margin="84,44,0,0"
+                Margin="84,199,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="16"
-                FontWeight="Bold"
-                SelectionChanged="comBoxPercentage_SelectionChanged" />
-            <ComboBox
-                x:Name="comBoxDiscount"
-                Grid.Row="1"
-                Width="223"
-                Height="30"
-                Margin="84,120,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontSize="16"
-                FontWeight="Bold"
-                SelectionChanged="comBoxDiscount_SelectionChanged" />
+                FontWeight="Bold" >
+                <ComboBoxItem>Hola</ComboBoxItem>
+            </ComboBox>
             <TextBox
                 x:Name="textCURP"
+                Grid.Row="1"
                 Width="223"
-                Height="28"
-                Margin="84,135,0,0"
+                Height="23"
+                Margin="84,51,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Background="White"
@@ -395,12 +397,14 @@
                 BorderThickness="0,0,0,2"
                 FontSize="16"
                 FontWeight="Bold"
+                Text="TextBox"
                 TextWrapping="Wrap" />
             <Button
                 x:Name="btnAddCustomer"
+                Grid.Row="1"
                 Width="129"
                 Height="30"
-                Margin="84,175,0,0"
+                Margin="84,86,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Background="Gray"
@@ -435,9 +439,10 @@
             </Button>
             <Button
                 x:Name="btnSearch"
+                Grid.Row="1"
                 Width="61"
                 Height="30"
-                Margin="246,175,0,0"
+                Margin="246,86,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Background="#215ECA"
@@ -472,17 +477,18 @@
                 </Button.Triggers>
             </Button>
             <Label
-                Margin="40,223,0,0"
+                Grid.Row="1"
+                Margin="40,137,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Content="Nombre de Cliente"
+                Content="Nombre del Cleinte"
                 FontSize="16"
                 FontWeight="Bold" />
             <TextBox
                 x:Name="textCustomerName"
+                Grid.Row="1"
                 Width="223"
-                Height="28"
-                Margin="84,259,0,0"
+                Margin="84,182,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Background="White"
@@ -490,48 +496,49 @@
                 BorderThickness="0,0,0,2"
                 FontSize="16"
                 FontWeight="Bold"
-                TextWrapping="Wrap"  />
+                Text="TextBox"
+                TextWrapping="Wrap" />
             <Label
                 x:Name="labelSubTotal"
                 Grid.Row="1"
                 Grid.Column="1"
-                Height="44"
-                Margin="0,8,0,0"
+                Height="45"
+                Margin="20,0,0,194"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="SubTotal:"
-                FontSize="22"
+                VerticalAlignment="Bottom"
+                Content="Label"
+                FontSize="26"
                 FontWeight="Bold" />
             <Label
                 x:Name="labelIva"
                 Grid.Row="1"
                 Grid.Column="1"
                 Height="37"
-                Margin="27,67,0,0"
+                Margin="55,0,0,151"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="IVA(16%):"
+                VerticalAlignment="Bottom"
+                Content="Label"
                 FontSize="20"
                 FontWeight="Bold" />
             <Label
                 x:Name="labelTotal"
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="0,111,0,0"
+                Margin="20,0,0,0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="Total:"
+                VerticalAlignment="Center"
+                Content="Label"
                 FontSize="24"
                 FontWeight="Bold" />
             <Label
                 x:Name="labelAmount"
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="358,14,0,0"
+                Margin="20,0,0,61"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="Cantidad para Apartado:"
-                FontSize="22"
+                VerticalAlignment="Bottom"
+                Content="Label"
+                FontSize="24"
                 FontWeight="Bold" />
             <Button
                 x:Name="btnAddArticle"
@@ -539,7 +546,7 @@
                 Grid.Column="1"
                 Width="153"
                 Height="40"
-                Margin="0,10,20,0"
+                Margin="0,11,20,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Background="#D47F00"
@@ -572,123 +579,102 @@
                     </EventTrigger>
                 </Button.Triggers>
             </Button>
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Button
+                    x:Name="bntCancel"
+                    Width="153"
+                    Height="40"
+                    Margin="159,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="Gray"
+                    Click="btnCancel_Click"
+                    Content="Regresar"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Style="{StaticResource RoundedButtonStyle}">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation
+                                        Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                        To="Red"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation
+                                        Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                        To="Gray"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button
+                    x:Name="btnPay"
+                    Width="154"
+                    Height="40"
+                    Margin="0,0,220,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="#215ECA"
+                    Click="btnPay_Click"
+                    Content="Pagar"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Style="{StaticResource RoundedButtonStyle}">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation
+                                        Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                        To="Green"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation
+                                        Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                        To="#215ECA"
+                                        Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
 
             <Label
                 x:Name="labelRemaining"
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="358,108,357,0"
-                VerticalAlignment="Top"
-                Content="Restante para Liquidar:"
-                FontSize="22"
+                Margin="20,0,0,16"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Content="Label"
+                FontSize="24"
                 FontWeight="Bold" />
 
             <Label
-                Margin="40,99,0,0"
+                Grid.Row="1"
+                Margin="40,9,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="CURP"
                 FontSize="16"
                 FontWeight="Bold" />
-            <TextBox
-                x:Name="labelDateLine"
-                Width="223"
-                Height="32"
-                Margin="84,56,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                BorderBrush="#323D8F"
-                BorderThickness="0,0,0,2"
-                FontSize="18"
-                IsEnabled="False"
-                TextWrapping="Wrap" />
-            <Button
-                x:Name="btnPay"
-                Grid.Row="1"
-                Grid.Column="1"
-                Width="154"
-                Height="40"
-                Margin="0,201,190,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="#215ECA"
-                Click="btnPay_Click"
-                Content="Pagar"
-                FontSize="16"
-                FontWeight="Bold"
-                Foreground="White"
-                Style="{StaticResource RoundedButtonStyle}">
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="UIElement.MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation
-                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="Green"
-                                    Duration="0:0:0.2" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="UIElement.MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation
-                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="#215ECA"
-                                    Duration="0:0:0.2" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
-            <Button
-                x:Name="bntCancel"
-                Grid.Row="1"
-                Grid.Column="1"
-                Width="154"
-                Height="40"
-                Margin="180,201,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Background="Gray"
-                Click="btnCancel_Click"
-                Content="Regresar"
-                FontSize="16"
-                FontWeight="Bold"
-                Foreground="White"
-                Style="{StaticResource RoundedButtonStyle}">
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="UIElement.MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation
-                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="Red"
-                                    Duration="0:0:0.2" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="UIElement.MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation
-                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                                    To="Gray"
-                                    Duration="0:0:0.2" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
-            <Label x:Name="labelPercentage"
-                   Grid.Row="1"
-                   Grid.Column="1"
-                   Margin="391,67,0,0"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Content="Porcentaje:" />
         </Grid>
     </Grid>
 </Page>

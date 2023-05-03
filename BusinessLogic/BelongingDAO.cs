@@ -1,5 +1,4 @@
-﻿using BusinessLogic.Utility;
-using DataAcces;
+﻿using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace BusinessLogic
         {
             var returl = MessageCode.ERROR;
 
-            if (Utilities.VerifyConnection())
+            if (Utilitys.VerifyConnection())
             {
 
             }
@@ -27,7 +26,7 @@ namespace BusinessLogic
             List<int> idBelongings = new List<int>();
 
 
-            if (Utilities.VerifyConnection())
+            if (Utilitys.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -46,11 +45,11 @@ namespace BusinessLogic
 
         public static int SaveimagesBelongings(List<ImagesBelonging> imagesList)
         {
-            if (Utilities.VerifyConnection())
+            if (Utilitys.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
-                    connection.ImagesBelongings.AddRange(imagesList);
+                    connection.ImagesBelongings.AddRange (imagesList);
                     connection.SaveChanges();
                 }
             }
@@ -63,7 +62,7 @@ namespace BusinessLogic
         public static List<Belonging> GetAllBelongingsFromContract(int idContract)
         {
             List<Belonging> belongings = new List<Belonging>();
-            if (Utilities.VerifyConnection())
+            if (Utilitys.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {

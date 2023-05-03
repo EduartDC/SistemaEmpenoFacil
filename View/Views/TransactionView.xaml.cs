@@ -121,7 +121,7 @@ namespace View.Views
                         operation.receivedAmount = amountReceived;
                         operation.operationDate = DateTime.Now;
                         operation.concept = "Apartado de Articulos";
-                        operation.Staff_idStaff = 1;//(App.Current as App)._staffInfo.idStaff;
+                        operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
                         operation.SetAside_idSetAside = _id;
                         result = OperationDAO.AddOperation(operation);
                         break;
@@ -207,7 +207,7 @@ namespace View.Views
                     textChange.Text = change.ToString();
                     ErrorManager.ShowInformation("El Cambio es de: " + change.ToString());
                     CloseView();
-                    communication.Communication(true);
+                    communication.Communication("", true);
 
 
                 }
@@ -235,7 +235,7 @@ namespace View.Views
                     textChange.Text = change.ToString();
                     ErrorManager.ShowInformation("El Cambio es de: " + change.ToString());
                     CloseView();
-                    communication.Communication(true);
+                    communication.Communication("", true);
 
                 }
                 else
@@ -252,7 +252,9 @@ namespace View.Views
             if (result == MessageBoxResult.Yes)
             {
                 CloseView();
-                communication.Communication(false);
+                communication.Communication("", false);
+
+
             }
 
         }

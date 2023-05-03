@@ -188,14 +188,15 @@
                     </EventTrigger>
                 </Button.Triggers>
             </Button>
-            <PasswordBox x:Name="textPassword"
+            <TextBox
+                x:Name="textPassword"
                 Width="182"
                 Height="26"
-                FontSize="16"
-                FontWeight="Bold"
                 Margin="160,168,0,0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" />
+                VerticalAlignment="Top"
+                FontSize="16"
+                TextWrapping="Wrap" />
         </Grid>
     </Grid>
 </Page>

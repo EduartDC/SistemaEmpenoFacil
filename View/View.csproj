@@ -112,9 +112,6 @@
     <Compile Include="Views\ScanCodeView.xaml.cs">
       <DependentUpon>ScanCodeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SearchContracts.xaml.cs">
-      <DependentUpon>SearchContracts.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SetAsideView.xaml.cs">
       <DependentUpon>SetAsideView.xaml</DependentUpon>
     </Compile>
@@ -193,10 +190,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SearchContracts.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SetAsideView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,7 +232,7 @@
       <Name>BusinessLogic</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataAcces\DataAcces.csproj">
-      <Project>{cc2df9c6-f10f-4209-8fa3-94840f1d4bd6}</Project>
+      <Project>{2cd36b35-ec13-4c97-b501-da2d11e4bf8f}</Project>
       <Name>DataAcces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
