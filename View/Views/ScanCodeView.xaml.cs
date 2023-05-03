@@ -54,7 +54,6 @@ namespace View.Views
         }
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            var result = false;
             var article = _article;
             if (article == null)
             {
