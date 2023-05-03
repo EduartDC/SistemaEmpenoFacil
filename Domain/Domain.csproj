@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleFull.cs" />
     <Compile Include="Belonging.cs" />
     <Compile Include="Communication.cs" />
     <Compile Include="ContractDomain.cs" />

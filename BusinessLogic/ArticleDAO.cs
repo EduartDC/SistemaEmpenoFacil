@@ -14,15 +14,17 @@ namespace BusinessLogic
             List<Belongings_Articles> articles = new List<Belongings_Articles>();
             if (Utilitys.VerifyConnection())
             {
-                //using (var connecction = new ConnectionModel())
-                //{
-                //    articles = connecction.Belongings_Articles.ToList();
-                //}
+                using (var connecction = new ConnectionModel())
+                {
+                    articles = connecction.Belongings_Articles.ToList();
+                }
                 return (MessageCode.SUCCESS, articles);
             }
 
             return (MessageCode.CONNECTION_ERROR, null);
         }
+
+
 
 
     }

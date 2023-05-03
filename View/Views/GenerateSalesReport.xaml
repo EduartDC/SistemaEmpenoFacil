@@ -23,10 +23,11 @@
             VerticalAlignment="Top"
             Margin="0,130"
             FontSize="25"
-            HorizontalContentAlignment="Center" FontWeight="Bold"
+            HorizontalContentAlignment="Center" 
+            FontWeight="Bold"
             />
         <DatePicker 
-            
+            x:Name="dpStartDate"
             Background="#323D8F"
             HorizontalAlignment="Center" 
             VerticalAlignment="Top"
@@ -49,6 +50,7 @@
             />
 
         <DatePicker 
+            x:Name="dpEndDate"
             Background="#323D8F"
             HorizontalAlignment="Center" 
             VerticalAlignment="Top"
@@ -77,7 +79,7 @@
             Height="40"
             Width="200"
             Margin="0,480,332,0" 
-            VerticalAlignment="Top"/>
+            VerticalAlignment="Top" Click="Btn_CreateReport"/>
         <Button 
             Content="Cancelar"
             FontSize="25"
