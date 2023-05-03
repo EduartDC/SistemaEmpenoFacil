@@ -1,0 +1,694 @@
+﻿<Page
+    x:Class="View.Views.SetAsideView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:View.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="SetAsideView"
+    d:DesignHeight="750"
+    d:DesignWidth="1366"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                    To="1.1"
+                                    Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                    To="1.1"
+                                    Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                    To="1"
+                                    Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                    To="1"
+                                    Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    x:Name="Border"
+                    Grid.ColumnSpan="2"
+                    Background="#2E2E2E"
+                    BorderBrush="#FF97A0A5"
+                    BorderThickness="1"
+                    CornerRadius="0" />
+                <Border
+                    Grid.Column="0"
+                    Margin="1"
+                    Background="#2E2E2E"
+                    BorderBrush="#323D8F"
+                    BorderThickness="0,0,1,0"
+                    CornerRadius="0" />
+                <Path
+                    x:Name="Arrow"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                    Fill="White" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="#808080" />
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
+                    <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
+                    <Setter Property="Foreground" Value="#888888" />
+                    <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border
+                x:Name="PART_ContentHost"
+                Background="{TemplateBinding Background}"
+                Focusable="False" />
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+            <Setter Property="MinWidth" Value="120" />
+            <Setter Property="MinHeight" Value="20" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton
+                                Name="ToggleButton"
+                                Grid.Column="2"
+                                ClickMode="Press"
+                                Focusable="false"
+                                IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Template="{StaticResource ComboBoxToggleButton}" />
+                            <ContentPresenter
+                                Name="ContentSite"
+                                Margin="3,3,23,3"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding SelectionBoxItem}"
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                IsHitTestVisible="False" />
+                            <TextBox
+                                x:Name="PART_EditableTextBox"
+                                Margin="3,3,23,3"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Background="White"
+                                Focusable="True"
+                                Foreground="Green"
+                                IsReadOnly="{TemplateBinding IsReadOnly}"
+                                Style="{x:Null}"
+                                Template="{StaticResource ComboBoxTextBox}"
+                                Visibility="Hidden" />
+                            <Popup
+                                Name="Popup"
+                                AllowsTransparency="True"
+                                Focusable="False"
+                                IsOpen="{TemplateBinding IsDropDownOpen}"
+                                Placement="Bottom"
+                                PopupAnimation="Slide">
+
+                                <Grid
+                                    Name="DropDown"
+                                    MinWidth="{TemplateBinding ActualWidth}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                    SnapsToDevicePixels="True">
+                                    <Border
+                                        x:Name="DropDownBorder"
+                                        Background="#2E2E2E"
+                                        BorderBrush="#888888"
+                                        BorderThickness="1" />
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888" />
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0" />
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0" />
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false" />
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers />
+        </Style>
+
+        <!--  SimpleStyles: ComboBoxItem  -->
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border
+                            Name="Border"
+                            Padding="2"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#CCC" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid Background="White">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Contenido principal  -->
+        <Grid Grid.Row="2" Grid.Column="0">
+            <!--  Agrega tus elementos de contenido principal aquí  -->
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="380" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" MaxHeight="265" />
+
+            </Grid.RowDefinitions>
+
+            <DataGrid
+                x:Name="tableArticles"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,20,20,10"
+                AlternatingRowBackground="#E0E0E0"
+                AutoGenerateColumns="False"
+                Background="#F5F5F5"
+                BorderBrush="#2E2E2E"
+                BorderThickness="2,2,2,2"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                CanUserResizeRows="False"
+                HeadersVisibility="Column"
+                ItemsSource="{Binding Items}"
+                RowHeaderWidth="0">
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Foreground" Value="#FFFFFF" />
+                        <Setter Property="Background" Value="#2E2E2E" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Height" Value="40" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Foreground" Value="#000000" />
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="Padding" Value="10,0,0,0" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        MaxWidth="100"
+                        Binding="{Binding idArticle}"
+                        Header="Id Prenda" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding description}"
+                        Header="Descripcion" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding characteristics}"
+                        Header="Caracterisiticas" />
+                    <DataGridTextColumn
+                        Width="*"
+                        MaxWidth="130"
+                        Binding="{Binding appraisalValue}"
+                        Header="Monto Avaluo" />
+                    <DataGridTextColumn
+                        Width="*"
+                        MaxWidth="130"
+                        Binding="{Binding loanAmount}"
+                        Header="Monto Prestamo" />
+                    <DataGridTextColumn
+                        Width="*"
+                        MaxWidth="130"
+                        Binding="{Binding sellingPrice}"
+                        Header="Monto Venta" />
+                    <DataGridTemplateColumn
+                        Width="*"
+                        MaxWidth="100"
+                        Header="Acción">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+
+                                <Button x:Name="btnDelete" Click="btnDelete_Click">
+                                    <Image
+                                        Width="16"
+                                        Height="16"
+                                        Margin="0,0,5,0"
+                                        Source="/Icons/delete.png" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label
+                Margin="40,20,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Fecha Limite"
+                FontSize="16"
+                FontWeight="Bold" />
+            <Label
+                Grid.Row="1"
+                Margin="40,8,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Porcentaje del apartado"
+                FontSize="16"
+                FontWeight="Bold" />
+            <Label
+                Grid.Row="1"
+                Margin="40,84,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Porcentaje de descuento"
+                FontSize="16"
+                FontWeight="Bold" />
+            <ComboBox
+                x:Name="comBoxPercentage"
+                Grid.Row="1"
+                Width="223"
+                Height="30"
+                Margin="84,44,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="16"
+                FontWeight="Bold"
+                SelectionChanged="comBoxPercentage_SelectionChanged" />
+            <ComboBox
+                x:Name="comBoxDiscount"
+                Grid.Row="1"
+                Width="223"
+                Height="30"
+                Margin="84,120,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="16"
+                FontWeight="Bold"
+                SelectionChanged="comBoxDiscount_SelectionChanged" />
+            <TextBox
+                x:Name="textCURP"
+                Width="223"
+                Height="28"
+                Margin="84,135,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontSize="16"
+                FontWeight="Bold"
+                TextWrapping="Wrap" />
+            <Button
+                x:Name="btnAddCustomer"
+                Width="129"
+                Height="30"
+                Margin="84,175,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="Gray"
+                Click="btnAddCustomer_Click"
+                Content="Registrar Cliente"
+                FontSize="14"
+                FontWeight="Bold"
+                Foreground="White"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="#215ECA"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Gray"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button
+                x:Name="btnSearch"
+                Width="61"
+                Height="30"
+                Margin="246,175,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="#215ECA"
+                Click="btnSearch_Click"
+                Content="Buscar"
+                FontSize="14"
+                FontWeight="Bold"
+                Foreground="White"
+                RenderTransformOrigin="0.459,0.065"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Green"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="#215ECA"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Label
+                Margin="40,223,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Nombre de Cliente"
+                FontSize="16"
+                FontWeight="Bold" />
+            <TextBox
+                x:Name="textCustomerName"
+                Width="223"
+                Height="28"
+                Margin="84,259,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontSize="16"
+                FontWeight="Bold"
+                TextWrapping="Wrap"  />
+            <Label
+                x:Name="labelSubTotal"
+                Grid.Row="1"
+                Grid.Column="1"
+                Height="44"
+                Margin="0,8,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="SubTotal:"
+                FontSize="22"
+                FontWeight="Bold" />
+            <Label
+                x:Name="labelIva"
+                Grid.Row="1"
+                Grid.Column="1"
+                Height="37"
+                Margin="27,67,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="IVA(16%):"
+                FontSize="20"
+                FontWeight="Bold" />
+            <Label
+                x:Name="labelTotal"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0,111,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Total:"
+                FontSize="24"
+                FontWeight="Bold" />
+            <Label
+                x:Name="labelAmount"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="358,14,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Cantidad para Apartado:"
+                FontSize="22"
+                FontWeight="Bold" />
+            <Button
+                x:Name="btnAddArticle"
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="153"
+                Height="40"
+                Margin="0,10,20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="#D47F00"
+                Click="btnAddArticle_Click"
+                Content="Agregar Articulo"
+                FontSize="16"
+                FontWeight="Bold"
+                Foreground="White"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Green"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="#D47F00"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Label
+                x:Name="labelRemaining"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="358,108,357,0"
+                VerticalAlignment="Top"
+                Content="Restante para Liquidar:"
+                FontSize="22"
+                FontWeight="Bold" />
+
+            <Label
+                Margin="40,99,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="CURP"
+                FontSize="16"
+                FontWeight="Bold" />
+            <TextBox
+                x:Name="textDateLine"
+                Width="223"
+                Height="32"
+                Margin="84,56,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                BorderBrush="#323D8F"
+                BorderThickness="0,0,0,2"
+                FontSize="18"
+                IsEnabled="False"
+                TextWrapping="Wrap" />
+            <Button
+                x:Name="btnPay"
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="154"
+                Height="40"
+                Margin="0,201,190,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="#215ECA"
+                Click="btnPay_Click"
+                Content="Pagar"
+                FontSize="16"
+                FontWeight="Bold"
+                Foreground="White"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Green"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="#215ECA"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button
+                x:Name="bntCancel"
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="154"
+                Height="40"
+                Margin="180,201,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="Gray"
+                Click="btnCancel_Click"
+                Content="Regresar"
+                FontSize="16"
+                FontWeight="Bold"
+                Foreground="White"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Red"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Gray"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Label x:Name="labelPercentage"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Margin="391,67,0,0"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Content="Porcentaje:" />
+        </Grid>
+    </Grid>
+</Page>
