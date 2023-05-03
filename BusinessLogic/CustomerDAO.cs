@@ -1,4 +1,5 @@
-﻿using DataAcces;
+﻿using BusinessLogic.Utility;
+using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +17,7 @@ namespace BusinessLogic
     public class CustomerDAO
     {
         private static NewLog _log = new NewLog();
-        public static (int,int) AddCustomer(Customer newCustomer)
+        public static (int, int) AddCustomer(Customer newCustomer)
         {
             int result = 500;
             int idCustomer = 0;
@@ -39,7 +40,7 @@ namespace BusinessLogic
                     idCustomer = addNewCustomer.idCustomer;
                     result = 200;
                 }
-                
+
             }
             catch (DbUpdateException ex)
             {
@@ -48,14 +49,14 @@ namespace BusinessLogic
             catch (EntityException ex)
             {
                 _log.Add(ex.ToString());
-            }                   
+            }
             return (result, idCustomer);
         }
 
         public static int UpdateCustomer(Customer selectedCustomer)
         {
             var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -78,7 +79,7 @@ namespace BusinessLogic
         public static Customer GetCustomer(int id)
         {
             Customer customer = new Customer();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -111,11 +112,11 @@ namespace BusinessLogic
                 _log.Add(ex.ToString());
             }
             return result;
-        } 
+        }
         public static int AddImagecostumer(ImagesIdentification newImage)
         {
             var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -129,7 +130,7 @@ namespace BusinessLogic
         public static List<ImagesIdentification> GetImagesCustomer(int id)
         {
             List<ImagesIdentification> images = new List<ImagesIdentification>();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -141,7 +142,7 @@ namespace BusinessLogic
         public static int UpdateImageCustomer(ImagesIdentification selectedImage)
         {
             var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -157,7 +158,7 @@ namespace BusinessLogic
         public static (int, Customer) FindCustomer(string curp)
         {
             List<Customer> customers = new List<Customer>();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -216,7 +217,7 @@ namespace BusinessLogic
             return resultCustomers;
         }
 
-        public static int existCustomer(int id)
+        public static int ExistCustomer(int id)
         {
             int result = 500;
             try
@@ -248,7 +249,7 @@ namespace BusinessLogic
             return result;
         }
 
-        public static int changeStatusBlackList(int id)
+        public static int ChangeStatusBlackList(int id)
         {
             int result = 500;
             try
@@ -282,6 +283,44 @@ namespace BusinessLogic
             }
             return result;
         }
+
+        public static Customer FindCustomerById(int id)
+        {
+            Customer customer = new Customer();
+            try
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    customer = connection.Customers.Find(id);
+                }
+            }
+            catch (DataException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (InvalidOperationException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            return customer;
+        }
+        public static DataAcces.Customer GetCustomerByCURP(string CURP)
+        {
+            var result = new DataAcces.Customer();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    result = connection.Customers.Where(x => x.curp == CURP).FirstOrDefault();
+                }
+            }
+            else
+            {
+                throw new Exception("No hay conexion a la base de datos");
+            }
+            return result;
+        }
+
     }
 }
 

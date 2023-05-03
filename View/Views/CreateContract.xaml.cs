@@ -193,7 +193,7 @@ namespace View.Views
 
         private void LoadMetrics()
         {
-            metrics = MetricsDAO.recoverMetrics();
+            metrics = MetricsDAO.RecoverMetrics();
             if (metrics != null)
             {
                 tbInterests.Text = metrics.interestRate + "%";

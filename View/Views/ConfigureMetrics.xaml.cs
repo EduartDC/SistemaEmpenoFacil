@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BusinessLogic;
+using BusinessLogic.Utility;
 
 namespace View.Views
 {
@@ -29,7 +30,7 @@ namespace View.Views
         public ConfigureMetrics()
         {
             InitializeComponent();
-            InitializateCamps(MetricsDAO.recoverMetrics());
+            InitializateCamps(MetricsDAO.RecoverMetrics());
         }
 
         private void InitializateCamps(Metric newMetrics)
@@ -48,18 +49,48 @@ namespace View.Views
         }
 
 
-        private void button_Salir_Click(object sender, RoutedEventArgs e)
+
+        private Boolean ValidateFormat()
         {
-            Close();
+            Boolean resultado = true;
+            if (!Utilities.ValidateFormat(text_InterestRate.Text, "^[0-9]+$"))
+            {
+                label_ErrorInterestRate.Content = "Error con el formato, solo se aceptan numeros enteros";
+                resultado = false;
+            }
+            if (!Utilities.ValidateFormat(text_IVA.Text, "^[0-9]+$"))
+            {
+                label_ErrorIVA.Content = "Error con el formato, solo se aceptan numeros enteros";
+                resultado = false;
+            }
+            return resultado;
         }
 
-        private void button_Registrar_Click(object sender, RoutedEventArgs e)
+        private Boolean ValidateEmptyCamps()
+        {
+            Boolean resultado = true;
+            if (text_InterestRate.Text.Equals(""))
+            {
+                label_ErrorInterestRate.Content = "Campo vacio, favor de llenarlo";
+                resultado = false;
+            }
+            if (text_IVA.Text.Equals(""))
+            {
+                label_ErrorIVA.Content = "Campo vacio, favor de llenarlo";
+                resultado = false;
+            }
+            return resultado;
+        }
+
+
+
+        private void Button_Registrar_Click(object sender, RoutedEventArgs e)
         {
             label_ErrorIVA.Content = "";
             label_ErrorInterestRate.Content = "";
-            if (validateEmptyCamps() && validateFormat())
+            if (ValidateEmptyCamps() && ValidateFormat())
             {
-                switch (MetricsDAO.updateMetrics(text_InterestRate.Text, text_IVA.Text))
+                switch (MetricsDAO.UpdateMetrics(text_InterestRate.Text, text_IVA.Text))
                 {
                     case 500:
                         MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
@@ -74,41 +105,14 @@ namespace View.Views
                         Close();
                         break;
                 }
-                
-                
+
+
             }
         }
 
-        private Boolean validateFormat()
+        private void Button_Salir_Click(object sender, RoutedEventArgs e)
         {
-            Boolean resultado = true;
-            if (!FormatValidation.ValidateFormat(text_InterestRate.Text, "^[0-9]+$"))
-            {
-                label_ErrorInterestRate.Content = "Error con el formato, solo se aceptan numeros enteros";
-                resultado = false;
-            }
-            if (!FormatValidation.ValidateFormat(text_IVA.Text, "^[0-9]+$"))
-            {
-                label_ErrorIVA.Content = "Error con el formato, solo se aceptan numeros enteros";
-                resultado = false;
-            }
-            return resultado;
-        }
-
-        private Boolean validateEmptyCamps()
-        {
-            Boolean resultado = true;
-            if (text_InterestRate.Text.Equals(""))
-            {
-                label_ErrorInterestRate.Content = "Campo vacio, favor de llenarlo";
-                resultado = false;
-            }
-            if (text_IVA.Text.Equals(""))
-            {
-                label_ErrorIVA.Content = "Campo vacio, favor de llenarlo";
-                resultado = false;
-            }
-            return resultado;
+            Close();
         }
     }
 }

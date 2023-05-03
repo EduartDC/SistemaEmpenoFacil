@@ -31,6 +31,9 @@ namespace DataAcces
 
         public int Customer_idCustomer { get; set; }
 
+        [Required]
+        public string stateAside { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArticlesSetAside> ArticlesSetAsides { get; set; }
 
