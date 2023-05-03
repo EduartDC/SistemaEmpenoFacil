@@ -37,8 +37,7 @@
             VerticalAlignment="Center"
             Width="200"
             Height="32"
-            Grid.Column="2"
-            FontSize="15"/>
+            Grid.Column="2"/>
         <ScrollViewer
             Background="Black"
             Grid.Row="1"
@@ -50,19 +49,8 @@
                 x:Name="dgArticles"
                 Grid.Row="1"
                 Grid.ColumnSpan="4"
-                AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Descripcion" Width="200" Binding="{Binding Belonging.description}"/>
-                    <DataGridTextColumn Header="Imagen" Width="200"/>
-                    <DataGridTextColumn Header="Codigo de barras" Width="100" Binding="{Binding barCode}"/>
-                    <DataGridTextColumn Header="Numero de serie" Width="100" Binding="{Binding Belonging.serialNumber}"/>
-                    <DataGridTextColumn Header="Modelo" Width="100" Binding="{Binding model}"/>
-                    <DataGridTextColumn Header="Bolsa" Width="50" Binding="{Binding Belonging.Contract.idContract}"/>
-                    <DataGridTextColumn Header="Precio" Width="50" Binding="{Binding sellingPrice}"/>
-                    <DataGridTextColumn Header="Categoria" Width="100" Binding="{Binding Belonging.category}"/>
-                    <DataGridTextColumn Header="Fecha de comercializacion" Width="100" Binding="{Binding creationDate}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                
+            />
         </ScrollViewer>
         <DatePicker
             x:Name="dpDate"
@@ -71,10 +59,7 @@
             FontSize="15"
             Height="32"
             Width="200"
-            Grid.Column="1" Focusable="False"
-            IsEnabled="false"
-            VerticalContentAlignment="Center"
-            />
+            Grid.Column="1" Focusable="False"/>
         <TextBox x:Name="tbSearchField"
             HorizontalAlignment="Center"
             TextWrapping="Wrap"
@@ -82,10 +67,7 @@
             VerticalAlignment="Center"
             Width="200"
             Height="32"
-            Grid.Column="0"
-            FontSize="15"
-            HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center"/>
+            Grid.Column="0"/>
         <Button
             Content="Editar"
             HorizontalAlignment="Center"
@@ -137,8 +119,7 @@
             HorizontalAlignment="Center" 
             Margin="0,70,0,0" 
             VerticalAlignment="Top" Checked="Cb_CalendarEnabled" Unchecked="bt_dateUnabled"
-            IsChecked="false"
-            />
+        />
 
 
     </Grid>
