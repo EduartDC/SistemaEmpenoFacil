@@ -253,8 +253,6 @@ namespace View.Views
             {
                 CloseView();
                 communication.Communication(false);
-
-
             }
 
         }

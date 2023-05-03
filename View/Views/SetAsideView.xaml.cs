@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using DataAcces;
 using Domain;
 using Microsoft.Win32;
@@ -36,7 +37,7 @@ namespace View.Views
         double _total;
         double _amount;
         double _remaining;
-        double _discount;
+        int _discount;
         double _percentage;
         int _idCustomer;
         int _idSetAside;
@@ -86,9 +87,9 @@ namespace View.Views
 
                 string selectedDiscount = comBoxDiscount.SelectedItem.ToString();
                 int selectedDiscountPercentage = Convert.ToInt32(selectedDiscount);
-
-                _discount = selectedDiscountPercentage / 100.0;
-                _subtotal = (_subtotal * (1 - _discount));
+                _discount = selectedDiscountPercentage;
+                var discount = selectedDiscountPercentage / 100.0;
+                _subtotal = (_subtotal * (1 - discount));
                 _total = _subtotal * 1.16;
 
                 _amount = (_total * percentage);
@@ -213,7 +214,7 @@ namespace View.Views
             var totalAmount = _total;
             var percentage = _percentage.ToString();
             var remaining = _remaining;
-            var stateSetAside = "Creacion";
+            var stateSetAside = StatesAside.PENDING_ASIDE;
             var discount = _discount;
 
             var newSetAside = new SetAside
@@ -227,14 +228,38 @@ namespace View.Views
                 reaminingAmount = remaining,
 
             };
-
+            List<ArticlesSetAside> listArticles = new List<ArticlesSetAside>();
             foreach (var item in list)
             {
-                //SetAsideDAO.CreateSetAsideDetail(idSetAside, item.idArticle, item.sellingPrice);
+                var newArticle = new ArticlesSetAside
+                {
+                    Article_idBelonging = item.idArticle,
+                    SetAside_idSetAside = newSetAside.idSetAside,
+                    discount = discount,
+                };
+                listArticles.Add(newArticle);
             }
-                                (App.Current as App)._cashOnHand -= _amount;
-            ErrorManager.ShowInformation("Apartado creado");
-            this.Content = null;
+            SaveInformation(listArticles, newSetAside, StatesArticle.PENDING_ARTICLE);
+        }
+
+        private void SaveInformation(List<ArticlesSetAside> listArticles, SetAside newSetAside, string state)
+        {
+            try
+            {
+                //crear apartado
+                SetAsideDAO.CreateSetAside(newSetAside);
+                //crear union
+                SetAsideDAO.AddArticlesInSetAside(listArticles);
+                //actualizar articulos
+                foreach (var item in list)
+                {
+                    ArticleDAO.UpdateArticleState(item.idArticle, state);
+                }
+            }
+            catch (Exception)
+            {
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+            }
         }
 
         private void OpenPayPage()
@@ -286,7 +311,7 @@ namespace View.Views
             }
             else
             {
-                //f
+                //error
             }
             SetInformation();
         }
@@ -347,9 +372,9 @@ namespace View.Views
             _percentage = percentage;
             string selectedDiscount = comBoxDiscount.SelectedItem.ToString();
             int selectedDiscountPercentage = Convert.ToInt32(selectedDiscount);
-
-            _discount = selectedDiscountPercentage / 100.0;
-            _subtotal = (_subtotal * (1 - _discount));
+            _discount = selectedDiscountPercentage;
+            var discount = selectedDiscountPercentage / 100.0;
+            _subtotal = (_subtotal * (1 - discount));
             _total = _subtotal * 1.16;
 
             _amount = (_total * percentage);
@@ -365,7 +390,15 @@ namespace View.Views
 
         public void Communication(bool result)
         {
-            throw new NotImplementedException();
+            if (result)
+            {
+                //actualizar estado de apartado
+
+            }
+            else
+            {
+                ErrorManager.ShowInformation("Operacion Cancelada");
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DataAcces;
+﻿using BusinessLogic.Utility;
+using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -55,7 +56,7 @@ namespace BusinessLogic
         public static int UpdateCustomer(Customer selectedCustomer)
         {
             var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -78,7 +79,7 @@ namespace BusinessLogic
         public static Customer GetCustomer(int id)
         {
             Customer customer = new Customer();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -115,7 +116,7 @@ namespace BusinessLogic
         public static int AddImagecostumer(ImagesIdentification newImage)
         {
             var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -129,7 +130,7 @@ namespace BusinessLogic
         public static List<ImagesIdentification> GetImagesCustomer(int id)
         {
             List<ImagesIdentification> images = new List<ImagesIdentification>();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -141,7 +142,7 @@ namespace BusinessLogic
         public static int UpdateImageCustomer(ImagesIdentification selectedImage)
         {
             var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -157,7 +158,7 @@ namespace BusinessLogic
         public static (int, Customer) FindCustomer(string curp)
         {
             List<Customer> customers = new List<Customer>();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -306,7 +307,7 @@ namespace BusinessLogic
         public static DataAcces.Customer GetCustomerByCURP(string CURP)
         {
             var result = new DataAcces.Customer();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {

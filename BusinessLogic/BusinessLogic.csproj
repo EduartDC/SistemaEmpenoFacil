@@ -56,18 +56,19 @@
     <Compile Include="BelongingDAO.cs" />
     <Compile Include="ContractDAO.cs" />
     <Compile Include="CustomerDAO.cs" />
-    <Compile Include="FormatValidation.cs" />
-    <Compile Include="MessageCode.cs" />
-    <Compile Include="MessageError.cs" />
+    <Compile Include="Utility\MessageCode.cs" />
+    <Compile Include="Utility\MessageError.cs" />
     <Compile Include="MetricsDAO.cs" />
-    <Compile Include="NewLog.cs" />
+    <Compile Include="Utility\NewLog.cs" />
     <Compile Include="OperationDAO.cs" />
-    <Compile Include="OperationType.cs" />
+    <Compile Include="Utility\OperationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetAsideDAO.cs" />
     <Compile Include="StaffDAO.cs" />
-    <Compile Include="StatesContract.cs" />
-    <Compile Include="Utilitys.cs" />
+    <Compile Include="Utility\StatesArticle.cs" />
+    <Compile Include="Utility\StatesAside.cs" />
+    <Compile Include="Utility\StatesContract.cs" />
+    <Compile Include="Utility\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAcces\DataAcces.csproj">

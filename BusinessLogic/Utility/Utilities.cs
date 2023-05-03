@@ -6,9 +6,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace BusinessLogic
+namespace BusinessLogic.Utility
 {
-    public class Utilitys
+    public class Utilities
     {
         public static bool VerifyConnection()
         {
@@ -54,5 +54,26 @@ namespace BusinessLogic
 
             return result;
         }
+        public static Boolean ValidateFormat(String text, String expresion)
+        {
+            Boolean result;
+            if (Regex.IsMatch(text, expresion))
+            {
+                if (Regex.Replace(text, expresion, String.Empty).Length == 0)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            else
+            {
+                result = false;
+            }
+            return result;
+        }
     }
 }
+

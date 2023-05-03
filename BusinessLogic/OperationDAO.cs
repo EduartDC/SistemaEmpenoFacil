@@ -1,4 +1,5 @@
-﻿using DataAcces;
+﻿using BusinessLogic.Utility;
+using DataAcces;
 using Domain;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace BusinessLogic
         public static int AddOperation(Operation newOperation)
         {
             var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -66,7 +67,7 @@ namespace BusinessLogic
         public static async Task<List<OperationDomain>> GetAllOperationsByDate(DateTime date, int idStaff)
         {
             List<OperationDomain> operationsList = new List<OperationDomain>();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
