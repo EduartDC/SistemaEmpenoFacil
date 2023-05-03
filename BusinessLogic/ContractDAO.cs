@@ -1,4 +1,5 @@
-﻿using DataAcces;
+﻿using BusinessLogic.Utility;
+using DataAcces;
 using Domain;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace BusinessLogic
             var result = MessageCode.ERROR;
             try
             {
-                if (Utilitys.VerifyConnection())
+                if (Utilities.VerifyConnection())
                 {
                     using (var connection = new ConnectionModel())
                     {
@@ -46,7 +47,7 @@ namespace BusinessLogic
         public static (int, int) RegisterContract(Contract contract)
         {
             int idObject = 0;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 try
                 {
@@ -70,7 +71,7 @@ namespace BusinessLogic
         public static Contract GetContract(int idContract)
         {
             var result = new Contract();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
 
                 using (var connection = new ConnectionModel())
@@ -87,7 +88,7 @@ namespace BusinessLogic
 
         public static async Task<ContractDomain> GetContractsDomainAsync(int idContrac)
         {
-            if (!Utilitys.VerifyConnection())
+            if (!Utilities.VerifyConnection())
             {
                 throw new Exception(MessageError.CONNECTION_ERROR);
             }

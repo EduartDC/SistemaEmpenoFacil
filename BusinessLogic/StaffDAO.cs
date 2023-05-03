@@ -1,4 +1,5 @@
-﻿using DataAcces;
+﻿using BusinessLogic.Utility;
+using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace BusinessLogic
         public static Staff LogingStaff(string userName, string password)
         {
             var resutl = new Staff();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {

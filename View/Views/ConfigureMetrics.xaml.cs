@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BusinessLogic;
+using BusinessLogic.Utility;
 
 namespace View.Views
 {
@@ -52,12 +53,12 @@ namespace View.Views
         private Boolean ValidateFormat()
         {
             Boolean resultado = true;
-            if (!FormatValidation.ValidateFormat(text_InterestRate.Text, "^[0-9]+$"))
+            if (!Utilities.ValidateFormat(text_InterestRate.Text, "^[0-9]+$"))
             {
                 label_ErrorInterestRate.Content = "Error con el formato, solo se aceptan numeros enteros";
                 resultado = false;
             }
-            if (!FormatValidation.ValidateFormat(text_IVA.Text, "^[0-9]+$"))
+            if (!Utilities.ValidateFormat(text_IVA.Text, "^[0-9]+$"))
             {
                 label_ErrorIVA.Content = "Error con el formato, solo se aceptan numeros enteros";
                 resultado = false;

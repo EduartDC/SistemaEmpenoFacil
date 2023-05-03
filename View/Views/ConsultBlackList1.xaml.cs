@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace View.Views
             customersList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
             tableCustomers.ItemsSource = customersList;
         }
-        
+
 
 
         private void SearchByName()
@@ -86,7 +87,7 @@ namespace View.Views
                     break;
 
                 case 0:
-                    if (!FormatValidation.ValidateFormat(text_SearchBy.Text, "^[0-9]+$"))
+                    if (!Utilities.ValidateFormat(text_SearchBy.Text, "^[0-9]+$"))
                     {
                         MessageBox.Show("Solo se aceptan numeros para esta busqueda");
                     }
@@ -97,7 +98,7 @@ namespace View.Views
                     break;
 
                 case 1:
-                    if (!FormatValidation.ValidateFormat(text_SearchBy.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+$"))
+                    if (!Utilities.ValidateFormat(text_SearchBy.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+$"))
                     {
                         MessageBox.Show("Solo se aceptan letras para esta busqueda");
                     }

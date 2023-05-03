@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using Domain;
 using Domain.Communitation;
 using System;
@@ -53,21 +54,19 @@ namespace View.Views
         }
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            var result = false;
             var article = _article;
             if (article == null)
             {
                 ErrorManager.ShowWarning("Primero busque un articulo disponible");
             }
-            else if (!article.stateArticle.Equals("Activo"))
+            else if (!article.stateArticle.Equals(StatesArticle.SALE_ARTICLE))
             {
                 ErrorManager.ShowWarning("El articulo seleccionado no esta disponible para ser apartado.");
             }
             else
             {
-                result = true;
                 CloseView();
-                communication.Communication(article, result);
+                communication.ScanCommunication(article);
             }
         }
         public void CommunicacionPages(MessageService communication)
