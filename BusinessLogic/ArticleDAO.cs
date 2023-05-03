@@ -60,11 +60,11 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    var article = connection.Belongings_Articles.Where(a => a.idArticle == idArticle).FirstOrDefault();
+                    var article = connection.Belongings_Articles.Where(a => a.idBelonging == idArticle).FirstOrDefault();
                     if (article != null)
                     {
                         article.stateArticle = state;
-                        connection.SaveChanges();
+                        var resutl = connection.SaveChanges();
                     }
                 }
             }
