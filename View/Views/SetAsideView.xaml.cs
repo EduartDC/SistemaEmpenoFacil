@@ -37,6 +37,10 @@ namespace View.Views
         double _amount;
         double _remaining;
         double _discount;
+        double _percentage;
+        int _idCustomer;
+        int _idSetAside;
+
         public SetAsideView()
         {
             InitializeComponent();
@@ -56,23 +60,62 @@ namespace View.Views
         {
             Button btn = sender as Button;
 
-            // Obtener el objeto correspondiente en el DataGrid
             if (btn != null)
             {
-                // Obtener la fila correspondiente al botón pulsado
                 var row = DataGridRow.GetRowContainingElement(btn);
-
-                // Obtener el objeto correspondiente a la fila
                 var item = row.Item;
-
-                // Eliminar el objeto del DataGrid
                 if (item != null && tableArticles.Items.Contains(item))
                 {
-
                     list.Remove((ArticleDomain)item);
+                    UpdatePage();
                 }
             }
         }
+
+        private void UpdatePage()
+        {
+            if (list.Count != 0)
+            {
+                foreach (var item in list)
+                {
+                    _subtotal += item.sellingPrice;
+                }
+                string selectedValue = comBoxPercentage.SelectedItem.ToString();
+                int selectedPercentage = Convert.ToInt32(selectedValue);
+                double percentage = selectedPercentage / 100.0;
+
+                string selectedDiscount = comBoxDiscount.SelectedItem.ToString();
+                int selectedDiscountPercentage = Convert.ToInt32(selectedDiscount);
+
+                _discount = selectedDiscountPercentage / 100.0;
+                _subtotal = (_subtotal * (1 - _discount));
+                _total = _subtotal * 1.16;
+
+                _amount = (_total * percentage);
+                _remaining = (_total - (_total * percentage));
+
+                labelSubTotal.Content = "SubTotal: " + _subtotal;
+                labelIva.Content = "IVA(16%): " + (_subtotal * 0.16);
+                labelTotal.Content = "Total: " + _total;
+                labelPercentage.Content = "Porcentaje de Apartado: " + selectedPercentage + "%";
+                labelAmount.Content = "Cantidad para Apartado: " + _amount;
+                labelRemaining.Content = "Restante para Liquidar: " + _remaining;
+            }
+            else
+            {
+                _subtotal = 0;
+                _total = 0;
+                _amount = 0;
+                _remaining = 0;
+                labelSubTotal.Content = "SubTotal: ";
+                labelIva.Content = "IVA(16%): ";
+                labelTotal.Content = "Total: ";
+                labelPercentage.Content = "Porcentaje de Apartado: ";
+                labelAmount.Content = "Cantidad para Apartado: ";
+                labelRemaining.Content = "Restante para Liquidar: ";
+            }
+        }
+
         private void btnAddArticle_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(textCustomerName.Text))
@@ -136,16 +179,64 @@ namespace View.Views
             }
             else
             {
+                _idCustomer = customerInfo.idCustomer;
                 textCustomerName.Text = customerInfo.firstName + " " + customerInfo.lastName;
             }
         }
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            //se crea apartado
-            //si no se concreta el pago, se elimina el apartado
+            if (list.Count == 0)
+            {
+                ErrorManager.ShowWarning("No hay articulos en la lista");
+            }
+            else if (string.IsNullOrEmpty(textCustomerName.Text))
+            {
+                ErrorManager.ShowWarning("Primero busque un cliente");
+            }
+            else if (string.IsNullOrEmpty(comBoxPercentage.Text))
+            {
+                ErrorManager.ShowWarning("Seleccione un porcentaje de apartado");
+            }
+            else
+            {
+                CreateSetAside();
+            }
             OpenPayPage();
         }
+
+        private void CreateSetAside()
+        {
+            var date = DateTime.Now;
+            var dateExpiration = date.AddDays(15);
+            var idCustomer = _idCustomer;
+            var totalAmount = _total;
+            var percentage = _percentage.ToString();
+            var remaining = _remaining;
+            var stateSetAside = "Creacion";
+            var discount = _discount;
+
+            var newSetAside = new SetAside
+            {
+                creationDate = date,
+                deadlineDate = dateExpiration,
+                Customer_idCustomer = idCustomer,
+                totalAmount = totalAmount,
+                stateAside = stateSetAside,
+                percentage = percentage,
+                reaminingAmount = remaining,
+
+            };
+
+            foreach (var item in list)
+            {
+                //SetAsideDAO.CreateSetAsideDetail(idSetAside, item.idArticle, item.sellingPrice);
+            }
+                                (App.Current as App)._cashOnHand -= _amount;
+            ErrorManager.ShowInformation("Apartado creado");
+            this.Content = null;
+        }
+
         private void OpenPayPage()
         {
             var window = (MainWindow)Application.Current.MainWindow;
@@ -154,19 +245,19 @@ namespace View.Views
             window.PrimaryContainer.Effect = blurEffect;
             //campos estaticos para pruebas
             (App.Current as App)._cashOnHand = 1000;
-            TransactionView newOperation = new TransactionView(OperationType.OPERATION_SETASIDE, 658.50, 0);
+            TransactionView newOperation = new TransactionView(OperationType.OPERATION_SETASIDE, _amount, _idSetAside);
             newOperation.CommunicacionPages(this);
+            window.SecundaryContainer.Navigate(newOperation);
             window.PrimaryContainer.IsHitTestVisible = false;
         }
         /// <summary>
         /// Metodo que se encarga de la comunicacion entre las paginas
         /// Se activa cuando se escanea un codigo
         /// </summary>
-        /// <param name="code"></param>
-        /// <param name="result"></param>
-        public void Communication(ArticleDomain article, bool result)
+        /// <param name="article"></param>
+        public void ScanCommunication(ArticleDomain article)
         {
-            if (result)
+            if (article != null && article.idArticle != 0)
             {
                 if (list.Count > 0)
                 {
@@ -195,7 +286,7 @@ namespace View.Views
             }
             else
             {
-                ErrorManager.ShowError("No pagado");
+                //f
             }
             SetInformation();
         }
@@ -210,9 +301,9 @@ namespace View.Views
 
         private void comBoxPercentage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (comBoxPercentage.SelectedItem == null && list.Count <= 0)
+            if (list.Count == 0)
             {
-                ErrorManager.ShowError("No hay articulos en la lista");
+                ErrorManager.ShowWarning("No hay articulos en la lista");
             }
             else
             {
@@ -225,16 +316,16 @@ namespace View.Views
             string selectedValue = comBoxPercentage.SelectedItem.ToString();
             int selectedPercentage = Convert.ToInt32(selectedValue);
             double percentage = selectedPercentage / 100.0;
+            _percentage = percentage;
             _amount = (_total * percentage);
             _remaining = (_total - (_total * percentage));
             labelPercentage.Content = "Porcentaje de Apartado: " + selectedPercentage + "%";
             labelAmount.Content = "Cantidad para Apartado: " + _amount;
             labelRemaining.Content = "Restante para Liquidar: " + _remaining;
         }
-
         private void comBoxDiscount_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (list.Count <= 0)
+            if (list.Count == 0)
             {
                 ErrorManager.ShowError("No hay articulos en la lista");
             }
@@ -248,13 +339,12 @@ namespace View.Views
 
             }
         }
-
         private void CalculateDiscount()
         {
             string selectedValue = comBoxPercentage.SelectedItem.ToString();
             int selectedPercentage = Convert.ToInt32(selectedValue);
             double percentage = selectedPercentage / 100.0;
-
+            _percentage = percentage;
             string selectedDiscount = comBoxDiscount.SelectedItem.ToString();
             int selectedDiscountPercentage = Convert.ToInt32(selectedDiscount);
 
@@ -271,6 +361,11 @@ namespace View.Views
             labelPercentage.Content = "Porcentaje de Apartado: " + selectedPercentage + "%";
             labelAmount.Content = "Cantidad para Apartado: " + _amount;
             labelRemaining.Content = "Restante para Liquidar: " + _remaining;
+        }
+
+        public void Communication(bool result)
+        {
+            throw new NotImplementedException();
         }
     }
 }

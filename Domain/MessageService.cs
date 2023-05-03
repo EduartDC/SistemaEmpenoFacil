@@ -9,8 +9,8 @@ namespace Domain
     public interface MessageService
     {
 
-        void Communication(ArticleDomain article, bool result);
-
+        void Communication(bool result);
+        void ScanCommunication(ArticleDomain article);
 
     }
 }

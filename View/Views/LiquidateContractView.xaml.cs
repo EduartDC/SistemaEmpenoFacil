@@ -102,7 +102,7 @@ namespace View.Views
             window.PrimaryContainer.IsHitTestVisible = false;
         }
 
-        public void Communication(ArticleDomain code, bool result)
+        public void Communication(bool result)
         {
             if (result)
             {
@@ -124,6 +124,11 @@ namespace View.Views
             contract.stateContract = StatesContract.COMPLETED_CONTRACT;
             contract.settlementAmount = _total;
             ContractDAO.LiquidateContract(contract);
+        }
+
+        public void ScanCommunication(ArticleDomain article)
+        {
+            throw new NotImplementedException();
         }
     }
 }

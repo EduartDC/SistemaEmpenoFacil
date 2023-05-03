@@ -207,7 +207,7 @@ namespace View.Views
                     textChange.Text = change.ToString();
                     ErrorManager.ShowInformation("El Cambio es de: " + change.ToString());
                     CloseView();
-                    communication.Communication(new ArticleDomain(), true);
+                    communication.Communication(true);
 
 
                 }
@@ -235,7 +235,7 @@ namespace View.Views
                     textChange.Text = change.ToString();
                     ErrorManager.ShowInformation("El Cambio es de: " + change.ToString());
                     CloseView();
-                    communication.Communication(new ArticleDomain(), true);
+                    communication.Communication(true);
 
                 }
                 else
@@ -252,7 +252,7 @@ namespace View.Views
             if (result == MessageBoxResult.Yes)
             {
                 CloseView();
-                communication.Communication(new ArticleDomain(), false);
+                communication.Communication(false);
 
 
             }

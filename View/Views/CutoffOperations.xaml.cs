@@ -87,13 +87,18 @@ namespace View.Views
             window.PrimaryContainer.IsHitTestVisible = false;
         }
 
-        public void Communication(ArticleDomain code, bool result)
+        public void Communication(bool result)
         {
             if (result)
             {
                 (App.Current as App)._staffShift = false;
                 ErrorManager.ShowInformation(MessageError.CUTOFF_SUCCESS);
             }
+        }
+
+        public void ScanCommunication(ArticleDomain article)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -65,9 +65,8 @@ namespace View.Views
             }
             else
             {
-                result = true;
                 CloseView();
-                communication.Communication(article, result);
+                communication.ScanCommunication(article);
             }
         }
         public void CommunicacionPages(MessageService communication)
