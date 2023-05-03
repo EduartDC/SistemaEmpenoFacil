@@ -41,6 +41,9 @@ namespace View.Views
         double _percentage;
         int _idCustomer;
         int _idSetAside;
+        List<ArticlesSetAside> _listArticles;
+        SetAside _SetAside;
+
 
         public SetAsideView()
         {
@@ -215,7 +218,6 @@ namespace View.Views
             var percentage = _percentage.ToString();
             var remaining = _remaining;
             var stateSetAside = StatesAside.PENDING_ASIDE;
-            var discount = _discount;
 
             var newSetAside = new SetAside
             {
@@ -226,40 +228,49 @@ namespace View.Views
                 stateAside = stateSetAside,
                 percentage = percentage,
                 reaminingAmount = remaining,
-
             };
-            List<ArticlesSetAside> listArticles = new List<ArticlesSetAside>();
-            foreach (var item in list)
-            {
-                var newArticle = new ArticlesSetAside
-                {
-                    Article_idBelonging = item.idArticle,
-                    SetAside_idSetAside = newSetAside.idSetAside,
-                    discount = discount,
-                };
-                listArticles.Add(newArticle);
-            }
-            SaveInformation(listArticles, newSetAside, StatesArticle.PENDING_ARTICLE);
+            SaveInformation(newSetAside, StatesArticle.PENDING_ARTICLE);
         }
 
-        private void SaveInformation(List<ArticlesSetAside> listArticles, SetAside newSetAside, string state)
+        private void SaveInformation(SetAside newSetAside, string state)
         {
+            List<ArticlesSetAside> listArticles = new List<ArticlesSetAside>();
             try
             {
                 //crear apartado
-                SetAsideDAO.CreateSetAside(newSetAside);
+                (var idSetAside, var result) = SetAsideDAO.CreateSetAside(newSetAside);
                 //crear union
-                SetAsideDAO.AddArticlesInSetAside(listArticles);
-                //actualizar articulos
-                foreach (var item in list)
+                if (result == MessageCode.SUCCESS)
                 {
-                    ArticleDAO.UpdateArticleState(item.idArticle, state);
+                    foreach (var item in list)
+                    {
+                        var newArticle = new ArticlesSetAside
+                        {
+                            Article_idBelonging = item.idBelonging,
+                            SetAside_idSetAside = idSetAside,
+                            discount = _discount,
+                        };
+                        listArticles.Add(newArticle);
+                    }
+                    SetAsideDAO.AddArticlesInSetAside(listArticles);
+                    //actualizar articulos
+                    foreach (var item in list)
+                    {
+                        ArticleDAO.UpdateArticleState(item.idArticle, state);
+                    }
+                    _listArticles = listArticles;
+                    _SetAside = newSetAside;
+                }
+                else
+                {
+                    //error
                 }
             }
             catch (Exception)
             {
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
             }
+
         }
 
         private void OpenPayPage()
@@ -393,12 +404,30 @@ namespace View.Views
             if (result)
             {
                 //actualizar estado de apartado
-
+                UpdateStates();
+                ErrorManager.ShowInformation("Operacion Exitosa");
             }
             else
             {
                 ErrorManager.ShowInformation("Operacion Cancelada");
             }
+        }
+
+        private void UpdateStates()
+        {
+            try
+            {
+                SetAsideDAO.UpdateSetAsideState(StatesArticle.ASIDE_ARTICLE, _idSetAside);
+                foreach (var item in _listArticles)
+                {
+                    ArticleDAO.UpdateArticleState(item.Article_idBelonging, StatesArticle.ASIDE_ARTICLE);
+                }
+            }
+            catch (Exception)
+            {
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+            }
+
         }
     }
 }

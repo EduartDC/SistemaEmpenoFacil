@@ -121,7 +121,7 @@ namespace View.Views
                         operation.receivedAmount = amountReceived;
                         operation.operationDate = DateTime.Now;
                         operation.concept = "Apartado de Articulos";
-                        operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
+                        operation.Staff_idStaff = 1;//(App.Current as App)._staffInfo.idStaff;
                         operation.SetAside_idSetAside = _id;
                         result = OperationDAO.AddOperation(operation);
                         break;

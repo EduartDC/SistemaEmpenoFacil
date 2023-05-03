@@ -48,5 +48,24 @@ namespace BusinessLogic
                 throw new Exception("Error de conexión");
             }
         }
+        public static void UpdateSetAsideState(string state, int idSetAside)
+        {
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var article = connection.SetAsides.Where(a => a.idSetAside == idSetAside).FirstOrDefault();
+                    if (article != null)
+                    {
+                        article.stateAside = state;
+                        connection.SaveChanges();
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("Error de conexión");
+            }
+        }
     }
 }
