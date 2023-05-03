@@ -415,7 +415,7 @@ namespace View.Views
                 ErrorManager.ShowInformation("Operacion Cancelada");
             }
         }
-
+        //
         private void UpdateStates(bool option)
         {
             try
