@@ -69,6 +69,10 @@
     <Compile Include="Utilitys.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DataAcces\DataAcces.csproj">
       <Project>{2cd36b35-ec13-4c97-b501-da2d11e4bf8f}</Project>
       <Name>DataAcces</Name>
@@ -77,10 +81,6 @@
       <Project>{10e349ca-72ae-4cce-8792-d088a21c4076}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

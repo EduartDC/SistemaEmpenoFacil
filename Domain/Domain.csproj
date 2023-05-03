@@ -44,10 +44,6 @@
   <ItemGroup>
     <Compile Include="ArticleDomain.cs" />
     <Compile Include="ArticleFull.cs" />
-    <Compile Include="ArticleFull.cs" />
-=======
-    <Compile Include="ArticleDomain.cs" />
->>>>>>> 6f26a442a4116d02a067d6f9e2aabe21438cef22
     <Compile Include="Belonging.cs" />
     <Compile Include="Communication.cs" />
     <Compile Include="ContractDomain.cs" />

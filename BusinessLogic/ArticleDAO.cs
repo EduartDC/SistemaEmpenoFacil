@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAcces;
+using Domain;
 
 namespace BusinessLogic
 {
@@ -28,7 +29,7 @@ namespace BusinessLogic
         public static ArticleDomain GetArticleDomainByCode(string code)
         {
             ArticleDomain articleDomain = new ArticleDomain();
-            if (Utilities.VerifyConnection())
+            if (Util VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
