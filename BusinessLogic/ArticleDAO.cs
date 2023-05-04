@@ -12,13 +12,48 @@ namespace BusinessLogic
 {
     public class ArticleDAO
     {
-        public static (int, List<Belongings_Articles>) getArticles()
+        public static (int, List<ArticleDomain>) getArticles()
         {
-            List<Belongings_Articles> articles = new List<Belongings_Articles>();
+            List<Belongings_Articles> articles = new List<Belongings_Articles>();//lista para la conexion
+            List<ArticleDomain> articlesDomain = new List<ArticleDomain>();//lista purgada
             if (Utilities.VerifyConnection())
             {
+                using (var connection = new ConnectionModel())
+                {
+                    //recuperar lista
+                    articles = connection.Belongings_Articles.ToList();
+                    //purga de articulos
+                    foreach (var item in articles)
+                    {
+                        ArticleDomain newArticle = new ArticleDomain();
 
-                return (MessageCode.SUCCESS, articles);
+                        //atributos de Belonging
+                        newArticle.idBelonging = item.Belonging.idBelonging;
+                        newArticle.appraisalValue = item.Belonging.appraisalValue;
+                        newArticle.category = item.Belonging.category;
+                        newArticle.description = item.Belonging.description;
+                        newArticle.characteristics = item.Belonging.characteristics;
+                        newArticle.loanAmount = item.Belonging.loanAmount;
+                        newArticle.serialNumber = item.Belonging.serialNumber;
+                        //falta Contract_idContract
+
+                        //atributos de Article
+                        newArticle.idArticle = item.idArticle;
+                        newArticle.barCode = item.barCode;
+                        newArticle.sellingPrice = item.sellingPrice;
+                        newArticle.stateArticle = item.stateArticle;
+                        newArticle.customerProfit = item.customerProfit;
+                        newArticle.storeProfit = item.storeProfit;
+                        //atributos de Image
+                        //newArticle.imageOne = item.
+
+
+                        articlesDomain.Add(newArticle);
+
+                    }
+
+                }
+                return (MessageCode.SUCCESS, articlesDomain);
             }
 
             return (MessageCode.CONNECTION_ERROR, null);

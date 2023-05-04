@@ -19,13 +19,14 @@ using System.Windows.Shapes;
 using BusinessLogic;
 using View.Properties;
 using System.Windows.Controls.Primitives;
+using Domain;
 
 namespace View.Views
 {
 
     public partial class FindArticles : Page
     {
-        private List<Belongings_Articles> articles = new List<Belongings_Articles>();
+        private List<ArticleDomain> articles = new List<ArticleDomain>();
         private Boolean datePickerEnabled = true;
 
         public FindArticles()
@@ -40,9 +41,10 @@ namespace View.Views
             int code = 0;
             articles.Clear();
             (code, articles) = ArticleDAO.getArticles();
-            MessageBox.Show(code.ToString());
+
             if (code == MessageCode.SUCCESS)
             {
+                MessageBox.Show(articles[0].appraisalValue.ToString());
                 LoadTable();
             }
             else
@@ -51,6 +53,10 @@ namespace View.Views
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
                 //codigo para cerrar page
             }
+
+            //ArticleDomain article = new ArticleDomain ();
+            //article = ArticleDAO.GetArticleDomainByCode("666");
+            //MessageBox.Show(article.category);
         }
         private void LoadCategories()
         {
