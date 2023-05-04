@@ -57,8 +57,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OperationDAOTest.cs" />
     <Compile Include="SetAsideDAOTest.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +69,10 @@
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
       <Project>{f86bca70-bf82-4f16-b691-3817aa34b1a8}</Project>
       <Name>BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAcces\DataAcces.csproj">
+      <Project>{cc2df9c6-f10f-4209-8fa3-94840f1d4bd6}</Project>
+      <Name>DataAcces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{10e349ca-72ae-4cce-8792-d088a21c4076}</Project>

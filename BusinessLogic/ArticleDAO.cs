@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace BusinessLogic
 
             return (MessageCode.CONNECTION_ERROR, null);
         }
-
+        //cide
         public static ArticleDomain GetArticleDomainByCode(string code)
         {
             ArticleDomain articleDomain = new ArticleDomain();
@@ -53,9 +54,10 @@ namespace BusinessLogic
             }
             return articleDomain;
         }
-
-        public static void UpdateArticleState(int idArticle, string state)
+        //cide
+        public static int UpdateArticleState(int idArticle, string state)
         {
+            var resutl = MessageCode.ERROR;
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
@@ -64,7 +66,7 @@ namespace BusinessLogic
                     if (article != null)
                     {
                         article.stateArticle = state;
-                        var resutl = connection.SaveChanges();
+                        resutl = connection.SaveChanges();
                     }
                 }
             }
@@ -72,6 +74,7 @@ namespace BusinessLogic
             {
                 throw new Exception("Error de conexión");
             }
+            return resutl;
         }
     }
 }

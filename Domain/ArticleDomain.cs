@@ -38,5 +38,27 @@ namespace Domain
         public int idSetAside { get; set; }
 
         public int idSale { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            ArticleDomain other = (ArticleDomain)obj;
+            return idArticle == other.idArticle &&
+                   barCode == other.barCode &&
+                   description == other.description &&
+                   serialNumber == other.serialNumber &&
+                   sellingPrice == other.sellingPrice &&
+                   appraisalValue == other.appraisalValue &&
+                   category == other.category &&
+                   characteristics == other.characteristics &&
+                   idBelonging == other.idBelonging &&
+                   loanAmount == other.loanAmount &&
+                   stateArticle == other.stateArticle;
+        }
+
     }
 }

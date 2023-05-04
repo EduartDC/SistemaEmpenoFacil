@@ -164,14 +164,21 @@ namespace View.Views
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            var curp = textCURP.Text;
-            if (!string.IsNullOrEmpty(curp))
+            try
             {
-                var customerInfo = CustomerDAO.GetCustomerByCURP(curp);
-                if (customerInfo.idCustomer != 0)
+                var curp = textCURP.Text;
+                if (!string.IsNullOrEmpty(curp))
                 {
-                    SetInformationCustomer(customerInfo);
+                    var customerInfo = CustomerDAO.GetCustomerByCURP(curp);
+                    if (customerInfo.idCustomer != 0)
+                    {
+                        SetInformationCustomer(customerInfo);
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
             }
         }
 

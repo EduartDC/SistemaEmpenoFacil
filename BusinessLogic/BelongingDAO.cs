@@ -59,7 +59,7 @@ namespace BusinessLogic
             return MessageCode.SUCCESS;
 
         }
-
+        //cide
         public static List<Belonging> GetAllBelongingsFromContract(int idContract)
         {
             List<Belonging> belongings = new List<Belonging>();

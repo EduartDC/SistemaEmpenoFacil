@@ -16,7 +16,7 @@ namespace BusinessLogic
     {
 
         private static NewLog _log = new NewLog();
-
+        //cide
         public static int LiquidateContract(ContractDomain selectedContract)
         {
             var result = MessageCode.ERROR;
@@ -67,7 +67,7 @@ namespace BusinessLogic
                 return (MessageCode.CONNECTION_ERROR, idObject);
             return (MessageCode.SUCCESS, idObject);
         }
-
+        //cide
         public static Contract GetContract(int idContract)
         {
             var result = new Contract();
@@ -85,7 +85,7 @@ namespace BusinessLogic
             }
             return result;
         }
-
+        //cide
         public static async Task<ContractDomain> GetContractsDomainAsync(int idContrac)
         {
             if (!Utilities.VerifyConnection())

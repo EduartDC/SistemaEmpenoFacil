@@ -10,6 +10,7 @@ namespace BusinessLogic
 {
     public class StaffDAO
     {
+        //cide
         public static Staff LogingStaff(string userName, string password)
         {
             var resutl = new Staff();

@@ -13,6 +13,7 @@ namespace BusinessLogic
 {
     public class OperationDAO
     {
+        //cide
         public static int AddOperation(Operation newOperation)
         {
             var result = MessageCode.ERROR;
@@ -30,7 +31,7 @@ namespace BusinessLogic
             }
             return result;
         }
-
+        //cide
         public static async Task<List<OperationDomain>> GetAllOperationsByDate(DateTime date, int idStaff)
         {
             List<OperationDomain> operationsList = new List<OperationDomain>();

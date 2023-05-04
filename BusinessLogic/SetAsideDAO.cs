@@ -10,6 +10,7 @@ namespace BusinessLogic
 {
     public class SetAsideDAO
     {
+        //cide
         public static (int, int) CreateSetAside(SetAside newAside)
         {
             var result = MessageCode.ERROR;
@@ -29,9 +30,10 @@ namespace BusinessLogic
             }
             return (idSetAside, result);
         }
-
-        public static void AddArticlesInSetAside(List<ArticlesSetAside> list)
+        //cide
+        public static int AddArticlesInSetAside(List<ArticlesSetAside> list)
         {
+            var result = MessageCode.ERROR;
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
@@ -39,7 +41,7 @@ namespace BusinessLogic
                     foreach (var item in list)
                     {
                         connection.ArticlesSetAsides.Add(item);
-                        connection.SaveChanges();
+                        result = connection.SaveChanges();
                     }
                 }
             }
@@ -47,9 +49,12 @@ namespace BusinessLogic
             {
                 throw new Exception("Error de conexión");
             }
+            return result;
         }
-        public static void UpdateSetAsideState(string state, int idSetAside)
+        //cide
+        public static int UpdateSetAsideState(string state, int idSetAside)
         {
+            var result = MessageCode.ERROR;
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
@@ -58,7 +63,7 @@ namespace BusinessLogic
                     if (article != null)
                     {
                         article.stateAside = state;
-                        var result = connection.SaveChanges();
+                        result = connection.SaveChanges();
                     }
                 }
             }
@@ -66,6 +71,7 @@ namespace BusinessLogic
             {
                 throw new Exception("Error de conexión");
             }
+            return result;
         }
     }
 }

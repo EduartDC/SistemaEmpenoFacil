@@ -52,7 +52,7 @@ namespace BusinessLogic
             }
             return (result, idCustomer);
         }
-
+        //cide
         public static int UpdateCustomer(Customer selectedCustomer)
         {
             var result = MessageCode.ERROR;
@@ -75,7 +75,7 @@ namespace BusinessLogic
             }
             return result;
         }
-
+        //cide
         public static Customer GetCustomer(int id)
         {
             Customer customer = new Customer();
@@ -127,6 +127,7 @@ namespace BusinessLogic
             }
             return result;
         }
+        //cide
         public static List<ImagesIdentification> GetImagesCustomer(int id)
         {
             List<ImagesIdentification> images = new List<ImagesIdentification>();
@@ -139,6 +140,7 @@ namespace BusinessLogic
             }
             return images;
         }
+        //cide
         public static int UpdateImageCustomer(ImagesIdentification selectedImage)
         {
             var result = MessageCode.ERROR;
@@ -304,6 +306,7 @@ namespace BusinessLogic
             }
             return customer;
         }
+        //cide
         public static DataAcces.Customer GetCustomerByCURP(string CURP)
         {
             var result = new DataAcces.Customer();
