@@ -73,6 +73,12 @@
     <Compile Include="Views\AuthorizationView.xaml.cs">
       <DependentUpon>AuthorizationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CheckSalesRecords.xaml.cs">
+      <DependentUpon>CheckSalesRecords.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CheckShoppingCart.xaml.cs">
+      <DependentUpon>CheckShoppingCart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConfigureMetrics.xaml.cs">
       <DependentUpon>ConfigureMetrics.xaml</DependentUpon>
     </Compile>
@@ -94,8 +100,14 @@
     <Compile Include="Views\CutoffOperations.xaml.cs">
       <DependentUpon>CutoffOperations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EndorseContract.xaml.cs">
+      <DependentUpon>EndorseContract.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FindArticles.xaml.cs">
       <DependentUpon>FindArticles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GenerateReortOSparatedIms.xaml.cs">
+      <DependentUpon>GenerateReortOSparatedIms.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GenerateSalesReport.xaml.cs">
       <DependentUpon>GenerateSalesReport.xaml</DependentUpon>
@@ -106,8 +118,17 @@
     <Compile Include="Views\LiquidateContractView.xaml.cs">
       <DependentUpon>LiquidateContractView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MakeSale.xaml.cs">
+      <DependentUpon>MakeSale.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModifyEmployee.xaml.cs">
+      <DependentUpon>ModifyEmployee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SaleDetails.xaml.cs">
+      <DependentUpon>SaleDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ScanCodeView.xaml.cs">
       <DependentUpon>ScanCodeView.xaml</DependentUpon>
@@ -141,6 +162,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CheckSalesRecords.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CheckShoppingCart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ConfigureMetrics.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -169,7 +198,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EndorseContract.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\FindArticles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GenerateReortOSparatedIms.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,7 +222,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MakeSale.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModifyEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SaleDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

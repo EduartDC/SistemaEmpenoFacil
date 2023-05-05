@@ -22,10 +22,12 @@ namespace View.Views
     /// </summary>
     public partial class EndorseContract : Page
     {
+
+        private Contract actualContract = null;
         public EndorseContract()
         {
             InitializeComponent();
-            ShowContract("123456");
+            ShowContract(9);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -33,30 +35,61 @@ namespace View.Views
 
         }
 
-        private void ShowContract(string idContract)
+        private void ShowContract(int idContract)
         {
             Contract contract = ContractDAO.GetContract(idContract);
-            labelEndorsementAmount.Content = GetAmounts(contract.paymentsEndorsement); // monto de refrendo buscar el monto de refrendo
-            labelLoanAmount.Content = contract.loanAmount.ToString(); // monto de prestamo
-            labelSettlementAmount.Content= GetAmounts(contract.paymentsSettlement); //monto de liquidacion buscar el monto de liquidacion
-            labelClientName.Content = contract.Customer.firstName + " " +contract.Customer.lastName;
+            labelEndorsementAmount.Content = GetAmounts(contract.paymentsEndorsement, contract.endorsementSettlementDates); // monto de refrendo buscar el monto de refrendo
+            labelLoanAmount.Content = contract.loanAmount.ToString() + " $"; // monto de prestamo
+            labelSettlementAmount.Content= GetAmounts(contract.paymentsSettlement, contract.endorsementSettlementDates); //monto de liquidacion buscar el monto de liquidacion\
+            Customer customer = CustomerDAO.GetCustomer(contract.Customer_idCustomer);
+            labelClientName.Content = customer.firstName + " " + customer.lastName;
             labelPawnNumber.Content = contract.idContract;
+            actualContract = contract;
         }
 
-        private string GetAmounts(string amounts)
+        private string GetAmounts(string amounts, string endorsementSettlementsDates)
         {
+            string[] listDates = endorsementSettlementsDates.Split(';');
             string[] listAmounts = amounts.Split(';');
-            return listAmounts[0];
+            DateTime actualDate = DateTime.Now;
+            int indexAmount = 0;
+            for(int i=0; i<listDates.Length; i++)
+            {
+                int result = DateTime.Compare(DateTime.Parse(listDates[i]), actualDate);
+                if(result == 0)
+                {
+                    indexAmount = i;
+                    break;
+                }else if(result > 0)
+                {
+                    indexAmount = i - 1;
+                    break;
+                }
+            }
+            DateTime deadlineDate = actualContract.deadlineDate;
+            return listAmounts[indexAmount];
         }
 
         private void EndorseContractButtonEvent(object sender, RoutedEventArgs e)
         {
-
+            if (actualContract.idContractPrevious != null)
+            {
+                string message = "Ya se ha refrendado anteiormente este contrato, solo dispone de liquidacion";
+                string messageTitle = "No se puede volver a refrendar";
+                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                MessageBoxImage messageBoxImage= MessageBoxImage.Information;
+                MessageBoxResult messageBox;
+                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+            }
+            else
+            {
+                ContractDAO.ModifyContract(actualContract, actualContract.idContract);
+            }
         }
 
         private void goBackButtonEvent(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }
