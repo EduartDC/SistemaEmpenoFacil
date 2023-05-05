@@ -57,6 +57,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleDAOTest.cs" />
+    <Compile Include="ContractDAOTest.cs" />
     <Compile Include="CustomerDAOTest.cs" />
     <Compile Include="OperationDAOTest.cs" />
     <Compile Include="SetAsideDAOTest.cs" />

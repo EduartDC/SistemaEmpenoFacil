@@ -15,31 +15,28 @@ namespace BusinessLogic
     public class ContractDAO
     {
 
-        private static NewLog _log = new NewLog();
         //cide
         public static int LiquidateContract(ContractDomain selectedContract)
         {
             var result = MessageCode.ERROR;
-            try
+
+            if (Utilities.VerifyConnection())
             {
-                if (Utilities.VerifyConnection())
+                using (var connection = new ConnectionModel())
                 {
-                    using (var connection = new ConnectionModel())
+                    var contract = connection.Contracts.Find(selectedContract.idContract);
+                    if (contract != null)
                     {
-                        var contract = connection.Contracts.Find(selectedContract.idContract);
                         contract.stateContract = selectedContract.stateContract;
                         contract.settlementAmount = selectedContract.settlementAmount;
                         result = connection.SaveChanges();
                     }
+
                 }
             }
-            catch (DbUpdateException)
+            else
             {
-                result = MessageCode.ERROR_UPDATE;
-            }
-            catch (Exception)
-            {
-                result = MessageCode.CONNECTION_ERROR;
+                throw new Exception(MessageError.CONNECTION_ERROR);
             }
             return result;
         }
@@ -68,69 +65,55 @@ namespace BusinessLogic
             return (MessageCode.SUCCESS, idObject);
         }
         //cide
-        public static Contract GetContract(int idContract)
+        public static async Task<ContractDomain> GetContractsDomainAsync(int idContrac)
         {
-            var result = new Contract();
+            ContractDomain contractDomain = new ContractDomain();
             if (Utilities.VerifyConnection())
             {
-
                 using (var connection = new ConnectionModel())
                 {
-                    result = connection.Contracts.Find(idContract);
+                    var contract = await connection.Contracts.FindAsync(idContrac);
+                    if (contract != null)
+                    {
+                        contractDomain.idContract = contract.idContract;
+                        contractDomain.loanAmount = contract.loanAmount;
+                        contractDomain.idContractPrevious = contract.idContractPrevious;
+                        contractDomain.deadlineDate = contract.deadlineDate;
+                        contractDomain.creationDate = contract.creationDate;
+                        contractDomain.stateContract = contract.stateContract;
+                        contractDomain.iva = contract.iva;
+                        contractDomain.interestRate = contract.interestRate;
+                        contractDomain.renewalFee = contract.renewalFee;
+                        contractDomain.settlementAmount = contract.settlementAmount;
+                        contractDomain.duration = contract.duration;
+                        contractDomain.Customer_idCustomer = contract.Customer_idCustomer;
+                        contractDomain.endorsementSettlementDates = contract.endorsementSettlementDates;
+                        contractDomain.paymentsSettlement = contract.paymentsSettlement;
+                        contractDomain.paymentsEndorsement = contract.paymentsEndorsement;
+                        contractDomain.loanProcentage = contract.loanProcentage;
+                        contractDomain.totalAnnualCost = contract.totalAnnualCost;
+                        contractDomain.annualInterestRate = contract.annualInterestRate;
+                        contractDomain.Belongings = contract.Belongings.ToList();
+                        contractDomain.Operations = contract.Operations.ToList();
+                        contractDomain.Customer = contract.Customer;
+                    }
+                    else
+                    {
+                        contractDomain = null;
+                    }
+
+                    return contractDomain;
                 }
             }
             else
             {
                 throw new Exception(MessageError.CONNECTION_ERROR);
             }
-            return result;
-        }
-        //cide
-        public static async Task<ContractDomain> GetContractsDomainAsync(int idContrac)
-        {
-            if (!Utilities.VerifyConnection())
-            {
-                throw new Exception(MessageError.CONNECTION_ERROR);
-            }
-
-            using (var connection = new ConnectionModel())
-            {
-                var contract = await connection.Contracts.FindAsync(idContrac);
-
-                if (contract == null)
-                {
-                    return null;
-                }
-
-                var contractDomain = new ContractDomain();
-                contractDomain.idContract = contract.idContract;
-                contractDomain.loanAmount = contract.loanAmount;
-                contractDomain.idContractPrevious = contract.idContractPrevious;
-                contractDomain.deadlineDate = contract.deadlineDate;
-                contractDomain.creationDate = contract.creationDate;
-                contractDomain.stateContract = contract.stateContract;
-                contractDomain.iva = contract.iva;
-                contractDomain.interestRate = contract.interestRate;
-                contractDomain.renewalFee = contract.renewalFee;
-                contractDomain.settlementAmount = contract.settlementAmount;
-                contractDomain.duration = contract.duration;
-                contractDomain.Customer_idCustomer = contract.Customer_idCustomer;
-                contractDomain.endorsementSettlementDates = contract.endorsementSettlementDates;
-                contractDomain.paymentsSettlement = contract.paymentsSettlement;
-                contractDomain.paymentsEndorsement = contract.paymentsEndorsement;
-                contractDomain.loanProcentage = contract.loanProcentage;
-                contractDomain.totalAnnualCost = contract.totalAnnualCost;
-                contractDomain.annualInterestRate = contract.annualInterestRate;
-                contractDomain.Belongings = contract.Belongings.ToList();
-                contractDomain.Operations = contract.Operations.ToList();
-                contractDomain.Customer = contract.Customer;
-
-                return contractDomain;
-            }
         }
 
         public static List<Domain.CompleteContract> RecoverContracts()
         {
+            NewLog _log = new NewLog();
             List<Domain.CompleteContract> resultContracts = new List<Domain.CompleteContract>();
             try
             {

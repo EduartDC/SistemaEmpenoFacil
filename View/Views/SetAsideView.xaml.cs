@@ -6,6 +6,8 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -274,6 +276,14 @@ namespace View.Views
                 {
                     //error
                 }
+            }
+            catch (DbEntityValidationException)
+            {
+                ErrorManager.ShowError("Error al registrar un nuevo contrato");
+            }
+            catch (DbUpdateException)
+            {
+                ErrorManager.ShowError("Error al registrar un nuevo contrato");
             }
             catch (Exception)
             {

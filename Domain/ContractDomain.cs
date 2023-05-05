@@ -50,5 +50,37 @@ namespace Domain
         public virtual List<DataAcces.Operation> Operations { get; set; }
 
         public virtual DataAcces.Customer Customer { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            ContractDomain other = (ContractDomain)obj;
+
+            return idContract == other.idContract &&
+                   loanAmount == other.loanAmount &&
+                   idContractPrevious == other.idContractPrevious &&
+                   deadlineDate == other.deadlineDate &&
+                   creationDate == other.creationDate &&
+                   stateContract == other.stateContract &&
+                   iva == other.iva &&
+                   interestRate == other.interestRate &&
+                   renewalFee == other.renewalFee &&
+                   settlementAmount == other.settlementAmount &&
+                   duration == other.duration &&
+                   Customer_idCustomer == other.Customer_idCustomer &&
+                   endorsementSettlementDates.SequenceEqual(other.endorsementSettlementDates) &&
+                   paymentsSettlement.SequenceEqual(other.paymentsSettlement) &&
+                   paymentsEndorsement.SequenceEqual(other.paymentsEndorsement) &&
+                   loanProcentage == other.loanProcentage &&
+                   totalAnnualCost == other.totalAnnualCost &&
+                   annualInterestRate == other.annualInterestRate &&
+                   Belongings.SequenceEqual(other.Belongings) &&
+                   Operations.SequenceEqual(other.Operations) &&
+                   Customer.Equals(other.Customer);
+        }
     }
 }

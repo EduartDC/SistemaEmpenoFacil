@@ -3,6 +3,7 @@ using DataAcces;
 using Domain;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,12 +41,16 @@ namespace View.Views
             try
             {
                 var contract = await Task.Run(() => ContractDAO.GetContractsDomainAsync(idContract));
-                if (contract.stateContract.Equals(StatesContract.CANCELED_CONTRACT) || contract.stateContract.Equals(StatesContract.COMPLETED_CONTRACT))
+                if (contract == null)
+                {
+                    ErrorManager.ShowWarning("No se encontro el contrato.");
+                }
+                else if (contract.stateContract.Equals(StatesContract.CANCELED_CONTRACT) || contract.stateContract.Equals(StatesContract.COMPLETED_CONTRACT))
                 {
                     ErrorManager.ShowWarning("Este contrato no es apto para su liquidacion, es posible que ya este liquidado o cancelado.");
                     //regresa a consultar contratos
                 }
-                else if (contract != null)
+                else
                 {
                     labelDeadLine.Content = "Fecha Limite: " + contract.deadlineDate;
                     labelSatartDate.Content = "Fecha de Inicio: " + contract.creationDate;
@@ -119,11 +124,22 @@ namespace View.Views
 
         private async Task SaveChanges()
         {
-            var contract = new ContractDomain();
-            contract.idContract = _id;
-            contract.stateContract = StatesContract.COMPLETED_CONTRACT;
-            contract.settlementAmount = _total;
-            ContractDAO.LiquidateContract(contract);
+            try
+            {
+                var contract = new ContractDomain();
+                contract.idContract = _id;
+                contract.stateContract = StatesContract.COMPLETED_CONTRACT;
+                contract.settlementAmount = _total;
+                ContractDAO.LiquidateContract(contract);
+            }
+            catch (DbUpdateException)
+            {
+                ErrorManager.ShowError(MessageError.UPDATE_ERROR);
+            }
+            catch (Exception)
+            {
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+            }
         }
 
         public void ScanCommunication(ArticleDomain article)

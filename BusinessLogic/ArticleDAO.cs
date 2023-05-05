@@ -47,7 +47,7 @@ namespace BusinessLogic
                         DateTime createDate = item.creationDate;
                         string date = createDate.ToString("MM/dd/yyyy");
                         newArticle.createDate = DateTime.Parse(date);
-                        
+
 
 
                         articlesDomain.Add(newArticle);
@@ -82,6 +82,10 @@ namespace BusinessLogic
                         articleDomain.idBelonging = article.idBelonging;
                         articleDomain.loanAmount = article.Belonging.loanAmount;
                         articleDomain.stateArticle = article.stateArticle;
+                    }
+                    else
+                    {
+                        articleDomain = null;
                     }
                 }
             }

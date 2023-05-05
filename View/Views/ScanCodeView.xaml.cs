@@ -84,7 +84,7 @@ namespace View.Views
                 try
                 {
                     var article = ArticleDAO.GetArticleDomainByCode(code);
-                    if (article.idArticle != 0)
+                    if (article != null)
                     {
                         _article = article;
                         SetInformation();

@@ -1,89 +1,71 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Utility;
+using DataAcces;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace UnitTest
 {
+
     [TestClass]
     public class SetAsideDAOTest
     {
+
+        private SetAside newSetAside { get; set; }
         [TestInitialize]
         public void TestInitialize()
         {
 
             //se crean los objetos que se van a utilizar en los test
-            //Assert.IsNotNull(objectManagerService.UserConnect(objectPlayer));
-            //Assert.IsNull(objectManagerService.UserConnect(playerServer).userName);
-            //Assert.AreNotEqual
+            newSetAside = new SetAside();
+            newSetAside.creationDate = DateTime.Now;
+            newSetAside.deadlineDate = DateTime.Now;
+            newSetAside.Customer_idCustomer = 1;
+            newSetAside.totalAmount = 1111;
+            newSetAside.stateAside = "Test";
+            newSetAside.percentage = "10";
+            newSetAside.reaminingAmount = 1111;
+
+
         }
         [TestMethod]
-        public void TestUpdateArticleStateSuccess()
+        public void TestCreateSetAsideSuccess()
         {
-            int expectedResult = 1;
-            Assert.AreEqual(expectedResult, ArticleDAO.UpdateArticleState(8, StatesArticle.ASIDE_ARTICLE));
+            (int expectedResultOne, int expectedResultTwo) = (15, 1);
+            Assert.AreEqual((expectedResultOne, expectedResultTwo), SetAsideDAO.CreateSetAside(newSetAside));
         }
 
         [TestMethod]
-        public void TestUpdateArticleStateError()
+        [ExpectedException(typeof(DbUpdateException))]
+        public void TestCreateSetAsideErrorCustomerNull()
         {
-            int expectedResult = 0;
-            Assert.AreEqual(expectedResult, ArticleDAO.UpdateArticleState(1, StatesArticle.PENDING_ARTICLE));
+            (int expectedResultOne, int expectedResultTwo) = (0, 0);
+            newSetAside.Customer_idCustomer = 0;
+            Assert.AreEqual((expectedResultOne, expectedResultTwo), SetAsideDAO.CreateSetAside(newSetAside));
         }
 
         [TestMethod]
-        public void TestUpdateArticleStateErrorLimit()
+        [ExpectedException(typeof(DbEntityValidationException))]
+        public void TestCreateSetAsideErrorEmpty()
         {
-            int expectedResult = 0;
-            Assert.AreEqual(expectedResult, ArticleDAO.UpdateArticleState(1000000000, StatesArticle.PENDING_ARTICLE));
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(Exception))]
-        public void TestUpdateArticleStateConnectionException()
-        {
-            int expectedResult = 0;
-            Assert.AreEqual(expectedResult, ArticleDAO.UpdateArticleState(0, ""));
-        }
-
-        [TestMethod]
-        public void TestGetArticleDomainByCodeErrorEmpty()
-        {
-            ArticleDomain expectedResult = new ArticleDomain();
-            Assert.AreEqual(expectedResult, ArticleDAO.GetArticleDomainByCode(""));
-        }
-
-        [TestMethod]
-        public void TestGetArticleDomainByCodeError()
-        {
-            ArticleDomain expectedResult = new ArticleDomain();
-            Assert.AreEqual(expectedResult, ArticleDAO.GetArticleDomainByCode(" 000000000000d4eesee/**+"));
-        }
-        [TestMethod]
-        public void TestGetArticleDomainByCodeErrorLimit()
-        {
-            ArticleDomain expectedResult = new ArticleDomain();
-            Assert.AreEqual(expectedResult, ArticleDAO.GetArticleDomainByCode(" 000000000000d4eesee/**+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"));
-        }
-
-        [TestMethod]
-        public void TestGetArticleDomainByCodeSuccess()
-        {
-            ArticleDomain expectedResult = new ArticleDomain();
-            Assert.AreNotEqual(expectedResult, ArticleDAO.GetArticleDomainByCode("666"));
+            (int expectedResultOne, int expectedResultTwo) = (0, 0);
+            var newSetAsideEmpty = new SetAside();
+            Assert.AreEqual((expectedResultOne, expectedResultTwo), SetAsideDAO.CreateSetAside(newSetAsideEmpty));
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
-        public void TestGetArticleDomainByCodeConnectionException()
+        public void TestCreateSetAsideException()
         {
-            ArticleDomain expectedResult = new ArticleDomain();
-            Assert.AreNotEqual(expectedResult, ArticleDAO.GetArticleDomainByCode(" "));
+            (int expectedResultOne, int expectedResultTwo) = (0, 0);
+            Assert.AreEqual((expectedResultOne, expectedResultTwo), SetAsideDAO.CreateSetAside(new SetAside()));
         }
     }
 }
