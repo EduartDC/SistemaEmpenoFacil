@@ -48,6 +48,7 @@
     <Compile Include="ContractDomain.cs" />
     <Compile Include="CompleteContract.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="CustomerProfitDomain.cs" />
     <Compile Include="MessageService.cs" />
     <Compile Include="OperationDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
