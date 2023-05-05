@@ -52,6 +52,7 @@ namespace View.Views
             BlockTextBoxes();
             LoadMetrics();
             LoadDates();
+            tbAppraisalAmount.Text = "";
 
         }
 
@@ -61,7 +62,19 @@ namespace View.Views
             cbTerm.ItemsSource = dates;
 
         }
-
+        public void EnabledComboBoxDates()
+        {
+            if(belongingList.Count >= 1)
+                cbTerm.IsEnabled = true;
+            else
+            {
+                cbTerm.SelectedIndex = -1;
+                cbTerm.IsEnabled = false;
+                tbDateEndorsementSettlement.Clear();
+                tbTotalPaymentForEndorsement.Clear();
+            }
+                
+        }
         private void BlockTextBoxes()
         {
 
@@ -75,9 +88,9 @@ namespace View.Views
             tbDateComercialization.IsEnabled = false;
             tbLoanAmount.IsEnabled = false;
             tbPaymentLimit.IsEnabled = false;
-            tbMountPaymentTerm.IsEnabled = false;
+            //tbMountPaymentTerm.IsEnabled = false;
             tbDateEndorsementSettlement.IsEnabled = false;
-            tbTotalAnnualCost.IsEnabled = false;
+            //tbTotalAnnualCost.IsEnabled = false;
             tbAnnualInterestRate.IsEnabled = false;
             tbTotalPaymentForEndorsement.IsEnabled = false;
             tbTotalPerformancePay.IsEnabled = false;
@@ -99,6 +112,16 @@ namespace View.Views
             dgBelongings.Items.Refresh();
             this.bitmapImgList = bitmapImgList;
             LoadFields();
+            EnabledComboBoxDates();
+            CalculatesAppraisalAndLoanAmount();
+            if (cbTerm.SelectedIndex>=0)
+            {
+                LoadTotalPaymentForEndorsement();
+                LoadTotalPaymentoForSettlement();
+
+            }
+            
+           // LoadTotalPaymentForEndorsement();
         }
 
         private void LoadFields()
@@ -109,8 +132,9 @@ namespace View.Views
             {
                 for (int i = 0; i < belongingList.Count; i++)
                     totalAppraiseAmmount += belongingList[i].ApraisalAmount;
-                tbAppraisalAmount.Text = totalAppraiseAmmount.ToString();
+               // tbAppraisalAmount.Text = totalAppraiseAmmount.ToString();
             }
+            
 
         }
 
@@ -147,6 +171,7 @@ namespace View.Views
                 belongingList.RemoveAt(dgBelongings.SelectedIndex);
                 dgBelongings.Items.Refresh();
                 LoadFields();
+                EnabledComboBoxDates();
 
             }
             else
@@ -168,12 +193,12 @@ namespace View.Views
 
         private void LoadMetrics()
         {
-            metrics = MetricsDAO.recoverMetrics();
+            metrics = MetricsDAO.RecoverMetrics();
             if (metrics != null)
             {
                 tbInterests.Text = metrics.interestRate + "%";
                 tbIVA.Text = metrics.IVA + "%";
-                tbTotalAnnualCost.Text = "" + (int.Parse(metrics.IVA) / 2);
+                tbAnnualInterestRate.Text = "" + (int.Parse(metrics.IVA) / 2);
             }
             else
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
@@ -210,41 +235,111 @@ namespace View.Views
 
         private void ComboBoxListener(object sender, SelectionChangedEventArgs e)
         {
-            LoadDatesEndorsementSettlement();
-            LoadTotalPaymentForEndorsement();
+            if (cbTerm.SelectedIndex >= 0)
+            {
+                LoadDatesEndorsementSettlement();
+                
 
-            // TotalPaymentForEndorsement
+                // TotalPaymentForEndorsement
+                if (belongingList.Count >= 1)
+                {
+                    LoadTotalPaymentForEndorsement();
+                    LoadTotalPaymentoForSettlement();
+                }
+            }
+       
+        }
+
+        private void LoadTotalPaymentoForSettlement()
+        {
+            /*
+             *  OPERACION:  capital + (capital * (plazoMeses *intereses*1 + (iva)))
+             */
+            int term = int.Parse(cbTerm.SelectedItem.ToString());
+            string info = "";
+            for (int i = 1; i <= term; i++)
+            {
+                float loan = float.Parse(tbLoanAmount.Text);//capital
+                //i plazo
+                float interestRate = float.Parse(metrics.interestRate) / 100;//intereses
+                float iva = float.Parse(metrics.IVA) / 100;//iva
+                float result = loan + (loan * (i * interestRate * 1 + (iva)));
+                info += result + ";\n";
+            }
+
+            tbTotalPerformancePay.Text = info;
         }
 
         private void LoadDatesEndorsementSettlement()
         {
+            totalLoan = 0;
+            tbDateEndorsementSettlement.Text = "";
             currentlyDate = DateTime.Now;
             comercializationDate = DateTime.Now.AddMonths((int)cbTerm.SelectedItem).AddDays(15);
             limitPaymentDate = DateTime.Now.AddMonths((int)cbTerm.SelectedItem);
 
             tbDateComercialization.Text = comercializationDate.ToString();
             tbPaymentLimit.Text = limitPaymentDate.ToString();
-
-            DateTime dateTime = DateTime.Now;
-            //paymentDates = "FECHAS DE REFRENDOS-FINIQUITOS \n";
+            paymentDates = "";
             for (int i = 1; i <= (int)cbTerm.SelectedItem; i++)
             {
-                paymentDates += "- " + DateTime.Now.AddMonths(i).ToString("d") + ";\n";
+                paymentDates +=  DateTime.Now.AddMonths(i).ToString("d") + ";\n";
             }
-
+           
             tbDateEndorsementSettlement.Text = paymentDates.ToString();
-
+            float totalAppraisal = 0;
             foreach (Domain.BelongingCreation.Belonging b in belongingList)
             {
                 totalLoan += b.LoanAmount;
+                totalAppraisal +=b.ApraisalAmount;
             }
             tbLoanAmount.Text = totalLoan.ToString();
+            tbAppraisalAmount.Text = totalAppraisal.ToString();//////////////////////////////////
+            CalculateLoanPorcentage();
         }
 
-        private void LoadTotalPaymentForEndorsement()
+        private void CalculatesAppraisalAndLoanAmount()
         {
-            // float valor = (total);  
-            // totalPaymentForEndorsement =  
+            float loanAmount = 0;
+            float appraisalAmount = 0;
+            foreach (Domain.BelongingCreation.Belonging b in belongingList)
+            {
+                loanAmount += b.LoanAmount;
+                appraisalAmount += b.ApraisalAmount;
+            }
+            tbLoanAmount.Text = loanAmount.ToString();
+            tbAppraisalAmount.Text = appraisalAmount.ToString();
+            CalculateLoanPorcentage();
+        }
+
+        private void CalculateLoanPorcentage()
+        {
+            float loan = float.Parse(tbLoanAmount.Text);
+            float appraisal = float.Parse(tbAppraisalAmount.Text);
+            float result = (loan * 100) / appraisal;
+            tbLoanPorcentage.Text = result.ToString();
+        }
+
+        private void LoadTotalPaymentForEndorsement()//pagos de finiquito
+        {
+            /*
+             *  OPERACION:  capital * (plazoMeses *intereses* 1 + (iva))
+             */
+            tbTotalPaymentForEndorsement.Text = "";
+            int term = int.Parse(cbTerm.SelectedItem.ToString());
+            string info = "";
+            for (int i = 1; i <= term; i++)
+            {
+                float loan = float.Parse(tbLoanAmount.Text);//capital
+                //i plazo
+                float interestRate = float.Parse(metrics.interestRate) / 100;//intereses
+                float iva = float.Parse(metrics.IVA) / 100;//iva
+                float result = loan * (i * interestRate * 1 + (iva));
+                info += result + ";\n";
+            }
+            tbTotalPaymentForEndorsement.Text = "";
+            tbTotalPaymentForEndorsement.Text = info;
+            
         }
 
         private void Btn_CreateContract(object sender, RoutedEventArgs e)
@@ -261,18 +356,21 @@ namespace View.Views
             Contract newContract = new Contract();
 
             newContract.loanAmount = float.Parse(tbLoanAmount.Text);//loanAmount
-            //idContractPrevious
             newContract.deadlineDate = limitPaymentDate;//deadlineDate
             newContract.creationDate = currentlyDate;//CreationDate
-            newContract.stateContract = "active";//state
+            newContract.stateContract = BusinessLogic.StatesContract.ACTIVED_CONTRACT;
             newContract.iva = int.Parse(metrics.IVA);
             newContract.interestRate = int.Parse(metrics.interestRate);
             newContract.renewalFee = 0;//lo hace otro //renawalFee
             newContract.settlementAmount = 0;//lo hace otro //settlementAmount
             newContract.Customer_idCustomer = customer.idCustomer;//Customer_idCustomer
             newContract.endorsementSettlementDates = tbDateEndorsementSettlement.Text;
-            newContract.paymentsSettlement = "Pagos1";//tbTotalPaymentForEndorsement
-            newContract.paymentsEndorsement = "Pagos1";// tbTotalPerformancePay
+            newContract.paymentsSettlement = tbTotalPerformancePay.Text;//tbTotalPaymentForEndorsement
+            newContract.paymentsEndorsement = tbTotalPaymentForEndorsement.Text;
+            newContract.loanProcentage = tbLoanPorcentage.Text;
+            //newContract.totalAnnualCost = tbTotalAnnualCost.Text;
+            newContract.annualInterestRate = tbAnnualInterestRate.Text;
+            
             SaveInfo(newContract);
             /*
              * faltaria guardar en la base un string para:

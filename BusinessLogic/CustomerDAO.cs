@@ -1,4 +1,5 @@
-﻿using DataAcces;
+﻿using BusinessLogic.Utility;
+using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,9 +16,10 @@ namespace BusinessLogic
 {
     public class CustomerDAO
     {
-        private static NewLog _log = new NewLog();
-        public static (int,int) AddCustomer(Customer newCustomer)
+
+        public static (int, int) AddCustomer(Customer newCustomer)
         {
+            NewLog _log = new NewLog();
             int result = 500;
             int idCustomer = 0;
             try
@@ -39,7 +41,7 @@ namespace BusinessLogic
                     idCustomer = addNewCustomer.idCustomer;
                     result = 200;
                 }
-                
+
             }
             catch (DbUpdateException ex)
             {
@@ -48,14 +50,14 @@ namespace BusinessLogic
             catch (EntityException ex)
             {
                 _log.Add(ex.ToString());
-            }                   
+            }
             return (result, idCustomer);
         }
-
+        //cide
         public static int UpdateCustomer(Customer selectedCustomer)
         {
             var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -74,16 +76,20 @@ namespace BusinessLogic
             }
             return result;
         }
-
+        //cide
         public static Customer GetCustomer(int id)
         {
             Customer customer = new Customer();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
                     customer = connection.Customers.Find(id);
                 }
+            }
+            else
+            {
+                throw new Exception("No hay conexión a la base de datos");
             }
             return customer;
         }
@@ -92,7 +98,7 @@ namespace BusinessLogic
         public static int AddTwoImageIdentification(List<ImagesIdentification> imagesIdentifications)
         {
             int result = 500;
-
+            NewLog _log = new NewLog();
             try
             {
                 using (var database = new ConnectionModel())
@@ -111,11 +117,11 @@ namespace BusinessLogic
                 _log.Add(ex.ToString());
             }
             return result;
-        } 
+        }
         public static int AddImagecostumer(ImagesIdentification newImage)
         {
             var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -126,22 +132,28 @@ namespace BusinessLogic
             }
             return result;
         }
+        //cide
         public static List<ImagesIdentification> GetImagesCustomer(int id)
         {
             List<ImagesIdentification> images = new List<ImagesIdentification>();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
                     images = connection.ImagesIdentifications.Where(x => x.Customer_idCustomer == id).ToList();
                 }
             }
+            else
+            {
+                throw new Exception("No hay conexión a la base de datos");
+            }
             return images;
         }
+        //cide
         public static int UpdateImageCustomer(ImagesIdentification selectedImage)
         {
             var result = MessageCode.ERROR;
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -152,12 +164,16 @@ namespace BusinessLogic
                     result = MessageCode.SUCCESS;
                 }
             }
+            else
+            {
+                throw new Exception("No hay conexión a la base de datos");
+            }
             return result;
         }
         public static (int, Customer) FindCustomer(string curp)
         {
             List<Customer> customers = new List<Customer>();
-            if (Utilitys.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
@@ -176,6 +192,7 @@ namespace BusinessLogic
 
         public static List<Domain.Customer> RecoverCustomers()
         {
+            NewLog _log = new NewLog();
             List<Domain.Customer> resultCustomers = new List<Domain.Customer>();
             try
             {
@@ -216,8 +233,9 @@ namespace BusinessLogic
             return resultCustomers;
         }
 
-        public static int existCustomer(int id)
+        public static int ExistCustomer(int id)
         {
+            NewLog _log = new NewLog();
             int result = 500;
             try
             {
@@ -248,8 +266,9 @@ namespace BusinessLogic
             return result;
         }
 
-        public static int changeStatusBlackList(int id)
+        public static int ChangeStatusBlackList(int id)
         {
+            NewLog _log = new NewLog();
             int result = 500;
             try
             {
@@ -282,6 +301,46 @@ namespace BusinessLogic
             }
             return result;
         }
+
+        public static Customer FindCustomerById(int id)
+        {
+            NewLog _log = new NewLog();
+            Customer customer = new Customer();
+            try
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    customer = connection.Customers.Find(id);
+                }
+            }
+            catch (DataException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (InvalidOperationException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            return customer;
+        }
+        //cide
+        public static DataAcces.Customer GetCustomerByCURP(string CURP)
+        {
+            var result = new DataAcces.Customer();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    result = connection.Customers.Where(x => x.curp == CURP).FirstOrDefault();
+                }
+            }
+            else
+            {
+                throw new Exception("No hay conexion a la base de datos");
+            }
+            return result;
+        }
+
     }
 }
 

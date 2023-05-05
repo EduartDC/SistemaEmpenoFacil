@@ -88,7 +88,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="16"
-                TextWrapping="Wrap" />
+                TextWrapping="Wrap" PreviewTextInput="textUser_PreviewTextInput" />
             <Label
                 Margin="179,10,0,0"
                 HorizontalAlignment="Left"
@@ -188,15 +188,14 @@
                     </EventTrigger>
                 </Button.Triggers>
             </Button>
-            <TextBox
-                x:Name="textPassword"
+            <PasswordBox x:Name="textPassword"
                 Width="182"
                 Height="26"
+                FontSize="16"
+                FontWeight="Bold"
                 Margin="160,168,0,0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                FontSize="16"
-                TextWrapping="Wrap" />
+                VerticalAlignment="Top" PreviewTextInput="textPassword_PreviewTextInput" />
         </Grid>
     </Grid>
 </Page>

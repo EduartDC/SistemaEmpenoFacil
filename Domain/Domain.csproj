@@ -42,16 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleDomain.cs" />
     <Compile Include="Belonging.cs" />
     <Compile Include="Communication.cs" />
     <Compile Include="ContractDomain.cs" />
+    <Compile Include="CompleteContract.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="MessageService.cs" />
+    <Compile Include="OperationDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAcces\DataAcces.csproj">
-      <Project>{2cd36b35-ec13-4c97-b501-da2d11e4bf8f}</Project>
+      <Project>{cc2df9c6-f10f-4209-8fa3-94840f1d4bd6}</Project>
       <Name>DataAcces</Name>
     </ProjectReference>
   </ItemGroup>

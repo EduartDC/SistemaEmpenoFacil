@@ -66,14 +66,20 @@ namespace View.Views
 
         private void SetInformation(int idCustomer)
         {
-            var customer = CustomerDAO.GetCustomer(idCustomer);
-            textAddress.Text = customer.address;
-            textCURP.Text = customer.curp;
-            textPhonNomber.Text = customer.telephonNumber.ToString();
-            textName.Text = customer.firstName;
-            textLastName.Text = customer.lastName;
-            comBoxIdentificationType.SelectedIndex = int.Parse(customer.identification);
-
+            try
+            {
+                var customer = CustomerDAO.GetCustomer(idCustomer);
+                textAddress.Text = customer.address;
+                textCURP.Text = customer.curp;
+                textPhonNomber.Text = customer.telephonNumber.ToString();
+                textName.Text = customer.firstName;
+                textLastName.Text = customer.lastName;
+                comBoxIdentificationType.SelectedIndex = int.Parse(customer.identification);
+            }
+            catch (Exception)
+            {
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+            }
         }
 
         private void btnSearchImagen_Click(object sender, RoutedEventArgs e)
@@ -136,8 +142,8 @@ namespace View.Views
                 ErrorManager.ShowWarning("Es necesario seleccionar las dos imagenes de la identificacion.");
             }
             else if (string.IsNullOrEmpty(textName.Text) || string.IsNullOrEmpty(textLastName.Text) ||
-                    string.IsNullOrEmpty(textCURP.Text) || string.IsNullOrEmpty(textAddress.Text) ||
-                    comBoxIdentificationType.SelectedItem == null || string.IsNullOrEmpty(textPhonNomber.Text))
+            string.IsNullOrEmpty(textCURP.Text) || string.IsNullOrEmpty(textAddress.Text) ||
+            comBoxIdentificationType.SelectedItem == null || string.IsNullOrEmpty(textPhonNomber.Text))
             {
                 ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
             }
@@ -187,24 +193,42 @@ namespace View.Views
                 _bytes[count] = byteArray;
                 count++;
             }
-
-            var pos = 0;
-            foreach (var image in imagesCustomers)
+            try
             {
-                image.imagen = _bytes[pos];
-                CustomerDAO.UpdateImageCustomer(image);
-                pos++;
+                var pos = 0;
+                foreach (var image in imagesCustomers)
+                {
+                    image.imagen = _bytes[pos];
+                    CustomerDAO.UpdateImageCustomer(image);
+                    pos++;
+                }
+            }
+            catch (Exception)
+            {
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
             }
         }
 
         private void SaveInformation()
         {
+
             Customer newCustomer = new Customer();
             newCustomer.idCustomer = id;
             newCustomer.address = textAddress.Text;
             newCustomer.telephonNumber = int.Parse(textPhonNomber.Text);
             newCustomer.identification = comBoxIdentificationType.SelectedIndex.ToString();
-            CustomerDAO.UpdateCustomer(newCustomer);
+            try
+            {
+                CustomerDAO.UpdateCustomer(newCustomer);
+            }
+            catch (NullReferenceException)
+            {
+                ErrorManager.ShowError(MessageError.FIELDS_EMPTY);
+            }
+            catch (Exception)
+            {
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+            }
         }
 
         private void btnCleanImageOne_Click(object sender, RoutedEventArgs e)
@@ -231,6 +255,14 @@ namespace View.Views
             string inputText = e.Text;
 
             if (!string.IsNullOrEmpty(inputText) && !decimal.TryParse(inputText, out _))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textAddress_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsLetterOrDigit(e.Text, 0))
             {
                 e.Handled = true;
             }

@@ -1,4 +1,7 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
+using DataAcces;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +26,7 @@ namespace View.Views
     /// </summary>
     public partial class AuthorizationView : Page
     {
+        MessageService communication;
         public AuthorizationView()
         {
             InitializeComponent();
@@ -34,18 +38,91 @@ namespace View.Views
 
             if (result == MessageBoxResult.Yes)
             {
-                var window = (MainWindow)Application.Current.MainWindow;
-                BlurEffect blurEffect = new BlurEffect();
-                blurEffect.Radius = 0;
-                window.PrimaryContainer.Effect = blurEffect;
-                window.SecundaryContainer.Content = null;
-                window.PrimaryContainer.IsHitTestVisible = true;
+                ClosePage();
+
             }
+        }
+
+        private void ClosePage()
+        {
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 0;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Content = null;
+            window.PrimaryContainer.IsHitTestVisible = true;
         }
 
         private void btnAuthorization_Click(object sender, RoutedEventArgs e)
         {
 
+            var userName = textUser.Text;
+            var password = textPassword.Password;
+
+
+            if (string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(password))
+            {
+                ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
+            }
+            else
+            {
+                var result = ValidationStaff(userName, password);
+                if (result)
+                {
+                    communication.Communication(result);
+                }
+            }
+        }
+
+        private bool ValidationStaff(string userName, string password)
+        {
+            var result = false;
+            try
+            {
+                var infoStaff = StaffDAO.LogingStaff(userName, password);
+                if (infoStaff == null)
+                {
+                    ErrorManager.ShowWarning(MessageError.USER_NOT_FOUND);
+                }
+                else if (!infoStaff.userName.Equals(textUser.Text) || !infoStaff.password.Equals(textPassword.Password))
+                {
+                    ErrorManager.ShowWarning(MessageError.USER_NOT_FOUND);
+                }
+                else
+                {
+                    ErrorManager.ShowInformation(MessageError.USER_FOUND);
+                    result = true;
+                    ClosePage();
+                }
+            }
+            catch (Exception)
+            {
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+            }
+            return result;
+        }
+
+        public void CommunicacionPages(MessageService communication)
+        {
+
+            this.communication = communication;
+
+        }
+
+        private void textUser_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsLetterOrDigit(e.Text, 0) && !Utilities.ValidateInput(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textPassword_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsLetterOrDigit(e.Text, 0) && !Utilities.ValidateInput(e.Text))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
