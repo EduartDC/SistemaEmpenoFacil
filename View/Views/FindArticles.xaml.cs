@@ -28,12 +28,19 @@ namespace View.Views
     {
         private List<ArticleDomain> articles = new List<ArticleDomain>();
         private Boolean datePickerEnabled = true;
+        private List<ArticleDomain> filteredArticles = new List<ArticleDomain>();
 
         public FindArticles()
         {
             InitializeComponent();
             LoadArticles();
             LoadCategories();
+            LoadDate();
+        }
+
+        private void LoadDate()
+        {
+            dpDate.Text = DateTime.Now.ToString();
         }
 
         private void LoadArticles()
@@ -44,8 +51,7 @@ namespace View.Views
 
             if (code == MessageCode.SUCCESS)
             {
-                MessageBox.Show(articles[0].appraisalValue.ToString());
-                LoadTable();
+                LoadTable(true);
             }
             else
             if (code == MessageCode.CONNECTION_ERROR)
@@ -53,10 +59,6 @@ namespace View.Views
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
                 //codigo para cerrar page
             }
-
-            //ArticleDomain article = new ArticleDomain ();
-            //article = ArticleDAO.GetArticleDomainByCode("666");
-            //MessageBox.Show(article.category);
         }
         private void LoadCategories()
         {
@@ -65,11 +67,21 @@ namespace View.Views
             cbCategory.SelectedIndex = 0;
         }
 
-        private void LoadTable()
+        //True:ListaOriginal - False:listafiltrada
+        private void LoadTable(bool operation)
         {
-            dgArticles.Items.Clear();
-            dgArticles.ItemsSource = articles;
-            dgArticles.RowHeight = double.NaN;//tamaño de filas automaticas al contenido
+            if (operation)
+            {
+                dgArticles.Items.Clear();
+                dgArticles.ItemsSource = articles;
+            }
+            else
+            {
+                dgArticles.ItemsSource = null;
+                dgArticles.ItemsSource = filteredArticles;
+            }
+
+
         }
 
         private void Btn_EditArticle(object sender, RoutedEventArgs e)
@@ -92,30 +104,119 @@ namespace View.Views
 
         private void btn_CleanFilters(object sender, RoutedEventArgs e)
         {
-            LoadArticles();
+            tbSearchField.Clear();
+            cbDateEnabled.IsChecked = false;
+            cbCategory.SelectedIndex = 0;
+            dgArticles.ItemsSource = null;
+            dgArticles.ItemsSource = articles;
+            cbCategory.IsEnabled = false;
+            cbCategoryEnabled.IsChecked = false;
         }
 
         private void btn_FilterArticles(object sender, RoutedEventArgs e)
         {
-            string filter = tbSearchField.Text;
-            var result = dgArticles.Items.Cast<Belongings_Articles>().Where(item => item.barCode.Contains(filter));
-            result = dgArticles.Items.Cast<Belongings_Articles>().Where(item => item.Belonging.serialNumber.Contains(filter));
-           // if(cbCategory.SelectedIndex)
-            //miDataGrid.ItemsSource = datosFiltrados;
+            if (!string.IsNullOrEmpty(tbSearchField.Text) || cbDateEnabled.IsChecked == true || cbCategoryEnabled.IsChecked == true)
+            {
+                filteredArticles.Clear();
+                if (!string.IsNullOrEmpty(tbSearchField.Text))
+                    FilterTextBoxSearch();
+                if (cbCategoryEnabled.IsChecked == true)
+                    FilterComboBoxCategory();
+                FilterDates();
+                LoadTable(false);
+            }
+        }
+
+        private void FilterTextBoxSearch()
+        {
+            if (!string.IsNullOrEmpty(tbSearchField.Text))
+            {
+                foreach (var util in articles)
+                {
+                    if (util.description.Contains(tbSearchField.Text) ||
+                        util.idContract.ToString().Equals(tbSearchField.Text) ||
+                        util.barCode.Equals(tbSearchField.Text))
+                    {
+                        filteredArticles.Add(util);
+
+                    }
+                }
+
+            }
+        }
+
+        private void FilterComboBoxCategory()
+        {
+
+            if (cbCategory.SelectedIndex > 0 && string.IsNullOrEmpty(tbSearchField.Text))
+            {
+                foreach (var util in articles)
+                {
+                    bool result = true;
+                    for (int i = 0; i < filteredArticles.Count(); i++)
+                    {
+                        if (util.idArticle == filteredArticles[i].idArticle)// ya existe en lista filtrada
+                            result = false;
+                    }
+                    if (result)
+                    {
+                        if (util.category.Equals(cbCategory.SelectedItem.ToString()))
+                            filteredArticles.Add(util);
+                    }
+                }
+
+            }
+        }
+
+        private void FilterDates()
+        {
+            if (cbDateEnabled.IsChecked == true)
+            {
+                List<ArticleDomain> copyArticles = new List<ArticleDomain>();
+                if (filteredArticles.Count() == 0)
+                    filteredArticles = articles;
+                for (int i = 0; i < filteredArticles.Count(); i++)
+                {
+                    ArticleDomain util = filteredArticles[i];
+                    if (util.createDate >= DateTime.Parse(dpDate.Text))
+                    {
+                        copyArticles.Add(util);
+                    }
+                }
+                filteredArticles = copyArticles;
+            }
         }
 
         private void Cb_CalendarEnabled(object sender, RoutedEventArgs e)
         {
 
-            dpDate.IsEnabled = false;
-            datePickerEnabled = false;
+            if (cbDateEnabled.IsChecked == true)
+                dpDate.IsEnabled = true;
+            else
+                dpDate.IsEnabled = false;
 
         }
 
         private void bt_dateUnabled(object sender, RoutedEventArgs e)
         {
-            dpDate.IsEnabled = true;
-            datePickerEnabled = true;
+            if (cbDateEnabled.IsChecked == true)
+                dpDate.IsEnabled = true;
+            else
+                dpDate.IsEnabled = false;
+        }
+
+        private void Cb_CategoryEnabled(object sender, RoutedEventArgs e)
+        {
+            tbSearchField.Clear();
+            cbCategory.IsEnabled = true;
+            tbSearchField.IsEnabled = false;
+        }
+
+        private void bt_CategoryUnabled(object sender, RoutedEventArgs e)
+        {
+
+            cbCategory.IsEnabled = false;
+            tbSearchField.IsEnabled = true;
         }
     }
 }

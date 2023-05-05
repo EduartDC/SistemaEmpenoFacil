@@ -35,7 +35,7 @@ namespace BusinessLogic
                         newArticle.characteristics = item.Belonging.characteristics;
                         newArticle.loanAmount = item.Belonging.loanAmount;
                         newArticle.serialNumber = item.Belonging.serialNumber;
-                        //falta Contract_idContract
+                        newArticle.idContract = item.Belonging.Contract_idContract;
 
                         //atributos de Article
                         newArticle.idArticle = item.idArticle;
@@ -44,8 +44,10 @@ namespace BusinessLogic
                         newArticle.stateArticle = item.stateArticle;
                         newArticle.customerProfit = item.customerProfit;
                         newArticle.storeProfit = item.storeProfit;
-                        //atributos de Image
-                        //newArticle.imageOne = item.
+                        DateTime createDate = item.creationDate;
+                        string date = createDate.ToString("MM/dd/yyyy");
+                        newArticle.createDate = DateTime.Parse(date);
+                        
 
 
                         articlesDomain.Add(newArticle);
