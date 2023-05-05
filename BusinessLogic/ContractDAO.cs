@@ -80,29 +80,31 @@ namespace BusinessLogic
             return result;
         }
 
-<<<<<<< HEAD
+        //<<<<<<< HEAD
         public static int ModifyContract(Contract contract, int idContract)
         {
             var result = MessageCode.ERROR;
             if (Utilitys.VerifyConnection())
             {
-                try{
-                    using(var connection = new ConnectionModel())
+                try
+                {
+                    using (var connection = new ConnectionModel())
                     {
-                        var oldContract  = connection.Contracts.Find(idContract);
+                        var oldContract = connection.Contracts.Find(idContract);
                         oldContract = contract;
                         connection.Entry(oldContract).State = System.Data.Entity.EntityState.Modified;
                         result = connection.SaveChanges();
                         return result;
                     }
                 }
-                catch(DbUpdateException)
+                catch (DbUpdateException)
                 {
                     return result;
                 }
             }
             return result;
-=======
+        }
+//=======
         public static async Task<ContractDomain> GetContractsDomainAsync(int idContrac)
         {
             if (!Utilitys.VerifyConnection())
@@ -144,7 +146,7 @@ namespace BusinessLogic
 
                 return contractDomain;
             }
->>>>>>> 45b1da3c38323e286c1a098bbd6674afaf12ca02
+//>>>>>>> 45b1da3c38323e286c1a098bbd6674afaf12ca02
         }
 
     }

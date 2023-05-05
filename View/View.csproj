@@ -106,6 +106,9 @@
     <Compile Include="Views\FindArticles.xaml.cs">
       <DependentUpon>FindArticles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GenerateReortOSparatedIms.xaml.cs">
+      <DependentUpon>GenerateReortOSparatedIms.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GenerateSalesReport.xaml.cs">
       <DependentUpon>GenerateSalesReport.xaml</DependentUpon>
     </Compile>
@@ -120,6 +123,9 @@
     </Compile>
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModifyEmployee.xaml.cs">
+      <DependentUpon>ModifyEmployee.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SaleDetails.xaml.cs">
       <DependentUpon>SaleDetails.xaml</DependentUpon>
@@ -197,6 +203,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\GenerateReortOSparatedIms.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GenerateSalesReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -214,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModifyEmployee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
