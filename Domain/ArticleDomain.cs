@@ -39,6 +39,18 @@ namespace Domain
 
         public int idSale { get; set; }
 
+        public DateTime createDate { get; set; }
+
+        public int idContract { get; set; }
+
+        public byte[] imageOne { get; set; }
+
+        public byte[] imageTwo { get; set; }
+
+        public byte[] imageThree { get; set; }
+
+        public byte[] imageFour { get; set; }
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -57,7 +69,13 @@ namespace Domain
                    characteristics == other.characteristics &&
                    idBelonging == other.idBelonging &&
                    loanAmount == other.loanAmount &&
-                   stateArticle == other.stateArticle;
+                   stateArticle == other.stateArticle &&
+                   createDate == other.createDate &&
+                   idContract == other.idContract &&
+                   imageOne == other.imageOne &&
+                   imageTwo == other.imageTwo &&
+                   imageThree == other.imageThree &&
+                   imageFour == other.imageFour;
         }
 
     }

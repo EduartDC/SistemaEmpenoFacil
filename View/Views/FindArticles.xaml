@@ -21,7 +21,7 @@
             <ColumnDefinition  Width="*"/>
             <ColumnDefinition  Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
 
         <Button
             Content="Buscar artículo"
@@ -32,12 +32,14 @@
             Width="200"
             Grid.Column="3" Click="btn_FilterArticles"/>
         <ComboBox
+            IsEnabled="false"
             x:Name="cbCategory"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Width="200"
             Height="32"
-            Grid.Column="2"/>
+            Grid.Column="2"
+            FontSize="15"/>
         <ScrollViewer
             Background="Black"
             Grid.Row="1"
@@ -49,8 +51,18 @@
                 x:Name="dgArticles"
                 Grid.Row="1"
                 Grid.ColumnSpan="4"
-                
-            />
+                AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Descripcion" Width="200" Binding="{Binding description}"/>
+                    <DataGridTextColumn Header="Imagen" Width="200"/>
+                    <DataGridTextColumn Header="Codigo de barras" Width="100" Binding="{Binding barCode}"/>
+                    <DataGridTextColumn Header="Numero de serie" Width="100" Binding="{Binding serialNumber}"/>
+                    <DataGridTextColumn Header="Bolsa" Width="50" Binding="{Binding idContract}"/>
+                    <DataGridTextColumn Header="Precio" Width="50" Binding="{Binding sellingPrice}"/>
+                    <DataGridTextColumn Header="Categoria" Width="100" Binding="{Binding category}"/>
+                    <DataGridTextColumn Header="Fecha de comercializacion" Width="100" Binding="{Binding createDate}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </ScrollViewer>
         <DatePicker
             x:Name="dpDate"
@@ -59,15 +71,20 @@
             FontSize="15"
             Height="32"
             Width="200"
-            Grid.Column="1" Focusable="False"/>
+            Grid.Column="1" Focusable="False"
+            IsEnabled="false"
+            VerticalContentAlignment="Center"/>
         <TextBox x:Name="tbSearchField"
-            HorizontalAlignment="Center"
-            TextWrapping="Wrap"
-            Text=""
-            VerticalAlignment="Center"
-            Width="200"
-            Height="32"
-            Grid.Column="0"/>
+                 HorizontalAlignment="Center"
+                 TextWrapping="Wrap"
+                 Text=""
+                 VerticalAlignment="Center"
+                 Width="200"
+                 Height="32"
+                 Grid.Column="0"
+                 FontSize="15"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"/>
         <Button
             Content="Editar"
             HorizontalAlignment="Center"
@@ -110,16 +127,27 @@
             Height="34"
             Width="200"
             Grid.Column="3" Click="btn_CleanFilters"/>
-      
-        <CheckBox 
+
+        <CheckBox
             x:Name="cbDateEnabled"
-            Grid.Column="1" 
+            Grid.Column="1"
             Grid.Row="0"
-            Content="habilitar filtro de fecha" 
-            HorizontalAlignment="Center" 
-            Margin="0,70,0,0" 
+            Content="habilitar filtro de fecha"
+            HorizontalAlignment="Center"
+            Margin="0,70,0,0"
             VerticalAlignment="Top" Checked="Cb_CalendarEnabled" Unchecked="bt_dateUnabled"
-        />
+            IsChecked="false"
+            />
+        <CheckBox
+            x:Name="cbCategoryEnabled"
+            Grid.Column="2"
+            Grid.Row="0"
+            Content="habilitar filtro de categoría"
+            HorizontalAlignment="Center"
+            Margin="0,70,0,0"
+            VerticalAlignment="Top" Checked="Cb_CategoryEnabled" Unchecked="bt_CategoryUnabled"
+            IsChecked="false"
+            />
 
 
     </Grid>
