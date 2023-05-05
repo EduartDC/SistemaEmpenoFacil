@@ -67,5 +67,68 @@ namespace UnitTest
             (int expectedResultOne, int expectedResultTwo) = (0, 0);
             Assert.AreEqual((expectedResultOne, expectedResultTwo), SetAsideDAO.CreateSetAside(new SetAside()));
         }
+
+        [TestMethod]
+        public void TestAddArticlesInSetAsideSuccess()
+        {
+            List<ArticlesSetAside> list = new List<ArticlesSetAside>();
+            ArticlesSetAside articlesSetAside = new ArticlesSetAside();
+            articlesSetAside.Article_idBelonging = 8;
+            articlesSetAside.SetAside_idSetAside = 9;
+            list.Add(articlesSetAside);
+
+            int expectedResult = 1;
+            Assert.AreEqual(expectedResult, SetAsideDAO.AddArticlesInSetAside(list));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DbUpdateException))]
+        public void TestAddArticlesInSetAsideError()
+        {
+            List<ArticlesSetAside> list = new List<ArticlesSetAside>();
+            ArticlesSetAside articlesSetAside = new ArticlesSetAside();
+            articlesSetAside.Article_idBelonging = 1;
+            articlesSetAside.SetAside_idSetAside = 1;
+            list.Add(articlesSetAside);
+
+            int expectedResult = 0;
+            Assert.AreEqual(expectedResult, SetAsideDAO.AddArticlesInSetAside(list));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestAddArticlesInSetAsideException()
+        {
+            List<ArticlesSetAside> list = new List<ArticlesSetAside>();
+            ArticlesSetAside articlesSetAside = new ArticlesSetAside();
+            articlesSetAside.Article_idBelonging = 1;
+            articlesSetAside.SetAside_idSetAside = 1;
+            list.Add(articlesSetAside);
+
+            int expectedResult = 0;
+            Assert.AreEqual(expectedResult, SetAsideDAO.AddArticlesInSetAside(list));
+        }
+
+        [TestMethod]
+        public void TestUpdateSetAsideStateSuccess()
+        {
+            int expectedResult = 1;
+            Assert.AreEqual(expectedResult, SetAsideDAO.UpdateSetAsideState(StatesAside.ACTIVED_ASIDE, 9));
+        }
+
+        [TestMethod]
+        public void TestUpdateSetAsideStateError()
+        {
+            int expectedResult = 0;
+            Assert.AreEqual(expectedResult, SetAsideDAO.UpdateSetAsideState(StatesAside.ACTIVED_ASIDE, 1));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestUpdateSetAsideStateException()
+        {
+            int expectedResult = 0;
+            Assert.AreEqual(expectedResult, SetAsideDAO.UpdateSetAsideState("", 0));
+        }
     }
 }
