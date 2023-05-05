@@ -82,30 +82,23 @@ namespace View.Views
         {
             if (list.Count != 0)
             {
+                _subtotal = 0;
                 foreach (var item in list)
                 {
                     _subtotal += item.sellingPrice;
                 }
                 string selectedValue = comBoxPercentage.SelectedItem.ToString();
-                int selectedPercentage = Convert.ToInt32(selectedValue);
-                double percentage = selectedPercentage / 100.0;
-
                 string selectedDiscount = comBoxDiscount.SelectedItem.ToString();
-                int selectedDiscountPercentage = Convert.ToInt32(selectedDiscount);
-                _discount = selectedDiscountPercentage;
-                var discount = selectedDiscountPercentage / 100.0;
-                _subtotal = (_subtotal * (1 - discount));
-                _total = _subtotal * 1.16;
+                if (selectedValue != null && selectedDiscount != null)
+                {
+                    CalculateDiscount();
+                }
+                else
+                {
 
-                _amount = (_total * percentage);
-                _remaining = (_total - (_total * percentage));
-
-                labelSubTotal.Content = "SubTotal: " + _subtotal;
-                labelIva.Content = "IVA(16%): " + (_subtotal * 0.16);
-                labelTotal.Content = "Total: " + _total;
-                labelPercentage.Content = "Porcentaje de Apartado: " + selectedPercentage + "%";
-                labelAmount.Content = "Cantidad para Apartado: " + _amount;
-                labelRemaining.Content = "Restante para Liquidar: " + _remaining;
+                    _total = _subtotal * 1.16;
+                    CalculateSetAsideAmount();
+                }
             }
             else
             {
@@ -172,9 +165,13 @@ namespace View.Views
                 if (!string.IsNullOrEmpty(curp))
                 {
                     var customerInfo = CustomerDAO.GetCustomerByCURP(curp);
-                    if (customerInfo.idCustomer != 0)
+                    if (customerInfo != null)
                     {
                         SetInformationCustomer(customerInfo);
+                    }
+                    else
+                    {
+                        ErrorManager.ShowWarning("No se encontro el cliente");
                     }
                 }
             }
@@ -310,40 +307,46 @@ namespace View.Views
         /// Se activa cuando se escanea un codigo
         /// </summary>
         /// <param name="article"></param>
+        List<ArticleDomain> newList = new List<ArticleDomain>();
         public void ScanCommunication(ArticleDomain article)
         {
-            if (article != null && article.idArticle != 0)
+            if (article == null && article.idArticle == 0)
             {
-                if (list.Count > 0)
-                {
-                    foreach (var item in list)
-                    {
-                        if (article.idArticle != item.idArticle)
-                        {
-                            list.Add(article);
-                            tableArticles.ItemsSource = list;
-                            tableArticles.Items.Refresh();
-                            _subtotal += article.sellingPrice;
-                        }
-                        else
-                        {
-                            ErrorManager.ShowInformation("El articulo ya esta en la lista");
-                        }
-                    }
-                }
-                else
-                {
-                    list.Add(article);
-                    tableArticles.ItemsSource = list;
-                    tableArticles.Items.Refresh();
-                    _subtotal += article.sellingPrice;
-                }
+                ErrorManager.ShowWarning("No se encontro el articulo");
+            }
+            else if (ValidateList(article))
+            {
+                ErrorManager.ShowWarning("El articulo ya esta en la lista");
             }
             else
             {
-                //error
+                SetDataTable(article);
+                SetInformation();
             }
-            SetInformation();
+        }
+
+        private bool ValidateList(ArticleDomain article)
+        {
+            var result = false;
+            foreach (var item in list)
+            {
+                if (item.idArticle == article.idArticle)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        private void SetDataTable(ArticleDomain article)
+        {
+
+            list.Add(article);
+            tableArticles.ItemsSource = list;
+            tableArticles.Items.Refresh();
+            _subtotal += article.sellingPrice;
+
         }
 
         private void SetInformation()
@@ -396,14 +399,17 @@ namespace View.Views
         }
         private void CalculateDiscount()
         {
+            CalculateSetAsideSubTotalAmount();
             string selectedValue = comBoxPercentage.SelectedItem.ToString();
             int selectedPercentage = Convert.ToInt32(selectedValue);
             double percentage = selectedPercentage / 100.0;
             _percentage = percentage;
+
             string selectedDiscount = comBoxDiscount.SelectedItem.ToString();
             int selectedDiscountPercentage = Convert.ToInt32(selectedDiscount);
             _discount = selectedDiscountPercentage;
             var discount = selectedDiscountPercentage / 100.0;
+
             _subtotal = (_subtotal * (1 - discount));
             _total = _subtotal * 1.16;
 
@@ -416,6 +422,15 @@ namespace View.Views
             labelPercentage.Content = "Porcentaje de Apartado: " + selectedPercentage + "%";
             labelAmount.Content = "Cantidad para Apartado: " + _amount;
             labelRemaining.Content = "Restante para Liquidar: " + _remaining;
+        }
+
+        private void CalculateSetAsideSubTotalAmount()
+        {
+            _subtotal = 0;
+            foreach (var item in list)
+            {
+                _subtotal += item.sellingPrice;
+            }
         }
 
         public void Communication(bool result)
