@@ -4,6 +4,7 @@ using Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
@@ -21,8 +22,15 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    connection.Operations.Add(newOperation);
-                    result = connection.SaveChanges();
+                    try
+                    {
+                        connection.Operations.Add(newOperation);
+                        result = connection.SaveChanges();
+                    }
+                    catch (DbEntityValidationException)
+                    {
+                        throw new DbEntityValidationException();
+                    }
                 }
             }
             else

@@ -89,7 +89,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="16"
-                TextWrapping="Wrap" KeyDown="textCode_KeyDown" />
+                TextWrapping="Wrap" KeyDown="textCode_KeyDown" PreviewTextInput="textCode_PreviewTextInput" />
             <Label
                 Margin="154,10,0,0"
                 HorizontalAlignment="Left"

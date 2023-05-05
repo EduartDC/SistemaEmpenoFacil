@@ -395,7 +395,7 @@
                 BorderThickness="0,0,0,2"
                 FontSize="16"
                 FontWeight="Bold"
-                TextWrapping="Wrap" />
+                TextWrapping="Wrap" PreviewTextInput="textCURP_PreviewTextInput" />
             <Button
                 x:Name="btnAddCustomer"
                 Width="129"

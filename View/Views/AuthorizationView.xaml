@@ -88,7 +88,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="16"
-                TextWrapping="Wrap" />
+                TextWrapping="Wrap" PreviewTextInput="textUser_PreviewTextInput" />
             <Label
                 Margin="179,10,0,0"
                 HorizontalAlignment="Left"
@@ -195,7 +195,7 @@
                 FontWeight="Bold"
                 Margin="160,168,0,0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" />
+                VerticalAlignment="Top" PreviewTextInput="textPassword_PreviewTextInput" />
         </Grid>
     </Grid>
 </Page>

@@ -111,5 +111,13 @@ namespace View.Views
             labelName.Content = "Estatus del Articulo:  " + _article.stateArticle;
             labelPrice.Content = "Precio: " + _article.sellingPrice;
         }
+
+        private void textCode_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsLetterOrDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

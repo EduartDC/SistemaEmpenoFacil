@@ -151,7 +151,7 @@
                 BorderThickness="0,0,0,2"
                 FontFamily="Segoe UI"
                 FontSize="14"
-                Foreground="Black" />
+                Foreground="Black" PreviewTextInput="textAddress_PreviewTextInput" />
             <TextBox
                 x:Name="textPhonNomber"
                 Grid.Column="1"

@@ -27,5 +27,6 @@ namespace BusinessLogic
         public static string USER_FOUND = "Se han validado las credenciales.";
         public static string CUTOFF_SUCCESS = "Se ha realizado el corte correctamente, su turno ha finalizado, ya puede cerrar sesion.";
         public static string ARTICLE_NOT_FOUND = "No se ha encontrado ningun articulo con ese codigo de barras.";
+        public static string AMOUNT_RECEIVED_ERROR = "El monto ingresado es demasiodo grande, favor de verificar el monto ingresado.";
     }
 }

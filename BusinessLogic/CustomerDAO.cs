@@ -16,9 +16,10 @@ namespace BusinessLogic
 {
     public class CustomerDAO
     {
-        private static NewLog _log = new NewLog();
+
         public static (int, int) AddCustomer(Customer newCustomer)
         {
+            NewLog _log = new NewLog();
             int result = 500;
             int idCustomer = 0;
             try
@@ -86,6 +87,10 @@ namespace BusinessLogic
                     customer = connection.Customers.Find(id);
                 }
             }
+            else
+            {
+                throw new Exception("No hay conexión a la base de datos");
+            }
             return customer;
         }
 
@@ -93,7 +98,7 @@ namespace BusinessLogic
         public static int AddTwoImageIdentification(List<ImagesIdentification> imagesIdentifications)
         {
             int result = 500;
-
+            NewLog _log = new NewLog();
             try
             {
                 using (var database = new ConnectionModel())
@@ -138,6 +143,10 @@ namespace BusinessLogic
                     images = connection.ImagesIdentifications.Where(x => x.Customer_idCustomer == id).ToList();
                 }
             }
+            else
+            {
+                throw new Exception("No hay conexión a la base de datos");
+            }
             return images;
         }
         //cide
@@ -154,6 +163,10 @@ namespace BusinessLogic
                     connection.SaveChanges();
                     result = MessageCode.SUCCESS;
                 }
+            }
+            else
+            {
+                throw new Exception("No hay conexión a la base de datos");
             }
             return result;
         }
@@ -179,6 +192,7 @@ namespace BusinessLogic
 
         public static List<Domain.Customer> RecoverCustomers()
         {
+            NewLog _log = new NewLog();
             List<Domain.Customer> resultCustomers = new List<Domain.Customer>();
             try
             {
@@ -221,6 +235,7 @@ namespace BusinessLogic
 
         public static int ExistCustomer(int id)
         {
+            NewLog _log = new NewLog();
             int result = 500;
             try
             {
@@ -253,6 +268,7 @@ namespace BusinessLogic
 
         public static int ChangeStatusBlackList(int id)
         {
+            NewLog _log = new NewLog();
             int result = 500;
             try
             {
@@ -288,6 +304,7 @@ namespace BusinessLogic
 
         public static Customer FindCustomerById(int id)
         {
+            NewLog _log = new NewLog();
             Customer customer = new Customer();
             try
             {

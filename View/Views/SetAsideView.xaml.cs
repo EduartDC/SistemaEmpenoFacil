@@ -468,5 +468,13 @@ namespace View.Views
             comBoxPercentage.SelectedItem = null;
 
         }
+
+        private void textCURP_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsLetterOrDigit(e.Text, 0))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

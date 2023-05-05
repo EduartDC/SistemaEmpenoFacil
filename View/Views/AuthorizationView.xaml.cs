@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using DataAcces;
 using Domain;
 using System;
@@ -106,6 +107,22 @@ namespace View.Views
 
             this.communication = communication;
 
+        }
+
+        private void textUser_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsLetterOrDigit(e.Text, 0) && !Utilities.ValidateInput(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textPassword_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsLetterOrDigit(e.Text, 0) && !Utilities.ValidateInput(e.Text))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

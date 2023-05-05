@@ -5,6 +5,8 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -40,7 +42,7 @@ namespace View.Views
                         { OperationType.OPERATION_LOAND, new Tuple<string, bool, bool>("Prestamo", false, false) },
                             { OperationType.OPERATION_PROFIT, new Tuple<string, bool, bool>("Pago de ganancia", false, false) },
                                 { OperationType.OPERATION_LIQUIDATE, new Tuple<string, bool, bool>("Liquidacion de contrato", true, false)},
-                                    { OperationType.OPERATION_RENEWAL, new Tuple < string, bool, bool >("Renovacion de contrato", true, false)             }
+                                    { OperationType.OPERATION_RENEWAL, new Tuple < string, bool, bool >("Renovacion de contrato", true, false)}
         };
 
         public TransactionView(int operation, double amount, int id)
@@ -77,7 +79,11 @@ namespace View.Views
         {
             string text = textAmountReceived.Text;
 
-            if (string.IsNullOrEmpty(text))
+            if (text.Length > 6)
+            {
+                ErrorManager.ShowWarning(MessageError.AMOUNT_RECEIVED_ERROR);
+            }
+            else if (string.IsNullOrEmpty(text))
             {
                 ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
             }
@@ -121,7 +127,7 @@ namespace View.Views
                         operation.receivedAmount = amountReceived;
                         operation.operationDate = DateTime.Now;
                         operation.concept = "Apartado de Articulos";
-                        operation.Staff_idStaff = 1;//(App.Current as App)._staffInfo.idStaff;
+                        operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
                         operation.SetAside_idSetAside = _id;
                         result = OperationDAO.AddOperation(operation);
                         break;
@@ -170,7 +176,15 @@ namespace View.Views
                         break;
                 }
             }
-            catch
+            catch (DbUpdateException)
+            {
+                //error al registrar la operacion
+            }
+            catch (DbEntityValidationException)
+            {
+                //error al registrar la operacion
+            }
+            catch (Exception)
             {
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
             }
@@ -252,7 +266,10 @@ namespace View.Views
             if (result == MessageBoxResult.Yes)
             {
                 CloseView();
-                communication.Communication(false);
+                if (communication != null)
+                {
+                    communication.Communication(false);
+                }
             }
 
         }

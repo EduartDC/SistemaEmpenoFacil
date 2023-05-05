@@ -74,6 +74,12 @@ namespace BusinessLogic.Utility
             }
             return result;
         }
+
+        public static bool ValidateInput(string input)
+        {
+            string pattern = "^[^;\"\'=+\\-*/()><!]*$";
+            return Regex.IsMatch(input, pattern);
+        }
     }
 }
 
