@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAcces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,18 @@ namespace View.Views
 
         private void clicModifyButton(object sender, RoutedEventArgs e)
         {
-            string message = "La informacion se ha actualizado correctamente";
+
+            Staff emplyoee = new Staff();
+            emplyoee.fisrtName =textBoxName.Text;
+            emplyoee.lastName =textBoxLastName.Text;
+            emplyoee.userName =textBoxUserName.Text;
+            emplyoee.password = passwordBoxPassword.Password.ToString();
+            emplyoee.statusStaff = comboBoxStatus.SelectedItem.ToString();
+            emplyoee.rol = comboBoxRole.SelectedItem.ToString();
+
+            string message = "Informacion del empleado: " + emplyoee.fisrtName + " " + emplyoee.lastName
+                + "\n" + emplyoee.userName + "\n" + emplyoee.password + "\n" + emplyoee.statusStaff + "\n"
+                + emplyoee.rol;
             string messageTitle = "Modificacion exitosa";
             MessageBoxButton messageBoxButton = MessageBoxButton.OK;
             MessageBoxImage messageBoxImage = MessageBoxImage.Information;

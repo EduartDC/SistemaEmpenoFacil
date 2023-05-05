@@ -31,12 +31,12 @@
             <Label Content="Rol:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="7" VerticalAlignment="Center" FontSize="18"/>
             <Button Content="Modificar" HorizontalAlignment="Left" Margin="613,0,0,0" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="clicModifyButton"/>
             <Button Content="Cancelar" HorizontalAlignment="Left" Margin="62,0,0,0" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="ClicCancelButton"/>
-            <TextBox HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="173" FontSize="18"/>
-            <TextBox HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="173" FontSize="18"/>
-            <TextBox HorizontalAlignment="Left" Margin="200,0,0,0" Grid.Row="4" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="174" FontSize="18"/>
-            <TextBox HorizontalAlignment="Left" Margin="140,0,0,0" Grid.Row="5" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="173" FontSize="18"/>
-            <ComboBox HorizontalAlignment="Left" Margin="106,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="181" FontSize="18"/>
-            <ComboBox HorizontalAlignment="Left" Margin="94,8,0,0" Grid.Row="7" VerticalAlignment="Top" Width="181" FontSize="18"/>
+            <TextBox x:Name="textBoxName" HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="173" FontSize="18"/>
+            <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="173" FontSize="18"/>
+            <TextBox x:Name="textBoxUserName" HorizontalAlignment="Left" Margin="200,0,0,0" Grid.Row="4" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="174" FontSize="18"/>
+            <ComboBox x:Name="comboBoxStatus" HorizontalAlignment="Left" Margin="106,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="181" FontSize="18"/>
+            <ComboBox x:Name="comboBoxRole" HorizontalAlignment="Left" Margin="94,8,0,0" Grid.Row="7" VerticalAlignment="Top" Width="181" FontSize="18"/>
+            <PasswordBox x:Name="passwordBoxPassword" HorizontalAlignment="Left" Margin="124,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="163" FontSize="18"/>
         </Grid>
     </ScrollViewer>
 
