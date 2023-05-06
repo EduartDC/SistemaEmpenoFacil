@@ -12,10 +12,9 @@ namespace BusinessLogic
 {
     public static class MetricsDAO
     {
-        static NewLog _log = new NewLog();
         public static Metric RecoverMetrics()
         {
-            
+            NewLog _log = new NewLog();
             Metric metric = new Metric();
             try
             {
@@ -48,6 +47,7 @@ namespace BusinessLogic
         public static int UpdateMetrics(string interestRate, string IVA)
         {
             int result = 200;
+            NewLog _log = new NewLog();
             try
             {
 
@@ -77,6 +77,7 @@ namespace BusinessLogic
         private static int RegisterMetrics(string newInterestRate, string newIVA)
         {
             int result = 200;
+            NewLog _log = new NewLog();
             try
             {
                 using (var dataBase1 = new ConnectionModel())
