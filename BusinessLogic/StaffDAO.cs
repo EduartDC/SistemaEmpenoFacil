@@ -2,6 +2,7 @@
 using DataAcces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,5 +29,28 @@ namespace BusinessLogic
             return resutl;
         }
 
+        public static int modifyStaff(string userName, Staff staffModified)
+        {
+            var resutl = MessageCode.ERROR_UPDATE;
+            if (Utilities.VerifyConnection())
+            {
+                try
+                {
+                    using (var connection = new ConnectionModel())
+                    {
+                        var oldStaff = connection.Staffs.Find(userName);
+                        oldStaff = staffModified;
+                        connection.Entry(oldStaff).State = System.Data.Entity.EntityState.Modified;
+                        resutl = connection.SaveChanges();
+                        return resutl;
+                    }
+                }
+                catch (DbUpdateException)
+                {
+                    return resutl;
+                }
+            }
+            return resutl;
+        }
     }
 }
