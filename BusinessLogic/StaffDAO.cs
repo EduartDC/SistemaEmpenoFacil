@@ -2,6 +2,10 @@
 using DataAcces;
 using System;
 using System.Collections.Generic;
+<<<<<<< HEAD
+=======
+using System.Data.Entity.Core;
+>>>>>>> 0ef6619f57abd0b5b64d28606494fdfefb75c721
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -29,6 +33,7 @@ namespace BusinessLogic
             return resutl;
         }
 
+<<<<<<< HEAD
         public static int modifyStaff(string userName, Staff staffModified)
         {
             var resutl = MessageCode.ERROR_UPDATE;
@@ -52,5 +57,40 @@ namespace BusinessLogic
             }
             return resutl;
         }
+=======
+        public static int RegisterStaff(Staff newStaff)
+        {
+            int result = 200;
+            NewLog _log = new NewLog();
+            try
+            {
+                using (var dataBaseOne = new ConnectionModel())
+                {
+                    var newMetrics = dataBaseOne.Staffs.Add(new Staff()
+                    {
+                        fisrtName = newStaff.fisrtName,
+                        lastName = newStaff.lastName,
+                        statusStaff = newStaff.statusStaff,
+                        userName = newStaff.userName,
+                        password = newStaff.password,
+                        rol = newStaff.rol
+                    });
+                    dataBaseOne.SaveChanges();
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                result = 500;
+                _log.Add(ex.ToString());
+            }
+            catch (EntityException ex)
+            {
+                result = 400;
+                _log.Add(ex.ToString());
+            }
+            return result;
+        }
+
+>>>>>>> 0ef6619f57abd0b5b64d28606494fdfefb75c721
     }
 }
