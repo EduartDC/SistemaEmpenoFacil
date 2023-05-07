@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Domain
 {
@@ -45,7 +46,7 @@ namespace Domain
 
         public byte[] imageOne { get; set; }
 
-        public byte[] imageTwo { get; set; }
+        public ImageSource imageConverted { get; set; }
 
         public byte[] imageThree { get; set; }
 
@@ -73,7 +74,6 @@ namespace Domain
                    createDate == other.createDate &&
                    idContract == other.idContract &&
                    imageOne == other.imageOne &&
-                   imageTwo == other.imageTwo &&
                    imageThree == other.imageThree &&
                    imageFour == other.imageFour;
         }
