@@ -127,6 +127,9 @@
     <Compile Include="Views\ModifyEmployee.xaml.cs">
       <DependentUpon>ModifyEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RegisterStaff.xaml.cs">
+      <DependentUpon>RegisterStaff.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SaleDetails.xaml.cs">
       <DependentUpon>SaleDetails.xaml</DependentUpon>
     </Compile>
@@ -231,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ModifyEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RegisterStaff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
