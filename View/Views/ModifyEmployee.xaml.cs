@@ -1,4 +1,6 @@
-﻿using DataAcces;
+﻿using BusinessLogic;
+using BusinessLogic.Utility;
+using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,18 +23,21 @@ namespace View.Views
     /// </summary>
     public partial class ModifyEmployee : Page
     {
+
+        private Staff actualStaff = null;
         public ModifyEmployee()
         {
             InitializeComponent();
             AddStatusComboBoxElements();
             AddRoleComboxBoxElements();
+            showStaffInformation(4);
         }
 
         private void clicModifyButton(object sender, RoutedEventArgs e)
         {
             Staff emplyoee = new Staff();
-            emplyoee.fisrtName =textBoxName.Text;
-            emplyoee.lastName =textBoxLastName.Text;
+            emplyoee.fisrtName = textBoxName.Text;
+            emplyoee.lastName = textBoxLastName.Text;
             emplyoee.userName =textBoxUserName.Text;
             emplyoee.password = passwordBoxPassword.Password.ToString();
             try
@@ -46,16 +51,73 @@ namespace View.Views
                 emplyoee.rol = "";
             }
             if (emplyoee.fisrtName.Length != 0 && emplyoee.lastName.Length != 0 && emplyoee.userName.Length != 0
-                && emplyoee.password.Length != 0 && emplyoee.statusStaff.Length != 0 && emplyoee.rol.Length != 0)
+                && emplyoee.statusStaff.Length != 0 && emplyoee.rol.Length != 0)
             {
-                string message = "Informacion del empleado: " + emplyoee.fisrtName + " " + emplyoee.lastName
-                + "\n" + emplyoee.userName + "\n" + emplyoee.password + "\n" + emplyoee.statusStaff + "\n"
-                + emplyoee.rol;
-                string messageTitle = "Modificacion exitosa";
-                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-                MessageBoxImage messageBoxImage = MessageBoxImage.Information;
-                MessageBoxResult messageBox;
-                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+
+                if (Utilities.ValidateInput(emplyoee.fisrtName) && Utilities.ValidateInput(emplyoee.lastName) &&
+                    Utilities.ValidateInput(emplyoee.userName))
+                {
+                    if(emplyoee.password.Length == 0)
+                    {
+                        emplyoee.password = actualStaff.password;
+                        labelInvalidInformation.Content = string.Empty;
+                        int successfulModification = StaffDAO.ModifyStaff(actualStaff.idStaff, emplyoee);
+                        if (successfulModification != 300 && successfulModification != 0)
+                        {
+                            string message = "La informacion ha sido actualizada correctamente";
+                            string messageTitle = "Modificacion exitosa";
+                            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                            MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                            MessageBoxResult messageBox;
+                            messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                        }
+                        else
+                        {
+                            string message = "No se pudo actualizar la informacion correctamente";
+                            string messageTitle = "Error inesperado";
+                            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                            MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                            MessageBoxResult messageBox;
+                            messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                        }
+                    }
+                    else
+                    {
+                        if (Utilities.ValidatePassword(emplyoee.password))
+                        {
+                            labelInvalidInformation.Content = string.Empty;
+                            emplyoee.password = passwordBoxPassword.Password.ToString();
+                            int successfulModification = StaffDAO.ModifyStaff(actualStaff.idStaff, emplyoee);
+                            if(successfulModification != 300 && successfulModification != 0)
+                            {
+                                string message = "La informacion ha sido actualizada correctamente";
+                                string messageTitle = "Modificacion exitosa";
+                                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                                MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                                MessageBoxResult messageBox;
+                                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                            }
+                            else
+                            {
+                                string message = "No se pudo actualizar la informacion correctamente";
+                                string messageTitle = "Error inesperado";
+                                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                                MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                                MessageBoxResult messageBox;
+                                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                            }
+
+                        }
+                        else
+                        {
+                            labelInvalidInformation.Content = "Contraseña no valida";
+                        }
+                    }
+                }
+                else
+                {
+                    labelInvalidInformation.Content = "Informacion invalida en 1 o mas campos por favor corrija";
+                }
             } else 
             {
                 string message = "No se puede completar la operacion porque uno o mas campos se encuentran vacios por favor complete el formulario";
@@ -95,6 +157,17 @@ namespace View.Views
             {
                 comboBoxRole.Items.Add(role);
             }
+        }
+
+        private void showStaffInformation(int idUser)
+        {
+            Staff staff = StaffDAO.GetStaff(idUser);
+            textBoxName.Text = staff.fisrtName;
+            textBoxLastName.Text = staff.lastName;
+            textBoxUserName.Text = staff.userName;
+            actualStaff = staff;
+            comboBoxRole.SelectedItem = actualStaff.rol;
+            comboBoxStatus.SelectedItem = actualStaff.statusStaff;
         }
     }
 }

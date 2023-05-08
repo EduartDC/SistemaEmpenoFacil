@@ -37,6 +37,7 @@
             <ComboBox x:Name="comboBoxStatus" HorizontalAlignment="Left" Margin="106,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="181" FontSize="18"/>
             <ComboBox x:Name="comboBoxRole" HorizontalAlignment="Left" Margin="94,8,0,0" Grid.Row="7" VerticalAlignment="Top" Width="181" FontSize="18"/>
             <PasswordBox x:Name="passwordBoxPassword" HorizontalAlignment="Left" Margin="124,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="163" FontSize="18"/>
+            <Label x:Name="labelInvalidInformation" Content="" HorizontalAlignment="Left" Margin="360,0,0,0" Grid.Row="3" VerticalAlignment="Center" Foreground="Red" FontSize="18"/>
         </Grid>
     </ScrollViewer>
 
