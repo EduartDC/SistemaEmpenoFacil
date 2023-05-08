@@ -63,5 +63,33 @@ namespace BusinessLogic
             return result;
         }
 
+
+        public static (int, Staff) validateStaff(string userName, string password)
+        {
+
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    List<Staff> list = connection.Staffs.ToList();
+
+                    foreach (var staff in list)
+                    {
+                        if (staff.userName.Equals(userName) && staff.password.Equals(password))
+                        {
+                            return (MessageCode.SUCCESS, staff);
+                        }
+
+
+                    }
+                    return (MessageCode.ERROR_USER_NOT_FOUND, null);
+
+                }
+            }
+            else
+                return (MessageCode.CONNECTION_ERROR, null);
+
+
+        }
     }
 }
