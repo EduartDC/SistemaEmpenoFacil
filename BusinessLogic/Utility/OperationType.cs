@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,5 +15,7 @@ namespace BusinessLogic
         public const int OPERATION_PROFIT = 303;
         public const int OPERATION_LIQUIDATE = 304;
         public const int OPERATION_RENEWAL = 305;
+        public const int OPERATION_INCREASECASHREGISTERAMOUNT = 306;
+        public const int OPERATION_CASHREGISTERWITHDRAW = 307;
     }
 }
