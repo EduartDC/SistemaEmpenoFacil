@@ -9,6 +9,7 @@ using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -339,6 +340,91 @@ namespace BusinessLogic
                 throw new Exception("No hay conexion a la base de datos");
             }
             return result;
+        }
+
+        public static (int, List<Domain.CustomerProfitDomain>) GetCustomersProfit()
+        {
+            List<Domain.CustomerProfitDomain> CustomersProfitList = new List<Domain.CustomerProfitDomain>();
+           
+            
+            List<Customer> list = new List<Customer>();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var result = (from contract in connection.Contracts
+                                  join belonging in connection.Belongings
+                                    on contract.idContract equals belonging.Contract_idContract
+                                  join article in connection.Belongings_Articles
+                                    on belonging.idBelonging equals article.idBelonging
+                                  join customer in connection.Customers
+                                    on contract.Customer_idCustomer equals customer.idCustomer
+                                  select new
+                                  {
+                                      Contract = contract,
+                                      Belonging = belonging,
+                                      Belongings_Articles = article,
+                                      Customer = customer
+                                  }).ToList();
+                    var x = result[0];
+                    //formateando lista
+                    foreach (var y in result)///borrar
+                        Console.WriteLine("-- " + y.Belongings_Articles.barCode.ToString());//borrar
+                    foreach (var util in result)
+                    {
+//                        for (int i = 0; i < result.Count(); i++)
+                            if (CustomersProfitList.Count() == 0)
+                            {
+                                DateTime limitDate = DateTime.Now.AddYears(-1);
+                                if (util.Belongings_Articles.creationDate >= limitDate)
+                                {
+                                    Domain.CustomerProfitDomain newCustomerProfit = new Domain.CustomerProfitDomain();
+                                    newCustomerProfit.idCustomer = util.Customer.idCustomer;
+                                    newCustomerProfit.curp = util.Customer.curp;
+                                    newCustomerProfit.firstname = util.Customer.firstName;
+                                    newCustomerProfit.lastName = util.Customer.lastName;
+                                    newCustomerProfit.profitCustomer = float.Parse(util.Customer.cumulativeProfit);
+                                    newCustomerProfit.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description +"\n";
+                                   // Console.WriteLine(newCustomerProfit.articlesProfit);
+                                    CustomersProfitList.Add(newCustomerProfit);
+                                }
+                            }else//verificar que no exista el cliente, o agregarlo a uno existente
+                            {
+                                bool customerFinded = false;
+                                foreach(var obj in CustomersProfitList)
+                                {
+                                    if(util.Customer.idCustomer == obj.idCustomer)//verificar existencia
+                                        customerFinded = true;
+                                }
+                                if(customerFinded)//agregarlo a existente
+                                {
+                                    foreach(var obj in CustomersProfitList)
+                                    {
+                                        if (util.Customer.idCustomer == obj.idCustomer)
+                                            obj.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description;
+                                            
+                                    }
+                                }
+                                else//registrarlo
+                                {
+                                    Domain.CustomerProfitDomain newCustomerProfit = new Domain.CustomerProfitDomain();
+                                    newCustomerProfit.idCustomer = util.Customer.idCustomer;
+                                    newCustomerProfit.curp = util.Customer.curp;
+                                    newCustomerProfit.firstname = util.Customer.firstName;
+                                    newCustomerProfit.lastName = util.Customer.lastName;
+                                    newCustomerProfit.profitCustomer = float.Parse(util.Customer.cumulativeProfit);
+                                    newCustomerProfit.articlesProfit += "-"+"[" +util.Belonging.idBelonging+ "]" + util.Belonging.description + "\n";
+                                    CustomersProfitList.Add(newCustomerProfit);
+                                }
+                            }
+                    }
+                }
+
+                //
+                return (MessageCode.SUCCESS, CustomersProfitList);
+            }
+            else
+                return (MessageCode.CONNECTION_ERROR, null);
         }
 
     }

@@ -20,6 +20,8 @@ using BusinessLogic;
 using View.Properties;
 using System.Windows.Controls.Primitives;
 using Domain;
+using System.ComponentModel;
+using System.IO;
 
 namespace View.Views
 {
@@ -28,7 +30,7 @@ namespace View.Views
     {
         private List<ArticleDomain> articles = new List<ArticleDomain>();
         private Boolean datePickerEnabled = true;
-        private List<ArticleDomain> filteredArticles = new List<ArticleDomain>();
+        private ICollectionView collectionView;
 
         public FindArticles()
         {
@@ -36,6 +38,7 @@ namespace View.Views
             LoadArticles();
             LoadCategories();
             LoadDate();
+
         }
 
         private void LoadDate()
@@ -51,7 +54,8 @@ namespace View.Views
 
             if (code == MessageCode.SUCCESS)
             {
-                LoadTable(true);
+                ConverterImagesFormat();
+                LoadTable();
             }
             else
             if (code == MessageCode.CONNECTION_ERROR)
@@ -60,6 +64,20 @@ namespace View.Views
                 //codigo para cerrar page
             }
         }
+
+        private void ConverterImagesFormat()
+        {
+            for(int i = 0; i< articles.Count(); i++)
+            {
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = new MemoryStream(articles[i].imageOne);
+                bitmap.EndInit();
+                articles[i].imageConverted = bitmap;
+                
+            }
+        }
+
         private void LoadCategories()
         {
             List<string> categoriesList = new List<string> { "Selecciona una categoria", "Joyeria", "Relojeria", "Herramientas" };
@@ -68,19 +86,11 @@ namespace View.Views
         }
 
         //True:ListaOriginal - False:listafiltrada
-        private void LoadTable(bool operation)
+        private void LoadTable()
         {
-            if (operation)
-            {
-                dgArticles.Items.Clear();
-                dgArticles.ItemsSource = articles;
-            }
-            else
-            {
-                dgArticles.ItemsSource = null;
-                dgArticles.ItemsSource = filteredArticles;
-            }
-
+            collectionView = CollectionViewSource.GetDefaultView(articles);
+            collectionView.Filter = (item) => true;
+            dgArticles.ItemsSource = collectionView;
 
         }
 
@@ -88,7 +98,11 @@ namespace View.Views
         {
             if (SelectedItem())
             {
-                // Container.NavigationService.Navigate(new EditArticle(articles[dgArticles.SelectedIndex]))
+                var a = dgArticles.SelectedItem as Domain.ArticleDomain;
+                DateTime d = DateTime.Parse(a.createDate.ToString());
+                int r = d.Day;
+                var hoy = DateTime.Parse(dpDate.Text);
+                MessageBox.Show("dia de objeto: " + r + "\ndia de dp: " + hoy.Day.ToString());
             }
             else
                 ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);
@@ -107,94 +121,190 @@ namespace View.Views
             tbSearchField.Clear();
             cbDateEnabled.IsChecked = false;
             cbCategory.SelectedIndex = 0;
-            dgArticles.ItemsSource = null;
-            dgArticles.ItemsSource = articles;
-            cbCategory.IsEnabled = false;
-            cbCategoryEnabled.IsChecked = false;
+            dpDate.Text = DateTime.Now.ToString();
+            if (string.IsNullOrEmpty(tbSearchField.Text) && cbCategory.SelectedIndex == 0 && cbDateEnabled.IsChecked == false)
+            {
+                collectionView.Filter = (item) =>
+                {
+                    Domain.ArticleDomain article = item as Domain.ArticleDomain;
+                    if (article != null)
+                    {
+                        return
+                        string.IsNullOrEmpty(tbSearchField.Text) &&
+                        cbCategory.SelectedIndex == 0 &&
+                        cbDateEnabled.IsChecked == false;
+                    }
+                    return false;
+                };
+            }
+
         }
 
         private void btn_FilterArticles(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(tbSearchField.Text) || cbDateEnabled.IsChecked == true || cbCategoryEnabled.IsChecked == true)
-            {
-                filteredArticles.Clear();
-                if (!string.IsNullOrEmpty(tbSearchField.Text))
-                    FilterTextBoxSearch();
-                if (cbCategoryEnabled.IsChecked == true)
-                    FilterComboBoxCategory();
-                FilterDates();
-                LoadTable(false);
-            }
+
+            FilterTable();
+
         }
 
-        private void FilterTextBoxSearch()
+        private void FilterTable()
         {
-            if (!string.IsNullOrEmpty(tbSearchField.Text))
+            string filterTb = tbSearchField.Text;
+            string filterCategory = cbCategory.SelectedItem.ToString();
+            if (string.IsNullOrEmpty(tbSearchField.Text) && cbCategory.SelectedIndex == 0 && cbDateEnabled.IsChecked == false)
             {
-                foreach (var util in articles)
+                collectionView.Filter = (item) =>
                 {
-                    if (util.description.Contains(tbSearchField.Text) ||
-                        util.idContract.ToString().Equals(tbSearchField.Text) ||
-                        util.barCode.Equals(tbSearchField.Text))
+                    Domain.ArticleDomain article = item as Domain.ArticleDomain;
+                    if (article != null)
                     {
-                        filteredArticles.Add(util);
-
+                        return
+                        string.IsNullOrEmpty(filterTb) &&
+                        cbCategory.SelectedIndex == 0 &&
+                        cbDateEnabled.IsChecked == false;
                     }
-                }
-
+                    return false;
+                };
             }
-        }
-
-        private void FilterComboBoxCategory()
-        {
-
-            if (cbCategory.SelectedIndex > 0 && string.IsNullOrEmpty(tbSearchField.Text))
+            if (!string.IsNullOrEmpty(tbSearchField.Text) && cbCategory.SelectedIndex <= 0)
             {
-                foreach (var util in articles)
+                collectionView.Filter = (item) =>
                 {
-                    bool result = true;
-                    for (int i = 0; i < filteredArticles.Count(); i++)
+                    Domain.ArticleDomain article = item as Domain.ArticleDomain;
+                    if (article != null)
                     {
-                        if (util.idArticle == filteredArticles[i].idArticle)// ya existe en lista filtrada
-                            result = false;
-                    }
-                    if (result)
-                    {
-                        if (util.category.Equals(cbCategory.SelectedItem.ToString()))
-                            filteredArticles.Add(util);
-                    }
-                }
+                        return string.IsNullOrEmpty(filterTb) ||
+                        article.description.Equals(filterTb) ||
+                        article.idContract.ToString().Equals(filterTb) ||
+                        article.serialNumber.Equals(filterTb) ||
+                        article.barCode.Equals(filterTb);
 
+                    }
+                    return false;
+                };
             }
-        }
-
-        private void FilterDates()
-        {
-            if (cbDateEnabled.IsChecked == true)
+            if (cbCategory.SelectedIndex >= 1 && string.IsNullOrEmpty(tbSearchField.Text))//solo categoria
             {
-                List<ArticleDomain> copyArticles = new List<ArticleDomain>();
-                if (filteredArticles.Count() == 0)
-                    filteredArticles = articles;
-                for (int i = 0; i < filteredArticles.Count(); i++)
+                collectionView.Filter = (item) =>
                 {
-                    ArticleDomain util = filteredArticles[i];
-                    if (util.createDate >= DateTime.Parse(dpDate.Text))
+                    Domain.ArticleDomain article = item as Domain.ArticleDomain;
+                    if (article != null)
                     {
-                        copyArticles.Add(util);
+                        return
+
+                        article.category.Equals(filterCategory);
+
+
                     }
-                }
-                filteredArticles = copyArticles;
+                    return false;
+                };
+            }
+            if (!string.IsNullOrEmpty(tbSearchField.Text) && cbCategory.SelectedIndex >= 1)
+            {
+                collectionView.Filter = (item) =>
+                {
+                    Domain.ArticleDomain article = item as Domain.ArticleDomain;
+                    if (article != null)
+                    {
+                        return
+                        article.description.Equals(filterTb) &&
+                        article.category.Equals(filterCategory) ||
+                        article.serialNumber.Equals(filterTb) &&
+                        article.category.Equals(filterCategory) ||
+                        article.barCode.Equals(filterTb) &&
+                        article.category.Equals(filterCategory) ||
+                        article.idContract.ToString().Equals(filterTb) &&
+                        article.category.Equals(filterCategory);
+
+                    }
+                    return false;
+                };
+            }
+            if(cbDateEnabled.IsChecked == true && string.IsNullOrEmpty(tbSearchField.Text) && cbCategory.SelectedIndex == 0)
+            {
+                DateTime selectedDate = DateTime.Parse(dpDate.Text);
+                collectionView.Filter = (item) =>
+                {
+                    Domain.ArticleDomain article = item as Domain.ArticleDomain;
+                    DateTime dateArticle = DateTime.Parse(article.createDate.ToString());
+                    if (article != null)
+                    {
+                        return
+                        dateArticle >= selectedDate;
+                    }
+                    return false;
+                };
+            }
+            if (cbDateEnabled.IsChecked == true && !string.IsNullOrEmpty(tbSearchField.Text) && cbCategory.SelectedIndex == 0)
+            {
+                DateTime selectedDate = DateTime.Parse(dpDate.Text);
+                collectionView.Filter = (item) =>
+                {
+                    Domain.ArticleDomain article = item as Domain.ArticleDomain;
+                    DateTime dateArticle = DateTime.Parse(article.createDate.ToString());
+                    if (article != null)
+                    {
+                        return
+                        article.description.Equals(filterTb) && 
+                        article.createDate >= DateTime.Parse(dpDate.Text) ||
+                        article.idContract.ToString().Equals(filterTb) &&
+                        article.createDate >= DateTime.Parse(dpDate.Text) ||
+                        article.barCode.Equals(filterTb) &&
+                        article.createDate >= DateTime.Parse(dpDate.Text) ||
+                        article.serialNumber.Equals(filterTb) &&
+                        article.createDate >= DateTime.Parse(dpDate.Text);
+                    }
+                    return false;
+                };
+            }
+            if (cbDateEnabled.IsChecked == true && string.IsNullOrEmpty(tbSearchField.Text) && cbCategory.SelectedIndex >= 1)
+            {
+                collectionView.Filter = (item) =>
+                {
+                    Domain.ArticleDomain article = item as Domain.ArticleDomain;
+                    DateTime dateArticle = DateTime.Parse(article.createDate.ToString());
+                    if (article != null)
+                    {
+                        return
+                        article.category.Equals(filterCategory) &&
+                        article.createDate >= DateTime.Parse(dpDate.Text);
+                    }
+                    return false;
+                };
+            }
+            if (cbDateEnabled.IsChecked == true && !string.IsNullOrEmpty(tbSearchField.Text) && cbCategory.SelectedIndex >= 1)
+            {
+                collectionView.Filter = (item) =>
+                {
+                    Domain.ArticleDomain article = item as Domain.ArticleDomain;
+                    DateTime dateArticle = DateTime.Parse(article.createDate.ToString());
+                    if (article != null)
+                    {
+                        return
+                        article.description.Equals(filterTb) &&
+                        article.category.Equals(cbCategory.SelectedItem.ToString()) &&
+                        article.createDate >= DateTime.Parse(dpDate.Text) ||
+                        article.idContract.ToString().Equals(filterTb) &&
+                        article.category.Equals(cbCategory.SelectedItem.ToString()) &&
+                        article.createDate >= DateTime.Parse(dpDate.Text) ||
+                        article.barCode.Equals(filterTb) &&
+                        article.category.Equals(cbCategory.SelectedItem.ToString()) &&
+                        article.createDate >= DateTime.Parse(dpDate.Text) ||
+                        article.serialNumber.Equals(filterTb) &&
+                        article.category.Equals(cbCategory.SelectedItem.ToString()) &&
+                        article.createDate >= DateTime.Parse(dpDate.Text);
+                    }
+                    return false;
+                };
             }
         }
 
         private void Cb_CalendarEnabled(object sender, RoutedEventArgs e)
         {
-
             if (cbDateEnabled.IsChecked == true)
                 dpDate.IsEnabled = true;
             else
                 dpDate.IsEnabled = false;
-
         }
 
         private void bt_dateUnabled(object sender, RoutedEventArgs e)
@@ -214,7 +324,6 @@ namespace View.Views
 
         private void bt_CategoryUnabled(object sender, RoutedEventArgs e)
         {
-
             cbCategory.IsEnabled = false;
             tbSearchField.IsEnabled = true;
         }

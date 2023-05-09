@@ -24,6 +24,7 @@ namespace DataAcces
         public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<SetAside> SetAsides { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

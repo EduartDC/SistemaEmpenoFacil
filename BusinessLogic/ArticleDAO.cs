@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,14 +21,10 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    //recuperar lista
                     articles = connection.Belongings_Articles.ToList();
-                    //purga de articulos
                     foreach (var item in articles)
                     {
                         ArticleDomain newArticle = new ArticleDomain();
-
-                        //atributos de Belonging
                         newArticle.idBelonging = item.Belonging.idBelonging;
                         newArticle.appraisalValue = item.Belonging.appraisalValue;
                         newArticle.category = item.Belonging.category;
@@ -36,7 +33,6 @@ namespace BusinessLogic
                         newArticle.loanAmount = item.Belonging.loanAmount;
                         newArticle.serialNumber = item.Belonging.serialNumber;
                         newArticle.idContract = item.Belonging.Contract_idContract;
-
                         //atributos de Article
                         newArticle.idArticle = item.idArticle;
                         newArticle.barCode = item.barCode;
@@ -44,22 +40,25 @@ namespace BusinessLogic
                         newArticle.stateArticle = item.stateArticle;
                         newArticle.customerProfit = item.customerProfit;
                         newArticle.storeProfit = item.storeProfit;
-                        DateTime createDate = item.creationDate;
-                        string date = createDate.ToString("MM/dd/yyyy");
-                        newArticle.createDate = DateTime.Parse(date);
-
-
-
+                        string createDate = item.creationDate.ToString("dd/MM/yyyy");
+                        newArticle.createDate = DateTime.Parse(createDate);
                         articlesDomain.Add(newArticle);
+                        using (var imgConnection = new ConnectionModel())
+                        {
+                            var imageInfo = imgConnection.ImagesBelongings. Where(util => util.idImagenBelonging == item.idBelonging).FirstOrDefault();
+                            if(imageInfo!=null)
+                            {
+                                newArticle.imageOne = imageInfo.imagen;
+                            }
 
+                        }
                     }
-
                 }
                 return (MessageCode.SUCCESS, articlesDomain);
             }
-
             return (MessageCode.CONNECTION_ERROR, null);
         }
+
         //cide
         public static ArticleDomain GetArticleDomainByCode(string code)
         {
