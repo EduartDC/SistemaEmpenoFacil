@@ -34,6 +34,8 @@ namespace DataAcces
 
         public int Contract_idContract { get; set; }
 
+        public string model { get; set; }
+
         public virtual Belongings_Articles Belongings_Articles { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
