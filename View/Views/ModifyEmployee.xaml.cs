@@ -168,6 +168,7 @@ namespace View.Views
             actualStaff = staff;
             comboBoxRole.SelectedItem = actualStaff.rol;
             comboBoxStatus.SelectedItem = actualStaff.statusStaff;
+            rfcLabel.Content = staff.rfc;
         }
     }
 }

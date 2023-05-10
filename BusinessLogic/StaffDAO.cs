@@ -34,7 +34,7 @@ namespace BusinessLogic
             return resutl;
         }
 
-//<<<<<<< HEAD
+        //<<<<<<< HEAD
         public static int ModifyStaff(int userId, Staff staffModified)
         {
             var resutl = MessageCode.ERROR_UPDATE;
@@ -61,7 +61,7 @@ namespace BusinessLogic
             }
             return resutl;
         }
-//=======
+        //=======
         public static int RegisterStaff(Staff newStaff)
         {
             int result = 200;
@@ -95,33 +95,13 @@ namespace BusinessLogic
             return result;
         }
 
-<<<<<<< HEAD
-        public static Staff GetStaff(int idUser)
-        {
-            var result = new Staff();
-=======
-
         public static (int, Staff) validateStaff(string userName, string password)
         {
 
->>>>>>> 5e9350a03cd6f934c2dc273b4dcbfe87a5bb6057
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
-<<<<<<< HEAD
-                    result = connection.Staffs.Find(idUser);
-                }
-            }
-            else
-            {
-                throw new Exception(MessageError.CONNECTION_ERROR);
-            }
-            return result;
-        }
-
-//>>>>>>> 0ef6619f57abd0b5b64d28606494fdfefb75c721
-=======
                     List<Staff> list = connection.Staffs.ToList();
 
                     foreach (var staff in list)
@@ -131,17 +111,33 @@ namespace BusinessLogic
                             return (MessageCode.SUCCESS, staff);
                         }
 
-
                     }
                     return (MessageCode.ERROR_USER_NOT_FOUND, null);
 
                 }
             }
             else
+            {
                 return (MessageCode.CONNECTION_ERROR, null);
-
-
+            }
         }
->>>>>>> 5e9350a03cd6f934c2dc273b4dcbfe87a5bb6057
+
+        public static Staff GetStaff(int idUser)
+        {
+            var result = new Staff();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+
+                    result = connection.Staffs.Find(idUser);
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return result;
+        }
     }
 }
