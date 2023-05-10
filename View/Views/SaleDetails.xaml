@@ -29,11 +29,11 @@
             <Label Content="Fecha y hora de venta:" HorizontalAlignment="Left" Margin="10,96,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
             <Label x:Name="labelSaleDate" Content="Miercoles 28 de Septiembre del 2020" HorizontalAlignment="Left" Margin="193,96,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
             <Label x:Name="labelSaleTime" Content="XX:XX" HorizontalAlignment="Left" Margin="506,96,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
-            <ScrollViewer Grid.Row="2" Margin="39,33,39,33"/>
             <Label Content="Monto final de venta:" HorizontalAlignment="Left" Margin="16,24,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
             <Label x:Name="labelFinalSaleAmount" Content="XXXXXX $" HorizontalAlignment="Left" Margin="233,24,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="18"/>
-            <Button x:Name="goBackButton" Content="Regresar" HorizontalAlignment="Left" Margin="24,95,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="18" Height="40" Width="88"/>
+            <Button x:Name="goBackButton" Content="Regresar" HorizontalAlignment="Left" Margin="24,95,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="18" Height="40" Width="88" Click="GoBackButtonEvent"/>
             <Label Content="Hrs." HorizontalAlignment="Left" Margin="562,96,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
+            <DataGrid Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,10,10,10" IsReadOnly="True"/>
 
         </Grid>
     </ScrollViewer>

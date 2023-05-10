@@ -28,12 +28,13 @@
                     <ColumnDefinition Width="447*"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Buscar por:" HorizontalAlignment="Left" Margin="58,10,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" RenderTransformOrigin="0.622,0.517" Grid.ColumnSpan="2"/>
-                <RadioButton Content="Fecha de venta" HorizontalAlignment="Left" Margin="7,61,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" Grid.Column="1"/>
-                <RadioButton Content="Codigo de venta" HorizontalAlignment="Left" Margin="3,102,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                <DatePicker Grid.Column="2" HorizontalAlignment="Left" Margin="70,21,0,0" VerticalAlignment="Top" Height="39" Width="207" FontSize="18"/>
-                <Button Grid.Column="3" Content="Buscar" HorizontalAlignment="Left" Margin="77,28,0,0" VerticalAlignment="Top" Height="32" Width="100"/>
-                <Button Grid.Column="3" Content="Regresar" HorizontalAlignment="Left" Margin="77,109,0,0" VerticalAlignment="Top" Height="31" Width="100"/>
-                <DataGrid x:Name="dataGridSales" Grid.Column="4" Margin="10,10,10,680" SelectionChanged="DataGrid_SelectionChanged" GridLinesVisibility="Horizontal" AutoGenerateColumns="True"/>
+                <RadioButton Content="Fecha de venta" HorizontalAlignment="Left" Margin="7,61,0,0" VerticalAlignment="Top" Grid.Column="1" Checked="EventSaleDateRadioButton" FontSize="18"/>
+                <RadioButton x:Name="saleCodeRadioButton" Content="Codigo de venta" HorizontalAlignment="Left" Margin="3,102,0,0" VerticalAlignment="Top" Grid.Column="1" Checked="EventSaleCodeRadioButton" FontSize="18"/>
+                <DatePicker x:Name="salesDatePicker" Grid.Column="2" HorizontalAlignment="Left" Margin="70,21,0,0" VerticalAlignment="Top" Height="39" Width="207" FontSize="18"/>
+                <Button Grid.Column="3" Content="Buscar" HorizontalAlignment="Left" Margin="77,28,0,0" VerticalAlignment="Top" Height="32" Width="100" FontSize="18" Click="EventSearchButton"/>
+                <Button Grid.Column="3" Content="Regresar" HorizontalAlignment="Left" Margin="77,109,0,0" VerticalAlignment="Top" Height="31" Width="100" FontSize="18"/>
+                <DataGrid x:Name="dataGridSales" Grid.Column="4" Margin="10,10,10,680" SelectionChanged="DataGrid_SelectionChanged" GridLinesVisibility="Horizontal" AutoGenerateColumns="True" IsReadOnly="True" SelectionMode="Single"/>
+                <TextBox x:Name="saleCodeTextBox" Grid.Column="2" HorizontalAlignment="Left" Margin="70,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" FontSize="18" Height="32" Visibility="Hidden"/>
             </Grid>
 
         </Grid>

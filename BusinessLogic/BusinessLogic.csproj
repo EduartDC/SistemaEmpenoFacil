@@ -56,6 +56,7 @@
     <Compile Include="BelongingDAO.cs" />
     <Compile Include="ContractDAO.cs" />
     <Compile Include="CustomerDAO.cs" />
+    <Compile Include="SaleDAO.cs" />
     <Compile Include="Utility\MessageCode.cs" />
     <Compile Include="Utility\MessageError.cs" />
     <Compile Include="MetricsDAO.cs" />
