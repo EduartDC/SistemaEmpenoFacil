@@ -2,7 +2,11 @@
 using DataAcces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+//<<<<<<< HEAD
+//=======
 using System.Data.Entity.Core;
+//>>>>>>> 0ef6619f57abd0b5b64d28606494fdfefb75c721
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -30,6 +34,34 @@ namespace BusinessLogic
             return resutl;
         }
 
+        //<<<<<<< HEAD
+        public static int ModifyStaff(int userId, Staff staffModified)
+        {
+            var resutl = MessageCode.ERROR_UPDATE;
+            if (Utilities.VerifyConnection())
+            {
+                try
+                {
+                    using (var connection = new ConnectionModel())
+                    {
+                        var oldStaff = connection.Staffs.Find(userId);
+                        oldStaff.fisrtName = staffModified.fisrtName;
+                        oldStaff.lastName = staffModified.lastName;
+                        oldStaff.userName = staffModified.userName;
+                        oldStaff.password = staffModified.password;
+                        oldStaff.statusStaff = staffModified.statusStaff;
+                        oldStaff.rol = staffModified.rol;
+                        resutl = connection.SaveChanges();
+                    }
+                }
+                catch (DbUpdateException)
+                {
+                    resutl = MessageCode.ERROR;
+                }
+            }
+            return resutl;
+        }
+        //=======
         public static int RegisterStaff(Staff newStaff)
         {
             int result = 200;
@@ -63,7 +95,6 @@ namespace BusinessLogic
             return result;
         }
 
-
         public static (int, Staff) validateStaff(string userName, string password)
         {
 
@@ -80,16 +111,33 @@ namespace BusinessLogic
                             return (MessageCode.SUCCESS, staff);
                         }
 
-
                     }
                     return (MessageCode.ERROR_USER_NOT_FOUND, null);
 
                 }
             }
             else
+            {
                 return (MessageCode.CONNECTION_ERROR, null);
+            }
+        }
 
+        public static Staff GetStaff(int idUser)
+        {
+            var result = new Staff();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
 
+                    result = connection.Staffs.Find(idUser);
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return result;
         }
     }
 }
