@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessLogic;
+using DataAcces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,23 @@ namespace View.Views
     /// </summary>
     public partial class SaleDetails : Page
     {
+        Sale sale = null;
         public SaleDetails()
         {
             InitializeComponent();
+        }
+
+        private void showSaleDetails(int saleId)
+        {
+            sale = SaleDAO.GetSaleBySaleCode(saleId);
+            labelSaleCode.Content = sale.idSale.ToString();
+            labelSaleDate.Content = sale.saleDate.ToString();
+            labelFinalSaleAmount.Content = sale.total.ToString();
+        }
+
+        private void GoBackButtonEvent(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
