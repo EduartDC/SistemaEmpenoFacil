@@ -18,66 +18,76 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Domain.Communitation;
 using Domain.BelongingCreation;
+using View.Properties;
 
 namespace View.Views
 {
-    /// <summary>
-    /// Lógica de interacción para CreateBelongingRegister.xaml
-    /// </summary>
+
     public partial class CreateBelongingRegister : Window
     {
-        private List<Domain.BelongingCreation.Belonging> belongingsList =  new List<Domain.BelongingCreation.Belonging>();
-        Communication communication;
-
-        //alamcenes de las imagenes para return Crear contratos
-        private List<Boolean> imageList = new List<Boolean> { false, false, false, false };//indicador de foto cargada
-        private int belongingSaved = 0;//indicador de prenda
-        private List<BitmapImage> bitmapSavedList = new List<BitmapImage>(); //almacena de fotos
-        private Boolean edicion = false;
-        private int posicionEdicion;
+        private Communication communication;
+        private List<Domain.BelongingCreation.Belonging> belongingsList = new List<Domain.BelongingCreation.Belonging>();
+        private bool edition;
+        private int idEtition;
+        private List<bool> imageBool = new List<bool>();
+        private List<BitmapImage> imageTemp = new List<BitmapImage>();
         public CreateBelongingRegister()
         {
             InitializeComponent();
-
-
-
         }
 
-        private void LoadEdition()
+        public void CommunicacionPages(Communication communication, List<Domain.BelongingCreation.Belonging> belongingsList, bool edition, int idEdition)
         {
-            //verificar prenda a cargar
+            this.communication = communication;
+            this.idEtition = idEdition;
+            this.belongingsList = belongingsList;
+            this.edition = edition;
+            CheckOperation();
+        }
 
-            componentImageOne.Source = bitmapSavedList[posicionEdicion];
-            componentImageTwo.Source = bitmapSavedList[posicionEdicion + 1];
-            componentImageThree.Source = bitmapSavedList[posicionEdicion + 2];
-            componentImageFour.Source = bitmapSavedList[posicionEdicion + 3];
+        private void CheckOperation()
+        {
+            if (edition)
+            {
+                LoadCategories();
+                LoadInformationEdition();
+            }
+            else
+            {
+                LoadCategories();
+                for (int i = 0; i < 4; i++)
+                    imageBool.Add(false);
+            }
+        }
 
+        private void LoadInformationEdition()
+        {
             int positionComboBox = 0;
             for (int i = 0; i < cbCategory.Items.Count; i++)
             {
                 cbCategory.SelectedIndex = i;
-                if (cbCategory.SelectedItem.Equals(belongingsList[posicionEdicion].Category))
+                if (cbCategory.SelectedItem.Equals(belongingsList[idEtition].Category))
                 {
-                    MessageBox.Show("prenda seleccionada" + cbCategory.SelectedItem);
                     positionComboBox = cbCategory.SelectedIndex;
                 }
             }
 
             cbCategory.SelectedIndex = positionComboBox;
-
-            tbDescription.Text = belongingsList[posicionEdicion].GenericDescription;
-            tbFeature.Text = belongingsList[posicionEdicion].Features;
-            tbApraisalAmount.Text = belongingsList[posicionEdicion].LoanAmount.ToString();
-            tbModel.Text = belongingsList[posicionEdicion].Model;
-            tbSerialNumber.Text = belongingsList[posicionEdicion].SerialNumber;
-            tbMaxValue.Text = belongingsList[posicionEdicion].ApraisalAmount.ToString();
-            imageList[0] = true;
-            imageList[1] = true;
-
-            imageList[2] = true;
-
-            imageList[3] = true;
-
+            tbDescription.Text = belongingsList[idEtition].GenericDescription;
+            tbFeature.Text = belongingsList[idEtition].Features;
+            tbApraisalAmount.Text = belongingsList[idEtition].LoanAmount.ToString();
+            tbModel.Text = belongingsList[idEtition].Model;
+            tbSerialNumber.Text = belongingsList[idEtition].SerialNumber;
+            tbMaxValue.Text = belongingsList[idEtition].ApraisalAmount.ToString();
+            Console.WriteLine("imagenes en modificacion: " + belongingsList[idEtition].imagesBitmap.Count());
+            componentImageOne.Source = belongingsList[idEtition].imagesBitmap[0];
+            componentImageTwo.Source = belongingsList[idEtition].imagesBitmap[1];
+            componentImageThree.Source = belongingsList[idEtition].imagesBitmap[2];
+            componentImageFour.Source = belongingsList[idEtition].imagesBitmap[3];
+            imageBool.Add(true);
+            imageBool.Add(true);
+            imageBool.Add(true);
+            imageBool.Add(true);
             btnLoadImage.IsEnabled = false;
         }
 
@@ -88,44 +98,8 @@ namespace View.Views
             cbCategory.SelectedIndex = 0;
         }
 
-        public void CommunicacionPages(Communication communication, List<Domain.BelongingCreation.Belonging> belongingList, List<BitmapImage> bitmapImgList, Boolean edicion, int posicionEdicion)
-        {
-            bitmapSavedList = bitmapImgList;
-            this.belongingsList = belongingList;
-            this.communication = communication;
-
-            this.edicion = edicion;
-            this.posicionEdicion = posicionEdicion;
-
-            if (edicion == false)
-            {
-                imageList.Add(false);
-                LoadCategories();
-            }
-            else
-            {
-                LoadCategories();
-                LoadEdition();
-            }
-        }
-
-        private void ClicClosePage(object sender, RoutedEventArgs e)
-        {
-
-            ClosePage();
-
-
-        }
-
-        private void ClosePage()
-        {
-            communication.refreshBelongings(belongingsList, bitmapSavedList);
-            this.Close();
-        }
-
         private void ClickLoadImage(object sender, RoutedEventArgs e)
         {
-
             Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
             ofd.Filter = "Archivos de imagen (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png";
             bool? result = ofd.ShowDialog();
@@ -138,201 +112,63 @@ namespace View.Views
                 bitMap.UriSource = new Uri(ruta);
                 bitMap.EndInit();
 
-                //componentImageOne.Source = bitMapOne;
-
-                if (!edicion)
+                if (!imageBool[0])
                 {
-                    if (belongingSaved < 5)
-                    {
-                        if (!imageList[0])
-                        {
-                            componentImageOne.Source = bitMap; //carga
-                            bitmapSavedList.Add(bitMap);//guarda
-                            imageList[0] = true;
-                        }
-                        else
-                        if (!imageList[1])
-                        {
-                            componentImageTwo.Source = bitMap;
-                            bitmapSavedList.Add(bitMap);
-                            imageList[1] = true;
-                        }
-                        else
-                        if (!imageList[2])
-                        {
-                            componentImageThree.Source = bitMap;
-                            bitmapSavedList.Add(bitMap);
-                            imageList[2] = true;
-                        }
-                        else
-                        if (!imageList[3])
-                        {
-                            componentImageFour.Source = bitMap;
-                            bitmapSavedList.Add(bitMap);
-                            imageList[3] = true;
-                        }
-                        if (imageList[1] && imageList[2] && imageList[3] && imageList[0])
-                            btnLoadImage.IsEnabled = false;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Maximo de prendas alcenzada");
-
-                    }
+                    imageBool[0] = true;
+                    componentImageOne.Source = bitMap;
                 }
-                else
+                else if (!imageBool[1])
                 {
-
-                    switch (posicionEdicion)
-                    {
-                        case 0:
-                            if (!imageList[0])
-                            {
-                                componentImageOne.Source = bitMap;
-                                bitmapSavedList[0] = bitMap;
-                                imageList[0] = true;
-                            }
-                            if (!imageList[1])
-                            {
-                                componentImageTwo.Source = bitMap;
-                                bitmapSavedList[1] = bitMap;
-                                imageList[1] = true;
-                            }
-                            if (!imageList[2])
-                            {
-                                componentImageThree.Source = bitMap;
-                                bitmapSavedList[2] = bitMap;
-                                imageList[2] = true;
-                            }
-                            if (!imageList[3])
-                            {
-                                componentImageFour.Source = bitMap;
-                                bitmapSavedList[3] = bitMap;
-                                imageList[3] = true;
-                            }
-                            break;
-                        case 1:
-                            if (!imageList[0])
-                            {
-                                componentImageOne.Source = bitMap;
-                                bitmapSavedList[4] = bitMap;
-                                imageList[0] = true;
-                            }
-                            if (!imageList[1])
-                            {
-                                componentImageTwo.Source = bitMap;
-                                bitmapSavedList[5] = bitMap;
-                                imageList[1] = true;
-                            }
-                            if (!imageList[2])
-                            {
-                                componentImageThree.Source = bitMap;
-                                bitmapSavedList[6] = bitMap;
-                                imageList[2] = true;
-                            }
-                            if (!imageList[3])
-                            {
-                                componentImageFour.Source = bitMap;
-                                bitmapSavedList[7] = bitMap;
-                                imageList[3] = true;
-                            }
-                            break;
-                        case 2:
-                            if (!imageList[0])
-                            {
-                                componentImageOne.Source = bitMap;
-                                bitmapSavedList[8] = bitMap;
-                                imageList[0] = true;
-                            }
-                            if (!imageList[1])
-                            {
-                                componentImageTwo.Source = bitMap;
-                                bitmapSavedList[9] = bitMap;
-                                imageList[1] = true;
-                            }
-                            if (!imageList[2])
-                            {
-                                componentImageThree.Source = bitMap;
-                                bitmapSavedList[10] = bitMap;
-                                imageList[2] = true;
-                            }
-                            if (!imageList[3])
-                            {
-                                componentImageFour.Source = bitMap;
-                                bitmapSavedList[11] = bitMap;
-                                imageList[3] = true;
-                            }
-                            break;
-                        case 3:
-                            if (!imageList[0])
-                            {
-                                componentImageOne.Source = bitMap;
-                                bitmapSavedList[12] = bitMap;
-                                imageList[0] = true;
-                            }
-                            if (!imageList[1])
-                            {
-                                componentImageTwo.Source = bitMap;
-                                bitmapSavedList[13] = bitMap;
-                                imageList[1] = true;
-                            }
-                            if (!imageList[2])
-                            {
-                                componentImageThree.Source = bitMap;
-                                bitmapSavedList[14] = bitMap;
-                                imageList[2] = true;
-                            }
-                            if (!imageList[3])
-                            {
-                                componentImageFour.Source = bitMap;
-                                bitmapSavedList[15] = bitMap;
-                                imageList[3] = true;
-                            }
-                            break;
-                        case 4:
-                            if (!imageList[0])
-                            {
-                                componentImageOne.Source = bitMap;
-                                bitmapSavedList[16] = bitMap;
-                                imageList[0] = true;
-                            }
-                            if (!imageList[1])
-                            {
-                                componentImageTwo.Source = bitMap;
-                                bitmapSavedList[17] = bitMap;
-                                imageList[1] = true;
-                            }
-                            if (!imageList[2])
-                            {
-                                componentImageThree.Source = bitMap;
-                                bitmapSavedList[18] = bitMap;
-                                imageList[2] = true;
-                            }
-                            if (!imageList[3])
-                            {
-                                componentImageFour.Source = bitMap;
-                                bitmapSavedList[19] = bitMap;
-                                imageList[3] = true;
-                            }
-                            break;
-
-                            if (imageList[3])
-                                btnLoadImage.IsEnabled = false;
-                    }
-
+                    imageBool[1] = true;
+                    componentImageTwo.Source = bitMap;
+                }
+                else if (!imageBool[2])
+                {
+                    imageBool[2] = true;
+                    componentImageThree.Source = bitMap;
+                }
+                else if (!imageBool[3])
+                {
+                    imageBool[3] = true;
+                    componentImageFour.Source = bitMap;
                 }
 
-
+                if (imageBool[0] && imageBool[1] && imageBool[2] && imageBool[3])
+                {
+                    btnLoadImage.IsEnabled = false;
+                }
             }
+        }
+
+        private void ClickDeleteImgOne(object sender, RoutedEventArgs e)
+        {
+            LoadDefaultImage(1);
+            imageBool[0] = false;
+        }
+        private void ClickDeleteImgTwo(object sender, RoutedEventArgs e)
+        {
+            LoadDefaultImage(2);
+            imageBool[1] = false;
+        }
+
+        private void ClickDeleteImgThree(object sender, RoutedEventArgs e)
+        {
+            LoadDefaultImage(3);
+            imageBool[2] = false;
+        }
+
+        private void ClickDeleteImgFour(object sender, RoutedEventArgs e)
+        {
+            LoadDefaultImage(4);
+            imageBool[3] = false;
         }
 
         private void LoadDefaultImage(int imageComponent)
         {
-
             Image imgOne = new Image();
             BitmapImage bitMapOne = new BitmapImage();
             bitMapOne.BeginInit();
-            bitMapOne.UriSource = new Uri("pack://application:,,,/Images/plus.png");
+            bitMapOne.UriSource = new Uri("pack://application:,,,/Icons/photo.png");
             bitMapOne.EndInit();
             if (imageComponent == 1)
                 componentImageOne.Source = bitMapOne;
@@ -344,110 +180,44 @@ namespace View.Views
                 componentImageFour.Source = bitMapOne;
 
             btnLoadImage.IsEnabled = true;
-
-
-        }
-
-        private void ClickDeleteImgOne(object sender, RoutedEventArgs e)
-        {
-            imageList[0] = false;
-            LoadDefaultImage(1);
-
-        }
-
-        private void ClickDeleteImgTwo(object sender, RoutedEventArgs e)
-        {
-            imageList[1] = false;
-            LoadDefaultImage(2);
-        }
-
-        private void ClickDeleteImgThree(object sender, RoutedEventArgs e)
-        {
-
-            imageList[2] = false;
-            LoadDefaultImage(3);
-        }
-
-        private void ClickDeleteImgFour(object sender, RoutedEventArgs e)
-        {
-
-            imageList[3] = false;
-            LoadDefaultImage(4);
         }
 
         private void ClickSaveBelonging(object sender, RoutedEventArgs e)
         {
-            if (CheckComponents())
-            {
 
-                if (!edicion)
-                    belongingSaved++;
-
-                imageList[0] = false;
-                imageList[1] = false;
-                imageList[2] = false;
-                imageList[3] = false;
-                SaveInfoBelonging();
-                LoadDefaultImage(1);
-                LoadDefaultImage(2);
-                LoadDefaultImage(3);
-                LoadDefaultImage(4);
-                MessageBox.Show("Prenda guardada correctamente");
-
-
-
-            }
-        }
-
-        private void ModifyInfo()
-        {
-
-        }
-
-        private Boolean CheckComponents()
-        {
-            if (cbCategory.SelectedIndex > 0 || !string.IsNullOrEmpty(tbDescription.Text) ||
-                !string.IsNullOrEmpty(tbFeature.Text) || !string.IsNullOrEmpty(tbSerialNumber.Text) ||
-                !string.IsNullOrEmpty(tbModel.Text) || !string.IsNullOrEmpty(tbApraisalAmount.Text) ||
-                !string.IsNullOrEmpty(tbMaxValue.Text))
-            {
-                if (imageList[0] && imageList[1] && imageList[2] && imageList[3])
-                {
-                    if (IsNumeric(tbApraisalAmount.Text) && IsNumeric(tbMaxValue.Text))
-                    {
-                        if(int.Parse(tbApraisalAmount.Text) <= int.Parse(tbMaxValue.Text))
-                        return true;
-                        else
-                        {
-                            MessageBox.Show("El valor de prestamo del produrcto no puede ser mayor al valor de avalúo del producto. Favor de verificar");
-                        }
-                    }
-                    else 
-                    {
-                        MessageBox.Show("Valores no numericos en montos");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Se necesitan 4 imagenes");
-                    //MessageBox.Show("" + imageList[0] + imageList[1] + imageList[2] + imageList[3]);
-                }
-            }
+            if (cbCategory.SelectedIndex > 0 &&
+                string.IsNullOrEmpty(tbDescription.Text) &&
+                string.IsNullOrEmpty(tbFeature.Text) &&
+                string.IsNullOrEmpty(tbMaxValue.Text) &&
+                string.IsNullOrEmpty(tbApraisalAmount.Text)
+                )
+                ErrorManager.ShowError("Campos vacios");
             else
             {
-                MessageBox.Show("Campos vacios");
+                if (IsNumeric(tbApraisalAmount.Text) && IsNumeric(tbMaxValue.Text))
+                {
+                    if (float.Parse(tbMaxValue.Text) > float.Parse(tbApraisalAmount.Text))
+                    {
+                        if (imageBool[0] && imageBool[1] && imageBool[2] && imageBool[3])
+                        {
+                            if (!edition)
+                                //if (belongingsList.Count() <= 5)
+                                    SaveBelongingInList();
+                                //else
+                                  //  ErrorManager.ShowError("maximo de prendas alcanzada");
+                            else
+                                SaveBelongingEdition();
+                        }
+                    }
+                    else
+                        ErrorManager.ShowError("El valor de avaluo debe ser menor o igual al valor estimado del costo real de la prenda");
+                }
+                else
+                    ErrorManager.ShowError("Los valores de prestamo y valor maximo deben ser numericos");
             }
-            return false;
-
         }
 
-        private bool IsNumeric(string texto)
-        {
-            Regex regex = new Regex("[^0-9.-]+"); // Patrón que solo permite números enteros, decimales y negativos
-            return !regex.IsMatch(texto); // Devuelve true si el texto solo contiene números, de lo contrario devuelve false.
-        }
-
-        private void SaveInfoBelonging()
+        private void SaveBelongingEdition()
         {
             Domain.BelongingCreation.Belonging newBelonging = new Domain.BelongingCreation.Belonging();
             newBelonging.Category = cbCategory.SelectedItem.ToString();
@@ -458,18 +228,49 @@ namespace View.Views
             newBelonging.ApraisalAmount = int.Parse(tbMaxValue.Text);
             newBelonging.LoanAmount = int.Parse(tbApraisalAmount.Text);
             newBelonging.PorcentLoan = ((int.Parse(tbApraisalAmount.Text)) * 100) / (int.Parse(tbMaxValue.Text));//no esta en la BD
-            if (!edicion)
+            imageTemp.Add(componentImageOne.Source as BitmapImage);
+            imageTemp.Add(componentImageTwo.Source as BitmapImage);
+            imageTemp.Add(componentImageThree.Source as BitmapImage);
+            imageTemp.Add(componentImageFour.Source as BitmapImage);
+            newBelonging.imagesBitmap.Add(imageTemp[0]);
+            newBelonging.imagesBitmap.Add(imageTemp[1]);
+            newBelonging.imagesBitmap.Add(imageTemp[2]);
+            newBelonging.imagesBitmap.Add(imageTemp[3]);
+            if (edition)
+            {
+                belongingsList[idEtition] = newBelonging;
+                CleanComponents();
+                MessageBox.Show("Prendada  temporal modificada con exito ");
+                communication.refreshBelongings(belongingsList);
+                this.Close();
+            }
+        }
+
+        private void SaveBelongingInList()
+        {
+            Domain.BelongingCreation.Belonging newBelonging = new Domain.BelongingCreation.Belonging();
+            newBelonging.Category = cbCategory.SelectedItem.ToString();
+            newBelonging.GenericDescription = tbDescription.Text;
+            newBelonging.Features = tbFeature.Text;
+            newBelonging.SerialNumber = tbSerialNumber.Text;
+            newBelonging.Model = tbModel.Text;//no está en la BD
+            newBelonging.ApraisalAmount = int.Parse(tbMaxValue.Text);
+            newBelonging.LoanAmount = int.Parse(tbApraisalAmount.Text);
+            newBelonging.PorcentLoan = ((int.Parse(tbApraisalAmount.Text)) * 100) / (int.Parse(tbMaxValue.Text));//no esta en la BD
+            imageTemp.Add(componentImageOne.Source as BitmapImage);
+            imageTemp.Add(componentImageTwo.Source as BitmapImage);
+            imageTemp.Add(componentImageThree.Source as BitmapImage);
+            imageTemp.Add(componentImageFour.Source as BitmapImage);
+            newBelonging.imagesBitmap.Add(imageTemp[0]);
+            newBelonging.imagesBitmap.Add(imageTemp[1]);
+            newBelonging.imagesBitmap.Add(imageTemp[2]);
+            newBelonging.imagesBitmap.Add(imageTemp[3]);
+            if (!edition)
             {
                 belongingsList.Add(newBelonging);
                 CleanComponents();
-            }
-            else
-            {
-                belongingsList[posicionEdicion] = newBelonging;
-                ClosePage();
-            }
-
-
+                MessageBox.Show("Prendada  temporal guardada con exito ");     
+            }   
         }
 
         private void CleanComponents()
@@ -481,6 +282,33 @@ namespace View.Views
             tbModel.Text = "";
             tbApraisalAmount.Text = "";
             tbMaxValue.Text = "";
+            imageTemp.Clear();
+            LoadDefaultImage(1);
+            LoadDefaultImage(2);
+            LoadDefaultImage(3);
+            LoadDefaultImage(4);
+            imageBool[0]= false;
+            imageBool[1]= false;
+            imageBool[2]= false;
+            imageBool[3]= false;
+            imageTemp.Clear();
+            btnLoadImage.IsEnabled = true;
+        }
+
+        private bool IsNumeric(string texto)
+        {
+            Regex regex = new Regex("[^0-9.-]+"); // Patrón que solo permite números enteros, decimales y negativos
+            return !regex.IsMatch(texto); // Devuelve true si el texto solo contiene números, de lo contrario devuelve false.
+        }
+
+        private void ClicClosePage(object sender, RoutedEventArgs e)
+        {
+            if(!edition)
+            {
+                communication.refreshBelongings(belongingsList);
+                this.Close();
+            }else
+                this.Close();
         }
     }
 }

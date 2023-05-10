@@ -53,10 +53,10 @@
         <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="23,255,0,0" Grid.Row="1" VerticalAlignment="Top" Width="149"/>
         <Button Content="Cerrar registro" HorizontalAlignment="Left" Margin="19,0,0,0" Grid.Row="2" VerticalAlignment="Center" Click="ClicClosePage"/>
         <Button Content="Guardar prenda" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="ClickSaveBelonging"/>
-        <Image x:Name="componentImageOne" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="49,35,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124" Source="/Images/plus.png"/>
-        <Image x:Name="componentImageThree" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="49,157,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124" Source="/Images/plus.png"/>
-        <Image x:Name="componentImageTwo" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="292,35,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121" Source="/Images/plus.png"/>
-        <Image x:Name="componentImageFour" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="292,157,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121" Source="/Images/plus.png"/>
+        <Image x:Name="componentImageOne" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="49,35,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124" Source="/Icons/photo.png"/>
+        <Image x:Name="componentImageThree" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="49,157,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124" Source="/Icons/photo.png"/>
+        <Image x:Name="componentImageTwo" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="292,35,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121" Source="/Icons/photo.png"/>
+        <Image x:Name="componentImageFour" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="292,157,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121" Source="/Icons/photo.png"/>
         <Button x:Name="btnLoadImage" Grid.Column="1" Content="Subir foto" HorizontalAlignment="Left" Margin="235,15,0,0" Grid.Row="2" VerticalAlignment="Top" Click="ClickLoadImage"/>
         <Button Grid.Column="1" Content="X" HorizontalAlignment="Left" Margin="197,61,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="22" FontSize="14" FontWeight="Bold" Background="#FFFB0000" BorderBrush="Red" Foreground="White" Click="ClickDeleteImgOne"/>
         <Button Grid.Column="1" Content="X" HorizontalAlignment="Left" Margin="425,62,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="22" FontSize="14" FontWeight="Bold" Background="#FFFB0000" BorderBrush="Red" Foreground="White" Click="ClickDeleteImgTwo"/>

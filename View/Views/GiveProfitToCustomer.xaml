@@ -1,10 +1,10 @@
 ﻿<Page x:Class="View.Views.GiveProfitToCustomer"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:View.Views"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="800" d:DesignWidth="1200"
       Title="GiveProfitToCustomer">
 
@@ -12,80 +12,106 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="275"/>
-            <RowDefinition Height="100*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="900"/>
-            <ColumnDefinition Width="300*"/>
+            <ColumnDefinition Width="800"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Button 
-            Grid.Column="1" 
-            Grid.Row="0"
-            Content="Buscar Cliente" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Bottom"
-            Margin="0,0,75,10"
-            Height="30" Width="120"
-         />
-        <TextBox 
-            Grid.Row="0"
-            Grid.Column="1" 
-            HorizontalAlignment="Right" 
-            Margin="0,20,75,0" 
-            TextWrapping="Wrap" 
-            Text="" 
-            VerticalAlignment="Top" 
-            Width="120"
-            Height="20"
-            TextAlignment="Center"
-        />
-        <Label 
-             Grid.Row="0"
+        <Button
             Grid.Column="1"
-            Content="CURP" 
-            Margin="0,20,200,0" 
+            Grid.Row="0"
+            Content="Buscar Cliente"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="0,0,100,10"
+            Height="35" Width="200"
+            FontSize="20"
+            Foreground="White"
+            Background="#323D8F"
+            Click="Btn_FindCustomer">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <TextBox
+            x:Name="tbSearchCurp"
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            Margin="0,20,100,0"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top"
+            Width="230"
+            Height="30"
+            TextAlignment="Center"
+            MaxLength="18"
+            FontSize="20">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </TextBox.Style>
+
+
+        </TextBox>
+        <Label
+            Grid.Row="0"
+            Grid.Column="1"
+            Content="CURP"
+            Margin="0,20,329,0"
             FontWeight="Bold"
-            Height="25"
-            Width="40"
+            Height="35"
+            Width="50"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
-         />
-        <DataGrid 
-            Grid.Row="1" 
+            FontSize="15"
+            />
+        <DataGrid
+            IsReadOnly="True"
+            x:Name="dgCustomers"
+            Grid.Row="1"
             Grid.ColumnSpan="2"
             Margin="80,50"
-            ItemsSource="{Binding NombreDeMiLista}"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding customersList}"
             >
             <DataGrid.Columns>
-                <DataGridTextColumn 
-                    Width="100*" 
-                    Header="Curp" 
+                <DataGridTextColumn
+                    Width="100*"
+                    Header="Curp"
                     Binding="{Binding curp}"/>
                 <DataGridTextColumn
-                    Width="100*" 
+                    Width="100*"
                     Header="Nombre"
                     Binding="{Binding firstname}"/>
-                <DataGridTextColumn 
-                    Width="100*" 
-                    Header="Apellido(s)" 
+                <DataGridTextColumn
+                    Width="100*"
+                    Header="Apellido(s)"
                     Binding="{Binding lastName}"/>
-                <DataGridTextColumn 
-                    Width="200*" 
-                    Header="Articulos Vendidos" 
-                    Binding="{Binding articulosvendidosLista}"/>
-                <DataGridTextColumn 
-                    Width="100*" 
+                <DataGridTextColumn
+                    Width="200*"
+                    Header="Articulos Vendidos"
+                    Binding="{Binding articlesProfit}"/>
+                <DataGridTextColumn
+                    Width="100*"
                     Header="Monto de ganancia"
-                    Binding="{Binding montoDeGanancia}"/>
+                    Binding="{Binding profitCustomer}"/>
 
 
-            </DataGrid.Columns>    
-            
+            </DataGrid.Columns>
+
         </DataGrid>
 
-        <Label 
+        <Label
             Content=
             "*Los articulos monstrados, asi como los montos de  ganancia son obtenidos a partir de aquellos articulos vendidios y consultados&#x0a; dentro del primer año(365dias) a partir del dia de su venta. Aquellos articulos vendidos posteriormente a al año de consulta, pasan&#x0a; a ser ganancia de la tienda.*"
             Grid.Row="2"
@@ -95,26 +121,42 @@
             Height="80"
             Margin="75,20" FontWeight="Bold"
             />
-        <Button 
+        <Button
             Grid.Row="2"
             Grid.Column="1"
-            Margin="10,41,184,130"
-            Content="Regresar"   
+            Margin="0,20,280,0"
+            Content="Regresar"
             Width="100"
-            Height="25"
+            Height="35"
             VerticalAlignment="Top"
-            HorizontalAlignment="Right"
-            />
-        <Button 
+            FontSize="20"
+            Foreground="White"
+            Background="#696969"
+            HorizontalAlignment="Right" Click="Btn_ClosePage" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button
             Grid.Row="2"
             Grid.Column="1"
-            Margin="121,41,69,130"
-            Content="Realizar Pago"    
-            Height="25"
-            Width="100"
+            Margin="0,20,100,0"
+            Content="Realizar Pago"
+            Height="36"
+            Width="150"
+            FontSize="20"
             VerticalAlignment="Top"
-            HorizontalAlignment="Right"
-        />
+            Foreground="White"
+            Background="#323D8F"
+            HorizontalAlignment="Right" Click="Btn_GiveProfitCustomer" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
 
 

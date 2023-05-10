@@ -30,9 +30,18 @@
             VerticalAlignment="Top"
             Height="34"
             Width="200"
-            Grid.Column="3" Click="btn_FilterArticles"/>
+            Foreground="White"
+            Background="#323D8F"
+            FontSize="20"
+            Grid.Column="3" Click="btn_FilterArticles" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <ComboBox
-            IsEnabled="false"
+
             x:Name="cbCategory"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -40,30 +49,33 @@
             Height="32"
             Grid.Column="2"
             FontSize="15"/>
-        <ScrollViewer
-            Background="Black"
-            Grid.Row="1"
-            Grid.Column="0"
-            Grid.ColumnSpan="4"
-            Margin="20,20,20,20">
 
-            <DataGrid
-                x:Name="dgArticles"
-                Grid.Row="1"
-                Grid.ColumnSpan="4"
-                AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Descripcion" Width="200" Binding="{Binding description}"/>
-                    <DataGridTextColumn Header="Imagen" Width="200"/>
-                    <DataGridTextColumn Header="Codigo de barras" Width="100" Binding="{Binding barCode}"/>
-                    <DataGridTextColumn Header="Numero de serie" Width="100" Binding="{Binding serialNumber}"/>
-                    <DataGridTextColumn Header="Bolsa" Width="50" Binding="{Binding idContract}"/>
-                    <DataGridTextColumn Header="Precio" Width="50" Binding="{Binding sellingPrice}"/>
-                    <DataGridTextColumn Header="Categoria" Width="100" Binding="{Binding category}"/>
-                    <DataGridTextColumn Header="Fecha de comercializacion" Width="100" Binding="{Binding createDate}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </ScrollViewer>
+
+        <DataGrid
+            x:Name="dgArticles"
+            Grid.Row="1"
+            Grid.ColumnSpan="4"
+            AutoGenerateColumns="False"
+            IsReadOnly="true">
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="Descripcion" Width="200" Binding="{Binding description}"/>
+                <!--<DataGridTextColumn Header="Imagen" Width="200" Binding="{Binding imageOne}"/>-->
+                <DataGridTemplateColumn Header="Imagen" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Width="100" Height="100" Source="{Binding imageConverted}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Codigo de barras" Width="100" Binding="{Binding barCode}"/>
+                <DataGridTextColumn Header="Numero de serie" Width="100" Binding="{Binding serialNumber}"/>
+                <DataGridTextColumn Header="Bolsa" Width="50" Binding="{Binding idContract}"/>
+                <DataGridTextColumn Header="Precio" Width="50" Binding="{Binding sellingPrice}"/>
+                <DataGridTextColumn Header="Categoria" Width="100" Binding="{Binding category}"/>
+                <DataGridTextColumn Header="Fecha de comercializacion" Width="100" Binding="{Binding createDate, StringFormat=dd/MM/yyyy}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
         <DatePicker
             x:Name="dpDate"
             HorizontalAlignment="Center"
@@ -84,7 +96,17 @@
                  Grid.Column="0"
                  FontSize="15"
                  HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center"/>
+                 VerticalContentAlignment="Center">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
         <Button
             Content="Editar"
             HorizontalAlignment="Center"
@@ -93,7 +115,16 @@
             VerticalAlignment="Center"
             Width="128"
             Height="34"
-            Grid.Column="3" Click="Btn_EditArticle"/>
+            FontSize="20"
+            Foreground="White"
+            Background="#323D8F"
+            Grid.Column="3" Click="Btn_EditArticle" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Label
             Content="Serie,Modelo,Etc"
             Grid.Row="0"
@@ -126,7 +157,16 @@
             VerticalAlignment="Bottom"
             Height="34"
             Width="200"
-            Grid.Column="3" Click="btn_CleanFilters"/>
+            FontSize="20"
+            Foreground="White"
+            Background="#323D8F"
+            Grid.Column="3" Click="btn_CleanFilters" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
         <CheckBox
             x:Name="cbDateEnabled"
@@ -138,16 +178,16 @@
             VerticalAlignment="Top" Checked="Cb_CalendarEnabled" Unchecked="bt_dateUnabled"
             IsChecked="false"
             />
-        <CheckBox
-            x:Name="cbCategoryEnabled"
-            Grid.Column="2"
-            Grid.Row="0"
-            Content="habilitar filtro de categoría"
-            HorizontalAlignment="Center"
-            Margin="0,70,0,0"
-            VerticalAlignment="Top" Checked="Cb_CategoryEnabled" Unchecked="bt_CategoryUnabled"
-            IsChecked="false"
-            />
+        <!--<CheckBox
+        x:Name="cbCategoryEnabled"
+        Grid.Column="2"
+        Grid.Row="0"
+        Content="habilitar filtro de categoría"
+        HorizontalAlignment="Center"
+        Margin="0,70,0,0"
+        VerticalAlignment="Top" Checked="Cb_CategoryEnabled" Unchecked="bt_CategoryUnabled"
+        IsChecked="false"
+        />-->
 
 
     </Grid>
