@@ -95,13 +95,21 @@ namespace BusinessLogic
             return result;
         }
 
+<<<<<<< HEAD
         public static Staff GetStaff(int idUser)
         {
             var result = new Staff();
+=======
+
+        public static (int, Staff) validateStaff(string userName, string password)
+        {
+
+>>>>>>> 5e9350a03cd6f934c2dc273b4dcbfe87a5bb6057
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
+<<<<<<< HEAD
                     result = connection.Staffs.Find(idUser);
                 }
             }
@@ -113,5 +121,27 @@ namespace BusinessLogic
         }
 
 //>>>>>>> 0ef6619f57abd0b5b64d28606494fdfefb75c721
+=======
+                    List<Staff> list = connection.Staffs.ToList();
+
+                    foreach (var staff in list)
+                    {
+                        if (staff.userName.Equals(userName) && staff.password.Equals(password))
+                        {
+                            return (MessageCode.SUCCESS, staff);
+                        }
+
+
+                    }
+                    return (MessageCode.ERROR_USER_NOT_FOUND, null);
+
+                }
+            }
+            else
+                return (MessageCode.CONNECTION_ERROR, null);
+
+
+        }
+>>>>>>> 5e9350a03cd6f934c2dc273b4dcbfe87a5bb6057
     }
 }

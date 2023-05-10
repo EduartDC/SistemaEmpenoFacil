@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,33 @@ namespace View.Views
     /// </summary>
     public partial class MenuView : Page
     {
+        Staff staff = new Staff();
         public MenuView()
         {
             InitializeComponent();
+            
         }
+        public void staffReceiver(Staff staff)
+        {
+            this.staff = staff;
+            DataContext = null;
+            DataContext = this;
+            //staffCommunication.refreshStaff(staff);
+            Console.WriteLine("MenuView2 " + this.staff.rol);
+            adminAccesibility();
 
+        }
+        public void adminAccesibility()
+        {
+            
+            if (!staff.rol.Equals("Admin"))
+            {
+                
+               itemOptions.Visibility = Visibility.Collapsed;
+            }else
+                itemOptions.Visibility=Visibility.Visible;
+            
+        }
         private void itemHome_Click(object sender, RoutedEventArgs e)
         {
 

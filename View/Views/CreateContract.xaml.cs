@@ -31,8 +31,6 @@ namespace View.Views
         private bool customerSucces = false;
         private Metric metrics;
         private List<Domain.BelongingCreation.Belonging> belongingList = new List<Domain.BelongingCreation.Belonging>();
-        private List<BitmapImage> bitmapImgList = new List<BitmapImage>();
-        //private List<BitmapImage> bitmapUtil = new List<BitmapImage>();//lista usada para pasar a byte y eliminar de lista sin alterar la original
         private List<byte[]> byteImages = new List<byte[]>();
 
         private DateTime currentlyDate;//fecha actual
@@ -44,8 +42,6 @@ namespace View.Views
 
         private string totalPaymentForEndorsement = "";// total de pago por refrendo
 
-
-
         public CreateContract()
         {
             InitializeComponent();
@@ -53,7 +49,6 @@ namespace View.Views
             LoadMetrics();
             LoadDates();
             tbAppraisalAmount.Text = "";
-
         }
 
         private void LoadDates()
@@ -64,7 +59,7 @@ namespace View.Views
         }
         public void EnabledComboBoxDates()
         {
-            if(belongingList.Count >= 1)
+            if (belongingList.Count >= 1)
                 cbTerm.IsEnabled = true;
             else
             {
@@ -73,12 +68,9 @@ namespace View.Views
                 tbDateEndorsementSettlement.Clear();
                 tbTotalPaymentForEndorsement.Clear();
             }
-                
         }
         private void BlockTextBoxes()
         {
-
-
             tbNameCustomer.IsEnabled = false;
             tbAppraisalAmount.IsEnabled = false;
             tbLoanPorcentage.IsEnabled = false;
@@ -100,28 +92,28 @@ namespace View.Views
         private void ClicCreatePledgeRegister(object sender, RoutedEventArgs e)
         {
             CreateBelongingRegister createBelongingRegister = new CreateBelongingRegister();
-            createBelongingRegister.CommunicacionPages(this, belongingList, bitmapImgList, false, dgBelongings.SelectedIndex);
+            createBelongingRegister.CommunicacionPages(this, belongingList, false, dgBelongings.SelectedIndex);
             createBelongingRegister.ShowDialog();
         }
 
         //Metodo de interface
-        public void refreshBelongings(List<Domain.BelongingCreation.Belonging> belongingsList, List<BitmapImage> bitmapImgList)
+        public void refreshBelongings(List<Domain.BelongingCreation.Belonging> belongingsList)
         {
-            this.belongingList = belongingList;
+            this.belongingList = belongingsList;
             dgBelongings.ItemsSource = this.belongingList;
             dgBelongings.Items.Refresh();
-            this.bitmapImgList = bitmapImgList;
+            MessageBox.Show("" + this.belongingList[0].imagesBitmap.Count());
             LoadFields();
             EnabledComboBoxDates();
             CalculatesAppraisalAndLoanAmount();
-            if (cbTerm.SelectedIndex>=0)
+            if (cbTerm.SelectedIndex >= 0)
             {
                 LoadTotalPaymentForEndorsement();
                 LoadTotalPaymentoForSettlement();
 
             }
-            
-           // LoadTotalPaymentForEndorsement();
+
+            // LoadTotalPaymentForEndorsement();
         }
 
         private void LoadFields()
@@ -132,47 +124,18 @@ namespace View.Views
             {
                 for (int i = 0; i < belongingList.Count; i++)
                     totalAppraiseAmmount += belongingList[i].ApraisalAmount;
-               // tbAppraisalAmount.Text = totalAppraiseAmmount.ToString();
+                // tbAppraisalAmount.Text = totalAppraiseAmmount.ToString();
             }
-            
-
         }
 
         private void ClickDeleteBelonging(object sender, RoutedEventArgs e)
         {
             if (dgBelongings.SelectedIndex >= 0)
             {
-                if (dgBelongings.SelectedIndex == 0)
-                {
-                    for (int i = 0; i < 4; i++)
-                        bitmapImgList.RemoveAt(0);
-                }
-                if (dgBelongings.SelectedIndex == 1)
-                {
-                    for (int i = 0; i < 4; i++)
-                        bitmapImgList.RemoveAt(4);
-                }
-                if (dgBelongings.SelectedIndex == 2)
-                {
-                    for (int i = 0; i < 4; i++)
-                        bitmapImgList.RemoveAt(8);
-                }
-                if (dgBelongings.SelectedIndex == 3)
-                {
-                    for (int i = 0; i < 4; i++)
-                        bitmapImgList.RemoveAt(12);
-                }
-                if (dgBelongings.SelectedIndex == 4)
-                {
-                    for (int i = 0; i < 4; i++)
-                        bitmapImgList.RemoveAt(16);
-                }
-
                 belongingList.RemoveAt(dgBelongings.SelectedIndex);
                 dgBelongings.Items.Refresh();
                 LoadFields();
                 EnabledComboBoxDates();
-
             }
             else
                 MessageBox.Show("fila no seleccionada");
@@ -184,7 +147,7 @@ namespace View.Views
             if (dgBelongings.SelectedIndex >= 0)
             {
                 CreateBelongingRegister createBelongingRegister = new CreateBelongingRegister();
-                createBelongingRegister.CommunicacionPages(this, belongingList, bitmapImgList, true, dgBelongings.SelectedIndex);
+                createBelongingRegister.CommunicacionPages(this, belongingList, true, dgBelongings.SelectedIndex);
                 createBelongingRegister.ShowDialog();
             }
             else
@@ -229,8 +192,6 @@ namespace View.Views
             {
                 ErrorManager.ShowError(MessageError.CUSTOMER_NOT_INTRODUCED);
             }
-
-
         }
 
         private void ComboBoxListener(object sender, SelectionChangedEventArgs e)
@@ -238,16 +199,13 @@ namespace View.Views
             if (cbTerm.SelectedIndex >= 0)
             {
                 LoadDatesEndorsementSettlement();
-                
-
-                // TotalPaymentForEndorsement
                 if (belongingList.Count >= 1)
                 {
                     LoadTotalPaymentForEndorsement();
                     LoadTotalPaymentoForSettlement();
                 }
             }
-       
+
         }
 
         private void LoadTotalPaymentoForSettlement()
@@ -283,18 +241,18 @@ namespace View.Views
             paymentDates = "";
             for (int i = 1; i <= (int)cbTerm.SelectedItem; i++)
             {
-                paymentDates +=  DateTime.Now.AddMonths(i).ToString("d") + ";\n";
+                paymentDates += DateTime.Now.AddMonths(i).ToString("d") + ";\n";
             }
-           
+
             tbDateEndorsementSettlement.Text = paymentDates.ToString();
             float totalAppraisal = 0;
             foreach (Domain.BelongingCreation.Belonging b in belongingList)
             {
                 totalLoan += b.LoanAmount;
-                totalAppraisal +=b.ApraisalAmount;
+                totalAppraisal += b.ApraisalAmount;
             }
             tbLoanAmount.Text = totalLoan.ToString();
-            tbAppraisalAmount.Text = totalAppraisal.ToString();//////////////////////////////////
+            tbAppraisalAmount.Text = totalAppraisal.ToString();
             CalculateLoanPorcentage();
         }
 
@@ -339,7 +297,6 @@ namespace View.Views
             }
             tbTotalPaymentForEndorsement.Text = "";
             tbTotalPaymentForEndorsement.Text = info;
-            
         }
 
         private void Btn_CreateContract(object sender, RoutedEventArgs e)
@@ -350,11 +307,9 @@ namespace View.Views
                 ErrorManager.ShowError(MessageError.FIELDS_EMPTY);
         }
 
-
         private void RegisterContract()
         {
             Contract newContract = new Contract();
-
             newContract.loanAmount = float.Parse(tbLoanAmount.Text);//loanAmount
             newContract.deadlineDate = limitPaymentDate;//deadlineDate
             newContract.creationDate = currentlyDate;//CreationDate
@@ -370,15 +325,7 @@ namespace View.Views
             newContract.loanProcentage = tbLoanPorcentage.Text;
             //newContract.totalAnnualCost = tbTotalAnnualCost.Text;
             newContract.annualInterestRate = tbAnnualInterestRate.Text;
-            
             SaveInfo(newContract);
-            /*
-             * faltaria guardar en la base un string para:
-             *      guardar todas las fechas de pagos de refrendo/liquidacion,
-             *      todas los pagos de refrendo y 
-             *      todos lo pagos de liquidacion
-             */
-
         }
 
         private void SaveInfo(Contract contrat)
@@ -422,86 +369,47 @@ namespace View.Views
             }
             else
             {
-                //bitmapUtil = bitmapImgList;
-                //for(int i=0; i<belongingsPrepared.Count; i++)
-                ConvertBitmapToBytes();
                 SaveImageBelongings(idBelongings);
             }
         }
 
         private void SaveImageBelongings(List<int> idBelongingsSaved)
         {
-            List<ImagesBelonging> imgBelongingsPrepared = new List<ImagesBelonging>();
-            List<byte[]> imagesClone = byteImages;
-            
-            for(int i = 0; i < idBelongingsSaved.Count;i++) 
+            List<ImagesBelonging> imagesPrepared = new List<ImagesBelonging>();
+            ConvertImagesToBytes();
+            for (int i = 0; i < idBelongingsSaved.Count(); i++)//recorrer lista de id
+            {
+                for(int j = 0; j<4; j++)//recorrer prendas
+                {
+                    Console.WriteLine("numero de id de prenda: " + idBelongingsSaved[i]);
+                    ImagesBelonging imagesBelonging = new ImagesBelonging();
+                    imagesBelonging.Belonging_idBelonging = idBelongingsSaved[i];
+                    imagesBelonging.imagen = belongingList[i].imagesBytes[j];
+                    imagesPrepared.Add(imagesBelonging);
+                }
+            }
+            int result = BelongingDAO.SaveimagesBelongings(imagesPrepared);
+            if (result == MessageCode.CONNECTION_ERROR)
+                ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
+            else if (result == MessageCode.SUCCESS)
+                MessageBox.Show("IMAGENES REGISTRADAS");
+            else
+                ErrorManager.ShowWarning("Error critico");
+        }
+
+        private void ConvertImagesToBytes()
+        {
+            for (int i = 0; i < belongingList.Count(); i++)
             {
                 for (int j = 0; j < 4; j++)
-                {
-                    ImagesBelonging util = new ImagesBelonging();
-                    util.imagen = imagesClone[0];
-                    util.Belonging_idBelonging = idBelongingsSaved[i];
-                    imgBelongingsPrepared.Add(util);
-                    imagesClone.RemoveAt(0);
-                }
-            }
-            int result = BelongingDAO.SaveimagesBelongings(imgBelongingsPrepared);
-            if (result == MessageCode.CONNECTION_ERROR)
-            {
-                ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
-            }
-            else
-                if (result == MessageCode.SUCCESS)
-            {
-                MessageBox.Show("IMAGENES REGISTRADAS");
-            }
-            else
-            {
-                ErrorManager.ShowWarning("ALGO SALIO MAL");
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        PngBitmapEncoder encoder = new PngBitmapEncoder();
+                        encoder.Frames.Add(BitmapFrame.Create(belongingList[i].imagesBitmap[j]));
+                        encoder.Save(stream);
+                        belongingList[i].imagesBytes.Add(stream.ToArray());
+                    }
             }
         }
-
-        private void ConvertBitmapToBytes(/*int position*/)
-        {
-            for (int i = 0; i < bitmapImgList.Count; i++)
-            {
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    PngBitmapEncoder encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(bitmapImgList[i]));
-                    encoder.Save(stream);
-                    byteImages.Add(stream.ToArray());
-                }
-            }
-
-        }
-
-
-
-
-
-
-        //private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (textBox.Text == "Introduce tu texto aquí")
-        //    {
-        //        textBox.Text = "";
-        //        textBox.Foreground = Brushes.Black;
-        //    }
-        //}
-
-        //private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (string.IsNullOrWhiteSpace(textBox.Text))
-        //    {
-        //        textBox.Text = "Introduce tu texto aquí";
-        //        textBox.Foreground = Brushes.Gray;
-        //    }
-        //}
-
-
-
     }
 }

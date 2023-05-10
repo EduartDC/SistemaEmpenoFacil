@@ -278,7 +278,7 @@
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem x:Name="itemOptions" Style="{StaticResource MenuItemStyle}">
+                <MenuItem x:Name="itemOptions" Style="{StaticResource MenuItemStyle}" >
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image
@@ -291,7 +291,7 @@
                                 FontSize="16"
                                 FontWeight="Bold"
                                 Text="Opciones" />
-                            
+
                         </StackPanel>
 
                     </MenuItem.Header>
@@ -300,7 +300,7 @@
                         Click="itemOptions_Click"
                         Header="Configuracion de Metricas"
                         Style="{StaticResource MenuItemStyle}" />
-                    <MenuItem 
+                    <MenuItem
                         x:Name="SalesReport"
                         Click="GenerateSalesReport_Click"
                         Header="Generar reporte de ventas "
@@ -325,11 +325,11 @@
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
-                
-                    
 
-                    
-               
+
+
+
+
             </Menu>
 
         </StackPanel>
