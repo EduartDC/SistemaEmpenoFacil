@@ -62,19 +62,18 @@ namespace BusinessLogic
             }
             catch (DataException ex)
             {
-                
                 result = 500;
                 _log.Add(ex.ToString());
             }
             catch (InvalidOperationException ex)
             {
                 _log.Add(ex.ToString());
-                result = RegisterMetrics(interestRate, IVA);
+                result = 400;
             }
             return result;
         }
 
-        private static int RegisterMetrics(string newInterestRate, string newIVA)
+        public static int RegisterMetrics(string newInterestRate, string newIVA)
         {
             int result = 200;
             NewLog _log = new NewLog();
