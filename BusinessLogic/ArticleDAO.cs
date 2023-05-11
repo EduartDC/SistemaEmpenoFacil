@@ -13,7 +13,7 @@ namespace BusinessLogic
 {
     public class ArticleDAO
     {
-        public static (int, List<ArticleDomain>) getArticles()
+        public static  (int, List<ArticleDomain>) getArticles()
         {
             List<Belongings_Articles> articles = new List<Belongings_Articles>();//lista para la conexion
             List<ArticleDomain> articlesDomain = new List<ArticleDomain>();//lista purgada
@@ -21,7 +21,7 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    articles = connection.Belongings_Articles.ToList();
+                    articles = connection.Belongings_Articles.Where(a=> a.stateArticle.Equals("Disponible")) .ToList();
                     foreach (var item in articles)
                     {
                         ArticleDomain newArticle = new ArticleDomain();

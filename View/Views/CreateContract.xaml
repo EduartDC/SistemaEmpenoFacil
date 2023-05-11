@@ -431,6 +431,7 @@
             <Rectangle HorizontalAlignment="Left" Height="160" Margin="742,45,0,0" Grid.Row="3" Stroke="#FF330099" VerticalAlignment="Top" Width="1" />
             <Rectangle HorizontalAlignment="Left" Height="160" Margin="908,45,0,0" Grid.Row="3" Stroke="#FF330099" VerticalAlignment="Top" Width="1" />
             <MediaElement HorizontalAlignment="Left" Height="100" Margin="1287,355,0,0" Grid.Row="3" VerticalAlignment="Top" Width="100"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="670,46,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Borrar"/>
 
             <!--<TextBox x:Name="lbTextBox" Text="Introduce tu texto aquí"
             Foreground="Gray"

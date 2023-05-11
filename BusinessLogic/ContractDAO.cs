@@ -193,6 +193,49 @@ namespace BusinessLogic
             return result;
         }
 
+        public static int DeletePendingContrat(int idContract)
+        {
+            int result = 0;
+            if (Utilities.VerifyConnection())
+            {
+                try
+                {
+                    using (var connection = new ConnectionModel())
+                    {
+                        var contractTemp = connection.Contracts.Find(idContract);
+                        connection.Contracts.Remove(contractTemp);
+                        connection.SaveChanges();
+                        result = MessageCode.SUCCESS;
+                    }
+                }
+                catch (ArgumentException)
+                {
+                    result = MessageCode.ERROR_UPDATE;
+                }
+            }
+            else
+                result = MessageCode.CONNECTION_ERROR;
+            return result;
+        }
+
+        public static int activeContract(int idContract)
+        {
+            int result = 0;
+            if(Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    Contract temp = connection.Contracts.Find(idContract);
+
+                    temp.stateContract = StatesContract.ACTIVED_CONTRACT;
+                    connection.SaveChanges();
+
+                }
+            }else
+                result = MessageCode.CONNECTION_ERROR;
+            return result;
+        }
+
     }
 }
 
