@@ -46,11 +46,11 @@ namespace View.Views
             dpDate.Text = DateTime.Now.ToString();
         }
 
-        private void LoadArticles()
+        private   void LoadArticles()
         {
             int code = 0;
             articles.Clear();
-            (code, articles) = ArticleDAO.getArticles();
+            (code, articles) =  ArticleDAO.getArticles() ;
 
             if (code == MessageCode.SUCCESS)
             {
@@ -61,7 +61,7 @@ namespace View.Views
             if (code == MessageCode.CONNECTION_ERROR)
             {
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
-                //codigo para cerrar page
+                this.Content = null;
             }
         }
 
@@ -80,7 +80,7 @@ namespace View.Views
 
         private void LoadCategories()
         {
-            List<string> categoriesList = new List<string> { "Selecciona una categoria", "Joyeria", "Relojeria", "Herramientas" };
+            List<string> categoriesList = new List<string> { "Selecciona una categoria", "Joyeria", "Relojeria", "Informatica","Electrodomesticos","linea blanca","Instrumentos","Herramientas", "Telefonia"};
             cbCategory.ItemsSource = categoriesList;
             cbCategory.SelectedIndex = 0;
         }
@@ -98,11 +98,10 @@ namespace View.Views
         {
             if (SelectedItem())
             {
-                var a = dgArticles.SelectedItem as Domain.ArticleDomain;
-                DateTime d = DateTime.Parse(a.createDate.ToString());
-                int r = d.Day;
-                var hoy = DateTime.Parse(dpDate.Text);
-                MessageBox.Show("dia de objeto: " + r + "\ndia de dp: " + hoy.Day.ToString());
+                var idArticle = dgArticles.SelectedItem as ArticleDomain;
+
+                MessageBox.Show("llamando a Editar articulo, id: " + idArticle.idArticle);
+               // Container.NavigationService.Navigate(new SetAsideView());
             }
             else
                 ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);
@@ -327,5 +326,11 @@ namespace View.Views
             cbCategory.IsEnabled = false;
             tbSearchField.IsEnabled = true;
         }
+
+
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Content = null;
+        //}
     }
 }
