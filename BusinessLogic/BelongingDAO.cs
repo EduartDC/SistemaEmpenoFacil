@@ -59,5 +59,22 @@ namespace BusinessLogic
             return MessageCode.SUCCESS;
 
         }
+
+        public static Belonging GetBelongingByID(int id)
+        {
+            Belonging belonging = null;
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    belonging = connection.Belongings.Find(id);
+                }
+            }
+            else
+            {
+                throw new Exception("Error de conexion");
+            }
+            return belonging;
+        }
     }
 }

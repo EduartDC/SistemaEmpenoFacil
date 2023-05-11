@@ -1,7 +1,9 @@
-﻿using BusinessLogic.Utility;
+﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using DataAcces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -25,29 +28,23 @@ namespace View.Views
         public CheckSalesRecords()
         {
             InitializeComponent();
-            showSales();
-        }
-
-        private void showSales()
-        {
-            List<String> sales = new List<String>();
-            sales.Add("Sale 1");
-            sales.Add("Sale 2");
-            sales.Add("Sale 3");
-            sales.Add("Sale 4");
-            sales.Add("Sale 5");
-            dataGridSales.ItemsSource = sales;
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedItem = dataGridSales.SelectedItem.ToString();
-            string message = selectedItem;
-            string messageTitle = "Objeto seleccionado";
-            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-            MessageBoxImage messageBoxImage = MessageBoxImage.Information;
-            MessageBoxResult messageBox;
-            messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+            try
+            {
+                Sale selectedSale= dataGridSales.SelectedItem as Sale;
+                
+                SaleDetails saleDetails = new SaleDetails();
+                saleDetails.showSaleDetails(selectedSale.idSale);
+                saleDetails.Show();
+                
+            }
+            catch(NullReferenceException)
+            {
+                dataGridSales.SelectedItem= null;
+            }
 
         }
 
@@ -82,12 +79,26 @@ namespace View.Views
                 }
                 else
                 {
-                    string message = "Busqueda por fecha de venta realizada correctamente";
-                    string messageTitle = "Busqueda por fecha de venta";
-                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
-                    MessageBoxResult messageBox;
-                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                    List<Sale> sales = new List<Sale>();
+                    DateTime selectedDate = (DateTime) salesDatePicker.SelectedDate;
+                    sales = SaleDAO.GetSales(selectedDate);
+                    dataGridSales.Items.Clear();
+                    if (sales != null && sales.Count == 0)
+                    {
+                        string message = "No ha encontrado ninguna venta realizada en la fecha solicitada";
+                        string messageTitle = "Busqueda por fecha de venta";
+                        MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                        MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                        MessageBoxResult messageBox;
+                        messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                    }
+                    else
+                    {
+                        foreach (Sale sale in sales)
+                        {
+                            dataGridSales.Items.Add(sale);
+                        }
+                    }
                 }
             }
             else
@@ -105,17 +116,27 @@ namespace View.Views
                 {
                     if(Utilities.ValidateInput(saleCodeTextBox.Text))
                     {
-                        string message = "Se ha realizado la busqueda por codigo de venta correctamente";
-                        string messageTitle = "Busqueda por codigo de venta";
-                        MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-                        MessageBoxImage messageBoxImage = MessageBoxImage.Information;
-                        MessageBoxResult messageBox;
-                        messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                        Sale sale = SaleDAO.GetSaleBySaleCode(int.Parse(saleCodeTextBox.Text));
+                        if (sale != null)
+                        {
+                            dataGridSales.SelectedItem = null;
+                            dataGridSales.Items.Clear();
+                            dataGridSales.Items.Add(sale);
+                        }
+                        else
+                        {
+                            string message = "No se encontro ninguna venta con el codigo: " + saleCodeTextBox.Text;
+                            string messageTitle = "Busqueda por codigo de venta incorrecta";
+                            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                            MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                            MessageBoxResult messageBox;
+                            messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                        }
                     }
                     else
                     {
-                        string message = "Por favor no ingrese caracteres especiales como codigo de venta";
-                        string messageTitle = "Busqueda por codigo de venta incorrecta";
+                        string message = "Se ha realizado la busqueda por codigo de venta correctamente";
+                        string messageTitle = "Busqueda por codigo de venta";
                         MessageBoxButton messageBoxButton = MessageBoxButton.OK;
                         MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                         MessageBoxResult messageBox;

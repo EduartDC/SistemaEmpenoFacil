@@ -29,7 +29,7 @@ namespace BusinessLogic
 
         public static Sale GetSaleBySaleCode(int saleCode)
         {
-            Sale sale = new Sale();
+            Sale sale = null;
             if(Utilities.VerifyConnection())
             {
                 using(var connection = new ConnectionModel())
