@@ -120,7 +120,7 @@ namespace View.Views
 
         private void Btn_Salir_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Content = null;
         }
 
         private void Btn_Add_Click(object sender, RoutedEventArgs e)

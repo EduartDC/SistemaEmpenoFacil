@@ -204,6 +204,7 @@
                     </MenuItem.Header>
                     <MenuItem
                         Name="itemConsultConstracts"
+                        Click="itemSearchContract_Click"
                         Header="Consultar Contratos"
                         Style="{StaticResource MenuItemStyle}" />
                     <MenuItem
@@ -257,6 +258,17 @@
                         Click="itemGiveProfitToCustomer_Click"
                         Header="Ganacia de clientes "
                         Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        x:Name="itemBlackList"
+                        Click="itemBlackList_Click"
+                        Header="Lista negra de clientes"
+                        Style="{StaticResource MenuItemStyle}"/>
+                    <MenuItem
+                        Name="itemCreateCustomer"
+                        Click="itemCreateCustomer_Click"
+                        Header="Registrar Cliente"
+                        Style="{StaticResource MenuItemStyle}"
+                        />
                 </MenuItem>
 
                 <MenuItem
