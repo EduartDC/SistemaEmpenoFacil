@@ -54,7 +54,7 @@ namespace View.Views
                 && emplyoee.statusStaff.Length != 0 && emplyoee.rol.Length != 0)
             {
 
-                if (Utilities.ValidateInput(emplyoee.fisrtName) && Utilities.ValidateInput(emplyoee.lastName) &&
+                if (Utilities.ValidateFormat(emplyoee.fisrtName, "[A-Za-z]+\\s+[A-Za-z]+") && Utilities.ValidateFormat(emplyoee.lastName, "[A-Za-z]+\\s+[A-Za-z]+") &&
                     Utilities.ValidateInput(emplyoee.userName))
                 {
                     if(emplyoee.password.Length == 0)
