@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="ArticleDAO.cs" />
     <Compile Include="BelongingDAO.cs" />
+    <Compile Include="BelongingsArticlesDAO.cs" />
     <Compile Include="ContractDAO.cs" />
     <Compile Include="CustomerDAO.cs" />
     <Compile Include="SaleDAO.cs" />

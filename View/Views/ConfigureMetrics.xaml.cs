@@ -90,23 +90,46 @@ namespace View.Views
             label_ErrorInterestRate.Content = "";
             if (ValidateEmptyCamps() && ValidateFormat())
             {
-                switch (MetricsDAO.UpdateMetrics(text_InterestRate.Text, text_IVA.Text))
+                int resultUpdate = MetricsDAO.UpdateMetrics(text_InterestRate.Text, text_IVA.Text);
+                switch (resultUpdate)
                 {
                     case 500:
                         MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
                         break;
 
                     case 400:
-                        MessageBox.Show("Error al realizar el registro, favor de intentarlo más tarde");
+                        MessageBox.Show("No se ha encontrado Metricas para editar en la base de datos, realizando registro de las metricas");
                         break;
 
                     case 200:
                         MessageBox.Show("Configuración Exitosa");
                         Close();
                         break;
+
+                }
+                if (resultUpdate == 400)
+                {
+                    registerMetrics();
                 }
 
 
+            }
+        }
+
+        private void registerMetrics()
+        {
+            switch(MetricsDAO.RegisterMetrics(text_InterestRate.Text, text_IVA.Text))
+            {
+                case 500:
+                    MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
+                    break;
+                case 400:
+                    MessageBox.Show("No se ha podido registrar las metricas en la base de datos, favor de intentarlo mas tarde");
+                    break;
+                case 200:
+                    MessageBox.Show("Registro de las metricas exitosa");
+                    Close();
+                    break;
             }
         }
 

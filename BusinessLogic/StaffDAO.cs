@@ -77,7 +77,8 @@ namespace BusinessLogic
                         statusStaff = newStaff.statusStaff,
                         userName = newStaff.userName,
                         password = newStaff.password,
-                        rol = newStaff.rol
+                        rol = newStaff.rol,
+                        rfc = newStaff.rfc
                     });
                     dataBaseOne.SaveChanges();
                 }
@@ -136,6 +137,35 @@ namespace BusinessLogic
             else
             {
                 throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return result;
+        }
+
+        public static int ExistStaff(string rfcRecived)
+        {
+            int result = 200;
+            NewLog _log = new NewLog();
+            try
+            {
+                using (var dataBase = new ConnectionModel())
+                {
+                    var staffExist = (from Staff in dataBase.Staffs
+                                      where Staff.rfc.Equals(rfcRecived)
+                                      select Staff).Count();
+                    if (staffExist > 0)
+                    {
+                        result = 100;
+                    }
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (EntityException ex)
+            {
+                _log.Add(ex.ToString());
+                result = 400;
             }
             return result;
         }
