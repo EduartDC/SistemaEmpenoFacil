@@ -39,8 +39,8 @@
         <DataGrid
             x:Name="tableCustomers"
             Grid.Row="1"
-            Width="1279"
-            Height="494"
+            Width="1280"
+            Height="350"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             AlternatingRowBackground="#E0E0E0"
