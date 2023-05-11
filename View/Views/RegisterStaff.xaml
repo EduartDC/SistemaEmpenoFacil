@@ -35,6 +35,8 @@
             <TextBox x:Name="text_UserName" HorizontalAlignment="Left" Margin="200,0,0,0" Grid.Row="4" TextWrapping="Wrap"  VerticalAlignment="Center" Width="224" FontSize="18"/>
             <ComboBox x:Name="comBox_Role" HorizontalAlignment="Left" Margin="94,8,0,0" Grid.Row="6" VerticalAlignment="Top" Width="181" FontSize="18"/>
             <PasswordBox x:Name="textPassword_Password" HorizontalAlignment="Left" Margin="124,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="236" FontSize="18"/>
+            <Label Content="RFC:" HorizontalAlignment="Left" Margin="16,10,0,0" Grid.Row="7" VerticalAlignment="Top" FontSize="18"/>
+            <TextBox Name="text_RFC" HorizontalAlignment="Left" Margin="94,14,0,0" Grid.Row="7" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218" FontSize="18"/>
         </Grid>
     </ScrollViewer>
 </Page>

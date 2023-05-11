@@ -34,25 +34,42 @@ namespace View.Views
 
         private void ClicCancelButton(object sender, RoutedEventArgs e)
         {
-
+            this.Content = null;
         }
 
         private void ClicRegisterButton(object sender, RoutedEventArgs e)
         {
             if (ValidateFormats())
             {
-                Staff newStaff = new Staff();
-                newStaff.fisrtName = text_Name.Text;
-                newStaff.lastName = text_LastName.Text;
-                newStaff.statusStaff = "Activo";
-                String passwordEncode = Utilities.Hash(textPassword_Password.Password);
-                newStaff.userName = text_UserName.Text;
-                newStaff.password = passwordEncode;
-                newStaff.rol = comBox_Role.SelectedItem.ToString();
-                RegisterNewStaff(newStaff);
+                switch(StaffDAO.ExistStaff(text_RFC.Text))
+                {
+                    case 200:
+                        registerStaff();
+                        break;
+                    case 100:
+                        MessageBox.Show("Empleado registrado, favor de registrar un empleado que no este en el sistema");
+                        break;
+                    case 400:
+                        MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
+                        break;
+                }
+                
             }
         }
 
+        private void registerStaff()
+        {
+            Staff newStaff = new Staff();
+            newStaff.fisrtName = text_Name.Text;
+            newStaff.lastName = text_LastName.Text;
+            newStaff.statusStaff = "Activo";
+            String passwordEncode = Utilities.Hash(textPassword_Password.Password);
+            newStaff.userName = text_UserName.Text;
+            newStaff.password = passwordEncode;
+            newStaff.rol = comBox_Role.SelectedItem.ToString();
+            newStaff.rfc = text_RFC.Text;
+            RegisterNewStaff(newStaff);
+        }
 
         private void RegisterNewStaff(Staff newStaff)
         {

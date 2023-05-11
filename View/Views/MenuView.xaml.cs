@@ -90,10 +90,24 @@ namespace View.Views
             Container.NavigationService.Navigate(new CutoffOperations());
         }
 
+        private void itemBlackList_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new ConsultBlackList1());
+        }
         private void itemOptions_Click(object sender, RoutedEventArgs e)
         {
+            ConfigureMetrics configureMetrics = new ConfigureMetrics();
+            configureMetrics.ShowDialog();
+        }
 
+        private void itemSearchContract_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new SearchContracts());
+        }
 
+        private void itemCreateCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new CreateCustomerRecord());
         }
     }
 }

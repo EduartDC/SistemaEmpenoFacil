@@ -37,7 +37,7 @@
                     CanUserResizeRows="False"
                     HeadersVisibility="Column"
                     ItemsSource="{Binding Items}"
-                    RowHeaderWidth="0" Height="494" Width="1137" VerticalAlignment="Center">
+                    RowHeaderWidth="0" Height="347" Width="1136" VerticalAlignment="Center">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Foreground" Value="#FFFFFF" />
