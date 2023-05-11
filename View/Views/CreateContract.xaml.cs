@@ -21,13 +21,15 @@ using System.Windows.Shapes;
 using BusinessLogic;
 using View.Properties;
 using System.IO;
+using Domain;
+using System.Windows.Media.Effects;
 
 namespace View.Views
 {
 
-    public partial class CreateContract : Page, Communication
+    public partial class CreateContract : Page, Communication, MessageService
     {
-        private Customer customer = null;
+        private DataAcces.Customer customer = null;
         private bool customerSucces = false;
         private Metric metrics;
         private List<Domain.BelongingCreation.Belonging> belongingList = new List<Domain.BelongingCreation.Belonging>();
@@ -41,6 +43,11 @@ namespace View.Views
         private int totalLoan = 0;
 
         private string totalPaymentForEndorsement = "";// total de pago por refrendo
+
+        //parametros en caso de cancelacionn o algun error
+        private int idContractSaved = 0;
+        private List<int> idBelongingsSaved = new List<int>();
+        private List<int> idImagesSaved = new List<int>();
 
         public CreateContract()
         {
@@ -274,7 +281,7 @@ namespace View.Views
         {
             float loan = float.Parse(tbLoanAmount.Text);
             float appraisal = float.Parse(tbAppraisalAmount.Text);
-            float result = (loan * 100) / appraisal;
+            double result = (loan * 100) / appraisal;
             tbLoanPorcentage.Text = result.ToString();
         }
 
@@ -313,7 +320,7 @@ namespace View.Views
             newContract.loanAmount = float.Parse(tbLoanAmount.Text);//loanAmount
             newContract.deadlineDate = limitPaymentDate;//deadlineDate
             newContract.creationDate = currentlyDate;//CreationDate
-            newContract.stateContract = BusinessLogic.StatesContract.ACTIVED_CONTRACT;
+            newContract.stateContract = BusinessLogic.StatesContract.PENDING_CONTRACT;
             newContract.iva = int.Parse(metrics.IVA);
             newContract.interestRate = int.Parse(metrics.interestRate);
             newContract.renewalFee = 0;//lo hace otro //renawalFee
@@ -340,6 +347,7 @@ namespace View.Views
                 ErrorManager.ShowError(MessageError.ERROR_ADD_OPERATION);
             else
             {
+                idContractSaved = idContract;
                 SaveBelongings(idContract);
             }
         }
@@ -359,6 +367,7 @@ namespace View.Views
                 util.loanAmount = belonging.LoanAmount;
                 util.description = belonging.GenericDescription;
                 util.Contract_idContract = idContract;
+                util.model = belonging.Model;
                 belongingsPrepared.Add(util);
             }
             (int result, List<int> idBelongings) = BelongingDAO.SaveBelongings(belongingsPrepared);
@@ -369,6 +378,7 @@ namespace View.Views
             }
             else
             {
+                idBelongingsSaved = idBelongings;
                 SaveImageBelongings(idBelongings);
             }
         }
@@ -388,13 +398,43 @@ namespace View.Views
                     imagesPrepared.Add(imagesBelonging);
                 }
             }
-            int result = BelongingDAO.SaveimagesBelongings(imagesPrepared);
+            (int result, List<int> idImages )= BelongingDAO.SaveimagesBelongings(imagesPrepared);
             if (result == MessageCode.CONNECTION_ERROR)
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
             else if (result == MessageCode.SUCCESS)
+            {
                 MessageBox.Show("IMAGENES REGISTRADAS");
+                idImagesSaved = idImages;
+                CallTransaction();
+            }
             else
                 ErrorManager.ShowWarning("Error critico");
+        }
+
+        private void CallTransaction() //llamado a metodo de dircio
+        {
+            //MainWindow mainWindow = new MainWindow();
+            //copiar de setAside 292
+            MainWindow mainWindow = null;
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is MainWindow)
+                {
+                    mainWindow = window as MainWindow;
+                    break;
+                }
+            }
+            //var window = Application.Current.MainWindow as MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            mainWindow.PrimaryContainer.Effect = blurEffect;
+            //campos estaticos para pruebas
+            (App.Current as App)._cashOnHand = 100000;
+            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LOAND, double.Parse(tbLoanAmount.Text), idContractSaved);
+            newOperation.CommunicacionPages(this);
+            mainWindow.SecundaryContainer.Navigate(newOperation);
+            mainWindow.PrimaryContainer.IsHitTestVisible = false;
         }
 
         private void ConvertImagesToBytes()
@@ -410,6 +450,55 @@ namespace View.Views
                         belongingList[i].imagesBytes.Add(stream.ToArray());
                     }
             }
+        }
+
+        public void Communication(bool result)
+        {
+            if(result)
+            {
+                int resultActive = ContractDAO.activeContract(idContractSaved);
+                if (resultActive == MessageCode.SUCCESS) {
+                    MessageBox.Show("Contrato Creado exitosamente");
+                    MessageBox.Show("Llamando a impresion de contrato");
+                    }
+            }else
+            {
+               int resultimg= BelongingDAO.DeletePendingImages(idImagesSaved);
+                int resultBelonging= BelongingDAO.DeletePendingBelongings(idBelongingsSaved);
+                int resultContract =ContractDAO.DeletePendingContrat(idContractSaved);
+                if (resultimg == MessageCode.SUCCESS && resultBelonging == MessageCode.SUCCESS && resultContract == MessageCode.SUCCESS)
+                    MessageBox.Show("Contrato cancelado exitosamente");
+                
+            }
+        }
+
+        public void ScanCommunication(ArticleDomain article)//no se usa pero es de la interface
+        {
+        }
+
+        private void Borrar(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = null;
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is MainWindow)
+                {
+                    mainWindow = window as MainWindow;
+                    break;
+                }
+            }
+
+            //var window = Application.Current.MainWindow as MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            mainWindow.PrimaryContainer.Effect = blurEffect;
+            //campos estaticos para pruebas
+            (App.Current as App)._cashOnHand = 1000;
+            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LOAND, 1000, 13);
+            newOperation.CommunicacionPages(this);
+            mainWindow.SecundaryContainer.Navigate(newOperation);
+            mainWindow.PrimaryContainer.IsHitTestVisible = false;
         }
     }
 }

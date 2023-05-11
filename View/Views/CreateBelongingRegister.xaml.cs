@@ -227,7 +227,8 @@ namespace View.Views
             newBelonging.Model = tbModel.Text;//no está en la BD
             newBelonging.ApraisalAmount = int.Parse(tbMaxValue.Text);
             newBelonging.LoanAmount = int.Parse(tbApraisalAmount.Text);
-            newBelonging.PorcentLoan = ((int.Parse(tbApraisalAmount.Text)) * 100) / (int.Parse(tbMaxValue.Text));//no esta en la BD
+            float loan = ((float.Parse(tbApraisalAmount.Text)) * 100) / (float.Parse(tbMaxValue.Text));
+            newBelonging.PorcentLoan =float.Parse( loan.ToString("0.00"));//no esta en la BD
             imageTemp.Add(componentImageOne.Source as BitmapImage);
             imageTemp.Add(componentImageTwo.Source as BitmapImage);
             imageTemp.Add(componentImageThree.Source as BitmapImage);
