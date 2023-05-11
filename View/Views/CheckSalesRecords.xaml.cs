@@ -38,7 +38,10 @@ namespace View.Views
                 
                 SaleDetails saleDetails = new SaleDetails();
                 saleDetails.showSaleDetails(selectedSale.idSale);
+                this.IsHitTestVisible= false;
                 saleDetails.Show();
+                this.IsHitTestVisible = true;
+                dataGridSales.SelectedItem = null;
                 
             }
             catch(NullReferenceException)
@@ -135,7 +138,7 @@ namespace View.Views
                     }
                     else
                     {
-                        string message = "Se ha realizado la busqueda por codigo de venta correctamente";
+                        string message = "Por favor ingresa solo numeros para realizar la busqueda por codigo";
                         string messageTitle = "Busqueda por codigo de venta";
                         MessageBoxButton messageBoxButton = MessageBoxButton.OK;
                         MessageBoxImage messageBoxImage = MessageBoxImage.Information;
