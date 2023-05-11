@@ -124,8 +124,8 @@
     <Compile Include="Views\LiquidateContractView.xaml.cs">
       <DependentUpon>LiquidateContractView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginStaff.xaml.cs">
-      <DependentUpon>LoginStaff.xaml</DependentUpon>
+    <Compile Include="Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MakeSale.xaml.cs">
       <DependentUpon>MakeSale.xaml</DependentUpon>
@@ -234,7 +234,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoginStaff.xaml">
+    <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

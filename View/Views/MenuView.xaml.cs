@@ -26,7 +26,7 @@ namespace View.Views
         public MenuView()
         {
             InitializeComponent();
-            
+
         }
         public void staffReceiver(Staff staff)
         {
@@ -40,14 +40,15 @@ namespace View.Views
         }
         public void adminAccesibility()
         {
-            
+
             if (!staff.rol.Equals("Admin"))
             {
-                
-               itemOptions.Visibility = Visibility.Collapsed;
-            }else
-                itemOptions.Visibility=Visibility.Visible;
-            
+
+                itemOptions.Visibility = Visibility.Collapsed;
+            }
+            else
+                itemOptions.Visibility = Visibility.Visible;
+
         }
         private void itemHome_Click(object sender, RoutedEventArgs e)
         {
@@ -56,7 +57,8 @@ namespace View.Views
 
         private void itemExit_Click(object sender, RoutedEventArgs e)
         {
-
+            var window = (MainWindow)App.Current.MainWindow;
+            window.PrimaryContainer.Navigate(new LoginView());
         }
 
         private void BtmCreateContract(object sender, RoutedEventArgs e)
