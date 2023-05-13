@@ -3,13 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:View"
-<<<<<<< HEAD
-    StartupUri="../Views/CheckSalesRecords.xaml">
+    StartupUri="../Views/ModifyEmployee.xaml">
     <Application.Resources />
-=======
-    StartupUri="MainWindow.xaml">
-    <Application.Resources>
-
-    </Application.Resources>
->>>>>>> 7f5beac15e2e67c946044e3f4e5e16f900a00390
 </Application>

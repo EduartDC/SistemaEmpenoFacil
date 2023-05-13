@@ -169,5 +169,29 @@ namespace BusinessLogic
             }
             return result;
         }
+
+        public static Staff GetStaffByUserName(string username)
+        {
+            Staff result = new Staff();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    try
+                    {
+                        result = connection.Staffs.Where(staff => staff.userName == username).First();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        result= null;
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return result;
+        }
     }
 }

@@ -60,12 +60,11 @@ namespace View.Views
                     if(emplyoee.password.Length == 0)
                     {
                         emplyoee.password = actualStaff.password;
-                        labelInvalidInformation.Content = string.Empty;
-                        int successfulModification = StaffDAO.ModifyStaff(actualStaff.idStaff, emplyoee);
-                        if (successfulModification != 300 && successfulModification != 0)
+                        Staff existinStaff = StaffDAO.GetStaffByUserName(emplyoee.userName);
+                        if (existinStaff != null && !existinStaff.rfc.Equals(emplyoee.rfc))
                         {
-                            string message = "La informacion ha sido actualizada correctamente";
-                            string messageTitle = "Modificacion exitosa";
+                            string message = "Ya existe un empleado con este nombre de usuario por favor utilice otro";
+                            string messageTitle = "Nombre de usuario ocupado";
                             MessageBoxButton messageBoxButton = MessageBoxButton.OK;
                             MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                             MessageBoxResult messageBox;
@@ -73,22 +72,9 @@ namespace View.Views
                         }
                         else
                         {
-                            string message = "No se pudo actualizar la informacion correctamente";
-                            string messageTitle = "Error inesperado";
-                            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-                            MessageBoxImage messageBoxImage = MessageBoxImage.Information;
-                            MessageBoxResult messageBox;
-                            messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
-                        }
-                    }
-                    else
-                    {
-                        if (Utilities.ValidatePassword(emplyoee.password))
-                        {
                             labelInvalidInformation.Content = string.Empty;
-                            emplyoee.password = passwordBoxPassword.Password.ToString();
                             int successfulModification = StaffDAO.ModifyStaff(actualStaff.idStaff, emplyoee);
-                            if(successfulModification != 300 && successfulModification != 0)
+                            if (successfulModification != 300 && successfulModification != 0)
                             {
                                 string message = "La informacion ha sido actualizada correctamente";
                                 string messageTitle = "Modificacion exitosa";
@@ -106,17 +92,67 @@ namespace View.Views
                                 MessageBoxResult messageBox;
                                 messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
                             }
-
+                        }
+                    }
+                    else
+                    {
+                        if (Utilities.ValidatePassword(emplyoee.password))
+                        {
+                            emplyoee.password = passwordBoxPassword.Password.ToString();
+                            Staff existinStaff = StaffDAO.GetStaffByUserName(emplyoee.userName);
+                            if (existinStaff != null && !existinStaff.rfc.Equals(emplyoee.rfc))
+                            {
+                                string message = "Ya existe un empleado con este nombre de usuario por favor utilice otro";
+                                string messageTitle = "Nombre de usuario ocupado";
+                                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                                MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                                MessageBoxResult messageBox;
+                                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                            }
+                            else
+                            {
+                                labelInvalidInformation.Content = string.Empty;
+                                int successfulModification = StaffDAO.ModifyStaff(actualStaff.idStaff, emplyoee);
+                                if (successfulModification != 300 && successfulModification != 0)
+                                {
+                                    string message = "La informacion ha sido actualizada correctamente";
+                                    string messageTitle = "Modificacion exitosa";
+                                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                                    MessageBoxResult messageBox;
+                                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                                }
+                                else
+                                {
+                                    string message = "No se pudo actualizar la informacion correctamente";
+                                    string messageTitle = "Error inesperado";
+                                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                                    MessageBoxResult messageBox;
+                                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                                }
+                            }
                         }
                         else
                         {
-                            labelInvalidInformation.Content = "Contraseña no valida";
+                            labelInvalidInformation.Content = "La contraseña debe contener al menos una letra mayuscula \nuna letra minuscula, un numero y una longitud de 8 caracteres";
                         }
                     }
                 }
                 else
                 {
-                    labelInvalidInformation.Content = "Informacion invalida en 1 o mas campos por favor corrija";
+                    if (!Utilities.ValidateFormat(emplyoee.fisrtName, "[A-Za-z]+\\s+[A-Za-z]+"))
+                    {
+                        labelInvalidInformation.Content = "Por favor solo ingrese letras y espacios en el nombre";
+                    }
+                    else if (!Utilities.ValidateFormat(emplyoee.lastName, "[A-Za-z]+\\s+[A-Za-z]+"))
+                    {
+                        labelInvalidInformation.Content = "Por favor solo ingrese letras y espacios en el apellido";
+                    }
+                    else if (!Utilities.ValidateInput(emplyoee.userName))
+                    {
+                        labelInvalidInformation.Content = "El nombre de usuario no debe contener caracteres especiales ni espacios";
+                    }
                 }
             } else 
             {
