@@ -21,7 +21,7 @@
             <RowDefinition
                 Height="50"/>
         </Grid.RowDefinitions>
-        <TextBox Name="text_SearchBy" Grid.Row="0" HorizontalAlignment="Left" Margin="117,79,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200" FontSize="16"/>
+        <TextBox Name="text_SearchBy"  Grid.Row="0" HorizontalAlignment="Left" Margin="117,79,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200" FontSize="16"/>
         <Button Name="btn_Search" Grid.Row="0" Content="Buscar" HorizontalAlignment="Left" Margin="688,78,0,0" VerticalAlignment="Top" FontSize="16" Width="101" Click="Btn_Search_Click"/>
         <DataGrid
                     x:Name="tableCustomers"

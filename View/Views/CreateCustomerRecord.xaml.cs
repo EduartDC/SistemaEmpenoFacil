@@ -59,8 +59,16 @@ namespace View.Views
                     address = text_Address.Text.Trim(),
                     identification = comBox_Identification.SelectedItem.ToString()
                 };
-
-                AddCustomer(customer);
+                Customer findCustomer = CustomerDAO.GetCustomerByCURP(text_CURP.Text.Trim());
+                if (findCustomer.curp.Equals(""))
+                {
+                    AddCustomer(customer);
+                }
+                else
+                {
+                    MessageBox.Show("El cliente que deseas agregar ya se encuentra registrado");
+                }
+                
             }
         }
 
@@ -85,6 +93,7 @@ namespace View.Views
                 if (CustomerDAO.AddTwoImageIdentification(imagesIdentifications) == 200)
                 {
                     MessageBox.Show("Cliente registrado con exito");
+                    this.Content = null;
                 }
                 else
                 {

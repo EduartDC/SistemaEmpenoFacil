@@ -44,7 +44,7 @@ namespace View.Views
                 switch(StaffDAO.ExistStaff(text_RFC.Text))
                 {
                     case 200:
-                        registerStaff();
+                        NewStaff();
                         break;
                     case 100:
                         MessageBox.Show("Empleado registrado, favor de registrar un empleado que no este en el sistema");
@@ -57,7 +57,7 @@ namespace View.Views
             }
         }
 
-        private void registerStaff()
+        private void NewStaff()
         {
             Staff newStaff = new Staff();
             newStaff.fisrtName = text_Name.Text;
@@ -68,10 +68,10 @@ namespace View.Views
             newStaff.password = passwordEncode;
             newStaff.rol = comBox_Role.SelectedItem.ToString();
             newStaff.rfc = text_RFC.Text;
-            RegisterNewStaff(newStaff);
+            ValidateRegisterNewStaff(newStaff);
         }
 
-        private void RegisterNewStaff(Staff newStaff)
+        private void ValidateRegisterNewStaff(Staff newStaff)
         {
             switch (StaffDAO.RegisterStaff(newStaff))
             {
@@ -85,25 +85,57 @@ namespace View.Views
 
                 case 200:
                     MessageBox.Show("Registro Exitoso");
+                    this.Content = null;
                     break;
             }
         }
 
+
+
         private bool ValidateFormats()
         {
             bool result = true;
-            if (!Utilities.ValidateFormat(text_Name.Text, "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$") || !Utilities.ValidateFormat
-                (text_LastName.Text, "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
+            ResetLabelsError();
+
+            if (!Utilities.ValidateFormat(text_Name.Text, "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
             {
-                MessageBox.Show("El nombre y apellido solo acepta letras y sin acentos, favor de verificar");
+                label_ErrorName.Visibility = Visibility.Visible;
+                result = false;
+            } 
+            if(!Utilities.ValidateFormat(text_LastName.Text, "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
+            {
+                label_ErrorLastName.Visibility = Visibility.Visible;
                 result = false;
             }
-            if (text_UserName.Text.Equals("") || textPassword_Password.Password.Equals(""))
+            if(!Utilities.ValidateFormat(text_UserName.Text, "^[a-zA-Z]+$"))
             {
-                MessageBox.Show("Campos vacios, favor de llenar todos los campos");
+                label_ErrorUsername.Visibility = Visibility.Visible;
+                result=false;
+            }
+            if (!Utilities.ValidatePassword(textPassword_Password.Password))
+            {
+                label_ErrorPassword.Visibility = Visibility.Visible;
+                result = false;
+            }
+            if(comBox_Role.SelectedIndex == -1)
+            {
+                MessageBox.Show("Favor de seleccionar el rol del empleado");
+            }
+            if(!Utilities.ValidateFormat(text_RFC.Text, "^[A-ZÑ&]{3,4}[0-9]{6}[A-Z0-9]{3}$"))
+            {
+                label_ErrorRFC.Visibility = Visibility.Visible;
                 result = false;
             }
             return result;
+        }
+
+        private void ResetLabelsError()
+        {
+            label_ErrorName.Visibility = Visibility.Hidden;
+            label_ErrorLastName.Visibility = Visibility.Hidden;
+            label_ErrorUsername.Visibility = Visibility.Hidden;
+            label_ErrorPassword.Visibility = Visibility.Hidden;
+            label_ErrorRFC.Visibility = Visibility.Hidden;
         }
     }
 }
