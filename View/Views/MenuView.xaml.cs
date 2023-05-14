@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using DataAcces;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using View.Properties;
 
 namespace View.Views
 {
@@ -45,13 +47,28 @@ namespace View.Views
         }
         private void itemHome_Click(object sender, RoutedEventArgs e)
         {
-
+            Container.Content = null;
         }
 
         private void itemExit_Click(object sender, RoutedEventArgs e)
         {
-            var window = (MainWindow)App.Current.MainWindow;
-            window.PrimaryContainer.Navigate(new LoginView());
+            if (_staff.rol.Equals("Cajero"))
+            {
+                if ((App.Current as App)._staffShift)
+                {
+                    ErrorManager.ShowInformation("Para cerrar sesion, es necesario que primero realizes un corte de caja.");
+                }
+                else
+                {
+                    var window = (MainWindow)App.Current.MainWindow;
+                    window.PrimaryContainer.Navigate(new LoginView());
+                }
+            }
+            else
+            {
+                var window = (MainWindow)App.Current.MainWindow;
+                window.PrimaryContainer.Navigate(new LoginView());
+            }
         }
 
         private void BtmCreateContract(object sender, RoutedEventArgs e)

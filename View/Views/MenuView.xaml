@@ -101,7 +101,7 @@
                 HorizontalAlignment="Center"
                 Source="/Images/EF_Dinero_logo.png" />
 
-            <Grid  HorizontalAlignment="Right" Width="416">
+            <Grid Width="416" HorizontalAlignment="Right">
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                     <Image
                         Width="115"
@@ -115,7 +115,8 @@
                         Margin="0,10,0,0"
                         FontSize="20"
                         FontWeight="Bold"
-                        Text="Usuario" Foreground="White" />
+                        Foreground="White"
+                        Text="Usuario" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -293,8 +294,7 @@
                 </MenuItem>
 
                 <MenuItem
-                    x:Name="itemCutOff"
-                    Click="itemCutOff_Click"
+                    x:Name="itemReports"
                     Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
@@ -307,9 +307,14 @@
                                 VerticalAlignment="Center"
                                 FontSize="16"
                                 FontWeight="Bold"
-                                Text="Corte de Caja" />
+                                Text="Reportes" />
                         </StackPanel>
                     </MenuItem.Header>
+                    <MenuItem
+                        x:Name="SalesReport"
+                        Click="GenerateSalesReport_Click"
+                        Header="Generar reporte de ventas "
+                        Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
                 <MenuItem x:Name="itemOptions" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Header>
@@ -334,10 +339,11 @@
                         Header="Configuracion de Metricas"
                         Style="{StaticResource MenuItemStyle}" />
                     <MenuItem
-                        x:Name="SalesReport"
-                        Click="GenerateSalesReport_Click"
-                        Header="Generar reporte de ventas "
+                        Name="itemCutOff"
+                        Click="itemCutOff_Click"
+                        Header="Corte de Caja"
                         Style="{StaticResource MenuItemStyle}" />
+
                 </MenuItem>
                 <MenuItem
                     x:Name="itemExit"
@@ -358,10 +364,6 @@
                         </StackPanel>
                     </MenuItem.Header>
                 </MenuItem>
-
-
-
-
 
             </Menu>
 

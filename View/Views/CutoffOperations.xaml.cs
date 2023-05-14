@@ -37,14 +37,26 @@ namespace View.Views
         private async Task SetInformation()
         {
             var staff = (App.Current as App)._staffInfo;
-            _list = await Task.Run(() => OperationDAO.GetAllOperationsByDate(DateTime.Now, staff.idStaff));
-            tableOperations.ItemsSource = _list;
-            labelIdStaff.Content = "No. de Empleado: " + staff.idStaff;
-            labelNameStaff.Content = "Nombre de Empleado: " + staff.fisrtName + " " + staff.lastName;
-            labelDate.Content = "Fecha: " + DateTime.Now.ToString("dd/MM/yyyy");
-            labelTime.Content = DateTime.Now.ToString("hh:mm:ss tt");
-            labelCountOperations.Content = "Cantidad de Operaciones: " + _list.Count.ToString();
-            CalculateCachOnHand();
+            if (!(App.Current as App)._staffShift)
+            {
+                ErrorManager.ShowError("No se ha iniciado turno");
+            }
+            else if (!staff.rol.Equals("Cajero"))
+            {
+                ErrorManager.ShowWarning("solo los cajeros pueden realizar corte de caja.");
+            }
+            else
+            {
+                _list = await Task.Run(() => OperationDAO.GetAllOperationsByDate(DateTime.Now, staff.idStaff));
+                tableOperations.ItemsSource = _list;
+                labelIdStaff.Content = "No. de Empleado: " + staff.idStaff;
+                labelNameStaff.Content = "Nombre de Empleado: " + staff.fisrtName + " " + staff.lastName;
+                labelDate.Content = "Fecha: " + DateTime.Now.ToString("dd/MM/yyyy");
+                labelTime.Content = DateTime.Now.ToString("hh:mm:ss tt");
+                labelCountOperations.Content = "Cantidad de Operaciones: " + _list.Count.ToString();
+                CalculateCachOnHand();
+
+            }
         }
 
         private void CalculateCachOnHand()

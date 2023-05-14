@@ -3,10 +3,7 @@ using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-//<<<<<<< HEAD
-//=======
 using System.Data.Entity.Core;
-//>>>>>>> 0ef6619f57abd0b5b64d28606494fdfefb75c721
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -34,7 +31,6 @@ namespace BusinessLogic
             return resutl;
         }
 
-        //<<<<<<< HEAD
         public static int ModifyStaff(int userId, Staff staffModified)
         {
             var resutl = MessageCode.ERROR_UPDATE;
@@ -61,7 +57,6 @@ namespace BusinessLogic
             }
             return resutl;
         }
-        //=======
         public static int RegisterStaff(Staff newStaff)
         {
             int result = 200;
@@ -183,7 +178,7 @@ namespace BusinessLogic
                     }
                     catch (InvalidOperationException)
                     {
-                        result= null;
+                        result = null;
                     }
                 }
             }
