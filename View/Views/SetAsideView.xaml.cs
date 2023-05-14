@@ -60,6 +60,8 @@ namespace View.Views
             {
                 comBoxDiscount.Items.Add(i);
             }
+            comBoxPercentage.SelectedIndex = 0;
+            comBoxDiscount.SelectedIndex = 0;
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -154,7 +156,12 @@ namespace View.Views
         }
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = null;
+            MessageBoxResult result = ErrorManager.ShowQuestion(MessageError.CANCEL_OPERATION);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                this.Content = null;
+            }
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -162,7 +169,11 @@ namespace View.Views
             try
             {
                 var curp = textCURP.Text;
-                if (!string.IsNullOrEmpty(curp))
+                if (string.IsNullOrEmpty(curp))
+                {
+                    ErrorManager.ShowWarning("Ingrese un CURP valido.");
+                }
+                else
                 {
                     var customerInfo = CustomerDAO.GetCustomerByCURP(curp);
                     if (customerInfo != null)
@@ -171,6 +182,7 @@ namespace View.Views
                     }
                     else
                     {
+                        textCustomerName.Text = null;
                         ErrorManager.ShowWarning("No se encontro el cliente");
                     }
                 }
@@ -238,16 +250,20 @@ namespace View.Views
             };
             SaveInformation(newSetAside, StatesArticle.PENDING_ARTICLE);
         }
-
+        /// <summary>
+        /// Setea la informacion del apartado y los articulos
+        /// </summary>
+        /// <param name="newSetAside"> nuevo apartado</param>
+        /// <param name="state">estado con el que se va a crear el apartado</param>
         private void SaveInformation(SetAside newSetAside, string state)
         {
             List<ArticlesSetAside> listArticles = new List<ArticlesSetAside>();
             try
             {
-                //crear apartado
+
                 (var idSetAside, var result) = SetAsideDAO.CreateSetAside(newSetAside);
                 _idSetAside = idSetAside;
-                //crear union
+
                 if (result == MessageCode.SUCCESS)
                 {
                     foreach (var item in list)
@@ -271,16 +287,16 @@ namespace View.Views
                 }
                 else
                 {
-                    //error
+                    ErrorManager.ShowError(MessageError.ERROR_ADD_ASIDE);
                 }
             }
             catch (DbEntityValidationException)
             {
-                ErrorManager.ShowError("Error al registrar un nuevo contrato");
+                ErrorManager.ShowError(MessageError.ERROR_ADD_ASIDE);
             }
             catch (DbUpdateException)
             {
-                ErrorManager.ShowError("Error al registrar un nuevo contrato");
+                ErrorManager.ShowError(MessageError.ERROR_ADD_ASIDE);
             }
             catch (Exception)
             {
@@ -295,13 +311,12 @@ namespace View.Views
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
             window.PrimaryContainer.Effect = blurEffect;
-            //campos estaticos para pruebas
-            (App.Current as App)._cashOnHand = 1000;
             TransactionView newOperation = new TransactionView(OperationType.OPERATION_SETASIDE, _amount, _idSetAside);
             newOperation.CommunicacionPages(this);
             window.SecundaryContainer.Navigate(newOperation);
             window.PrimaryContainer.IsHitTestVisible = false;
         }
+
         /// <summary>
         /// Metodo que se encarga de la comunicacion entre las paginas
         /// Se activa cuando se escanea un codigo
@@ -321,7 +336,7 @@ namespace View.Views
             else
             {
                 SetDataTable(article);
-                SetInformation();
+                CalculateDiscount();
             }
         }
 
@@ -349,24 +364,10 @@ namespace View.Views
 
         }
 
-        private void SetInformation()
-        {
-            labelSubTotal.Content = "SubTotal: " + _subtotal;
-            labelIva.Content = "IVA(16%): " + (_subtotal * 0.16);
-            _total = _subtotal * 1.16;
-            labelTotal.Content = "Total: " + _total;
-        }
 
         private void comBoxPercentage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (list.Count == 0)
-            {
-                ErrorManager.ShowWarning("No hay articulos en la lista");
-            }
-            else
-            {
-                CalculateSetAsideAmount();
-            }
+            CalculateSetAsideAmount();
         }
 
         private void CalculateSetAsideAmount()
@@ -383,19 +384,7 @@ namespace View.Views
         }
         private void comBoxDiscount_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (list.Count == 0)
-            {
-                ErrorManager.ShowError("No hay articulos en la lista");
-            }
-            else if (_amount == 0)
-            {
-                ErrorManager.ShowError("Seleccione un procentaje de apartado");
-            }
-            else
-            {
-                CalculateDiscount();
-
-            }
+            CalculateDiscount();
         }
         private void CalculateDiscount()
         {
@@ -437,7 +426,6 @@ namespace View.Views
         {
             if (result)
             {
-                //actualizar estado de apartado
                 UpdateStates(true);
                 ErrorManager.ShowInformation("Operacion Exitosa");
             }
@@ -489,8 +477,6 @@ namespace View.Views
             textCURP.Text = "";
             textCustomerName.Text = "";
             textDateLine.Text = "";
-            comBoxDiscount.SelectedItem = null;
-            comBoxPercentage.SelectedItem = null;
 
         }
 

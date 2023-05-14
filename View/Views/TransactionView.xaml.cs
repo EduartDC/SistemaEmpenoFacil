@@ -51,6 +51,8 @@ namespace View.Views
             _amount = amount;
             _operation = operation;
             _id = id;
+            var staff = (App.Current as App)._staffInfo;
+            labelStaff.Content = "Cajero: " + staff.fisrtName + " " + staff.lastName;
             var date = DateTime.Now.ToString("dd/MM/yyyy");
             var time = DateTime.Now.ToString("hh:mm:ss");
             labelTotal.Text = "Monto Total: $" + amount;
@@ -178,11 +180,11 @@ namespace View.Views
             }
             catch (DbUpdateException)
             {
-                //error al registrar la operacion
+                ErrorManager.ShowError(MessageError.ERROR_ADD_OPERATION);
             }
             catch (DbEntityValidationException)
             {
-                //error al registrar la operacion
+                ErrorManager.ShowError(MessageError.ERROR_ADD_OPERATION);
             }
             catch (Exception)
             {
@@ -273,6 +275,7 @@ namespace View.Views
             }
 
         }
+
         private void CloseView()
         {
             var window = (MainWindow)Application.Current.MainWindow;

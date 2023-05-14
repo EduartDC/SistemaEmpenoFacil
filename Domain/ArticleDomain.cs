@@ -61,21 +61,21 @@ namespace Domain
 
             ArticleDomain other = (ArticleDomain)obj;
             return idArticle == other.idArticle &&
-                   barCode == other.barCode &&
-                   description == other.description &&
-                   serialNumber == other.serialNumber &&
-                   sellingPrice == other.sellingPrice &&
-                   appraisalValue == other.appraisalValue &&
-                   category == other.category &&
-                   characteristics == other.characteristics &&
-                   idBelonging == other.idBelonging &&
-                   loanAmount == other.loanAmount &&
-                   stateArticle == other.stateArticle &&
-                   createDate == other.createDate &&
-                   idContract == other.idContract &&
-                   imageOne == other.imageOne &&
-                   imageThree == other.imageThree &&
-                   imageFour == other.imageFour;
+            barCode == other.barCode &&
+            description == other.description &&
+            serialNumber == other.serialNumber &&
+            sellingPrice == other.sellingPrice &&
+            appraisalValue == other.appraisalValue &&
+            category == other.category &&
+            characteristics == other.characteristics &&
+            idBelonging == other.idBelonging &&
+            loanAmount == other.loanAmount &&
+            stateArticle == other.stateArticle &&
+            createDate == other.createDate &&
+            idContract == other.idContract &&
+            imageOne == other.imageOne &&
+            imageThree == other.imageThree &&
+            imageFour == other.imageFour;
         }
 
     }

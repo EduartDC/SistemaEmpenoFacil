@@ -60,7 +60,7 @@ namespace View.Views
             var password = textPassword.Password;
 
 
-            if (string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             {
                 ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
             }

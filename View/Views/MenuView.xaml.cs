@@ -22,26 +22,19 @@ namespace View.Views
     /// </summary>
     public partial class MenuView : Page
     {
-        Staff staff = new Staff();
+        Staff _staff = new Staff();
         public MenuView()
         {
             InitializeComponent();
-
+            var staff = (App.Current as App)._staffInfo;
+            _staff = staff;
+            textStaffName.Text = staff.fisrtName + " " + staff.lastName;
         }
-        public void staffReceiver(Staff staff)
-        {
-            this.staff = staff;
-            DataContext = null;
-            DataContext = this;
-            //staffCommunication.refreshStaff(staff);
-            Console.WriteLine("MenuView2 " + this.staff.rol);
-            adminAccesibility();
 
-        }
         public void adminAccesibility()
         {
 
-            if (!staff.rol.Equals("Admin"))
+            if (!_staff.rol.Equals("Admin"))
             {
 
                 itemOptions.Visibility = Visibility.Collapsed;

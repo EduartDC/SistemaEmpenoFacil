@@ -395,7 +395,8 @@
                 BorderThickness="0,0,0,2"
                 FontSize="16"
                 FontWeight="Bold"
-                TextWrapping="Wrap" PreviewTextInput="textCURP_PreviewTextInput" />
+                PreviewTextInput="textCURP_PreviewTextInput"
+                TextWrapping="Wrap" />
             <Button
                 x:Name="btnAddCustomer"
                 Width="129"
@@ -490,7 +491,7 @@
                 BorderThickness="0,0,0,2"
                 FontSize="16"
                 FontWeight="Bold"
-                TextWrapping="Wrap"  />
+                TextWrapping="Wrap" />
             <Label
                 x:Name="labelSubTotal"
                 Grid.Row="1"
@@ -577,7 +578,8 @@
                 x:Name="labelRemaining"
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="358,108,357,0"
+                Margin="358,108,0,0"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Restante para Liquidar:"
                 FontSize="22"
@@ -680,15 +682,16 @@
                     </EventTrigger>
                 </Button.Triggers>
             </Button>
-            <Label x:Name="labelPercentage"
-                   Grid.Row="1"
-                   Grid.Column="1"
-                   Margin="391,67,0,0"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Content="Porcentaje:" />
+            <Label
+                x:Name="labelPercentage"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="391,67,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Porcentaje:"
+                FontSize="20"
+                FontWeight="Bold" />
         </Grid>
     </Grid>
 </Page>
