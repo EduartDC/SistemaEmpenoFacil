@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +30,12 @@ namespace View.Views
 
         private void Btn_Add_Click(object sender, RoutedEventArgs e)
         {
-            if (!text_NumberClient.Text.Equals("")) 
+            if (!Utilities.ValidateFormat(text_CURP.Text, "^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{5}[0-9]{2}$")) 
             {
-                int readNumer = int.Parse(text_NumberClient.Text.Trim());
-                int resultFindCustomer = CustomerDAO.ExistCustomer(readNumer);
+                int resultFindCustomer = CustomerDAO.ExistCustomer(text_CURP.Text);
                 if (resultFindCustomer == 200)
                 {
-                    switch (CustomerDAO.ChangeStatusBlackList(readNumer))
+                    switch (CustomerDAO.ChangeStatusBlackList(text_CURP.Text))
                     {
                         case 200:
                             MessageBox.Show("Se agrego un nuevo cliente a la lista negra");

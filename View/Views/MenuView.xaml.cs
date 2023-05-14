@@ -121,5 +121,10 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new CreateCustomerRecord());
         }
+
+        private void ItemRegisterStaff_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new RegisterStaff());
+        }
     }
 }
