@@ -32,7 +32,7 @@ namespace View.Views
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             Staff userLogin = GetInfoUser();
-            if (string.IsNullOrEmpty(userLogin.userName) && string.IsNullOrEmpty(userLogin.password))
+            if (string.IsNullOrEmpty(userLogin.userName) || string.IsNullOrEmpty(userLogin.password))
             {
                 ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
             }
@@ -44,7 +44,6 @@ namespace View.Views
             {
                 var window = (MainWindow)App.Current.MainWindow;
                 window.PrimaryContainer.Navigate(new MenuView());
-
             }
         }
 
@@ -65,10 +64,14 @@ namespace View.Views
             var result = false;
             try
             {
-                Staff user = StaffDAO.LogingStaff(userLoginInfo.userName, userLoginInfo.password);
-                if (user != null && user.userName.Equals(userLoginInfo.userName) && user.password.Equals(userLoginInfo.password))
+                var pass = Utilities.Hash(userLoginInfo.password);
+                Staff user = StaffDAO.LogingStaff(userLoginInfo.userName, pass);
+                if (user != null && user.userName.Equals(userLoginInfo.userName) && user.password.Equals(pass))
                 {
                     result = true;
+                    (App.Current as App)._staffInfo = user;
+                    (App.Current as App)._staffShift = true;
+                    (App.Current as App)._cashOnHand = 10000;
                 }
             }
             catch (Exception)
