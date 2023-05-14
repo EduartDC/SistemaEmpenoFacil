@@ -44,10 +44,17 @@ namespace View.Views
                 switch(StaffDAO.ExistStaff(text_RFC.Text))
                 {
                     case 200:
-                        NewStaff();
+                        if (StaffDAO.GetStaffByUserName(text_UserName.Text) == null)
+                        {
+                            NewStaff();
+                        }
+                        else
+                        {
+                            MessageBox.Show("El nombre de usuario que intenta registrar ya se encuntra registrado, favor de cambiarlo");
+                        }
                         break;
                     case 100:
-                        MessageBox.Show("Empleado registrado, favor de registrar un empleado que no este en el sistema");
+                        MessageBox.Show("El RFC ingresado ya ha sido registrado en el sistema, favor de registrar un RFC que no este en el sistema");
                         break;
                     case 400:
                         MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
@@ -97,22 +104,22 @@ namespace View.Views
             bool result = true;
             ResetLabelsError();
 
-            if (!Utilities.ValidateFormat(text_Name.Text, "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
+            if (!Utilities.ValidateFormat(text_Name.Text.Trim(), "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
             {
                 label_ErrorName.Visibility = Visibility.Visible;
                 result = false;
             } 
-            if(!Utilities.ValidateFormat(text_LastName.Text, "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
+            if(!Utilities.ValidateFormat(text_LastName.Text.Trim(), "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
             {
                 label_ErrorLastName.Visibility = Visibility.Visible;
                 result = false;
             }
-            if(!Utilities.ValidateFormat(text_UserName.Text, "^[a-zA-Z]+$"))
+            if(!Utilities.ValidateFormat(text_UserName.Text.Trim(), "^[a-zA-Z]+$"))
             {
                 label_ErrorUsername.Visibility = Visibility.Visible;
                 result=false;
             }
-            if (!Utilities.ValidatePassword(textPassword_Password.Password))
+            if (!Utilities.ValidatePassword(textPassword_Password.Password.Trim()))
             {
                 label_ErrorPassword.Visibility = Visibility.Visible;
                 result = false;
@@ -121,7 +128,7 @@ namespace View.Views
             {
                 MessageBox.Show("Favor de seleccionar el rol del empleado");
             }
-            if(!Utilities.ValidateFormat(text_RFC.Text, "^[A-ZÑ&]{3,4}[0-9]{6}[A-Z0-9]{3}$"))
+            if(!Utilities.ValidateFormat(text_RFC.Text.Trim(), "^[A-ZÑ&]{3,4}[0-9]{6}[A-Z0-9]{3}$"))
             {
                 label_ErrorRFC.Visibility = Visibility.Visible;
                 result = false;

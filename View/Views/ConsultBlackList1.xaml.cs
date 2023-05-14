@@ -27,12 +27,14 @@ namespace View.Views
         private List<Domain.Customer> customersList = new List<Domain.Customer>();
         private List<string> _listNamesCustomers = new List<string>();
         private List<int> _listNumberCustomers = new List<int>();
+        private List<string> _listCurpsCustomers= new List<string>();
 
         public ConsultBlackList1()
         {
             InitializeComponent();
             comBox_TypeSearch.Items.Add("Numero del cliente");
             comBox_TypeSearch.Items.Add("Nombre del cliente");
+            comBox_TypeSearch.Items.Add("CURP");
             InitializeTable();
         }
 
@@ -41,7 +43,13 @@ namespace View.Views
             customersList = CustomerDAO.RecoverCustomers();
             customersList.ForEach(customer => _listNamesCustomers.Add(customer.firstName));
             customersList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
+            customersList.ForEach(customer => _listCurpsCustomers.Add(customer.curp));
             tableCustomers.ItemsSource = customersList;
+            if(_listNamesCustomers.Count == 0)
+            {
+               MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
+               this.Content = null
+            }
         }
 
 
@@ -87,7 +95,7 @@ namespace View.Views
                     break;
 
                 case 0:
-                    if (!Utilities.ValidateFormat(text_SearchBy.Text, "^[0-9]+$"))
+                    if (!Utilities.ValidateFormat(text_SearchBy.Text.Trim(), "^[0-9]+$"))
                     {
                         MessageBox.Show("Solo se aceptan numeros para esta busqueda");
                     }
@@ -98,7 +106,7 @@ namespace View.Views
                     break;
 
                 case 1:
-                    if (!Utilities.ValidateFormat(text_SearchBy.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+$"))
+                    if (!Utilities.ValidateFormat(text_SearchBy.Text.Trim(), @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+$"))
                     {
                         MessageBox.Show("Solo se aceptan letras para esta busqueda");
                     }
@@ -107,6 +115,31 @@ namespace View.Views
                         SearchByName();
                     }
                     break;
+                case 2:
+                    if(!Utilities.ValidateFormat(text_SearchBy.Text.Trim(), "^[A-Z0-9]+$"))
+                    {
+                        MessageBox.Show("Solo se aceptan letras mayusculas y numeros para esta busqueda");
+                    }
+                    else
+                    {
+                        SearchByCRUP();
+                    }
+                    break;
+            }
+        }
+
+        private void SearchByCRUP()
+        {
+            if (!String.IsNullOrEmpty(text_SearchBy.Text.Trim()))
+            {
+                List<Domain.Customer> CustomersEquals = (_listCurpsCustomers.Where(stringCurp =>
+                stringCurp.StartsWith(text_SearchBy.Text.Trim())).Select(stringCurp =>
+                customersList.Find(customerFind => customerFind.curp.Contains(stringCurp)))).ToList();
+                tableCustomers.ItemsSource = CustomersEquals;
+            }
+            else if (text_SearchBy.Text.Trim() == "")
+            {
+                tableCustomers.ItemsSource = customersList;
             }
         }
 
@@ -115,6 +148,7 @@ namespace View.Views
             text_SearchBy.Text = "";
             _listNumberCustomers.Clear();
             _listNamesCustomers.Clear();
+            _listCurpsCustomers.Clear();
             InitializeTable();
         }
 

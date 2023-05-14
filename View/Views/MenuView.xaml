@@ -343,6 +343,11 @@
                         Click="itemCutOff_Click"
                         Header="Corte de Caja"
                         Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        Name="itemRegisterStaff"
+                        Click="ItemRegisterStaff_Click"
+                        Header="Registrar Empleado"
+                        Style="{StaticResource MenuItemStyle}"/>
 
                 </MenuItem>
                 <MenuItem
