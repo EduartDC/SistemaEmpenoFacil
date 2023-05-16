@@ -21,7 +21,7 @@
             <RowDefinition
                 Height="50"/>
         </Grid.RowDefinitions>
-        <TextBox Name="text_SearchBy" Grid.Row="0" HorizontalAlignment="Left" Margin="117,79,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200" FontSize="16"/>
+        <TextBox Name="text_SearchBy"  Grid.Row="0" HorizontalAlignment="Left" Margin="117,79,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200" FontSize="16"/>
         <Button Name="btn_Search" Grid.Row="0" Content="Buscar" HorizontalAlignment="Left" Margin="688,78,0,0" VerticalAlignment="Top" FontSize="16" Width="101" Click="Btn_Search_Click"/>
         <DataGrid
                     x:Name="tableCustomers"
@@ -37,7 +37,7 @@
                     CanUserResizeRows="False"
                     HeadersVisibility="Column"
                     ItemsSource="{Binding Items}"
-                    RowHeaderWidth="0" Height="494" Width="1137" VerticalAlignment="Center">
+                    RowHeaderWidth="0" Height="347" Width="1136" VerticalAlignment="Center">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Foreground" Value="#FFFFFF" />
@@ -85,6 +85,8 @@
 
         <Button Name="btn_Salir" Content="Salir" Grid.Row="2" HorizontalAlignment="Left" Margin="72,0,0,0" VerticalAlignment="Top" FontSize="16" Width="90" Click="Btn_Salir_Click"/>
         <Button Name="btn_Add" Content="Agregar" Grid.Row="2" HorizontalAlignment="Left" Margin="1046,0,0,0" VerticalAlignment="Top" FontSize="16" Width="96" Click="Btn_Add_Click"/>
-        <ComboBox Name="comBox_TypeSearch"  Grid.Row="0" HorizontalAlignment="Left" Margin="372,81,0,0" VerticalAlignment="Top" Width="196" FontSize="18"/>
+        <ComboBox Name="comBox_TypeSearch"  Grid.Row="0" HorizontalAlignment="Left" Margin="372,76,0,0" VerticalAlignment="Top" Width="196" FontSize="18"/>
+        <Label Content="Campo de busqueda:" HorizontalAlignment="Left" Margin="117,48,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Content="Filtro de busqueda:" HorizontalAlignment="Left" Margin="372,0,0,0" VerticalAlignment="Center" FontSize="14"/>
     </Grid>
 </Page>

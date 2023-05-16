@@ -14,6 +14,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -42,7 +43,12 @@ namespace View.Views
 
         private void Btn_Exit_Click(object sender, RoutedEventArgs e)
         {
-
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 0;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Content = null;
+            window.PrimaryContainer.IsHitTestVisible = true;
         }
 
         private void Btn_Add_Click(object sender, RoutedEventArgs e)
@@ -59,8 +65,16 @@ namespace View.Views
                     address = text_Address.Text.Trim(),
                     identification = comBox_Identification.SelectedItem.ToString()
                 };
-
-                AddCustomer(customer);
+                Customer findCustomer = CustomerDAO.GetCustomerByCURP(text_CURP.Text.Trim());
+                if (findCustomer.curp.Equals(""))
+                {
+                    AddCustomer(customer);
+                }
+                else
+                {
+                    MessageBox.Show("El cliente que deseas agregar ya se encuentra registrado");
+                }
+                
             }
         }
 
@@ -85,6 +99,7 @@ namespace View.Views
                 if (CustomerDAO.AddTwoImageIdentification(imagesIdentifications) == 200)
                 {
                     MessageBox.Show("Cliente registrado con exito");
+                    this.Content = null;
                 }
                 else
                 {

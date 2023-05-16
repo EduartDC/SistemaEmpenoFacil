@@ -39,8 +39,8 @@
         <DataGrid
             x:Name="tableCustomers"
             Grid.Row="1"
-            Width="1279"
-            Height="494"
+            Width="1280"
+            Height="350"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             AlternatingRowBackground="#E0E0E0"
@@ -159,9 +159,11 @@
             Name="comBox_TypeSearch"
             Grid.Row="0"
             Width="196"
-            Margin="372,81,0,0"
+            Margin="361,76,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             FontSize="18" />
+        <Label Content="Campo de busqueda:" HorizontalAlignment="Left" Margin="117,48,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Content="Filtro de busqueda:" HorizontalAlignment="Left" Margin="361,46,0,0" VerticalAlignment="Top" FontSize="14"/>
     </Grid>
 </Page>

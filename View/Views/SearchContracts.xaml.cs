@@ -45,7 +45,7 @@ namespace View.Views
 
         private void Button_Reactivate_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hola mundo");
+            
         }
 
         private void SearchByName()
@@ -104,7 +104,7 @@ namespace View.Views
 
         private void Btn_Salir_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Content = null;
         }
 
         private void Btn_Search_Click(object sender, RoutedEventArgs e)

@@ -30,11 +30,20 @@
             <Label Content="Rol:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" FontSize="18"/>
             <Button Content="Registrar" HorizontalAlignment="Left" Margin="613,0,0,0" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="ClicRegisterButton"/>
             <Button Content="Cancelar" HorizontalAlignment="Left" Margin="62,0,0,0" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="ClicCancelButton"/>
-            <TextBox x:Name="text_Name" HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="246" FontSize="18"/>
-            <TextBox x:Name="text_LastName" HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Width="246" FontSize="18" />
-            <TextBox x:Name="text_UserName" HorizontalAlignment="Left" Margin="200,0,0,0" Grid.Row="4" TextWrapping="Wrap"  VerticalAlignment="Center" Width="224" FontSize="18"/>
+            <TextBox x:Name="text_Name" MaxLength="50" HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="246" FontSize="18"/>
+            <TextBox x:Name="text_LastName" MaxLength="50" HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Width="246" FontSize="18" />
+            <TextBox x:Name="text_UserName" MaxLength="25" HorizontalAlignment="Left" Margin="200,0,0,0" Grid.Row="4" TextWrapping="Wrap"  VerticalAlignment="Center" Width="224" FontSize="18"/>
             <ComboBox x:Name="comBox_Role" HorizontalAlignment="Left" Margin="94,8,0,0" Grid.Row="6" VerticalAlignment="Top" Width="181" FontSize="18"/>
-            <PasswordBox x:Name="textPassword_Password" HorizontalAlignment="Left" Margin="124,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="236" FontSize="18"/>
+            <PasswordBox x:Name="textPassword_Password" MaxLength="16" HorizontalAlignment="Left" Margin="124,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="236" FontSize="18"/>
+            <Label Content="RFC:" HorizontalAlignment="Left" Margin="16,10,0,0" Grid.Row="7" VerticalAlignment="Top" FontSize="18"/>
+            <TextBox Name="text_RFC" MaxLength="13" HorizontalAlignment="Left" Margin="94,14,0,0" Grid.Row="7" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="218" FontSize="18"/>
+            <Label Name="label_ErrorName" Content="Solo se aceptan letras en el apartado nombre" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="377,0,0,0" Grid.Row="2" VerticalAlignment="Center"/>
+            <Label Name="label_ErrorLastName" Content="Solo se aceptan letras en el apartado Apellidos" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="370,14,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+            <Label Name="label_ErrorUsername" Content="El campo solo puede contener letras y sin espacios" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="446,0,0,0" Grid.Row="4" VerticalAlignment="Center"/>
+            <Label Name="label_ErrorPassword" Content="La contraseña debe contener al menos 8 caracteres y un numero" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" Margin="366,0,0,0"/>
+            <Label Name="label_ErrorRFC" Content="Error en el formato del RFC favor de verificar" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="354,0,0,0" Grid.Row="7" VerticalAlignment="Center"/>
+
+
         </Grid>
     </ScrollViewer>
 </Page>

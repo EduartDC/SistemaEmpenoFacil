@@ -3,10 +3,7 @@ using DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-//<<<<<<< HEAD
-//=======
 using System.Data.Entity.Core;
-//>>>>>>> 0ef6619f57abd0b5b64d28606494fdfefb75c721
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -34,7 +31,6 @@ namespace BusinessLogic
             return resutl;
         }
 
-        //<<<<<<< HEAD
         public static int ModifyStaff(int userId, Staff staffModified)
         {
             var resutl = MessageCode.ERROR_UPDATE;
@@ -61,7 +57,6 @@ namespace BusinessLogic
             }
             return resutl;
         }
-        //=======
         public static int RegisterStaff(Staff newStaff)
         {
             int result = 200;
@@ -77,7 +72,8 @@ namespace BusinessLogic
                         statusStaff = newStaff.statusStaff,
                         userName = newStaff.userName,
                         password = newStaff.password,
-                        rol = newStaff.rol
+                        rol = newStaff.rol,
+                        rfc = newStaff.rfc
                     });
                     dataBaseOne.SaveChanges();
                 }
@@ -131,6 +127,59 @@ namespace BusinessLogic
                 {
 
                     result = connection.Staffs.Find(idUser);
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return result;
+        }
+
+        public static int ExistStaff(string rfcRecived)
+        {
+            int result = 200;
+            NewLog _log = new NewLog();
+            try
+            {
+                using (var dataBase = new ConnectionModel())
+                {
+                    var staffExist = (from Staff in dataBase.Staffs
+                                      where Staff.rfc.Equals(rfcRecived)
+                                      select Staff).Count();
+                    if (staffExist > 0)
+                    {
+                        result = 100;
+                    }
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (EntityException ex)
+            {
+                _log.Add(ex.ToString());
+                result = 400;
+            }
+            return result;
+        }
+
+        public static Staff GetStaffByUserName(string username)
+        {
+            Staff result = new Staff();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    try
+                    {
+                        result = connection.Staffs.Where(staff => staff.userName == username).First();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        result = null;
+                    }
                 }
             }
             else

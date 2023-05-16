@@ -34,27 +34,51 @@ namespace View.Views
 
         private void ClicCancelButton(object sender, RoutedEventArgs e)
         {
-
+            this.Content = null;
         }
 
         private void ClicRegisterButton(object sender, RoutedEventArgs e)
         {
             if (ValidateFormats())
             {
-                Staff newStaff = new Staff();
-                newStaff.fisrtName = text_Name.Text;
-                newStaff.lastName = text_LastName.Text;
-                newStaff.statusStaff = "Activo";
-                String passwordEncode = Utilities.Hash(textPassword_Password.Password);
-                newStaff.userName = text_UserName.Text;
-                newStaff.password = passwordEncode;
-                newStaff.rol = comBox_Role.SelectedItem.ToString();
-                RegisterNewStaff(newStaff);
+                switch(StaffDAO.ExistStaff(text_RFC.Text))
+                {
+                    case 200:
+                        if (StaffDAO.GetStaffByUserName(text_UserName.Text) == null)
+                        {
+                            NewStaff();
+                        }
+                        else
+                        {
+                            MessageBox.Show("El nombre de usuario que intenta registrar ya se encuntra registrado, favor de cambiarlo");
+                        }
+                        break;
+                    case 100:
+                        MessageBox.Show("El RFC ingresado ya ha sido registrado en el sistema, favor de registrar un RFC que no este en el sistema");
+                        break;
+                    case 400:
+                        MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
+                        break;
+                }
+                
             }
         }
 
+        private void NewStaff()
+        {
+            Staff newStaff = new Staff();
+            newStaff.fisrtName = text_Name.Text;
+            newStaff.lastName = text_LastName.Text;
+            newStaff.statusStaff = "Activo";
+            String passwordEncode = Utilities.Hash(textPassword_Password.Password);
+            newStaff.userName = text_UserName.Text;
+            newStaff.password = passwordEncode;
+            newStaff.rol = comBox_Role.SelectedItem.ToString();
+            newStaff.rfc = text_RFC.Text;
+            ValidateRegisterNewStaff(newStaff);
+        }
 
-        private void RegisterNewStaff(Staff newStaff)
+        private void ValidateRegisterNewStaff(Staff newStaff)
         {
             switch (StaffDAO.RegisterStaff(newStaff))
             {
@@ -68,25 +92,57 @@ namespace View.Views
 
                 case 200:
                     MessageBox.Show("Registro Exitoso");
+                    this.Content = null;
                     break;
             }
         }
 
+
+
         private bool ValidateFormats()
         {
             bool result = true;
-            if (!Utilities.ValidateFormat(text_Name.Text, "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$") || !Utilities.ValidateFormat
-                (text_LastName.Text, "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
+            ResetLabelsError();
+
+            if (!Utilities.ValidateFormat(text_Name.Text.Trim(), "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
             {
-                MessageBox.Show("El nombre y apellido solo acepta letras y sin acentos, favor de verificar");
+                label_ErrorName.Visibility = Visibility.Visible;
+                result = false;
+            } 
+            if(!Utilities.ValidateFormat(text_LastName.Text.Trim(), "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
+            {
+                label_ErrorLastName.Visibility = Visibility.Visible;
                 result = false;
             }
-            if (text_UserName.Text.Equals("") || textPassword_Password.Password.Equals(""))
+            if(!Utilities.ValidateFormat(text_UserName.Text.Trim(), "^[a-zA-Z]+$"))
             {
-                MessageBox.Show("Campos vacios, favor de llenar todos los campos");
+                label_ErrorUsername.Visibility = Visibility.Visible;
+                result=false;
+            }
+            if (!Utilities.ValidatePassword(textPassword_Password.Password.Trim()))
+            {
+                label_ErrorPassword.Visibility = Visibility.Visible;
+                result = false;
+            }
+            if(comBox_Role.SelectedIndex == -1)
+            {
+                MessageBox.Show("Favor de seleccionar el rol del empleado");
+            }
+            if(!Utilities.ValidateFormat(text_RFC.Text.Trim(), "^[A-ZÑ&]{3,4}[0-9]{6}[A-Z0-9]{3}$"))
+            {
+                label_ErrorRFC.Visibility = Visibility.Visible;
                 result = false;
             }
             return result;
+        }
+
+        private void ResetLabelsError()
+        {
+            label_ErrorName.Visibility = Visibility.Hidden;
+            label_ErrorLastName.Visibility = Visibility.Hidden;
+            label_ErrorUsername.Visibility = Visibility.Hidden;
+            label_ErrorPassword.Visibility = Visibility.Hidden;
+            label_ErrorRFC.Visibility = Visibility.Hidden;
         }
     }
 }

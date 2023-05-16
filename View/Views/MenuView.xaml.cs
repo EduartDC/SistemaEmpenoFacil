@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using DataAcces;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using View.Properties;
 
 namespace View.Views
 {
@@ -22,41 +24,51 @@ namespace View.Views
     /// </summary>
     public partial class MenuView : Page
     {
-        Staff staff = new Staff();
+        Staff _staff = new Staff();
         public MenuView()
         {
             InitializeComponent();
-            
+            var staff = (App.Current as App)._staffInfo;
+            _staff = staff;
+            textStaffName.Text = staff.fisrtName + " " + staff.lastName;
         }
-        public void staffReceiver(Staff staff)
-        {
-            this.staff = staff;
-            DataContext = null;
-            DataContext = this;
-            //staffCommunication.refreshStaff(staff);
-            Console.WriteLine("MenuView2 " + this.staff.rol);
-            adminAccesibility();
 
-        }
         public void adminAccesibility()
         {
-            
-            if (!staff.rol.Equals("Admin"))
+
+            if (!_staff.rol.Equals("Admin"))
             {
-                
-               itemOptions.Visibility = Visibility.Collapsed;
-            }else
-                itemOptions.Visibility=Visibility.Visible;
-            
+
+                itemOptions.Visibility = Visibility.Collapsed;
+            }
+            else
+                itemOptions.Visibility = Visibility.Visible;
+
         }
         private void itemHome_Click(object sender, RoutedEventArgs e)
         {
-
+            Container.Content = null;
         }
 
         private void itemExit_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_staff.rol.Equals("Cajero"))
+            {
+                if ((App.Current as App)._staffShift)
+                {
+                    ErrorManager.ShowInformation("Para cerrar sesion, es necesario que primero realizes un corte de caja.");
+                }
+                else
+                {
+                    var window = (MainWindow)App.Current.MainWindow;
+                    window.PrimaryContainer.Navigate(new LoginView());
+                }
+            }
+            else
+            {
+                var window = (MainWindow)App.Current.MainWindow;
+                window.PrimaryContainer.Navigate(new LoginView());
+            }
         }
 
         private void BtmCreateContract(object sender, RoutedEventArgs e)
@@ -90,10 +102,29 @@ namespace View.Views
             Container.NavigationService.Navigate(new CutoffOperations());
         }
 
+        private void itemBlackList_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new ConsultBlackList1());
+        }
         private void itemOptions_Click(object sender, RoutedEventArgs e)
         {
+            ConfigureMetrics configureMetrics = new ConfigureMetrics();
+            configureMetrics.ShowDialog();
+        }
 
+        private void itemSearchContract_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new SearchContracts());
+        }
 
+        private void itemCreateCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new CreateCustomerRecord());
+        }
+
+        private void ItemRegisterStaff_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new RegisterStaff());
         }
     }
 }

@@ -24,27 +24,15 @@ namespace View
     public partial class MainWindow : Window
     {
 
-        Staff staff = new Staff();
         public MainWindow()
         {
             InitializeComponent();
-            
+
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.WindowState = WindowState.Maximized;
-            PrimaryContainer.NavigationService.Navigate(new MenuView());
+            PrimaryContainer.NavigationService.Navigate(new LoginView());
             this.MinWidth = 1366;
             this.MinHeight = 750;
-        }
-
-        public void staffReceiver(Staff staff)
-        {
-            this.staff = staff;
-            DataContext = null;
-            DataContext = this;
-            Console.WriteLine("MainWindow2 " + this.staff.rol);
-            MenuView menuView = new MenuView();
-            menuView.staffReceiver(staff);
-
         }
 
     }
