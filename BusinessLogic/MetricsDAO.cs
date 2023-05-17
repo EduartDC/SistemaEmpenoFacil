@@ -28,19 +28,14 @@ namespace BusinessLogic
                     }
                 }
             }
-            catch (DataException ex)
-            {
-                _log.Add(ex.ToString());
-                metric.IVA = "";
-                metric.interestRate = "";
-            }
             catch (InvalidOperationException ex)
             {
                 _log.Add(ex.ToString());
-                metric.IVA = "";
-                metric.interestRate = "";
             }
-
+            catch(Exception ex)
+            {
+                _log.Add(ex.ToString());
+            }
             return metric;
         }
 

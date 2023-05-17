@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Utility;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,11 @@ namespace View.Views
             contractList.ForEach(customer => _listNamesCustomers.Add(customer.firstName));
             contractList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
             tableCustomers.ItemsSource = contractList;
+            if(contractList.Count == 0)
+            {
+                MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
+                this.Content = null;
+            }
         }
 
 
@@ -81,17 +87,17 @@ namespace View.Views
 
         private void Button_Liquidate_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Button_Cancel_Click(object sender, RoutedEventArgs e)
-        {
-
+            var contractSelected = tableCustomers.SelectedItem as CompleteContract;
+            MenuView menu = new MenuView();
+            menu.Container.NavigationService.Navigate(new LiquidateContractView(contractSelected.idContract));
+            
         }
 
         private void Button_Endorsement_Click(object sender, RoutedEventArgs e)
         {
-
+            var contractSelected = tableCustomers.SelectedItem as CompleteContract;
+            MenuView menu = new MenuView();
+            //menu.Container.NavigationService.Navigate(new EndorseContract(contractSelected.idContract));
         }
 
         private void Btn_Restore_Click(object sender, RoutedEventArgs e)

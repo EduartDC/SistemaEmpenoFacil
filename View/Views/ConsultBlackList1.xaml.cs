@@ -45,10 +45,10 @@ namespace View.Views
             customersList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
             customersList.ForEach(customer => _listCurpsCustomers.Add(customer.curp));
             tableCustomers.ItemsSource = customersList;
-            if(_listNamesCustomers.Count == 0)
+            if(customersList.Count == 0)
             {
                MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
-               this.Content = null
+                this.Content = null;
             }
         }
 

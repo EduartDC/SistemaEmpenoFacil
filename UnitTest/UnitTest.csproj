@@ -60,6 +60,7 @@
     <Compile Include="ArticleDAOTest.cs" />
     <Compile Include="ContractDAOTest.cs" />
     <Compile Include="CustomerDAOTest.cs" />
+    <Compile Include="MetricsDAOTest.cs" />
     <Compile Include="OperationDAOTest.cs" />
     <Compile Include="SetAsideDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

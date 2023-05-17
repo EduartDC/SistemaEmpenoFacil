@@ -185,7 +185,7 @@ namespace View.Views
                 result = false;
                 label_ErrorLastName.Visibility = Visibility.Visible;
             }
-            if (!Utilities.ValidateFormat(text_CURP.Text.Trim(), "^[A-Z0-9]+$"))
+            if (!Utilities.ValidateFormat(text_CURP.Text.Trim(), "^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{5}[0-9]{2}$"))
             {
                 result = false;
                 label_ErrorCurp.Visibility = Visibility.Visible;
