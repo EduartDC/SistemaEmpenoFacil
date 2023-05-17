@@ -1,7 +1,9 @@
 ﻿using BusinessLogic;
 using DataAcces;
+using Domain.BelongingCreation;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,10 +26,35 @@ namespace View.Views
     {
 
         private Contract actualContract = null;
+        private List<Domain.BelongingCreation.Belonging> belongings= new List<Domain.BelongingCreation.Belonging>();
+
         public EndorseContract()
         {
             InitializeComponent();
-            ShowContract(9);
+            ShowContract(13);
+            GetBelongingsOfContract(13);
+        }
+
+        private void ConverterImagesFormat()
+        {
+            Console.WriteLine(belongings.Count());
+            for (int i = 0; i < belongings.Count(); i++)
+            {
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = new MemoryStream(belongings[i].image);
+                bitmap.EndInit();
+                belongings[i].imageConverted = bitmap;
+
+            }
+        }
+
+        private void GetBelongingsOfContract(int idContract)
+        {
+            belongings = BelongingDAO.GetBelongingByIdContract(idContract);
+            ConverterImagesFormat();
+            dataGridArticlesOfContract.ItemsSource = belongings;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -38,9 +65,9 @@ namespace View.Views
         private void ShowContract(int idContract)
         {
             Contract contract = ContractDAO.GetContract(idContract);
-            labelEndorsementAmount.Content = GetAmounts(contract.paymentsEndorsement, contract.endorsementSettlementDates); // monto de refrendo buscar el monto de refrendo
+            labelEndorsementAmount.Content = GetAmounts(contract.paymentsEndorsement, contract.endorsementSettlementDates) + " $"; // monto de refrendo buscar el monto de refrendo
             labelLoanAmount.Content = contract.loanAmount.ToString() + " $"; // monto de prestamo
-            labelSettlementAmount.Content= GetAmounts(contract.paymentsSettlement, contract.endorsementSettlementDates); //monto de liquidacion buscar el monto de liquidacion\
+            labelSettlementAmount.Content= GetAmounts(contract.paymentsSettlement, contract.endorsementSettlementDates) + " $"; //monto de liquidacion buscar el monto de liquidacion\
             Customer customer = CustomerDAO.GetCustomer(contract.Customer_idCustomer);
             labelClientName.Content = customer.firstName + " " + customer.lastName;
             labelPawnNumber.Content = contract.idContract;
@@ -60,13 +87,17 @@ namespace View.Views
                 {
                     indexAmount = i;
                     break;
-                }else if(result > 0)
+                }else if(result > 0 && indexAmount > 0)
                 {
                     indexAmount = i - 1;
                     break;
+                }else if (result > 0 && indexAmount == 0)
+                {
+                    indexAmount = i;
+                    break;
                 }
             }
-            DateTime deadlineDate = actualContract.deadlineDate;
+            //DateTime deadlineDate = actualContract.deadlineDate;
             return listAmounts[indexAmount];
         }
 
@@ -83,7 +114,7 @@ namespace View.Views
             }
             else
             {
-                ContractDAO.ModifyContract(actualContract, actualContract.idContract);
+                //ContractDAO.ModifyContract(actualContract, actualContract.idContract);
             }
         }
 
