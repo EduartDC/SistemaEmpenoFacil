@@ -148,8 +148,14 @@
     <Compile Include="Views\SearchContracts.xaml.cs">
       <DependentUpon>SearchContracts.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SearchCustomer.xaml.cs">
+      <DependentUpon>SearchCustomer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SetAsideView.xaml.cs">
       <DependentUpon>SetAsideView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartShift.xaml.cs">
+      <DependentUpon>StartShift.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TransactionView.xaml.cs">
       <DependentUpon>TransactionView.xaml</DependentUpon>
@@ -266,7 +272,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SearchCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SetAsideView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StartShift.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

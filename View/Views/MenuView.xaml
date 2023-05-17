@@ -112,7 +112,6 @@
                         x:Name="textStaffName"
                         Height="30"
                         MinWidth="300"
-                        Margin="0,10,0,0"
                         FontSize="20"
                         FontWeight="Bold"
                         Foreground="White"
@@ -291,6 +290,11 @@
                         Click="itemCreateCustomer_Click"
                         Header="Registrar Cliente"
                         Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        Name="itemSearchCustomer"
+                        Click="itemSearchCustomer_Click"
+                        Header="Buscar cliente"
+                        Style="{StaticResource MenuItemStyle}"/>
                 </MenuItem>
 
                 <MenuItem
