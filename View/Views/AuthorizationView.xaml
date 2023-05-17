@@ -74,7 +74,7 @@
             MaxHeight="300"
             Background="#D4E4FF">
             <Label
-                Margin="158,72,0,0"
+                Margin="158,96,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Usuario:"
@@ -84,7 +84,7 @@
                 x:Name="textUser"
                 Width="184"
                 Height="26"
-                Margin="158,103,0,0"
+                Margin="158,127,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="16"
@@ -98,7 +98,7 @@
                 FontWeight="Bold" />
             <Label
                 Height="26"
-                Margin="160,137,0,0"
+                Margin="160,161,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Constraseña:"
@@ -193,9 +193,10 @@
                 Height="26"
                 FontSize="16"
                 FontWeight="Bold"
-                Margin="160,168,0,0"
+                Margin="160,192,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top" PreviewTextInput="textPassword_PreviewTextInput" />
+            <Label Content="Solo un Gerente puede autorizar la operacion." HorizontalAlignment="Left" Margin="84,54,0,0" VerticalAlignment="Top" FontSize="16"/>
         </Grid>
     </Grid>
 </Page>

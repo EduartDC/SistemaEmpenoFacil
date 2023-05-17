@@ -234,7 +234,7 @@ namespace BusinessLogic
             return resultCustomers;
         }
 
-        public static int ExistCustomer(int id)
+        public static int ExistCustomer(string curpObtine)
         {
             NewLog _log = new NewLog();
             int result = 500;
@@ -243,7 +243,7 @@ namespace BusinessLogic
                 using (var dataBase = new ConnectionModel())
                 {
                     var existCustomer = (from Customer in dataBase.Customers
-                                         where Customer.idCustomer.Equals(id)
+                                         where Customer.curp.Equals(curpObtine)
                                          select Customer).Count();
                     if (existCustomer > 0)
                     {
@@ -267,7 +267,7 @@ namespace BusinessLogic
             return result;
         }
 
-        public static int ChangeStatusBlackList(int id)
+        public static int ChangeStatusBlackList(string curpObtine)
         {
             NewLog _log = new NewLog();
             int result = 500;
@@ -275,7 +275,7 @@ namespace BusinessLogic
             {
                 using (var database = new ConnectionModel())
                 {
-                    var updateStatusBlackList = database.Customers.First(u => u.idCustomer == id);
+                    var updateStatusBlackList = database.Customers.First(u => u.curp == curpObtine);
                     updateStatusBlackList.blackList = true;
                     int resultValue = database.SaveChanges();
                     if (resultValue > 0)

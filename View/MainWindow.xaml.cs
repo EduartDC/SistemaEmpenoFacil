@@ -30,8 +30,12 @@ namespace View
 
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.WindowState = WindowState.Maximized;
+<<<<<<< HEAD
             //PrimaryContainer.NavigationService.Navigate(new CheckSalesRecords());
             PrimaryContainer.NavigationService.Navigate(new EndorseContract());
+=======
+            PrimaryContainer.NavigationService.Navigate(new LoginView());
+>>>>>>> 72dd4816c3bda630d1135540e87e00691c4f3805
             this.MinWidth = 1366;
             this.MinHeight = 750;
         }

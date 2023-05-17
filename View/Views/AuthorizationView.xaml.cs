@@ -60,7 +60,7 @@ namespace View.Views
             var password = textPassword.Password;
 
 
-            if (string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             {
                 ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
             }
@@ -79,7 +79,7 @@ namespace View.Views
             var result = false;
             try
             {
-                var infoStaff = StaffDAO.LogingStaff(userName, password);
+                var infoStaff = StaffDAO.LogingStaff(userName, Utilities.Hash(password));
                 if (infoStaff == null)
                 {
                     ErrorManager.ShowWarning(MessageError.USER_NOT_FOUND);
@@ -87,6 +87,10 @@ namespace View.Views
                 else if (!infoStaff.userName.Equals(textUser.Text) || !infoStaff.password.Equals(textPassword.Password))
                 {
                     ErrorManager.ShowWarning(MessageError.USER_NOT_FOUND);
+                }
+                else if(!infoStaff.rol.Equals("Gerente"))
+                {
+                    ErrorManager.ShowInformation("No cuenta con la autorizacion para realizar esta operacion.");
                 }
                 else
                 {

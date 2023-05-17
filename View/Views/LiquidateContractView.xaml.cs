@@ -71,7 +71,7 @@ namespace View.Views
         /// <summary>
         /// Metodo para calcular el total a pagar por la liquidacion
         /// </summary>
-        /// <param name="contract"></param>
+        /// <param name="contract">El contrato que se va a liquidar</param>
         private void CalculateFee(ContractDomain contract)
         {
             var interestRate = contract.interestRate;
@@ -100,7 +100,6 @@ namespace View.Views
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
             window.PrimaryContainer.Effect = blurEffect;
-            (App.Current as App)._cashOnHand = 1000;
             TransactionView newOperation = new TransactionView(OperationType.OPERATION_LIQUIDATE, _total, _id);
             newOperation.CommunicacionPages(this);
             window.SecundaryContainer.Navigate(newOperation);

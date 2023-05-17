@@ -180,15 +180,7 @@
                     FontSize="15"
                     FontWeight="Bold" />
 
-                <Label
-                    x:Name="labelIdContract"
-                    Grid.Row="16"
-                    MinWidth="200"
-                    Margin="25,0,0,0"
-                    HorizontalAlignment="Left"
-                    Content="Etiqueta 6"
-                    FontSize="15"
-                    FontWeight="Bold" />
+                
             </Grid>
 
 
