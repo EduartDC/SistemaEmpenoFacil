@@ -27,7 +27,7 @@ namespace View.Views
         private List<Domain.Customer> customersList = new List<Domain.Customer>();
         private List<string> _listNamesCustomers = new List<string>();
         private List<int> _listNumberCustomers = new List<int>();
-        private List<string> _listCurpsCustomers= new List<string>();
+        private List<string> _listCurpsCustomers = new List<string>();
 
         public ConsultBlackList1()
         {
@@ -45,10 +45,10 @@ namespace View.Views
             customersList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
             customersList.ForEach(customer => _listCurpsCustomers.Add(customer.curp));
             tableCustomers.ItemsSource = customersList;
-            if(_listNamesCustomers.Count == 0)
+            if (_listNamesCustomers.Count == 0)
             {
-               MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
-               this.Content = null
+                MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
+                this.Content = null;
             }
         }
 
@@ -116,7 +116,7 @@ namespace View.Views
                     }
                     break;
                 case 2:
-                    if(!Utilities.ValidateFormat(text_SearchBy.Text.Trim(), "^[A-Z0-9]+$"))
+                    if (!Utilities.ValidateFormat(text_SearchBy.Text.Trim(), "^[A-Z0-9]+$"))
                     {
                         MessageBox.Show("Solo se aceptan letras mayusculas y numeros para esta busqueda");
                     }
