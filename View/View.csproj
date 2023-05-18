@@ -79,6 +79,9 @@
     <Compile Include="Views\AuthorizationView.xaml.cs">
       <DependentUpon>AuthorizationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CashRegisterOperations.xaml.cs">
+      <DependentUpon>CashRegisterOperations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CheckSalesRecords.xaml.cs">
       <DependentUpon>CheckSalesRecords.xaml</DependentUpon>
     </Compile>
@@ -177,6 +180,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AuthorizationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CashRegisterOperations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

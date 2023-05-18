@@ -103,23 +103,7 @@ namespace View.Views
             //MainWindow mainWindow = new MainWindow();
             //Console.WriteLine(idCustomer);
             //mainWindow.SecundaryContainer.NavigationService.Navigate(new CustomerView(idCustomer));
-            //Customer customer = item;
-            Button btn = sender as Button;
-            if (btn != null)
-            {
-                var row = DataGridRow.GetRowContainingElement(btn);
-                var item = row.Item;
-                if (item != null && dgCustomers.Items.Contains(item))
-                {
-                    Customer customer = dgCustomers.SelectedItem as Customer;
-                    int idCustomer = customer.idCustomer;
 
-                    MainWindow mainWindow = new MainWindow();
-                    Console.WriteLine(idCustomer);
-                    //mainWindow.SecundaryContainer.NavigationService.Navigate(new CustomerView(idCustomer));
-                }
-
-            }
         }
     }
 }
