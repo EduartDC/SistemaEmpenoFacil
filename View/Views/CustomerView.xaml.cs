@@ -76,9 +76,9 @@ namespace View.Views
                 textLastName.Text = customer.lastName;
                 string type = customer.identification;
                 ComboBoxItem itemSelecct = comBoxIdentificationType
-                    .Items
-                    .OfType<ComboBoxItem>()
-                    .FirstOrDefault(item => item.Content.ToString() == type);
+                .Items
+                .OfType<ComboBoxItem>()
+            .FirstOrDefault(item => item.Content.ToString() == type);
 
                 if (itemSelecct != null)
                 {
@@ -160,8 +160,6 @@ namespace View.Views
             {
                 SaveInformation();
                 SaveImages();
-
-                ErrorManager.ShowInformation(MessageError.UPLOAD_SUCCESS);
             }
         }
 
@@ -225,10 +223,23 @@ namespace View.Views
             newCustomer.idCustomer = id;
             newCustomer.address = textAddress.Text;
             newCustomer.telephonNumber = Int64.Parse(textPhonNomber.Text);
-            newCustomer.identification = comBoxIdentificationType.SelectedIndex.ToString();
+            var seleccion = "";
+            if (comBoxIdentificationType.SelectedItem is ComboBoxItem selectedItem)
+            {
+                seleccion = selectedItem.Content.ToString();
+            }
+            newCustomer.identification = seleccion;
             try
             {
-                CustomerDAO.UpdateCustomer(newCustomer);
+                var result = CustomerDAO.UpdateCustomer(newCustomer);
+                if (result == MessageCode.SUCCESS)
+                {
+                    ErrorManager.ShowInformation(MessageError.UPLOAD_SUCCESS);
+                }
+                else
+                {
+                    ErrorManager.ShowInformation(MessageError.UPDATE_ERROR);
+                }
             }
             catch (NullReferenceException)
             {
@@ -244,7 +255,7 @@ namespace View.Views
         {
 
             _images[0] = null;
-            imgIdentificationOne.Source = new BitmapImage(new Uri("\\View\\Images\\photo.png"));
+            imgIdentificationOne.Source = new BitmapImage(new Uri("pack://application:,,,/Icons/photo.png"));
             btnSearch.IsEnabled = true;
             btnCleanImageOne.IsEnabled = false;
         }
@@ -252,7 +263,7 @@ namespace View.Views
         private void btnCleanImageTwo_Click(object sender, RoutedEventArgs e)
         {
             _images[1] = null;
-            imgIdentificationTwo.Source = new BitmapImage(new Uri("\\View\\Images\\photo.png"));
+            imgIdentificationTwo.Source = new BitmapImage(new Uri("pack://application:,,,/Icons/photo.png"));
             btnSearch.IsEnabled = true;
             btnCleanImageTwo.IsEnabled = false;
         }
