@@ -170,8 +170,8 @@ namespace View.Views
             var result = false;
             try
             {
-                var number = int.Parse(text);
-                if (number == 10)
+
+                if (text.Length == 10)
                 {
                     result = true;
                 }
@@ -224,7 +224,7 @@ namespace View.Views
             Customer newCustomer = new Customer();
             newCustomer.idCustomer = id;
             newCustomer.address = textAddress.Text;
-            newCustomer.telephonNumber = int.Parse(textPhonNomber.Text);
+            newCustomer.telephonNumber = Int64.Parse(textPhonNomber.Text);
             newCustomer.identification = comBoxIdentificationType.SelectedIndex.ToString();
             try
             {

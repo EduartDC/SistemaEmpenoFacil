@@ -127,16 +127,5 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new RegisterStaff());
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var window = (MainWindow)Application.Current.MainWindow;
-            BlurEffect blurEffect = new BlurEffect();
-            blurEffect.Radius = 5;
-            window.PrimaryContainer.Effect = blurEffect;
-
-            window.SecundaryContainer.Navigate(new CustomerView(12));
-            window.PrimaryContainer.IsHitTestVisible = false;
-        }
     }
 }
