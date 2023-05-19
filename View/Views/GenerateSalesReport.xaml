@@ -1,17 +1,17 @@
 ﻿<Page x:Class="View.Views.GenerateSalesReport"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:View.Views"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="800" d:DesignWidth="1200"
       Title="GenerateSalesReport">
 
     <Grid Background="White">
-        <Label 
-            Content="Generar reporte de ventas" 
-            HorizontalAlignment="Center" 
+        <Label
+            Content="Generar reporte de ventas"
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Margin="0,40"
             FontSize="40" FontWeight="Bold"/>
@@ -25,12 +25,12 @@
             FontSize="25"
             HorizontalContentAlignment="Center" FontWeight="Bold"
             />
-        <DatePicker 
-            
+        <DatePicker
+            x:Name="dpDateBegin"
             Background="#323D8F"
-            HorizontalAlignment="Center" 
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0,190" 
+            Margin="0,190"
             Height="40"
             Width="300"
             VerticalContentAlignment="Center"
@@ -48,42 +48,43 @@
             HorizontalContentAlignment="Center" FontWeight="Bold"
             />
 
-        <DatePicker 
+        <DatePicker
+            x:Name="dpDateEnd"
             Background="#323D8F"
-            HorizontalAlignment="Center" 
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0,308,0,0" 
+            Margin="0,308,0,0"
             Height="40"
             Width="300"
             VerticalContentAlignment="Center"
             FontSize="25"
             Focusable="False"
             />
-        <ComboBox 
+        <ComboBox
             x:Name="cbFilter"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0,400,0,0" 
-             Height="40"
+            Margin="0,400,0,0"
+            Height="40"
             Width="300"
-            
+
             FontSize="20">
-            
+
         </ComboBox>
-        <Button 
+        <Button
             Content="Generar reporte"
             FontSize="25"
             HorizontalAlignment="Right"
             Height="40"
             Width="200"
-            Margin="0,480,332,0" 
-            VerticalAlignment="Top"/>
-        <Button 
+            Margin="0,480,332,0"
+            VerticalAlignment="Top" Click="Btn_CreateReport"/>
+        <Button
             Content="Cancelar"
             FontSize="25"
             Height="40"
             Width="200"
-            HorizontalAlignment="Left" 
+            HorizontalAlignment="Left"
             Margin="349,480,0,0"
             VerticalAlignment="Top" Click="ClosePage_btn"/>
     </Grid>

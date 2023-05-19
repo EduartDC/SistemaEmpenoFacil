@@ -48,7 +48,7 @@ namespace View.Views
             if(_listNamesCustomers.Count == 0)
             {
                MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
-               this.Content = null
+                this.Content = null;
             }
         }
 

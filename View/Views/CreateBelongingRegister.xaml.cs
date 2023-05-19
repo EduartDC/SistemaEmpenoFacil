@@ -79,7 +79,6 @@ namespace View.Views
             tbModel.Text = belongingsList[idEtition].Model;
             tbSerialNumber.Text = belongingsList[idEtition].SerialNumber;
             tbMaxValue.Text = belongingsList[idEtition].ApraisalAmount.ToString();
-            Console.WriteLine("imagenes en modificacion: " + belongingsList[idEtition].imagesBitmap.Count());
             componentImageOne.Source = belongingsList[idEtition].imagesBitmap[0];
             componentImageTwo.Source = belongingsList[idEtition].imagesBitmap[1];
             componentImageThree.Source = belongingsList[idEtition].imagesBitmap[2];
@@ -227,7 +226,8 @@ namespace View.Views
             newBelonging.Model = tbModel.Text;//no está en la BD
             newBelonging.ApraisalAmount = int.Parse(tbMaxValue.Text);
             newBelonging.LoanAmount = int.Parse(tbApraisalAmount.Text);
-            float loan = ((float.Parse(tbApraisalAmount.Text)) * 100) / (float.Parse(tbMaxValue.Text));
+            decimal resultTemp= ((decimal.Parse(tbApraisalAmount.Text)) * 100) / (decimal.Parse(tbMaxValue.Text));
+            float loan = (float)resultTemp;
             newBelonging.PorcentLoan =float.Parse( loan.ToString("0.00"));//no esta en la BD
             imageTemp.Add(componentImageOne.Source as BitmapImage);
             imageTemp.Add(componentImageTwo.Source as BitmapImage);
@@ -237,6 +237,7 @@ namespace View.Views
             newBelonging.imagesBitmap.Add(imageTemp[1]);
             newBelonging.imagesBitmap.Add(imageTemp[2]);
             newBelonging.imagesBitmap.Add(imageTemp[3]);
+            
             if (edition)
             {
                 belongingsList[idEtition] = newBelonging;
@@ -257,7 +258,7 @@ namespace View.Views
             newBelonging.Model = tbModel.Text;//no está en la BD
             newBelonging.ApraisalAmount = int.Parse(tbMaxValue.Text);
             newBelonging.LoanAmount = int.Parse(tbApraisalAmount.Text);
-            newBelonging.PorcentLoan = ((int.Parse(tbApraisalAmount.Text)) * 100) / (int.Parse(tbMaxValue.Text));//no esta en la BD
+            newBelonging.PorcentLoan = ((float.Parse(tbApraisalAmount.Text)) * 100) / (float.Parse(tbMaxValue.Text));//no esta en la BD
             imageTemp.Add(componentImageOne.Source as BitmapImage);
             imageTemp.Add(componentImageTwo.Source as BitmapImage);
             imageTemp.Add(componentImageThree.Source as BitmapImage);

@@ -126,5 +126,7 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new RegisterStaff());
         }
+
+
     }
 }

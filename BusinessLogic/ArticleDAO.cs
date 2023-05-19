@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -13,7 +15,7 @@ namespace BusinessLogic
 {
     public class ArticleDAO
     {
-        public static  (int, List<ArticleDomain>) getArticles()
+        public static (int, List<ArticleDomain>) getArticles()
         {
             List<Belongings_Articles> articles = new List<Belongings_Articles>();//lista para la conexion
             List<ArticleDomain> articlesDomain = new List<ArticleDomain>();//lista purgada
@@ -21,7 +23,7 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    articles = connection.Belongings_Articles.Where(a=> a.stateArticle.Equals("Disponible")) .ToList();
+                    articles = connection.Belongings_Articles.Where(a => a.stateArticle.Equals("Disponible")).ToList();
                     foreach (var item in articles)
                     {
                         ArticleDomain newArticle = new ArticleDomain();
@@ -45,8 +47,8 @@ namespace BusinessLogic
                         articlesDomain.Add(newArticle);
                         using (var imgConnection = new ConnectionModel())
                         {
-                            var imageInfo = imgConnection.ImagesBelongings. Where(util => util.idImagenBelonging == item.idBelonging).FirstOrDefault();
-                            if(imageInfo!=null)
+                            var imageInfo = imgConnection.ImagesBelongings.Where(util => util.idImagenBelonging == item.idBelonging).FirstOrDefault();
+                            if (imageInfo != null)
                             {
                                 newArticle.imageOne = imageInfo.imagen;
                             }
@@ -116,5 +118,85 @@ namespace BusinessLogic
             }
             return resutl;
         }
+
+        public static int GiveProfitArticlesToCustomer(int idCustomer)
+        {
+            int result = 0;
+            List<Belongings_Articles> articlesList = new List<Belongings_Articles>();
+            if (Utilities.VerifyConnection())
+            {
+                try
+                {
+                    using (var connection = new ConnectionModel())
+                    {
+                        articlesList = connection.Belongings_Articles.Where(a => a.Belonging.Contract.Customer_idCustomer == idCustomer).ToList();
+                        foreach (var article in articlesList)
+                        {
+                            if (article.customerProfit > 0)
+                                article.customerProfit = 0;
+                        }
+                        int changes = connection.SaveChanges();
+                        if (changes > 0)
+                            result = MessageCode.SUCCESS;
+                        else
+                            result = MessageCode.ERROR_UPDATE;
+
+                    }
+                }
+                catch (DbUpdateException)
+                {
+                    result = MessageCode.ERROR_UPDATE;
+                }
+            }
+            else
+                result = MessageCode.CONNECTION_ERROR;
+            return result;
+        }
+
+        public static (int, List<ArticleDomain>) GetArticlesStockToReport(DateTime dateBegin, DateTime dateEnd)
+        {
+            int result = 0;
+            List<ArticleDomain> articlesStock = new List<ArticleDomain>();
+
+            if (Utilities.VerifyConnection())
+            {
+                try
+                {
+                    using (var connection = new ConnectionModel())
+                    {
+                        var list = connection.Belongings_Articles.Where(a => a.stateArticle == StatesArticle.SALE_ARTICLE).ToList();
+
+                        foreach (var util in list)
+                        {
+                            string dateString = util.creationDate.ToString("dd/MM/yyyy");
+                            DateTime dateCreation = DateTime.Parse(dateString);
+                            if (dateCreation >= dateBegin && dateCreation <= dateEnd)
+                            {
+                                ArticleDomain articleTemp = new ArticleDomain();
+                                articleTemp.idArticle = util.idArticle;
+                                articleTemp.createDate = dateCreation;
+                                articleTemp.description = util.Belonging.description;
+                                articleTemp.stateArticle = util.stateArticle;
+                                articleTemp.appraisalValue = util.Belonging.appraisalValue;
+                                articleTemp.loanAmount = util.Belonging.loanAmount;
+                                articleTemp.sellingPrice = util.sellingPrice;
+                                articlesStock.Add(articleTemp);
+                            }
+                        }
+                    }
+                    result = MessageCode.SUCCESS;
+                }
+                catch (DbUpdateException)
+                {
+                    result = MessageCode.ERROR_UPDATE;
+                }
+            }
+            else
+                result = MessageCode.CONNECTION_ERROR;
+            return (result, articlesStock);
+        }
+
+
+
     }
 }

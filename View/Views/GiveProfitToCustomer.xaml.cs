@@ -3,6 +3,7 @@
  */
 using BusinessLogic;
 using BusinessLogic.Utility;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -23,10 +25,11 @@ using View.Properties;
 
 namespace View.Views
 {
-    public partial class GiveProfitToCustomer : Page
+    public partial class GiveProfitToCustomer : Page , MessageService
     {
         private List<Domain.CustomerProfitDomain> customersList = new List<Domain.CustomerProfitDomain>();
         private ICollectionView collectionView;
+        private int idCustomerSelected = 0;
         public GiveProfitToCustomer()
         {
             InitializeComponent();
@@ -38,7 +41,7 @@ namespace View.Views
         {
             collectionView = CollectionViewSource.GetDefaultView(customersList);
             collectionView.Filter = (item) => true;
-            dgCustomers.ItemsSource = collectionView;//pasando la lissta con funcion de filtro al dg
+            dgCustomers.ItemsSource = collectionView;//pasando la lista con funcion de filtro al dg
         }
 
         private void LoadCustomers()
@@ -66,8 +69,6 @@ namespace View.Views
         private void Btn_FindCustomer(object sender, RoutedEventArgs e)
         {
 
-//            if (VerificateSpecialCaracters())
-           // {
                 string filter = tbSearchCurp.Text.ToUpper();
                 collectionView.Filter = (item) =>
                 {
@@ -78,10 +79,6 @@ namespace View.Views
                     }
                     return false;
                 };
-           // }
-
-            //  }
-
         }
 
 
@@ -92,11 +89,33 @@ namespace View.Views
                 ErrorManager.ShowError("Favor de seleccionar un cliente para realizar la operacion.");
             else
             {
-                var c = dgCustomers.SelectedItem as Domain.CustomerProfitDomain;
-                //codigo para llamar a CU transaccion
+                var customerSelected = dgCustomers.SelectedItem as Domain.CustomerProfitDomain;
+                idCustomerSelected = customerSelected.idCustomer;
+                CallTtransactionView(customerSelected);
             }
 
 
+        }
+
+        private void CallTtransactionView(CustomerProfitDomain customerSelected)
+        {
+            MainWindow mainWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is MainWindow)
+                {
+                    mainWindow = window as MainWindow;
+                    break;
+                }
+            }
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            mainWindow.PrimaryContainer.Effect = blurEffect;
+            (App.Current as App)._cashOnHand = 100000;
+            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LOAND,customerSelected.profitCustomer, customerSelected.idCustomer);
+            newOperation.CommunicacionPages(this);
+            mainWindow.SecundaryContainer.Navigate(newOperation);
+            mainWindow.PrimaryContainer.IsHitTestVisible = false;
         }
 
         private void Btn_ClosePage(object sender, RoutedEventArgs e)
@@ -115,6 +134,30 @@ namespace View.Views
                 return false;
             }
             return true;
+        }
+
+        //Metodo de interfaz para transactionView
+        public void Communication(bool result)
+        {
+            if (result)
+            {
+                /*
+                 * agregagr en este espacio el cxodigo para generar el ticket
+                 */
+                int resultArticleDao =  ArticleDAO.GiveProfitArticlesToCustomer(idCustomerSelected);
+                int resultCustomerDAO = CustomerDAO.GiveProfitCustomer(idCustomerSelected);
+                if (resultArticleDao == MessageCode.SUCCESS && resultCustomerDAO == MessageCode.SUCCESS)
+                {
+                    MessageBox.Show("proceso finalizao");
+                }
+            }
+
+        }
+
+        //metodo de interfaz que no se usa
+        public void ScanCommunication(ArticleDomain article)
+        {
+
         }
     }
 }

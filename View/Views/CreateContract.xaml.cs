@@ -109,7 +109,6 @@ namespace View.Views
             this.belongingList = belongingsList;
             dgBelongings.ItemsSource = this.belongingList;
             dgBelongings.Items.Refresh();
-            MessageBox.Show("" + this.belongingList[0].imagesBitmap.Count());
             LoadFields();
             EnabledComboBoxDates();
             CalculatesAppraisalAndLoanAmount();
@@ -117,10 +116,7 @@ namespace View.Views
             {
                 LoadTotalPaymentForEndorsement();
                 LoadTotalPaymentoForSettlement();
-
             }
-
-            // LoadTotalPaymentForEndorsement();
         }
 
         private void LoadFields()
@@ -139,13 +135,18 @@ namespace View.Views
         {
             if (dgBelongings.SelectedIndex >= 0)
             {
-                belongingList.RemoveAt(dgBelongings.SelectedIndex);
-                dgBelongings.Items.Refresh();
-                LoadFields();
-                EnabledComboBoxDates();
+                MessageBoxResult resultMessage = MessageBox.Show("¿Está seguro que desea elimnar la prenda de la lista?, una vez eliminada no se podra recuperar", "Eliminar prenda", MessageBoxButton.YesNo);
+                if (resultMessage == MessageBoxResult.Yes)
+                {
+                    belongingList.RemoveAt(dgBelongings.SelectedIndex);
+                    dgBelongings.Items.Refresh();
+                    LoadFields();
+                    EnabledComboBoxDates();
+                }
+
             }
             else
-                MessageBox.Show("fila no seleccionada");
+                MessageBox.Show("Para eliminar una prenda, favor de seleccionarla de la lista");
         }
 
         private void ClickModifyBelonging(object sender, RoutedEventArgs e)
@@ -282,7 +283,7 @@ namespace View.Views
             float loan = float.Parse(tbLoanAmount.Text);
             float appraisal = float.Parse(tbAppraisalAmount.Text);
             double result = (loan * 100) / appraisal;
-            tbLoanPorcentage.Text = result.ToString();
+            tbLoanPorcentage.Text = result.ToString("0.00");
         }
 
         private void LoadTotalPaymentForEndorsement()//pagos de finiquito
@@ -389,7 +390,7 @@ namespace View.Views
             ConvertImagesToBytes();
             for (int i = 0; i < idBelongingsSaved.Count(); i++)//recorrer lista de id
             {
-                for(int j = 0; j<4; j++)//recorrer prendas
+                for (int j = 0; j < 4; j++)//recorrer prendas
                 {
                     Console.WriteLine("numero de id de prenda: " + idBelongingsSaved[i]);
                     ImagesBelonging imagesBelonging = new ImagesBelonging();
@@ -398,7 +399,7 @@ namespace View.Views
                     imagesPrepared.Add(imagesBelonging);
                 }
             }
-            (int result, List<int> idImages )= BelongingDAO.SaveimagesBelongings(imagesPrepared);
+            (int result, List<int> idImages) = BelongingDAO.SaveimagesBelongings(imagesPrepared);
             if (result == MessageCode.CONNECTION_ERROR)
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
             else if (result == MessageCode.SUCCESS)
@@ -452,44 +453,44 @@ namespace View.Views
             }
         }
 
+        //metodo de interfaz par transactionView
         public void Communication(bool result)
         {
-            if(result)
+            if (result)
             {
+                Console.WriteLine("deontro de if");
                 int resultActive = ContractDAO.activeContract(idContractSaved);
-                if (resultActive == MessageCode.SUCCESS) {
+                Console.WriteLine("despues de dao");
+                Console.WriteLine(resultActive);
+                if (resultActive == MessageCode.SUCCESS)
+                {
                     MessageBox.Show("Contrato Creado exitosamente");
                     MessageBox.Show("Llamando a impresion de contrato");
-                    }
-            }else
+                }
+            }
+            else
             {
-               int resultimg= BelongingDAO.DeletePendingImages(idImagesSaved);
-                int resultBelonging= BelongingDAO.DeletePendingBelongings(idBelongingsSaved);
-                int resultContract =ContractDAO.DeletePendingContrat(idContractSaved);
+                int resultimg = BelongingDAO.DeletePendingImages(idImagesSaved);
+                int resultBelonging = BelongingDAO.DeletePendingBelongings(idBelongingsSaved);
+                int resultContract = ContractDAO.DeletePendingContrat(idContractSaved);
                 if (resultimg == MessageCode.SUCCESS && resultBelonging == MessageCode.SUCCESS && resultContract == MessageCode.SUCCESS)
                     MessageBox.Show("Contrato cancelado exitosamente");
-                
+
             }
         }
 
-        public void ScanCommunication(ArticleDomain article)//no se usa pero es de la interface
+        //metodo de interfaz TransactionView que no se usa
+        public void ScanCommunication(ArticleDomain article)
         {
         }
 
         private void Borrar(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = null;
 
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (window is MainWindow)
-                {
-                    mainWindow = window as MainWindow;
-                    break;
-                }
-            }
 
-            //var window = Application.Current.MainWindow as MainWindow;
+
+
+            var mainWindow = Application.Current.MainWindow as MainWindow;
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
             mainWindow.PrimaryContainer.Effect = blurEffect;
@@ -499,6 +500,11 @@ namespace View.Views
             newOperation.CommunicacionPages(this);
             mainWindow.SecundaryContainer.Navigate(newOperation);
             mainWindow.PrimaryContainer.IsHitTestVisible = false;
+        }
+
+        private void dgBelongings_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+
         }
     }
 }
