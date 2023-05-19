@@ -66,6 +66,7 @@ namespace View.Views
         }
 
         private void ConverterImagesFormat()
+
         {
             for(int i = 0; i< articles.Count(); i++)
             {

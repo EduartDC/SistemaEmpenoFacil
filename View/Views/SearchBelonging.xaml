@@ -51,7 +51,7 @@
 
 
         <DataGrid
-            x:Name="dgArticles"
+            x:Name="dgBelonging"
             Grid.Row="1"
             Grid.ColumnSpan="4"
             AutoGenerateColumns="False"

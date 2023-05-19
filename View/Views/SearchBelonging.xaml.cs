@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BusinessLogic;
+using Domain.BelongingCreation;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,38 +23,28 @@ namespace View.Views
     /// </summary>
     public partial class SearchBelonging : Page
     {
+        private List<Belonging> belongings = new List<Belonging>();
+        private Boolean datePickerEnabled = true;
+        private ICollectionView collectionView;
         public SearchBelonging()
         {
             InitializeComponent();
-        }
+            cbCategory.Items.Add()
 
-        private void Btn_EditArticle(object sender, RoutedEventArgs e)
+        }
+        
+        private void loadDate()
         {
-
+            dpDate.Text = DateTime.Now.ToString();
         }
 
-        private void btn_FilterArticles(object sender, RoutedEventArgs e)
+        private void loadBelongingId()
         {
-
+            int code = 0;
+            belongings.Clear();
+            (code, articles) = BelongingDAO.GetBelongingByID
+            
         }
-
-        private void btn_CleanFilters(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void cbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Cb_CalendarEnabled(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void bt_dateUnabled(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }

@@ -106,8 +106,6 @@ namespace View.Views
                     
                     Domain.Customer customer = (Domain.Customer)item;
                     Console.WriteLine(customer.idCustomer);
-                    //MainWindow menuView = new MainWindow();
-                    //menuView.SecundaryContainer.NavigationService.Navigate(new CustomerView(customer.idCustomer));
                     var window = (MainWindow)Application.Current.MainWindow;
                     BlurEffect blurEffect = new BlurEffect();
                     blurEffect.Radius = 5;
