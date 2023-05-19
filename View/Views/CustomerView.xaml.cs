@@ -74,7 +74,16 @@ namespace View.Views
                 textPhonNomber.Text = customer.telephonNumber.ToString();
                 textName.Text = customer.firstName;
                 textLastName.Text = customer.lastName;
-                comBoxIdentificationType.SelectedIndex = int.Parse(customer.identification);
+                string type = customer.identification;
+                ComboBoxItem itemSelecct = comBoxIdentificationType
+                    .Items
+                    .OfType<ComboBoxItem>()
+                    .FirstOrDefault(item => item.Content.ToString() == type);
+
+                if (itemSelecct != null)
+                {
+                    comBoxIdentificationType.SelectedItem = itemSelecct;
+                }
             }
             catch (Exception)
             {
@@ -267,5 +276,7 @@ namespace View.Views
                 e.Handled = true;
             }
         }
+
+
     }
 }
