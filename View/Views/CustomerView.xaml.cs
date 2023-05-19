@@ -76,9 +76,9 @@ namespace View.Views
                 textLastName.Text = customer.lastName;
                 string type = customer.identification;
                 ComboBoxItem itemSelecct = comBoxIdentificationType
-                    .Items
-                    .OfType<ComboBoxItem>()
-                    .FirstOrDefault(item => item.Content.ToString() == type);
+                .Items
+                .OfType<ComboBoxItem>()
+            .FirstOrDefault(item => item.Content.ToString() == type);
 
                 if (itemSelecct != null)
                 {
