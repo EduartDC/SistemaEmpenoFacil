@@ -63,17 +63,18 @@ namespace BusinessLogic
                 using (var connection = new ConnectionModel())
                 {
                     var customer = connection.Customers.Find(selectedCustomer.idCustomer);
-                    if (customer.address.Equals(selectedCustomer.address) ||
-                    customer.identification.Equals(selectedCustomer.identification) ||
-                    customer.telephonNumber.Equals(selectedCustomer.telephonNumber))
-                    {
-                        customer.address = selectedCustomer.address;
-                        customer.identification = selectedCustomer.identification;
-                        customer.telephonNumber = selectedCustomer.telephonNumber;
-                    }
-                    connection.Entry(customer).State = System.Data.Entity.EntityState.Modified;
+
+                    customer.address = selectedCustomer.address;
+                    customer.identification = selectedCustomer.identification;
+                    customer.telephonNumber = selectedCustomer.telephonNumber;
                     result = connection.SaveChanges();
+
                 }
+
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
             }
             return result;
         }
@@ -345,6 +346,7 @@ namespace BusinessLogic
         public static (int, List<Domain.CustomerProfitDomain>) GetCustomersProfit()
         {
             List<Domain.CustomerProfitDomain> CustomersProfitList = new List<Domain.CustomerProfitDomain>();
+
             List<Customer> list = new List<Customer>();
             if (Utilities.VerifyConnection())
             {
@@ -380,8 +382,10 @@ namespace BusinessLogic
                                 newCustomerProfit.profitCustomer = float.Parse(util.Customer.cumulativeProfit);
                                 newCustomerProfit.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description + "\n";
                                 // Console.WriteLine(newCustomerProfit.articlesProfit);
+
                                 if (util.Belongings_Articles.customerProfit > 0)
                                     CustomersProfitList.Add(newCustomerProfit);
+
                             }
                         }
                         else//verificar que no exista el cliente, o agregarlo a uno existente
@@ -411,6 +415,7 @@ namespace BusinessLogic
                                 newCustomerProfit.profitCustomer = float.Parse(util.Customer.cumulativeProfit);
                                 newCustomerProfit.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description + "\n";
                                 if(util.Belongings_Articles.customerProfit > 0)
+
                                 CustomersProfitList.Add(newCustomerProfit);
                             }
                         }

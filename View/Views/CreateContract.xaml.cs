@@ -38,9 +38,9 @@ namespace View.Views
         private DateTime currentlyDate;//fecha actual
         private DateTime comercializationDate;//fecha de comercializacion-NO ESTA EN LA BD
         private DateTime limitPaymentDate;
-        private int totalAppraiseAmmount = 0;//total de avaluo
+        private double totalAppraiseAmmount = 0;//total de avaluo
         private string paymentDates = "";
-        private int totalLoan = 0;
+        private double totalLoan = 0;
 
         private string totalPaymentForEndorsement = "";// total de pago por refrendo
 
@@ -253,7 +253,7 @@ namespace View.Views
             }
 
             tbDateEndorsementSettlement.Text = paymentDates.ToString();
-            float totalAppraisal = 0;
+            double totalAppraisal = 0;
             foreach (Domain.BelongingCreation.Belonging b in belongingList)
             {
                 totalLoan += b.LoanAmount;
@@ -266,8 +266,8 @@ namespace View.Views
 
         private void CalculatesAppraisalAndLoanAmount()
         {
-            float loanAmount = 0;
-            float appraisalAmount = 0;
+            double loanAmount = 0;
+            double appraisalAmount = 0;
             foreach (Domain.BelongingCreation.Belonging b in belongingList)
             {
                 loanAmount += b.LoanAmount;
