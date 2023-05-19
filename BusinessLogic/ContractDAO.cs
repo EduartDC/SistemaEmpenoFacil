@@ -138,7 +138,6 @@ namespace BusinessLogic
 
         public static List<Domain.CompleteContract> RecoverContracts()
         {
-            NewLog _log = new NewLog();
             List<Domain.CompleteContract> resultContracts = new List<Domain.CompleteContract>();
             try
             {
@@ -162,15 +161,14 @@ namespace BusinessLogic
             }
             catch (SqlException ex)
             {
-                _log.Add(ex.ToString());
+
             }
             catch (ArgumentNullException ex)
-            {
-                _log.Add(ex.ToString());
+            { 
+
             }
             catch (DataException ex)
             {
-                _log.Add(ex.ToString());
             }
             return resultContracts;
         }

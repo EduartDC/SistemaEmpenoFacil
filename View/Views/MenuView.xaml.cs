@@ -25,6 +25,7 @@ namespace View.Views
     public partial class MenuView : Page
     {
         Staff _staff = new Staff();
+        NewLog _log = new NewLog();
         public MenuView()
         {
             InitializeComponent();
@@ -109,7 +110,14 @@ namespace View.Views
         private void itemOptions_Click(object sender, RoutedEventArgs e)
         {
             ConfigureMetrics configureMetrics = new ConfigureMetrics();
-            configureMetrics.ShowDialog();
+            try
+            {
+                configureMetrics.ShowDialog();
+            }
+            catch (InvalidOperationException ex)
+            {
+                _log.Add(ex.ToString());
+            }
         }
 
         private void itemSearchContract_Click(object sender, RoutedEventArgs e)

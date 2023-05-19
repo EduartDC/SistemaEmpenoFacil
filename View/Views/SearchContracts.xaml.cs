@@ -3,6 +3,7 @@ using BusinessLogic.Utility;
 using Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,17 +88,38 @@ namespace View.Views
 
         private void Button_Liquidate_Click(object sender, RoutedEventArgs e)
         {
-            var contractSelected = tableCustomers.SelectedItem as CompleteContract;
-            MenuView menu = new MenuView();
-            menu.Container.NavigationService.Navigate(new LiquidateContractView(contractSelected.idContract));
-            
+            Button btn = sender as Button;
+            if(btn != null)
+            {
+                var row = DataGridRow.GetRowContainingElement(btn);
+                var item = row.Item;
+                if(item != null && tableCustomers.Items.Contains(item))
+                {
+                    var contractSelected = tableCustomers.SelectedItem as CompleteContract;
+                    var window = (MainWindow)Application.Current.MainWindow;
+                    var menu = new MenuView();
+                    menu.Container.NavigationService.Navigate(new LiquidateContractView(contractSelected.idContract));
+                    window.PrimaryContainer.NavigationService.Navigate(menu);
+                }
+            }
         }
 
         private void Button_Endorsement_Click(object sender, RoutedEventArgs e)
         {
-            var contractSelected = tableCustomers.SelectedItem as CompleteContract;
-            MenuView menu = new MenuView();
-            //menu.Container.NavigationService.Navigate(new EndorseContract(contractSelected.idContract));
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                var row = DataGridRow.GetRowContainingElement(btn);
+                var item = row.Item;
+                if (item != null && tableCustomers.Items.Contains(item))
+                {
+                    var contractSelected = tableCustomers.SelectedItem as CompleteContract;
+                    var window = (MainWindow)Application.Current.MainWindow;
+                    var menu = new MenuView();
+                    //menu.Container.NavigationService.Navigate(new EndorseContract(contractSelected.idContract));
+                    window.PrimaryContainer.NavigationService.Navigate(menu);
+                }
+            }
         }
 
         private void Btn_Restore_Click(object sender, RoutedEventArgs e)
