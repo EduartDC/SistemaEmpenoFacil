@@ -130,6 +130,9 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new SearchCustomer());
         }
-        
+        private void ItemOperationCashRegister_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new CashRegisterOperations());
+        }
     }
 }

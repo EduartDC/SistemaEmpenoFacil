@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using DataAcces;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -89,21 +91,34 @@ namespace View.Views
             customerBlackList.ShowDialog();
         }
 
-        //private void Button_ModifyCustomer(object sender, RoutedEventArgs e)
-        //{
-
-        //    MainWindow menuView = new MainWindow();
-        //    menuView.SecundaryContainer.NavigationService.Navigate(new CustomerView());
-        //}
+        
         private void Button_ModifyClient_Click(object sender, RoutedEventArgs e)
         {
-            //Customer customer =dgCustomers.SelectedItem as Customer;
+            
+            Button btn = sender as Button;
 
-            //int idCustomer = customer.idCustomer;
-            //MainWindow mainWindow = new MainWindow();
-            //Console.WriteLine(idCustomer);
-            //mainWindow.SecundaryContainer.NavigationService.Navigate(new CustomerView(idCustomer));
+            if (btn != null)
+            {
+                var row = DataGridRow.GetRowContainingElement(btn);
+                var item = row.Item;
+                if (item != null && dgCustomers.Items.Contains(item))
+                {
+                    
+                    Domain.Customer customer = (Domain.Customer)item;
+                    Console.WriteLine(customer.idCustomer);
+                    //MainWindow menuView = new MainWindow();
+                    //menuView.SecundaryContainer.NavigationService.Navigate(new CustomerView(customer.idCustomer));
+                    var window = (MainWindow)Application.Current.MainWindow;
+                    BlurEffect blurEffect = new BlurEffect();
+                    blurEffect.Radius = 5;
+                    window.PrimaryContainer.Effect = blurEffect;
 
+                    window.SecundaryContainer.Navigate(new CustomerView(customer.idCustomer));
+                    window.PrimaryContainer.IsHitTestVisible = false;
+
+                }
+            }
+            
         }
     }
 }

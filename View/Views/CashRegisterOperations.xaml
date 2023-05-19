@@ -72,7 +72,8 @@
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="White"/>
-        <ComboBox x:Name="cbConcept" HorizontalAlignment="Left" Margin="300,412,0,0" VerticalAlignment="Top" Width="200" Grid.ColumnSpan="2" SelectionChanged="cbConcept_SelectionChanged"/>
+        <ComboBox x:Name="cbConcept" HorizontalAlignment="Left" Margin="300,412,0,0" VerticalAlignment="Top" Width="200" Grid.ColumnSpan="2" 
+                  />
         <Button
             x:Name="btnRegister"
             Width="171"

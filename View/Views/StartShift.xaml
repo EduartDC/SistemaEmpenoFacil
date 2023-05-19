@@ -37,7 +37,7 @@
                     
                     PreviewTextInput="textAmountReceived_PreviewTextInput"
                     Text="00.00"
-                    TextAlignment="Right" TextChanged="textAmountReceived_TextChanged" />
+                    TextAlignment="Right"  />
 
         <Label
                     Margin="0,0,0,542"

@@ -352,6 +352,11 @@
                         Click="ItemRegisterStaff_Click"
                         Header="Registrar Empleado"
                         Style="{StaticResource MenuItemStyle}"/>
+                    <MenuItem
+                        Name="itemOperationCashRegister"
+                        Click="ItemOperationCashRegister_Click"
+                        Header="Operacion de caja"
+                        Style="{StaticResource MenuItemStyle}"/>
 
                 </MenuItem>
                 <MenuItem

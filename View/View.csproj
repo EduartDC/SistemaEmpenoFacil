@@ -148,6 +148,9 @@
     <Compile Include="Views\ScanCodeView.xaml.cs">
       <DependentUpon>ScanCodeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SearchBelonging.xaml.cs">
+      <DependentUpon>SearchBelonging.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SearchContracts.xaml.cs">
       <DependentUpon>SearchContracts.xaml</DependentUpon>
     </Compile>
@@ -272,6 +275,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ScanCodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SearchBelonging.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
