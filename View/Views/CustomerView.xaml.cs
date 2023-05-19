@@ -74,7 +74,16 @@ namespace View.Views
                 textPhonNomber.Text = customer.telephonNumber.ToString();
                 textName.Text = customer.firstName;
                 textLastName.Text = customer.lastName;
-                comBoxIdentificationType.SelectedIndex = int.Parse(customer.identification);
+                string type = customer.identification;
+                ComboBoxItem itemSelecct = comBoxIdentificationType
+                    .Items
+                    .OfType<ComboBoxItem>()
+                    .FirstOrDefault(item => item.Content.ToString() == type);
+
+                if (itemSelecct != null)
+                {
+                    comBoxIdentificationType.SelectedItem = itemSelecct;
+                }
             }
             catch (Exception)
             {
@@ -161,8 +170,8 @@ namespace View.Views
             var result = false;
             try
             {
-                var number = int.Parse(text);
-                if (number == 10)
+
+                if (text.Length == 10)
                 {
                     result = true;
                 }
@@ -215,7 +224,7 @@ namespace View.Views
             Customer newCustomer = new Customer();
             newCustomer.idCustomer = id;
             newCustomer.address = textAddress.Text;
-            newCustomer.telephonNumber = int.Parse(textPhonNomber.Text);
+            newCustomer.telephonNumber = Int64.Parse(textPhonNomber.Text);
             newCustomer.identification = comBoxIdentificationType.SelectedIndex.ToString();
             try
             {
@@ -267,5 +276,7 @@ namespace View.Views
                 e.Handled = true;
             }
         }
+
+
     }
 }
