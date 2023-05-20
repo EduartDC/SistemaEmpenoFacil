@@ -30,10 +30,11 @@ namespace View.Views
         int _id;
         public LiquidateContractView(int idContract)
         {
-            InitializeComponent();
+
             _id = idContract;
             labelValidation.Visibility = Visibility.Hidden;
             SetInformationAsync(idContract);
+            InitializeComponent();
         }
 
         private async Task SetInformationAsync(int idContract)
