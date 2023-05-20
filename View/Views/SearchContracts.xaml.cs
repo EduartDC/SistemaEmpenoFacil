@@ -33,7 +33,20 @@ namespace View.Views
             InitializeComponent();
             comBox_TypeSearch.Items.Add("Numero del cliente");
             comBox_TypeSearch.Items.Add("Nombre del cliente");
-            InitializeTable();
+            try
+            {
+                InitializeTable();
+            }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show("No existen contratos registrados en la base de datos");
+                this.Content = null;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se ha podido conectar a la base de datos, favor de intentarlo más tarde");
+                this.Content = null;
+            }
         }
 
         private void InitializeTable()

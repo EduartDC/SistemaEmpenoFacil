@@ -193,7 +193,6 @@ namespace BusinessLogic
 
         public static List<Domain.Customer> RecoverCustomers()
         {
-            NewLog _log = new NewLog();
             List<Domain.Customer> resultCustomers = new List<Domain.Customer>();
             try
             {
@@ -219,17 +218,13 @@ namespace BusinessLogic
                     }
                 }
             }
-            catch (SqlException ex)
+            catch (ArgumentNullException )
             {
-                _log.Add(ex.ToString());
+                throw new ArgumentNullException();
             }
-            catch (ArgumentNullException ex)
+            catch (Exception )
             {
-                _log.Add(ex.ToString());
-            }
-            catch (DataException ex)
-            {
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
             return resultCustomers;
         }
@@ -269,7 +264,6 @@ namespace BusinessLogic
 
         public static int ChangeStatusBlackList(string curpObtine)
         {
-            NewLog _log = new NewLog();
             int result = 500;
             try
             {
@@ -290,22 +284,21 @@ namespace BusinessLogic
             }
             catch (ArgumentNullException ex)
             {
-                _log.Add(ex.ToString());
             }
             catch (DbUpdateException ex)
             {
-                _log.Add(ex.ToString());
+
             }
             catch (EntityException ex)
             {
-                _log.Add(ex.ToString());
+
             }
             return result;
         }
 
         public static Customer FindCustomerById(int id)
         {
-            NewLog _log = new NewLog();
+            
             Customer customer = new Customer();
             try
             {
@@ -316,11 +309,11 @@ namespace BusinessLogic
             }
             catch (DataException ex)
             {
-                _log.Add(ex.ToString());
+                
             }
             catch (InvalidOperationException ex)
             {
-                _log.Add(ex.ToString());
+                
             }
             return customer;
         }

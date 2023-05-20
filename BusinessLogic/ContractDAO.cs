@@ -147,28 +147,30 @@ namespace BusinessLogic
 
                     foreach (DataAcces.Contract contractOne in contract)
                     {
-                        Domain.CompleteContract newContract = new Domain.CompleteContract();
-                        newContract.idContract = contractOne.idContract;
-                        newContract.idCustomer = contractOne.Customer_idCustomer;
-                        newContract.stateContract = contractOne.stateContract;
-                        DataAcces.Customer newCustomer = new DataAcces.Customer();
-                        newCustomer = CustomerDAO.FindCustomerById(contractOne.Customer_idCustomer);
-                        newContract.firstName = newCustomer.firstName;
-                        newContract.lastName = newCustomer.lastName;
-                        resultContracts.Add(newContract);
+                        if(contractOne != null)
+                        {
+                            Domain.CompleteContract newContract = new Domain.CompleteContract();
+                            newContract.idContract = contractOne.idContract;
+                            newContract.idCustomer = contractOne.Customer_idCustomer;
+                            newContract.stateContract = contractOne.stateContract;
+                            DataAcces.Customer newCustomer = new DataAcces.Customer();
+                            newCustomer = CustomerDAO.FindCustomerById(contractOne.Customer_idCustomer);
+                            newContract.firstName = newCustomer.firstName;
+                            newContract.lastName = newCustomer.lastName;
+                            resultContracts.Add(newContract);
+
+                        }
                     }
                 }
             }
-            catch (SqlException ex)
+            
+            catch (ArgumentNullException)
             {
-
+                throw new ArgumentNullException();
             }
-            catch (ArgumentNullException ex)
-            { 
-
-            }
-            catch (DataException ex)
+            catch (Exception)
             {
+                throw new Exception();
             }
             return resultContracts;
         }

@@ -35,7 +35,21 @@ namespace View.Views
             comBox_TypeSearch.Items.Add("Numero del cliente");
             comBox_TypeSearch.Items.Add("Nombre del cliente");
             comBox_TypeSearch.Items.Add("CURP");
-            InitializeTable();
+            try
+            {
+                InitializeTable();
+            }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show("No existen clientes registrados en la lista negra");
+                this.Content = null;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al conectarse a la base de datos, favor de intentarlo más tarde");
+                this.Content = null;
+            }
+            
         }
 
         private void InitializeTable()
@@ -45,11 +59,6 @@ namespace View.Views
             customersList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
             customersList.ForEach(customer => _listCurpsCustomers.Add(customer.curp));
             tableCustomers.ItemsSource = customersList;
-            if(customersList.Count == 0)
-            {
-               MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
-                this.Content = null;
-            }
         }
 
 

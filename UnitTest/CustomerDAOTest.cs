@@ -148,5 +148,31 @@ namespace UnitTest
         {
             Assert.IsNull(CustomerDAO.GetCustomerByCURP("1"));
         }
+
+        [TestMethod]
+        public void TestRecoverCustomersSuccess()
+        {
+            List<Domain.Customer> resultCustomers = CustomerDAO.RecoverCustomers();
+            int resultObtined = resultCustomers.Count;
+            Assert.AreEqual(7, resultObtined);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestRecoverCustomersErrorArgumentNullException()
+        {
+            List<Domain.Customer> resultCustomers = CustomerDAO.RecoverCustomers();
+            int resultObtined = resultCustomers.Count;
+            Assert.AreEqual(0, resultObtined);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestRecoverCustomersError()
+        {
+            List<Domain.Customer> resultCustomers = CustomerDAO.RecoverCustomers();
+            int resultObtined = resultCustomers.Count;
+            Assert.AreEqual(0, resultObtined);
+        }
     }
 }
