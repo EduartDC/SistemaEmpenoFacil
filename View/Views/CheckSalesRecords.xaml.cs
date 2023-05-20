@@ -41,9 +41,9 @@ namespace View.Views
                 saleDetails.showSaleDetails(selectedSale.idSale);
                 this.IsHitTestVisible= false;
                 saleDetails.Show();
-                this.IsHitTestVisible = true;
                 dataGridSales.SelectedItem = null;
-                
+                this.IsHitTestVisible = true;
+
             }
             catch(NullReferenceException)
             {

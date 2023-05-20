@@ -7,6 +7,7 @@ using System.Data.Entity.Migrations.Model;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BusinessLogic
 {
@@ -123,14 +124,27 @@ namespace BusinessLogic
             return result;
         }
 
-        public static Belonging GetBelongingByID(int id)
+        public static Domain.BelongingCreation.Belonging GetBelongingByID(int id)
         {
-            Belonging belonging = null;
+            Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
-                    belonging = connection.Belongings.Find(id);
+                    Belonging resultQuery = connection.Belongings.Find(id);
+                    belonging.idBelonging = resultQuery.idBelonging;
+                    belonging.Features = resultQuery.characteristics;
+                    belonging.SerialNumber = resultQuery.serialNumber;
+                    belonging.Category = resultQuery.category;
+                    belonging.GenericDescription = resultQuery.description;
+                    belonging.Model = resultQuery.model;
+                    belonging.ApraisalAmount = resultQuery.appraisalValue;
+                    belonging.LoanAmount = resultQuery.loanAmount;
+                    var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == resultQuery.idBelonging).FirstOrDefault();
+                    if (imageInfo != null)
+                    {
+                        belonging.image = imageInfo.imagen;
+                    }
                 }
             }
             else
@@ -159,7 +173,6 @@ namespace BusinessLogic
                         belonging.Model = element.model;
                         belonging.ApraisalAmount = element.appraisalValue;
                         belonging.LoanAmount = element.loanAmount;
-                        Console.WriteLine(element.idBelonging);
                             var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
                             if (imageInfo != null)
                             {

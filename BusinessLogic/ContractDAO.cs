@@ -75,15 +75,29 @@ namespace BusinessLogic
                     using (var connection = new ConnectionModel())
                     {
                         var oldContract = connection.Contracts.Find(idContract);
-                        oldContract = contract;
-                        connection.Entry(oldContract).State = System.Data.Entity.EntityState.Modified;
+                        oldContract.loanAmount= contract.loanAmount;
+                        oldContract.idContractPrevious = idContract;
+                        oldContract.deadlineDate = contract.deadlineDate;
+                        oldContract.creationDate = contract.creationDate;
+                        oldContract.stateContract= contract.stateContract;
+                        oldContract.iva = contract.iva;
+                        oldContract.interestRate = contract.interestRate;
+                        oldContract.renewalFee= contract.renewalFee;
+                        oldContract.settlementAmount = contract.settlementAmount;
+                        oldContract.duration = contract.duration;
+                        oldContract.Customer_idCustomer = contract.Customer_idCustomer;
+                        oldContract.endorsementSettlementDates= contract.endorsementSettlementDates;
+                        oldContract.paymentsSettlement = contract.paymentsSettlement;
+                        oldContract.paymentsEndorsement = contract.paymentsEndorsement;
+                        oldContract.loanProcentage = contract.loanProcentage;
+                        oldContract.totalAnnualCost = contract.totalAnnualCost;
+                        oldContract.annualInterestRate= contract.annualInterestRate;
                         result = connection.SaveChanges();
-                        return result;
                     }
                 }
                 catch (DbUpdateException)
                 {
-                    return result;
+                    result = MessageCode.ERROR_UPDATE;
                 }
             }
             return result;

@@ -1,7 +1,10 @@
 ﻿using BusinessLogic;
 using DataAcces;
+using Domain.BelongingCreation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +26,8 @@ namespace View.Views
     {
 
         Sale sale = null;
+        List<Domain.BelongingCreation.Belonging> belongings = new List<Domain.BelongingCreation.Belonging>();
+
         public SaleDetails()
         {
             InitializeComponent();
@@ -37,16 +42,36 @@ namespace View.Views
             getArticlesOfSale(saleId);
         }
 
+        private void ConverterImagesFormat()
+        {
+            Console.WriteLine(belongings.Count());
+            for (int i = 0; i < belongings.Count(); i++)
+            {
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = new MemoryStream(belongings[i].image);
+                bitmap.EndInit();
+                belongings[i].imageConverted = bitmap;
+
+            }
+        }
+
         private void getArticlesOfSale(int saleID)
         {
             List<Belongings_Articles> belongings_Articles = BelongingsArticlesDAO.GetBelongings_Articles_Selled(saleID);
-            List<Belonging> belongings = new List<Belonging>();
             foreach (Belongings_Articles selledArticle in belongings_Articles) 
             {
                 belongings.Add(BelongingDAO.GetBelongingByID(selledArticle.idBelonging));
             }
+            for(int i = 0;i < belongings.Count; i++) 
+            {
+                belongings.ElementAt(i).sellingPrice = belongings_Articles.ElementAt(i).sellingPrice;
+            }
+            ConverterImagesFormat();
             dataGridArticlesSelled.ItemsSource = belongings;
+            
         }
+
         private void GoBackButtonEvent(object sender, RoutedEventArgs e)
         {
             this.Close();

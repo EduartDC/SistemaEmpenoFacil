@@ -25,6 +25,8 @@ namespace Domain.BelongingCreation
         public double LoanAmount { get; set; }
         public float PorcentLoan { get; set; }
 
+        public double sellingPrice { get; set; }
+
         public byte[] image { get; set; }
 
         public ImageSource imageConverted { get; set; }
