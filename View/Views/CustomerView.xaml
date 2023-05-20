@@ -233,6 +233,7 @@
                 <ComboBoxItem>Pasaporte</ComboBoxItem>
                 <ComboBoxItem>Cartilla Militar</ComboBoxItem>
             </ComboBox>
+            <Label Grid.Column="1" Content="Modificar Cliente" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Margin="90,-7,0,0"/>
         </Grid>
         <Grid
             Grid.Row="1"
