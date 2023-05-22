@@ -50,7 +50,7 @@ namespace View.Views
             customersList.ForEach(customer => _listNamesCustomers.Add(customer.firstName));
             customersList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
             customersList.ForEach(customer => _listCurpsCustomers.Add(customer.curp));
-            //tableCustomers.ItemsSource = customersList;
+            
             dgCustomers.ItemsSource= customersList;
             if (_listNamesCustomers.Count == 0)
             {
@@ -63,7 +63,7 @@ namespace View.Views
 
         private void LoadTable()
         {
-            Console.WriteLine("Load table" + customersList.Count());
+            
             dgCustomers.ItemsSource = customersList;
         }
 
@@ -105,7 +105,7 @@ namespace View.Views
                 {
                     
                     Domain.Customer customer = (Domain.Customer)item;
-                    Console.WriteLine(customer.idCustomer);
+                    
                     var window = (MainWindow)Application.Current.MainWindow;
                     BlurEffect blurEffect = new BlurEffect();
                     blurEffect.Radius = 5;

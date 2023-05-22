@@ -1,7 +1,12 @@
 ﻿using BusinessLogic.Utility;
 using DataAcces;
+using Domain;
+using Domain.BelongingCreation;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations.Model;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,5 +32,9 @@ namespace BusinessLogic
             }
             return belongings_ArticlesSelled;
         }
+        //public static SetPriceBelongingArticle()
+        //{
+            
+        //}
     }
 }

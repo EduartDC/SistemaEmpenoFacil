@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.Entity.Migrations.Model;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -99,7 +100,7 @@ namespace BusinessLogic
         public static int DeletePendingImages(List<int> idImages)
         {
             int result = 0;
-            if(Utilities.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
                 try
                 {
@@ -113,12 +114,14 @@ namespace BusinessLogic
                         connection.SaveChanges();
                         result = MessageCode.SUCCESS;
                     }
-                }catch(ArgumentException)
+                }
+                catch (ArgumentException)
                 {
                     result = MessageCode.ERROR_UPDATE;
                 }
-            }else
-                result = MessageCode.CONNECTION_ERROR;  
+            }
+            else
+                result = MessageCode.CONNECTION_ERROR;
 
             return result;
         }
@@ -147,7 +150,7 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    var resultSet = connection.Belongings.Where(belongin => belongin.Contract_idContract== id).ToList();
+                    var resultSet = connection.Belongings.Where(belongin => belongin.Contract_idContract == id).ToList();
                     foreach (var element in resultSet)
                     {
                         Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
@@ -160,16 +163,52 @@ namespace BusinessLogic
                         belonging.ApraisalAmount = element.appraisalValue;
                         belonging.LoanAmount = element.loanAmount;
                         Console.WriteLine(element.idBelonging);
-                            var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
-                            if (imageInfo != null)
-                            {
-                                belonging.image = imageInfo.imagen;
-                            }
+                        var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
+                        if (imageInfo != null)
+                        {
+                            belonging.image = imageInfo.imagen;
+                        }
                         belongins.Add(belonging);
                     }
                 }
             }
-            else 
+            else
+            {
+                throw new Exception("Error de conexion");
+            }
+            return belongins;
+        }
+        public static List<Domain.BelongingCreation.Belonging> GetBelonging()
+        {
+            List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var resultSet = connection.Belongings.ToList();
+                    foreach (var element in resultSet)
+                    {
+                        Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
+                        belonging.idBelonging = element.idBelonging;
+                        belonging.Features = element.characteristics;
+                        belonging.SerialNumber = element.serialNumber;
+                        belonging.Category = element.category;
+                        belonging.GenericDescription = element.description;
+                        belonging.Model = element.model;
+                        belonging.ApraisalAmount = element.appraisalValue;
+                        belonging.LoanAmount = element.loanAmount;
+                        belonging.DeadLine = element.Contract.deadlineDate;
+                        Console.WriteLine(element.idBelonging);
+                        var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
+                        if (imageInfo != null)
+                        {
+                            belonging.image = imageInfo.imagen;
+                        }
+                        belongins.Add(belonging);
+                    }
+                }
+            }
+            else
             {
                 throw new Exception("Error de conexion");
             }
