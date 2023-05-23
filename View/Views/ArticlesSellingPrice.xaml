@@ -60,7 +60,7 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn  FontSize="15" Header="Numero de serie" Width="180" Binding="{Binding SerialNumber}"/>
-                <DataGridTextColumn  FontSize="15" Header="Monto de avaluo" Width="160" Binding="{Binding ApraisalAmount}"/>
+                <DataGridTextColumn  FontSize="15" Header="Avaluo" Width="80" Binding="{Binding ApraisalAmount}"/>
                 <DataGridTextColumn  FontSize="15" Header="Categoria" Width="200" Binding="{Binding Category}"/>
                 <DataGridTextColumn  FontSize="15" Header="Fecha de vencimiento" Width="200" Binding="{Binding DeadLine, StringFormat=dd/MM/yyyy}"/>
                 <DataGridTemplateColumn Header="Agregar precio de venta" MinWidth="150">

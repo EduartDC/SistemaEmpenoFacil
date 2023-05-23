@@ -219,7 +219,7 @@ namespace BusinessLogic
         {
             DateTime actualTime = DateTime.Now.AddDays(-15);
             List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
-            List<Domain.BelongingCreation.Belonging> belongingList = new List<Domain.BelongingCreation.Belonging>();
+           
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
@@ -231,8 +231,7 @@ namespace BusinessLogic
                     {
 
                         var verifyId = connection.Belongings_Articles.Where(a => a.idBelonging == element.idBelonging).FirstOrDefault();
-                        var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
-                        if (verifyId.idBelonging>0) 
+                        if(verifyId.idBelonging>0) 
                         {
                             
                         } else
@@ -250,20 +249,19 @@ namespace BusinessLogic
                             belonging.State = element.Contract.stateContract;
 
                             
-                            if (imageInfo != null)
-                            {
-                                belonging.image = imageInfo.imagen;
-                            }
+                            
                             belongins.Add(belonging);
                         }
-                        
-                        
-                        
-
-                        
-
-                        
+              
                     }
+                    for(int i =0; i< belongins.Count(); i++)
+                    {
+                        var element = belongins[i];
+                        var image = connection.ImagesBelongings.Where(a=> a.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
+                        belongins[i].image = image.imagen;
+                    }
+
+
                 }
             }
             else

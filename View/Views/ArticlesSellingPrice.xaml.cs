@@ -52,8 +52,9 @@ namespace View.Views
         private void loadBelongings()
         {
             belongingsList = BelongingDAO.GetBelonging();
+            ConverterImagesFormat();
             dgBelonging.ItemsSource = belongingsList;
-            //ConverterImagesFormat();
+            
             loadDG();
 
         }
