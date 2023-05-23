@@ -65,52 +65,62 @@ namespace View.Views
                     address = text_Address.Text.Trim(),
                     identification = comBox_Identification.SelectedItem.ToString()
                 };
-                Customer findCustomer = CustomerDAO.GetCustomerByCURP(text_CURP.Text.Trim());
-                if (findCustomer.curp.Equals(""))
+                try
                 {
-                    AddCustomer(customer);
+                    Customer findCustomer = CustomerDAO.GetCustomerByCURP(text_CURP.Text.Trim());
+                    if (findCustomer == null)
+                    {
+                        AddCustomer(customer);
+                    }
+                    else
+                    {
+                        MessageBox.Show("El cliente que deseas agregar ya se encuentra registrado");
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    MessageBox.Show("El cliente que deseas agregar ya se encuentra registrado");
+                    MessageBox.Show("No se ha podido conectar a la base de datos, favor de intentarlo más tarde");
                 }
+                
                 
             }
         }
 
         private void AddCustomer(Customer customer)
         {
-            (int result, int idCustomer) = CustomerDAO.AddCustomer(customer);
-            if (result == 200)
+            try
             {
-                ConvertToBytes(imageOneCopy);
-                ConvertToBytes(imageTwoCopy);
-                ImagesIdentification imageOne = new ImagesIdentification();
-                imageOne.imagen = imagesBytes[0];
-                imageOne.Customer_idCustomer = idCustomer;
-                ImagesIdentification imageTwo = new ImagesIdentification();
-                imageTwo.imagen = imagesBytes[1];
-                imageTwo.Customer_idCustomer = idCustomer;
-                List<ImagesIdentification> imagesIdentifications = new List<ImagesIdentification>
+                (int result, int idCustomer) = CustomerDAO.AddCustomer(customer);
+                if (result == 200)
                 {
-                    imageOne,
-                    imageTwo
-                };
-                if (CustomerDAO.AddTwoImageIdentification(imagesIdentifications) == 200)
-                {
-                    MessageBox.Show("Cliente registrado con exito");
-                    this.Content = null;
-                }
-                else
-                {
-                    MessageBox.Show("Error al registrar las imagenes en la base de datos");
+                    ConvertToBytes(imageOneCopy);
+                    ConvertToBytes(imageTwoCopy);
+                    ImagesIdentification imageOne = new ImagesIdentification();
+                    imageOne.imagen = imagesBytes[0];
+                    imageOne.Customer_idCustomer = idCustomer;
+                    ImagesIdentification imageTwo = new ImagesIdentification();
+                    imageTwo.imagen = imagesBytes[1];
+                    imageTwo.Customer_idCustomer = idCustomer;
+                    List<ImagesIdentification> imagesIdentifications = new List<ImagesIdentification>
+                    {
+                        imageOne,
+                        imageTwo
+                    };
+                    if (CustomerDAO.AddTwoImageIdentification(imagesIdentifications) == 200)
+                    {
+                        MessageBox.Show("Cliente registrado con exito");
+                        this.Content = null;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al registrar las imagenes en la base de datos");
+                    }
                 }
             }
-            else
+            catch (Exception)
             {
                 MessageBox.Show("Error al registrar al cliente en la base de datos");
             }
-
         }
 
         private void ConvertToBytes(BitmapImage bitmap)
@@ -185,7 +195,7 @@ namespace View.Views
                 result = false;
                 label_ErrorLastName.Visibility = Visibility.Visible;
             }
-            if (!Utilities.ValidateFormat(text_CURP.Text.Trim(), "^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{5}[0-9]{2}$"))
+            if (!Utilities.ValidateFormat(text_CURP.Text.Trim(), "^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{6}[0-9]{1}$"))
             {
                 result = false;
                 label_ErrorCurp.Visibility = Visibility.Visible;

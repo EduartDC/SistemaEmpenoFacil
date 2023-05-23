@@ -4,10 +4,12 @@ using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace UnitTest
 {
@@ -174,5 +176,100 @@ namespace UnitTest
             int resultObtined = resultCustomers.Count;
             Assert.AreEqual(0, resultObtined);
         }
+
+        [TestMethod]
+        public void TestExistCustomerSuccess()
+        {
+            int resultObtined = CustomerDAO.ExistCustomer("PAVA021001HVZNLXA0");
+            Assert.AreEqual(200, resultObtined);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestExistCustomerErrorArgumentNullException()
+        {
+            int resultObtined = CustomerDAO.ExistCustomer(null);
+            Assert.AreEqual(500, resultObtined);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestExistCustomerError()
+        {
+            int resultObtined = CustomerDAO.ExistCustomer("PAVA021001HVZNLXA0");
+            Assert.AreEqual(500, resultObtined);
+        }
+
+        [TestMethod]
+        public void TestChangeStatusSuccess()
+        {
+            int resultObtined = CustomerDAO.ChangeStatusBlackList("MAHE021025HUJNKIQ7");
+            Assert.AreEqual(200, resultObtined);
+        }
+
+        [TestMethod]
+        public void TestChangeStatusClientInBlackList()
+        {
+            int resultObtined = CustomerDAO.ChangeStatusBlackList("MAHE021025HUJNKIQ7");
+            Assert.AreEqual(502, resultObtined);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestChangeStatusErrorArgumentNullException()
+        {
+            int resultObtined = CustomerDAO.ChangeStatusBlackList(null);
+            Assert.AreEqual(500, resultObtined);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestChangeStatusCustomerError()
+        {
+            int resultObtined = CustomerDAO.ChangeStatusBlackList("PAVA021001HVZNLXA0");
+            Assert.AreEqual(500, resultObtined);
+        }
+
+        [TestMethod]
+        public void TestAddCustomerSuccess()
+        {
+            DataAcces.Customer customer = new DataAcces.Customer()
+            {
+                firstName = "Lorena",
+                lastName = "Martinez Hernandez",
+                curp = "MAHE010203MIKJANH9",
+                blackList = false,
+                telephonNumber = 2281568457,
+                address = "78 de la calle nueva",
+                cumulativeProfit = "0",
+                identification = "INE"
+            };
+            (int resultObtined, int idCustomerObtined) = CustomerDAO.AddCustomer(customer);
+            Assert.AreEqual(200, resultObtined);
+            Assert.AreEqual(23, idCustomerObtined);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestAddCustomerError()
+        {
+            DataAcces.Customer customer = new DataAcces.Customer()
+            {
+                firstName = "Lorena",
+                lastName = "Martinez Hernandez",
+                curp = "MAHE010203MIKJANH9",
+                blackList = false,
+                telephonNumber = 2281568457,
+                address = "78 de la calle nueva",
+                cumulativeProfit = "0",
+                identification = "INE"
+            };
+            (int resultObtined, int idCustomerObtined) = CustomerDAO.AddCustomer(customer);
+            Assert.AreEqual(500, resultObtined);
+            Assert.AreEqual(0, idCustomerObtined);
+        }
+
+        
+
     }
 }
