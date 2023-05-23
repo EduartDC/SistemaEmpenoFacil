@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View.Views"
         mc:Ignorable="d"
-        Title="CreateBelongingRegister" Height="450" Width="800">
+        Title="CreateBelongingRegister" Height="500" Width="800">
     <Grid>
         <!--ajuntando celdas-->
         <Grid.RowDefinitions>
@@ -37,31 +37,207 @@
             />
         <ComboBox x:Name="cbCategory" HorizontalAlignment="Left" Margin="19,17,0,0" Grid.Row="1" VerticalAlignment="Top" Width="229"/>
         <Label Content="Categoria" HorizontalAlignment="Left" Margin="13,87,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
-        <TextBox x:Name="tbDescription" HorizontalAlignment="Left" Margin="20,55,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="227" Height="22"/>
+        <TextBox x:Name="tbDescription" HorizontalAlignment="Left" Margin="20,55,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="227" Height="22">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
         <Label Content="Description" HorizontalAlignment="Left" Margin="17,35,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbFeature" HorizontalAlignment="Left" Margin="21,93,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="227" Height="22"/>
+        <TextBox x:Name="tbFeature"  HorizontalAlignment="Left" Margin="21,93,0,0" Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="227" Height="74">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
         <Label Content="caracteristicas" HorizontalAlignment="Left" Margin="18,73,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbSerialNumber" HorizontalAlignment="Left" Margin="21,133,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="227" Height="22"/>
-        <Label Content="Serial" HorizontalAlignment="Left" Margin="18,112,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbModel" HorizontalAlignment="Left" Margin="21,171,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="227" Height="22"/>
-        <Label Content="Modelo" HorizontalAlignment="Left" Margin="18,151,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbApraisalAmount" HorizontalAlignment="Left" Margin="24,239,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" BorderBrush="#00ABADB3"/>
-        <Label Content="valor maximo" HorizontalAlignment="Left" Margin="18,191,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="24,225,0,0" Grid.Row="1" VerticalAlignment="Top" Width="149"/>
-        <TextBox x:Name="tbMaxValue" HorizontalAlignment="Left" Margin="24,209,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" BorderBrush="#00ABADB3"/>
-        <Label Content="prestamo" HorizontalAlignment="Left" Margin="18,221,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="23,255,0,0" Grid.Row="1" VerticalAlignment="Top" Width="149"/>
-        <Button Content="Cerrar registro" HorizontalAlignment="Left" Margin="19,0,0,0" Grid.Row="2" VerticalAlignment="Center" Click="ClicClosePage"/>
-        <Button Content="Guardar prenda" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="ClickSaveBelonging"/>
+        <TextBox x:Name="tbSerialNumber" HorizontalAlignment="Left" Margin="21,189,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="227" Height="22">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <Label Content="Serial" HorizontalAlignment="Left" Margin="18,168,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbModel" FontSize="15" HorizontalAlignment="Left" Margin="21,227,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="227" Height="22">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <Label Content="Modelo" HorizontalAlignment="Left" Margin="18,206,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbApraisalAmount" HorizontalAlignment="Left" Margin="24,297,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" FontSize="15" VerticalAlignment="Top" Width="225" BorderBrush="#00ABADB3"/>
+        <Label Content="valor maximo" HorizontalAlignment="Left" Margin="18,240,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="24,284,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225"/>
+        <TextBox x:Name="tbMaxValue" HorizontalAlignment="Left" Margin="24,261,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" FontSize="14" VerticalAlignment="Top" Width="225" BorderBrush="#00ABADB3"/>
+        <Label Content="prestamo" HorizontalAlignment="Left" Margin="18,278,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="23,321,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225"/>
+        <Button
+            Content="Cerrar registro"
+            HorizontalAlignment="Left"
+            Grid.Row="2"
+            VerticalAlignment="Top"
+            Click="ClicClosePage"
+            Foreground="White"
+            Background="#361D6F" FontWeight="Bold"
+            Width="120"
+            Height="25"
+            FontSize="15"
+            Margin="20,15">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button
+
+            Content="Guardar prenda"
+            HorizontalAlignment="Right"
+
+            Grid.Row="2"
+            VerticalAlignment="Top"
+            Click="ClickSaveBelonging"
+            Foreground="White"
+            Background="#323D8F" FontWeight="Bold"
+            Width="120"
+            Height="25"
+            FontSize="15"
+            Margin="20,15"
+            >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Image x:Name="componentImageOne" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="49,35,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124" Source="/Icons/photo.png"/>
         <Image x:Name="componentImageThree" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="49,157,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124" Source="/Icons/photo.png"/>
         <Image x:Name="componentImageTwo" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="292,35,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121" Source="/Icons/photo.png"/>
         <Image x:Name="componentImageFour" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="292,157,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121" Source="/Icons/photo.png"/>
-        <Button x:Name="btnLoadImage" Grid.Column="1" Content="Subir foto" HorizontalAlignment="Left" Margin="235,15,0,0" Grid.Row="2" VerticalAlignment="Top" Click="ClickLoadImage"/>
-        <Button Grid.Column="1" Content="X" HorizontalAlignment="Left" Margin="197,61,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="22" FontSize="14" FontWeight="Bold" Background="#FFFB0000" BorderBrush="Red" Foreground="White" Click="ClickDeleteImgOne"/>
-        <Button Grid.Column="1" Content="X" HorizontalAlignment="Left" Margin="425,62,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="22" FontSize="14" FontWeight="Bold" Background="#FFFB0000" BorderBrush="Red" Foreground="White" Click="ClickDeleteImgTwo"/>
-        <Button Grid.Column="1" Content="X" HorizontalAlignment="Left" Margin="197,164,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="22" FontSize="14" FontWeight="Bold" Background="#FFFB0000" BorderBrush="Red" Foreground="White" Click="ClickDeleteImgThree"/>
-        <Button Grid.Column="1" Content="X" HorizontalAlignment="Left" Margin="425,175,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="22" FontSize="14" FontWeight="Bold" Background="#FFFB0000" BorderBrush="Red" Foreground="White" Click="ClickDeleteImgFour"/>
+        <Button
+            x:Name="btnLoadImage"
+            Grid.Column="1"
+            Content="Subir foto"
+            HorizontalAlignment="Left"
+            Margin="235,15,0,0"
+            Grid.Row="2"
+            VerticalAlignment="Top"
+            Click="ClickLoadImage"
+            Foreground="White"
+            Background="#323D8F" FontWeight="Bold"
+            Height="25"
+            Width="100"
+            FontSize="15">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button
+            Grid.Column="1"
+            Content="X"
+            HorizontalAlignment="Left"
+            Margin="197,61,0,0"
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            Height="24"
+            Width="22"
+            FontSize="14"
+            FontWeight="Bold"
+            Background="#FFFB0000"
+            BorderBrush="Red"
+            Foreground="White"
+            Click="ClickDeleteImgOne">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button
+            Grid.Column="1"
+            Content="X"
+            HorizontalAlignment="Left"
+            Margin="425,62,0,0"
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            Height="24"
+            Width="22"
+            FontSize="14"
+            FontWeight="Bold"
+            Background="#FFFB0000"
+            BorderBrush="Red"
+            Foreground="White"
+            Click="ClickDeleteImgTwo">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button
+            Grid.Column="1"
+            Content="X"
+            HorizontalAlignment="Left"
+            Margin="197,164,0,0"
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            Height="24"
+            Width="22"
+            FontSize="14"
+            FontWeight="Bold"
+            Background="#FFFB0000"
+            BorderBrush="Red"
+            Foreground="White"
+            Click="ClickDeleteImgThree">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button
+            Grid.Column="1"
+            Content="X"
+            HorizontalAlignment="Left"
+            Margin="425,175,0,0"
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            Height="24"
+            Width="22"
+            FontSize="14"
+            FontWeight="Bold"
+            Background="#FFFB0000"
+            BorderBrush="Red"
+            Foreground="White"
+            Click="ClickDeleteImgFour">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
     </Grid>
 </Window>
