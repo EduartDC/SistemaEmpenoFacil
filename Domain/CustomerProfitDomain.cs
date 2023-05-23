@@ -20,5 +20,7 @@ namespace Domain
         public float profitCustomer { get; set; }
 
         public string articlesProfit { get; set; }
+
+        public List<ArticleDomain> articlesList  = new List<ArticleDomain>();
     }
 }

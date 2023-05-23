@@ -74,6 +74,7 @@ namespace BusinessLogic
             return result;
         }
 
+<<<<<<< HEAD
         public static List<SetAside> GetSedAsidesByDate(DateTime startDate, DateTime endDate)
         {
             List<SetAside> setAsides = new List<SetAside>();
@@ -89,6 +90,25 @@ namespace BusinessLogic
                 throw new Exception("Error de conexión");
             }
             return setAsides;
+=======
+        public static (int, SetAside) GetAsideById(int id)
+        {
+            int result = 0;
+            SetAside setAside = new SetAside();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    setAside = connection.SetAsides.Where( a => a.idSetAside == id).FirstOrDefault();
+                    if (setAside != null)
+                        result = MessageCode.SUCCESS;
+                }
+            }
+            else
+                result = MessageCode.CONNECTION_ERROR;
+
+            return (result, setAside);
+>>>>>>> 4c089b427b63abeb196c3ed21b91c5ffd09c872a
         }
     }
 }

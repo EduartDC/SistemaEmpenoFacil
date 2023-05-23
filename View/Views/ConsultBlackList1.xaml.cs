@@ -47,7 +47,13 @@ namespace View.Views
             tableCustomers.ItemsSource = customersList;
             if (_listNamesCustomers.Count == 0)
             {
+<<<<<<< HEAD
                MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
+=======
+
+               MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
+
+>>>>>>> 4c089b427b63abeb196c3ed21b91c5ffd09c872a
                 this.Content = null;
             }
         }

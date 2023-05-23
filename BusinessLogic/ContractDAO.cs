@@ -243,6 +243,7 @@ namespace BusinessLogic
 
                     temp.stateContract = StatesContract.ACTIVED_CONTRACT;
                     connection.SaveChanges();
+                    result = MessageCode.SUCCESS;
 
                 }
             }else
