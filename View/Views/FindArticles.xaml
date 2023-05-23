@@ -72,7 +72,11 @@
                 <DataGridTextColumn  FontSize="15" Header="Codigo de barras" Width="200" Binding="{Binding barCode}"/>
                 <DataGridTextColumn  FontSize="15" Header="Numero de serie" Width="180" Binding="{Binding serialNumber}"/>
                 <DataGridTextColumn  FontSize="15" Header="Bolsa" Width="70" Binding="{Binding idContract}"/>
-                <DataGridTextColumn  FontSize="15" Header="Precio" Width="75" Binding="{Binding sellingPrice}"/>
+                <DataGridTextColumn  FontSize="15" Header="Precio" Width="75">
+                    <DataGridTextColumn.Binding>
+                        <Binding  Path="sellingPrice" StringFormat="{}${0}"/>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
                 <DataGridTextColumn  FontSize="15" Header="Categoria" Width="200" Binding="{Binding category}"/>
                 <DataGridTextColumn  FontSize="15" Header="Fecha de comercializacion" Width="230" Binding="{Binding createDate, StringFormat=dd/MM/yyyy}" />
             </DataGrid.Columns>
@@ -155,7 +159,7 @@
             Width="144"
             HorizontalContentAlignment="Center"/>
         <Label
-            Content="Fecha de registro"
+            Content="Fecha de comercialización"
             Grid.Row="0"
             Grid.Column="1"
             FontWeight="Bold"

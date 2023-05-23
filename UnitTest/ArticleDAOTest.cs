@@ -80,5 +80,13 @@ namespace UnitTest
             int expectedResult = 0;
             Assert.AreEqual(expectedResult, ArticleDAO.UpdateArticleState(0, ""));
         }
+
+        //CU16 findArticles
+        //[TestMethod]
+        //public void TestGetFindArticles()
+        //{
+        //    int resultCode = MessageCode.SUCCESS;
+        //    Assert.AreEqual((resultCode, List<ArticleDomain>));
+        //}
     }
 }
