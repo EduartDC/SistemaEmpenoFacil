@@ -73,5 +73,24 @@ namespace BusinessLogic
             }
             return result;
         }
+
+        public static (int, SetAside) GetAsideById(int id)
+        {
+            int result = 0;
+            SetAside setAside = new SetAside();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    setAside = connection.SetAsides.Where( a => a.idSetAside == id).FirstOrDefault();
+                    if (setAside != null)
+                        result = MessageCode.SUCCESS;
+                }
+            }
+            else
+                result = MessageCode.CONNECTION_ERROR;
+
+            return (result, setAside);
+        }
     }
 }

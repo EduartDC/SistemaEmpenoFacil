@@ -55,6 +55,7 @@
     <Compile Include="MessageService.cs" />
     <Compile Include="OperationDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaledArticle.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAcces\DataAcces.csproj">

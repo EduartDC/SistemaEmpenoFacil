@@ -174,7 +174,7 @@ namespace View.Views
                     if (article != null)
                     {
                         return string.IsNullOrEmpty(filterTb) ||
-                        article.description.Equals(filterTb) ||
+                        article.description.Contains(filterTb) ||
                         article.idContract.ToString().Equals(filterTb) ||
                         article.serialNumber.Equals(filterTb) ||
                         article.barCode.Equals(filterTb);
@@ -207,7 +207,7 @@ namespace View.Views
                     if (article != null)
                     {
                         return
-                        article.description.Equals(filterTb) &&
+                        article.description.Contains(filterTb) &&
                         article.category.Equals(filterCategory) ||
                         article.serialNumber.Equals(filterTb) &&
                         article.category.Equals(filterCategory) ||
@@ -245,7 +245,7 @@ namespace View.Views
                     if (article != null)
                     {
                         return
-                        article.description.Equals(filterTb) && 
+                        article.description.Contains(filterTb) && 
                         article.createDate >= DateTime.Parse(dpDate.Text) ||
                         article.idContract.ToString().Equals(filterTb) &&
                         article.createDate >= DateTime.Parse(dpDate.Text) ||
@@ -281,7 +281,7 @@ namespace View.Views
                     if (article != null)
                     {
                         return
-                        article.description.Equals(filterTb) &&
+                        article.description.Contains(filterTb) &&
                         article.category.Equals(cbCategory.SelectedItem.ToString()) &&
                         article.createDate >= DateTime.Parse(dpDate.Text) ||
                         article.idContract.ToString().Equals(filterTb) &&

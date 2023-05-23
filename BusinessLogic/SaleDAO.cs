@@ -43,5 +43,24 @@ namespace BusinessLogic
             }
             return sale;
         }
+
+        public static (int, Sale) getSaleById(int idSale)
+        {
+            Sale sale = new Sale();
+            int result = 0;
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    sale = connection.Sales.Where(a => a.idSale == idSale).FirstOrDefault();
+                }
+                if (sale != null)
+                    result = MessageCode.SUCCESS;
+            }
+            else
+                result = MessageCode.CONNECTION_ERROR;
+
+            return (result, sale);
+        }
     }
 }
