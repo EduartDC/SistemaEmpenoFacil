@@ -26,6 +26,7 @@ namespace Domain.BelongingCreation
         public float PorcentLoan { get; set; }
         public int Contract_idConctract { get; set; }
         public DateTime DeadLine { get; set; }
+        public String State { get; set; }
 
         public byte[] image { get; set; }
 

@@ -59,7 +59,7 @@
             FontSize="18"
             FontWeight="Bold">
             <DataGrid.Columns >
-                <DataGridTextColumn Header="Descripcion" Width="200" Binding="{Binding description}"/>
+                <DataGridTextColumn Header="Descripcion" Width="200" Binding="{Binding GenericDescription}"/>
 
                 <DataGridTemplateColumn Header="Imagen" Width="200">
                     <DataGridTemplateColumn.CellTemplate>
@@ -69,10 +69,11 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn  FontSize="15" Header="Numero de serie" Width="180" Binding="{Binding serialNumber}"/>
-                <DataGridTextColumn  FontSize="15" Header="Precio" Width="75" Binding="{Binding sellingPrice}"/>
-                <DataGridTextColumn  FontSize="15" Header="Categoria" Width="200" Binding="{Binding category}"/>
-                <DataGridTextColumn  FontSize="15" Header="Contrato" Width="75" Binding="{Binding idContract}"/>
+                <DataGridTextColumn  FontSize="15" Header="Numero de serie" Width="180" Binding="{Binding SerialNumber}"/>
+                <DataGridTextColumn  FontSize="15" Header="Avaluo" Width="75" Binding="{Binding ApraisalAmount}"/>
+                <DataGridTextColumn  FontSize="15" Header="Categoria" Width="200" Binding="{Binding Category}"/>
+                <DataGridTextColumn  FontSize="15" Header="Contrato" Width="75" Binding="{Binding Contract_idContract}"/>
+                <DataGridTextColumn FontSize="15" Header="Estado" Width="75" Binding="{Binding State}"/>
             </DataGrid.Columns>
         </DataGrid>
         <TextBox x:Name="tbID"

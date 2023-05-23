@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Utility;
 using DataAcces;
+using Domain.BelongingCreation;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -178,7 +179,7 @@ namespace BusinessLogic
             }
             return belongins;
         }
-        public static List<Domain.BelongingCreation.Belonging> GetBelonging()
+        public static List<Domain.BelongingCreation.Belonging> GetAllBelonging()
         {
             List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
             if (Utilities.VerifyConnection())
@@ -198,13 +199,59 @@ namespace BusinessLogic
                         belonging.ApraisalAmount = element.appraisalValue;
                         belonging.LoanAmount = element.loanAmount;
                         belonging.DeadLine = element.Contract.deadlineDate;
-                        Console.WriteLine(element.idBelonging);
+                        
                         var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
                         if (imageInfo != null)
                         {
                             belonging.image = imageInfo.imagen;
                         }
                         belongins.Add(belonging);
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("Error de conexion");
+            }
+            return belongins;
+        }
+        public static List<Domain.BelongingCreation.Belonging> GetBelonging()
+        {
+            DateTime actualTime = DateTime.Now.AddDays(-15);
+            List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    
+                    var resultSet = connection.Belongings.Where(b => b.Contract.deadlineDate < actualTime).ToList();
+                    
+                    foreach (var element in resultSet)
+                    {
+                        
+                        
+                        Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
+                        belonging.idBelonging = element.idBelonging;
+                        belonging.Features = element.characteristics;
+                        belonging.SerialNumber = element.serialNumber;
+                        belonging.Category = element.category;
+                        belonging.GenericDescription = element.description;
+                        belonging.Model = element.model;
+                        belonging.ApraisalAmount = element.appraisalValue;
+                        belonging.LoanAmount = element.loanAmount;
+                        belonging.DeadLine = element.Contract.deadlineDate;
+                        belonging.State = element.Contract.stateContract;
+
+                        
+                        //var verifyId = connection.Belongings_Articles.Where(a=>a.idBelonging == element.idBelonging).ToList();
+                        var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
+                        if (imageInfo != null)
+                        {
+                            belonging.image = imageInfo.imagen;
+                        }
+                        belongins.Add(belonging);
+
+                        
                     }
                 }
             }

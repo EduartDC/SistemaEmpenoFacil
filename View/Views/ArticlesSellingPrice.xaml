@@ -49,7 +49,7 @@
             FontSize="18"
             FontWeight="Bold">
             <DataGrid.Columns >
-                <DataGridTextColumn Header="Descripcion" Width="200" Binding="{Binding description}"/>
+                <DataGridTextColumn Header="Descripcion" Width="200" Binding="{Binding GenericDescription}"/>
 
                 <DataGridTemplateColumn Header="Imagen" Width="200">
                     <DataGridTemplateColumn.CellTemplate>
@@ -59,9 +59,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn  FontSize="15" Header="Numero de serie" Width="180" Binding="{Binding serialNumber}"/>
-                <DataGridTextColumn  FontSize="15" Header="Monto de avaluo" Width="160" Binding="{Binding appraisalValue}"/>
-                <DataGridTextColumn  FontSize="15" Header="Categoria" Width="200" Binding="{Binding category}"/>
+                <DataGridTextColumn  FontSize="15" Header="Numero de serie" Width="180" Binding="{Binding SerialNumber}"/>
+                <DataGridTextColumn  FontSize="15" Header="Monto de avaluo" Width="160" Binding="{Binding ApraisalAmount}"/>
+                <DataGridTextColumn  FontSize="15" Header="Categoria" Width="200" Binding="{Binding Category}"/>
+                <DataGridTextColumn  FontSize="15" Header="Fecha de vencimiento" Width="200" Binding="{Binding DeadLine, StringFormat=dd/MM/yyyy}"/>
                 <DataGridTemplateColumn Header="Agregar precio de venta" MinWidth="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
