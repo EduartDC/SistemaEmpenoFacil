@@ -73,5 +73,22 @@ namespace BusinessLogic
             }
             return result;
         }
+
+        public static List<SetAside> GetSedAsidesByDate(DateTime startDate, DateTime endDate)
+        {
+            List<SetAside> setAsides = new List<SetAside>();
+            if(Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    //setAsides = connection.SetAsides.Where(setAside => setAside.creationDate.CompareTo);
+                }
+            }
+            else
+            {
+                throw new Exception("Error de conexión");
+            }
+            return setAsides;
+        }
     }
 }
