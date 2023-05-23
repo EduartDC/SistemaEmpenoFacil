@@ -383,7 +383,7 @@ namespace BusinessLogic
                                 newCustomerProfit.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description + "\n";
                                 // Console.WriteLine(newCustomerProfit.articlesProfit);
 
-                                if (util.Belongings_Articles.customerProfit > 0)
+                                if (util.Belongings_Articles.customerProfit == 0)
                                     CustomersProfitList.Add(newCustomerProfit);
 
                             }

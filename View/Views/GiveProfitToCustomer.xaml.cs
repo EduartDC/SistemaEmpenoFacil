@@ -30,6 +30,7 @@ namespace View.Views
         private List<Domain.CustomerProfitDomain> customersList = new List<Domain.CustomerProfitDomain>();
         private ICollectionView collectionView;
         private int idCustomerSelected = 0;
+        private string articleCustomer="";
         public GiveProfitToCustomer()
         {
             InitializeComponent();
@@ -91,6 +92,7 @@ namespace View.Views
             {
                 var customerSelected = dgCustomers.SelectedItem as Domain.CustomerProfitDomain;
                 idCustomerSelected = customerSelected.idCustomer;
+                articleCustomer = customerSelected.articlesProfit;
                 CallTtransactionView(customerSelected);
             }
 
@@ -112,7 +114,7 @@ namespace View.Views
             blurEffect.Radius = 5;
             mainWindow.PrimaryContainer.Effect = blurEffect;
             (App.Current as App)._cashOnHand = 100000;
-            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LOAND,customerSelected.profitCustomer, customerSelected.idCustomer);
+            TransactionView newOperation = new TransactionView(OperationType.OPERATION_PROFIT,customerSelected.profitCustomer, customerSelected.idCustomer);
             newOperation.CommunicacionPages(this);
             mainWindow.SecundaryContainer.Navigate(newOperation);
             mainWindow.PrimaryContainer.IsHitTestVisible = false;
@@ -139,6 +141,7 @@ namespace View.Views
         //Metodo de interfaz para transactionView
         public void Communication(bool result)
         {
+            Console.WriteLine("en communicaction " + result);
             if (result)
             {
                 /*
@@ -146,12 +149,19 @@ namespace View.Views
                  */
                 int resultArticleDao =  ArticleDAO.GiveProfitArticlesToCustomer(idCustomerSelected);
                 int resultCustomerDAO = CustomerDAO.GiveProfitCustomer(idCustomerSelected);
-                if (resultArticleDao == MessageCode.SUCCESS && resultCustomerDAO == MessageCode.SUCCESS)
+            Console.WriteLine("" + resultArticleDao +"   "+ resultCustomerDAO);
+                if (resultArticleDao == MessageCode.ERROR_UPDATE && resultCustomerDAO == MessageCode.SUCCESS)
                 {
-                    MessageBox.Show("proceso finalizao");
+                    MessageBox.Show("Generando ticket");
+                    CallTicket();
                 }
             }
 
+        }
+
+        private void CallTicket()
+        {
+            CreateTickets.TicketProfitCustomer(idCustomerSelected, articleCustomer);
         }
 
         //metodo de interfaz que no se usa

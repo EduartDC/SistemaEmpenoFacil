@@ -10,18 +10,19 @@
 
     <Grid Background="White">
         <Label
-            Content="Generar reporte de ventas"
+            Content="Generar reporte de ventas / stock"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Margin="0,40"
             FontSize="40" FontWeight="Bold"/>
         <Label
+            x:Name="lbBegin"
             Content="Fecha de inicio de busqueda"
             Height="40"
             Width="400"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0,130"
+            Margin="0,250,0,0"
             FontSize="25"
             HorizontalContentAlignment="Center" FontWeight="Bold"
             />
@@ -30,7 +31,7 @@
             Background="#323D8F"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0,190"
+            Margin="0,290,0,0"
             Height="40"
             Width="300"
             VerticalContentAlignment="Center"
@@ -38,12 +39,13 @@
             Focusable="False"
             />
         <Label
+            x:Name="lbEnd"
             Content="Fecha de Fin de busqueda"
             Height="40"
             Width="400"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0,250"
+            Margin="0,340,0,0"
             FontSize="25"
             HorizontalContentAlignment="Center" FontWeight="Bold"
             />
@@ -53,24 +55,20 @@
             Background="#323D8F"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0,308,0,0"
             Height="40"
             Width="300"
             VerticalContentAlignment="Center"
             FontSize="25"
-            Focusable="False"
+            Focusable="False" Margin="0,380,0,0"
             />
         <ComboBox
             x:Name="cbFilter"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="0,400,0,0"
             Height="40"
             Width="300"
 
-            FontSize="20">
-
-        </ComboBox>
+            FontSize="20" Margin="0,200,0,0" SelectionChanged="SelectionComboBox"/>
         <Button
             Content="Generar reporte"
             FontSize="25"
@@ -78,7 +76,16 @@
             Height="40"
             Width="200"
             Margin="0,480,332,0"
-            VerticalAlignment="Top" Click="Btn_CreateReport"/>
+            VerticalAlignment="Top" Click="Btn_CreateReport"
+            Foreground="White"
+            Background="#323D8F"
+            FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Button
             Content="Cancelar"
             FontSize="25"
@@ -86,6 +93,15 @@
             Width="200"
             HorizontalAlignment="Left"
             Margin="349,480,0,0"
-            VerticalAlignment="Top" Click="ClosePage_btn"/>
+            VerticalAlignment="Top" Click="ClosePage_btn"
+            Foreground="White"
+            Background="#323D8F"
+            FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Page>
