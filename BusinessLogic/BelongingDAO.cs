@@ -26,7 +26,7 @@ namespace BusinessLogic
         }
 
 
-        public static (int, List<int>) SaveBelongings(List<Belonging> belongingList)
+        public static (int, List<int>) SaveBelongings(List<DataAcces.Belonging> belongingList)
         {
             List<int> idBelongings = new List<int>();
 
@@ -80,7 +80,7 @@ namespace BusinessLogic
                     {
                         foreach (var id in idBelongings)
                         {
-                            Belonging temp = connection.Belongings.Where(a => a.idBelonging == id).FirstOrDefault();
+                           DataAcces.Belonging temp = connection.Belongings.Where(a => a.idBelonging == id).FirstOrDefault();
                             connection.Belongings.Remove(temp);
                         }
                         connection.SaveChanges();
@@ -127,9 +127,9 @@ namespace BusinessLogic
             return result;
         }
 
-        public static Belonging GetBelongingByID(int id)
+        public static  DataAcces.Belonging GetBelongingByID(int id)
         {
-            Belonging belonging = null;
+            DataAcces.Belonging belonging = null;
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
@@ -219,6 +219,7 @@ namespace BusinessLogic
         {
             DateTime actualTime = DateTime.Now.AddDays(-15);
             List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
+            List<Domain.BelongingCreation.Belonging> belongingList = new List<Domain.BelongingCreation.Belonging>();
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
@@ -228,28 +229,38 @@ namespace BusinessLogic
                     
                     foreach (var element in resultSet)
                     {
+
+                        var verifyId = connection.Belongings_Articles.Where(a => a.idBelonging == element.idBelonging).FirstOrDefault();
+                        var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
+                        if (verifyId.idBelonging>0) 
+                        {
+                            
+                        } else
+                        {
+                            Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
+                            belonging.idBelonging = element.idBelonging;
+                            belonging.Features = element.characteristics;
+                            belonging.SerialNumber = element.serialNumber;
+                            belonging.Category = element.category;
+                            belonging.GenericDescription = element.description;
+                            belonging.Model = element.model;
+                            belonging.ApraisalAmount = element.appraisalValue;
+                            belonging.LoanAmount = element.loanAmount;
+                            belonging.DeadLine = element.Contract.deadlineDate;
+                            belonging.State = element.Contract.stateContract;
+
+                            
+                            if (imageInfo != null)
+                            {
+                                belonging.image = imageInfo.imagen;
+                            }
+                            belongins.Add(belonging);
+                        }
                         
                         
-                        Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
-                        belonging.idBelonging = element.idBelonging;
-                        belonging.Features = element.characteristics;
-                        belonging.SerialNumber = element.serialNumber;
-                        belonging.Category = element.category;
-                        belonging.GenericDescription = element.description;
-                        belonging.Model = element.model;
-                        belonging.ApraisalAmount = element.appraisalValue;
-                        belonging.LoanAmount = element.loanAmount;
-                        belonging.DeadLine = element.Contract.deadlineDate;
-                        belonging.State = element.Contract.stateContract;
+                        
 
                         
-                        //var verifyId = connection.Belongings_Articles.Where(a=>a.idBelonging == element.idBelonging).ToList();
-                        var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
-                        if (imageInfo != null)
-                        {
-                            belonging.image = imageInfo.imagen;
-                        }
-                        belongins.Add(belonging);
 
                         
                     }

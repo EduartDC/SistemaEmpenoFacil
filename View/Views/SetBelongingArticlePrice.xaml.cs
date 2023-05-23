@@ -59,6 +59,7 @@ namespace View.Views
                 int randomNumber = random.Next(0, 36);
                 char character = Convert.ToChar(randomNumber < 10 ? randomNumber + 48 : randomNumber + 55);
                 barCode += character;
+                Zen.Barcode.BarcodeDraw()
                 
             }
             return barCode;
