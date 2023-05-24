@@ -76,6 +76,7 @@ namespace View.Views
                 {
                     list.Remove((ArticleDomain)item);
                     UpdatePage();
+                    
                 }
             }
         }

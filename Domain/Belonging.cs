@@ -24,6 +24,9 @@ namespace Domain.BelongingCreation
         public double ApraisalAmount { get; set; }
         public double LoanAmount { get; set; }
         public float PorcentLoan { get; set; }
+        public int Contract_idConctract { get; set; }
+        public DateTime DeadLine { get; set; }
+        public String State { get; set; }
 
         public double sellingPrice { get; set; }
 

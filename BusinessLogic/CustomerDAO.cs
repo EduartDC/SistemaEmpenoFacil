@@ -410,6 +410,47 @@ namespace BusinessLogic
             else
                 return (MessageCode.CONNECTION_ERROR, null);
         }
+        public static List<Domain.Customer> RecoverAllCustomers()
+        {
+            NewLog _log = new NewLog();
+            List<Domain.Customer> resultCustomers = new List<Domain.Customer>();
+            try
+            {
+                using (var database = new ConnectionModel())
+                {
+                    var customer = (from Customers in database.Customers
+                                    
+                                    select Customers).ToList();
+
+                    foreach (DataAcces.Customer customer1 in customer)
+                    {
+                        Domain.Customer newCustomer = new Domain.Customer();
+                        newCustomer.idCustomer = customer1.idCustomer;
+                        newCustomer.curp = customer1.curp;
+                        newCustomer.blackList = customer1.blackList;
+                        newCustomer.address = customer1.address;
+                        newCustomer.firstName = customer1.firstName;
+                        newCustomer.lastName = customer1.lastName;
+                        newCustomer.identification = customer1.identification;
+                        newCustomer.telephonNumber = (int)customer1.telephonNumber;
+                        resultCustomers.Add(newCustomer);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (ArgumentNullException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (DataException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            return resultCustomers;
+        }
 
         public static int GiveProfitCustomer(int idCustomer)
         {
