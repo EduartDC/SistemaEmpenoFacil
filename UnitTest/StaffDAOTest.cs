@@ -89,5 +89,74 @@ namespace UnitTest
             staff.rol = "Cajero";
             Assert.AreEqual(0, StaffDAO.ModifyStaff(staff.idStaff, staff));
         }
+
+        [TestMethod]
+        public void TestRegisterStaff()
+        {
+            Staff staff = new Staff();
+            staff.fisrtName = "David";
+            staff.lastName = "Hernandez Rivera";
+            staff.userName = "REV285";
+            staff.password = "HALOcea206-";
+            staff.statusStaff = "Activo";
+            staff.rol = "Administrador";
+            Assert.AreEqual(200, StaffDAO.RegisterStaff(staff));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestRegisterStaffException()
+        {
+            Staff staff = new Staff();
+            staff.fisrtName = "David";
+            staff.lastName = "Hernandez Rivera";
+            staff.userName = "REV285";
+            staff.password = "HALOcea206-";
+            staff.statusStaff = "Activo";
+            staff.rol = "Administrador";
+            Assert.AreEqual(500, StaffDAO.RegisterStaff(staff));
+        }
+
+
+
+        [TestMethod]
+        public void TestExistStaffSuccess()
+        {
+            Assert.AreEqual(200, StaffDAO.ExistStaff("ASDSDFSDF58"));
+        }
+
+        [TestMethod]
+        public void TestStaffExistInDataBase()
+        {
+            Assert.AreEqual(100, StaffDAO.ExistStaff("PAVA0110026WA"));
+        }
+
+        [TestMethod]
+        public void TestExistStaffError()
+        {
+            Assert.AreEqual(400, StaffDAO.ExistStaff("ASDSDFSDF58"));
+        }
+
+
+        [TestMethod]
+        public void TestGetStaffByUserName()
+        {
+            Assert.IsNotNull(StaffDAO.GetStaffByUserName("Pana"));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void TestGetStaffByUsernameInvalidOperation()
+        {
+            Assert.IsNull(StaffDAO.GetStaffByUserName("Nuevo"));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestGetStaffByUsernameException()
+        {
+            Assert.IsNull(StaffDAO.GetStaffByUserName("Nuevo"));
+        }
+
     }
 }

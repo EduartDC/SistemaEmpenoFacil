@@ -1,7 +1,9 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Utility;
+using Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +33,20 @@ namespace View.Views
             InitializeComponent();
             comBox_TypeSearch.Items.Add("Numero del cliente");
             comBox_TypeSearch.Items.Add("Nombre del cliente");
-            InitializeTable();
+            try
+            {
+                InitializeTable();
+            }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show("No existen contratos registrados en la base de datos");
+                this.Content = null;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se ha podido conectar a la base de datos, favor de intentarlo más tarde");
+                this.Content = null;
+            }
         }
 
         private void InitializeTable()
@@ -40,6 +55,11 @@ namespace View.Views
             contractList.ForEach(customer => _listNamesCustomers.Add(customer.firstName));
             contractList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
             tableCustomers.ItemsSource = contractList;
+            if(contractList.Count == 0)
+            {
+                MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
+                this.Content = null;
+            }
         }
 
 
@@ -81,17 +101,38 @@ namespace View.Views
 
         private void Button_Liquidate_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Button_Cancel_Click(object sender, RoutedEventArgs e)
-        {
-
+            Button btn = sender as Button;
+            if(btn != null)
+            {
+                var row = DataGridRow.GetRowContainingElement(btn);
+                var item = row.Item;
+                if(item != null && tableCustomers.Items.Contains(item))
+                {
+                    var contractSelected = tableCustomers.SelectedItem as CompleteContract;
+                    var window = (MainWindow)Application.Current.MainWindow;
+                    var menu = new MenuView();
+                    menu.Container.NavigationService.Navigate(new LiquidateContractView(contractSelected.idContract));
+                    window.PrimaryContainer.NavigationService.Navigate(menu);
+                }
+            }
         }
 
         private void Button_Endorsement_Click(object sender, RoutedEventArgs e)
         {
-
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                var row = DataGridRow.GetRowContainingElement(btn);
+                var item = row.Item;
+                if (item != null && tableCustomers.Items.Contains(item))
+                {
+                    var contractSelected = tableCustomers.SelectedItem as CompleteContract;
+                    var window = (MainWindow)Application.Current.MainWindow;
+                    var menu = new MenuView();
+                    //menu.Container.NavigationService.Navigate(new EndorseContract(contractSelected.idContract));
+                    window.PrimaryContainer.NavigationService.Navigate(menu);
+                }
+            }
         }
 
         private void Btn_Restore_Click(object sender, RoutedEventArgs e)

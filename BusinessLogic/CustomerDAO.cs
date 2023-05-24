@@ -20,7 +20,6 @@ namespace BusinessLogic
 
         public static (int, int) AddCustomer(Customer newCustomer)
         {
-            NewLog _log = new NewLog();
             int result = 500;
             int idCustomer = 0;
             try
@@ -44,13 +43,9 @@ namespace BusinessLogic
                 }
 
             }
-            catch (DbUpdateException ex)
+            catch (Exception)
             {
-                _log.Add(ex.ToString());
-            }
-            catch (EntityException ex)
-            {
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
             return (result, idCustomer);
         }
@@ -100,7 +95,6 @@ namespace BusinessLogic
         public static int AddTwoImageIdentification(List<ImagesIdentification> imagesIdentifications)
         {
             int result = 500;
-            NewLog _log = new NewLog();
             try
             {
                 using (var database = new ConnectionModel())
@@ -110,13 +104,13 @@ namespace BusinessLogic
                     result = 200;
                 }
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException )
             {
-                _log.Add(ex.ToString());
+                throw new DbUpdateException();
             }
-            catch (EntityException ex)
+            catch (Exception )
             {
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
             return result;
         }
@@ -194,7 +188,6 @@ namespace BusinessLogic
 
         public static List<Domain.Customer> RecoverCustomers()
         {
-            NewLog _log = new NewLog();
             List<Domain.Customer> resultCustomers = new List<Domain.Customer>();
             try
             {
@@ -220,24 +213,19 @@ namespace BusinessLogic
                     }
                 }
             }
-            catch (SqlException ex)
+            catch (ArgumentNullException )
             {
-                _log.Add(ex.ToString());
+                throw new ArgumentNullException();
             }
-            catch (ArgumentNullException ex)
+            catch (Exception )
             {
-                _log.Add(ex.ToString());
-            }
-            catch (DataException ex)
-            {
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
             return resultCustomers;
         }
 
         public static int ExistCustomer(string curpObtine)
         {
-            NewLog _log = new NewLog();
             int result = 500;
             try
             {
@@ -252,33 +240,32 @@ namespace BusinessLogic
                     }
                 }
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentNullException)
             {
-                _log.Add(ex.ToString());
+                throw new ArgumentNullException();
             }
-            catch (SqlException ex)
+            catch(Exception )
             {
-                result = 505;
-                _log.Add(ex.ToString());
-            }
-            catch (EntityException ex)
-            {
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
             return result;
         }
 
         public static int ChangeStatusBlackList(string curpObtine)
         {
-            NewLog _log = new NewLog();
             int result = 500;
+            int resultValue = 0;
             try
             {
                 using (var database = new ConnectionModel())
                 {
                     var updateStatusBlackList = database.Customers.First(u => u.curp == curpObtine);
-                    updateStatusBlackList.blackList = true;
-                    int resultValue = database.SaveChanges();
+                    if(updateStatusBlackList.blackList == false)
+                    {
+                        updateStatusBlackList.blackList = true;
+                        resultValue = database.SaveChanges();
+                    }
+                    
                     if (resultValue > 0)
                     {
                         result = 200;
@@ -289,24 +276,21 @@ namespace BusinessLogic
                     }
                 }
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentNullException)
             {
-                _log.Add(ex.ToString());
+                throw new ArgumentNullException();
             }
-            catch (DbUpdateException ex)
+            catch (Exception)
             {
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
-            catch (EntityException ex)
-            {
-                _log.Add(ex.ToString());
-            }
+            
             return result;
         }
 
         public static Customer FindCustomerById(int id)
         {
-            NewLog _log = new NewLog();
+            
             Customer customer = new Customer();
             try
             {
@@ -317,11 +301,11 @@ namespace BusinessLogic
             }
             catch (DataException ex)
             {
-                _log.Add(ex.ToString());
+                
             }
             catch (InvalidOperationException ex)
             {
-                _log.Add(ex.ToString());
+                
             }
             return customer;
         }

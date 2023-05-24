@@ -138,7 +138,6 @@ namespace BusinessLogic
 
         public static List<Domain.CompleteContract> RecoverContracts()
         {
-            NewLog _log = new NewLog();
             List<Domain.CompleteContract> resultContracts = new List<Domain.CompleteContract>();
             try
             {
@@ -148,29 +147,30 @@ namespace BusinessLogic
 
                     foreach (DataAcces.Contract contractOne in contract)
                     {
-                        Domain.CompleteContract newContract = new Domain.CompleteContract();
-                        newContract.idContract = contractOne.idContract;
-                        newContract.idCustomer = contractOne.Customer_idCustomer;
-                        newContract.stateContract = contractOne.stateContract;
-                        DataAcces.Customer newCustomer = new DataAcces.Customer();
-                        newCustomer = CustomerDAO.FindCustomerById(contractOne.Customer_idCustomer);
-                        newContract.firstName = newCustomer.firstName;
-                        newContract.lastName = newCustomer.lastName;
-                        resultContracts.Add(newContract);
+                        if(contractOne != null)
+                        {
+                            Domain.CompleteContract newContract = new Domain.CompleteContract();
+                            newContract.idContract = contractOne.idContract;
+                            newContract.idCustomer = contractOne.Customer_idCustomer;
+                            newContract.stateContract = contractOne.stateContract;
+                            DataAcces.Customer newCustomer = new DataAcces.Customer();
+                            newCustomer = CustomerDAO.FindCustomerById(contractOne.Customer_idCustomer);
+                            newContract.firstName = newCustomer.firstName;
+                            newContract.lastName = newCustomer.lastName;
+                            resultContracts.Add(newContract);
+
+                        }
                     }
                 }
             }
-            catch (SqlException ex)
+            
+            catch (ArgumentNullException)
             {
-                _log.Add(ex.ToString());
+                throw new ArgumentNullException();
             }
-            catch (ArgumentNullException ex)
+            catch (Exception)
             {
-                _log.Add(ex.ToString());
-            }
-            catch (DataException ex)
-            {
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
             return resultContracts;
         }
