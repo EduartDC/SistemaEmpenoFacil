@@ -39,14 +39,14 @@ namespace UnitTest
             ImagesIdentification imagesIdentificationOne = new ImagesIdentification()
             {
                 imagen = bytesImagenOne,
-                Customer_idCustomer = 20
+                Customer_idCustomer = 23
             };
             string imageRuteTwo = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/Sale.png";
             byte[] bytesImagenTwo = File.ReadAllBytes(imageRuteTwo);
             ImagesIdentification imagesIdentificationTwo = new ImagesIdentification()
             {
                 imagen = bytesImagenTwo,
-                Customer_idCustomer = 20
+                Customer_idCustomer = 23
             };
             imagesIdentifications.Add(imagesIdentificationOne);
             imagesIdentifications.Add(imagesIdentificationTwo);
@@ -303,7 +303,7 @@ namespace UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(DbUpdateException))]
-        public void TestAddTwoImageIdentification()
+        public void TestAddTwoImageIdentificationDbUpdateException()
         {
             Assert.AreEqual(500, CustomerDAO.AddTwoImageIdentification(imagesIdentifications));
         }
