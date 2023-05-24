@@ -41,7 +41,9 @@
                         <DataGridTextColumn Header="Precio de venta" Binding="{Binding sellingPrice}"/>
                     </DataGrid.Columns>
                 </DataGrid>
+                <TextBox x:Name="textBoxDiscount" Grid.Column="1" HorizontalAlignment="Center" Margin="0,171,0,0" TextWrapping="Wrap" Text="descuento" VerticalAlignment="Top" Width="120" FontSize="18"/>
             </Grid>
+            <TextBox TextWrapping="Wrap" Text="TextBox" Width="120"/>
 
         </Grid>
     </ScrollViewer>

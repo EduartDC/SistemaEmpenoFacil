@@ -70,5 +70,26 @@ namespace BusinessLogic
             return articleDomain;
         }
 
+        public static int ModifyBelonging_Article(int idArticle, int idSale, double storeProfit)
+        {
+            int resultOperation = MessageCode.ERROR;
+            if (Utilities.VerifyConnection())
+            {
+                using(var connection = new ConnectionModel())
+                {
+                    var article = connection.Belongings_Articles.Find(idArticle);
+                    article.stateArticle = "Vendido";
+                    article.Sale_idSale= idSale;
+                    article.storeProfit = storeProfit;
+                    resultOperation = connection.SaveChanges();
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return resultOperation;
+        }
+
     }
 }

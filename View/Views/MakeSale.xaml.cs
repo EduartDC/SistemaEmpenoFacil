@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using DataAcces;
 using Domain.BelongingCreation;
 using System;
@@ -45,42 +46,66 @@ namespace View.Views
         private void SearchArticleButtonEvent(object sender, RoutedEventArgs e)
         {
             string idArticle = textBoxBarCode.Text;
-            Domain.ArticleDomain articleDomain =  BelongingsArticlesDAO.GetBelonging_Article(int.Parse(idArticle));
-            ConverterImagesFormat(articleDomain);
-            if(articlesDomain != null)
+            if(Utilities.ValidateFormat(idArticle, "[0-9]+"))
             {
-                dataGridArticles.Items.Clear();
-                dataGridArticles.Items.Add(articleDomain);
+                Domain.ArticleDomain articleDomain = BelongingsArticlesDAO.GetBelonging_Article(int.Parse(idArticle));
+                ConverterImagesFormat(articleDomain);
+                if (articlesDomain != null)
+                {
+                    dataGridArticles.Items.Clear();
+                    dataGridArticles.Items.Add(articleDomain);
+                }
+                else
+                {
+                    string message = "No se encontro el articulo solicitado\nIntenta de nuevo o verifica que la informacion es correcta";
+                    string messageTitle = "Busqueda de articulo";
+                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                    MessageBoxResult messageBox;
+                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                }
             }
             else
             {
-                string message = "No se encontro el articulo solicitado\nIntenta de nuevo o verifica que la informacion es correcta";
-                string messageTitle = "Busqueda de articulo";
+                string message = "Por favor ingrese solo numeros para buscar el articulo deseado";
+                string messageTitle = "Formato de datos no valido";
                 MessageBoxButton messageBoxButton = MessageBoxButton.OK;
                 MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                 MessageBoxResult messageBox;
                 messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
             }
-
         }
 
         private void SearchClientButtonEvent(object sender, RoutedEventArgs e)
         {
             string customerCurp = textBoxClientName.Text;
-            Customer customer = CustomerDAO.GetCustomerByCURP(customerCurp);
-
-            if(customer.curp == null || customer.curp.Equals(""))
+            if (Utilities.ValidateFormat( customerCurp, "[A-Za-z0-9]+"))
             {
-                string message = "No se encontro el cliente solicitado\nIntenta de nuevo o verifica que la informacion es correcta";
-                string messageTitle = "Busqueda de cliente";
+                Customer customer = CustomerDAO.GetCustomerByCURP(customerCurp);
+
+                if (customer.curp == null || customer.curp.Equals(""))
+                {
+                    string message = "No se encontro el cliente solicitado\nIntenta de nuevo o verifica que la informacion es correcta";
+                    string messageTitle = "Busqueda de cliente";
+                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                    MessageBoxResult messageBox;
+                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                }
+                else
+                {
+                    dataGridClients.Items.Clear();
+                    dataGridClients.Items.Add(customer);
+                }
+            }
+            else
+            {
+                string message = "Por favor ingrese solo letras mayusculas y numeros sin espacios para buscar a un cliente";
+                string messageTitle = "Formato de datos no valido";
                 MessageBoxButton messageBoxButton = MessageBoxButton.OK;
                 MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                 MessageBoxResult messageBox;
                 messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
-            }
-            else{
-                dataGridClients.Items.Clear();
-                dataGridClients.Items.Add(customer);
             }
         }
 
