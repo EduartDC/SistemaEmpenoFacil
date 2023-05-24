@@ -33,18 +33,26 @@ namespace View.Views
             var staff = (App.Current as App)._staffInfo;
             _staff = staff;
             textStaffName.Text = staff.fisrtName + " " + staff.lastName;
+            adminAccesibility();
         }
 
         public void adminAccesibility()
         {
 
-            if (!_staff.rol.Equals("Admin"))
+            if (_staff.rol.Equals("Cajero"))
             {
 
-                itemOptions.Visibility = Visibility.Collapsed;
+                itemConfiguration.Visibility = Visibility.Collapsed;
+                itemRegisterStaff.Visibility = Visibility.Collapsed;
+                itemOperationCashRegister.Visibility = Visibility.Collapsed;
+                itemReports.Visibility = Visibility.Collapsed;
             }
-            else
-                itemOptions.Visibility = Visibility.Visible;
+            else if (_staff.rol.Equals("Gerente"))
+            {
+                itemRegisterStaff.Visibility = Visibility.Collapsed;
+                itemConfiguration.Visibility = Visibility.Collapsed;
+            }
+
 
         }
         private void itemHome_Click(object sender, RoutedEventArgs e)
@@ -128,7 +136,12 @@ namespace View.Views
 
         private void itemCreateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            Container.NavigationService.Navigate(new CreateCustomerRecord());
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Navigate(new CreateCustomerRecord());
+            window.PrimaryContainer.IsHitTestVisible = false;
         }
 
         private void ItemRegisterStaff_Click(object sender, RoutedEventArgs e)

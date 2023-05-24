@@ -60,7 +60,7 @@ namespace View.Views
 
             return user;
         }
-
+        private String rol;
         private bool VerifyUserInfo(Staff userLoginInfo)
         {
             var result = false;
@@ -71,9 +71,10 @@ namespace View.Views
                 if (user != null && user.userName.Equals(userLoginInfo.userName) && user.password.Equals(pass))
                 {
                     result = true;
+                    rol = user.rol;
                     (App.Current as App)._staffInfo = user;
                     (App.Current as App)._staffShift = true;
-                    
+
                 }
             }
             catch (Exception)
@@ -85,12 +86,16 @@ namespace View.Views
         }
         private void OpenStartShift()
         {
-            var window = (MainWindow)Application.Current.MainWindow;
-            BlurEffect blurEffect = new BlurEffect();
-            blurEffect.Radius = 5;
-            window.PrimaryContainer.Effect = blurEffect;
-            window.SecundaryContainer.Navigate(new StartShift());
-            window.PrimaryContainer.IsHitTestVisible = false;
+            if (rol.Equals("Cajero"))
+            {
+                var window = (MainWindow)Application.Current.MainWindow;
+                BlurEffect blurEffect = new BlurEffect();
+                blurEffect.Radius = 5;
+                window.PrimaryContainer.Effect = blurEffect;
+                window.SecundaryContainer.Navigate(new StartShift());
+                window.PrimaryContainer.IsHitTestVisible = false;
+            }
+
         }
     }
 }
