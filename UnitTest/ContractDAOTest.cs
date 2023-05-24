@@ -71,5 +71,31 @@ namespace UnitTest
 
             Assert.IsNull(await Task.Run(() => ContractDAO.GetContractsDomainAsync(0)));
         }
+
+        [TestMethod]
+        public void TestRecoverContractsSuccess()
+        {
+            List<Domain.CompleteContract> resultContracts = ContractDAO.RecoverContracts();
+            int resultObtined = resultContracts.Count;
+            Assert.AreEqual(11,resultObtined );
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestRecoverContractsErrorArgumentNullException()
+        {
+            List<Domain.CompleteContract> completeContracts = ContractDAO.RecoverContracts();
+            int resultObtined = completeContracts.Count;
+            Assert.AreEqual(0, resultObtined);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestRecoverContractsError()
+        {
+            List<Domain.CompleteContract> completeContracts = ContractDAO.RecoverContracts();
+            int resultObtined = completeContracts.Count;
+            Assert.AreEqual(0, resultObtined);
+        }
     }
 }

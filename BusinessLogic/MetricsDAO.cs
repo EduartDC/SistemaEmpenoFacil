@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,6 @@ namespace BusinessLogic
     {
         public static Metric RecoverMetrics()
         {
-            NewLog _log = new NewLog();
             Metric metric = new Metric();
             try
             {
@@ -28,26 +28,26 @@ namespace BusinessLogic
                     }
                 }
             }
-            catch (DataException ex)
+            catch (InvalidOperationException )
             {
-                _log.Add(ex.ToString());
-                metric.IVA = "";
                 metric.interestRate = "";
+                metric.IVA = "";
+                throw new InvalidOperationException();
             }
-            catch (InvalidOperationException ex)
+            catch (Exception)
             {
-                _log.Add(ex.ToString());
-                metric.IVA = "";
                 metric.interestRate = "";
+                metric.IVA = "";
+                throw new Exception();
+                
             }
-
+            
             return metric;
         }
 
         public static int UpdateMetrics(string interestRate, string IVA)
         {
             int result = 200;
-            NewLog _log = new NewLog();
             try
             {
 
@@ -60,15 +60,15 @@ namespace BusinessLogic
 
                 }
             }
-            catch (DataException ex)
+            catch (InvalidOperationException )
+            {
+                result = 400;
+                throw new InvalidOperationException();
+            }
+            catch (Exception)
             {
                 result = 500;
-                _log.Add(ex.ToString());
-            }
-            catch (InvalidOperationException ex)
-            {
-                _log.Add(ex.ToString());
-                result = 400;
+                throw new Exception();
             }
             return result;
         }
@@ -76,7 +76,6 @@ namespace BusinessLogic
         public static int RegisterMetrics(string newInterestRate, string newIVA)
         {
             int result = 200;
-            NewLog _log = new NewLog();
             try
             {
                 using (var dataBase1 = new ConnectionModel())
@@ -89,15 +88,10 @@ namespace BusinessLogic
                     dataBase1.SaveChanges();
                 }
             }
-            catch (DbUpdateException ex)
-            {
-                result = 500;
-                _log.Add(ex.ToString());
-            }
-            catch (EntityException ex)
+            catch (Exception ex)
             {
                 result=400;
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
             return result;
         }

@@ -32,28 +32,19 @@ namespace View.Views
         {
             if (!Utilities.ValidateFormat(text_CURP.Text, "^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{5}[0-9]{2}$")) 
             {
-                int resultFindCustomer = CustomerDAO.ExistCustomer(text_CURP.Text);
-                if (resultFindCustomer == 200)
+                try
                 {
-                    switch (CustomerDAO.ChangeStatusBlackList(text_CURP.Text))
+                    int resultFindCustomer = CustomerDAO.ExistCustomer(text_CURP.Text);
+                    if (resultFindCustomer == 200)
                     {
-                        case 200:
-                            MessageBox.Show("Se agrego un nuevo cliente a la lista negra");
-                            Close();
-                            break;
-                        case 500:
-                            MessageBox.Show("Error al agregar al cliente a la lista negra, favor de intentarlo más tarde");
-                            break;
-                        case 502:
-                            MessageBox.Show("El cliente que desea agregar ya se encuentra en la lista negra");
-                            break;
+                        ChangeStatus();
                     }
                 }
-                else if (resultFindCustomer == 500)
+                catch (ArgumentNullException)
                 {
                     MessageBox.Show("Cliente no encontrado, favor de agregar un numero de cliente existente");
                 }
-                else
+                catch (Exception)
                 {
                     MessageBox.Show("Error con la base de datos, favor de intentarlo más tarde ");
                 }
@@ -64,6 +55,33 @@ namespace View.Views
             }
             
         }
+
+        private void ChangeStatus()
+        {
+            try
+            {
+                int resultChangeStatus = CustomerDAO.ChangeStatusBlackList(text_CURP.Text);
+                if (resultChangeStatus == 200)
+                {
+                    MessageBox.Show("Se agrego un nuevo cliente a la lista negra");
+                    Close();
+                }
+                else if (resultChangeStatus == 502)
+                {
+                    MessageBox.Show("El cliente que desea agregar ya se encuentra en la lista negra");
+                }
+            } 
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show("Cliente no encontrado");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al agregar al cliente a la lista negra, favor de intentarlo más tarde");
+            }
+        }
+           
+        
 
         private void Btn_Cancelar_Click(object sender, RoutedEventArgs e)
         {

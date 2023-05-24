@@ -60,7 +60,6 @@ namespace BusinessLogic
         public static int RegisterStaff(Staff newStaff)
         {
             int result = 200;
-            NewLog _log = new NewLog();
             try
             {
                 using (var dataBaseOne = new ConnectionModel())
@@ -78,15 +77,10 @@ namespace BusinessLogic
                     dataBaseOne.SaveChanges();
                 }
             }
-            catch (DbUpdateException ex)
+            catch (Exception)
             {
                 result = 500;
-                _log.Add(ex.ToString());
-            }
-            catch (EntityException ex)
-            {
-                result = 400;
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
             return result;
         }
@@ -139,7 +133,6 @@ namespace BusinessLogic
         public static int ExistStaff(string rfcRecived)
         {
             int result = 200;
-            NewLog _log = new NewLog();
             try
             {
                 using (var dataBase = new ConnectionModel())
@@ -153,14 +146,10 @@ namespace BusinessLogic
                     }
                 }
             }
-            catch (ArgumentNullException ex)
+            catch (Exception)
             {
-                _log.Add(ex.ToString());
-            }
-            catch (EntityException ex)
-            {
-                _log.Add(ex.ToString());
                 result = 400;
+                throw new Exception();
             }
             return result;
         }
