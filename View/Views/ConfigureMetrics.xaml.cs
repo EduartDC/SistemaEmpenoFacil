@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BusinessLogic;
 using BusinessLogic.Utility;
+using Microsoft.Win32;
 
 namespace View.Views
 {
@@ -30,7 +31,20 @@ namespace View.Views
         public ConfigureMetrics()
         {
             InitializeComponent();
-            InitializateCamps(MetricsDAO.RecoverMetrics());
+            try
+            {
+                InitializateCamps(MetricsDAO.RecoverMetrics());
+            }
+            catch (InvalidOperationException ex)
+            {
+                _log.Add(ex.ToString());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al conectarse a la base de datos, favor de intentarlo más tarde");
+                Close();
+            }
+            
         }
 
         private void InitializateCamps(Metric newMetrics)
@@ -90,46 +104,39 @@ namespace View.Views
             label_ErrorInterestRate.Content = "";
             if (ValidateEmptyCamps() && ValidateFormat())
             {
-                int resultUpdate = MetricsDAO.UpdateMetrics(text_InterestRate.Text, text_IVA.Text);
-                switch (resultUpdate)
+
+                try
                 {
-                    case 500:
-                        MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
-                        break;
-
-                    case 400:
-                        MessageBox.Show("No se ha encontrado Metricas para editar en la base de datos, realizando registro de las metricas");
-                        break;
-
-                    case 200:
-                        MessageBox.Show("Configuración Exitosa");
+                    int resultUpdate = MetricsDAO.UpdateMetrics(text_InterestRate.Text, text_IVA.Text);
+                    if(resultUpdate == 200)
+                    {
+                        MessageBox.Show("La configuración de las metricas ha sido exitosa");
                         Close();
-                        break;
-
+                    }
                 }
-                if (resultUpdate == 400)
+                catch (InvalidOperationException)
                 {
+                    MessageBox.Show("No se ha encontrado Metricas para editar en la base de datos, realizando registro de las metricas");
                     registerMetrics();
                 }
-
-
+                catch (Exception)
+                {
+                    MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
+                }
             }
         }
 
         private void registerMetrics()
         {
-            switch(MetricsDAO.RegisterMetrics(text_InterestRate.Text, text_IVA.Text))
+            try
             {
-                case 500:
-                    MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
-                    break;
-                case 400:
-                    MessageBox.Show("No se ha podido registrar las metricas en la base de datos, favor de intentarlo mas tarde");
-                    break;
-                case 200:
-                    MessageBox.Show("Registro de las metricas exitosa");
-                    Close();
-                    break;
+                MetricsDAO.RegisterMetrics(text_InterestRate.Text, text_IVA.Text);
+                MessageBox.Show("Registro de las metricas exitosa");
+                Close();
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("No se ha podido registrar las metricas en la base de datos, favor de intentarlo mas tarde");
             }
         }
 

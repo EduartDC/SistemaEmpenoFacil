@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity.Infrastructure;
 
 namespace View.Views
 {
@@ -41,26 +42,33 @@ namespace View.Views
         {
             if (ValidateFormats())
             {
-                switch(StaffDAO.ExistStaff(text_RFC.Text))
+                try
                 {
-                    case 200:
-                        if (StaffDAO.GetStaffByUserName(text_UserName.Text) == null)
-                        {
-                            NewStaff();
-                        }
-                        else
-                        {
-                            MessageBox.Show("El nombre de usuario que intenta registrar ya se encuntra registrado, favor de cambiarlo");
-                        }
-                        break;
-                    case 100:
-                        MessageBox.Show("El RFC ingresado ya ha sido registrado en el sistema, favor de registrar un RFC que no este en el sistema");
-                        break;
-                    case 400:
-                        MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
-                        break;
+                    switch (StaffDAO.ExistStaff(text_RFC.Text))
+                    {
+                        case 200:
+                            if (StaffDAO.GetStaffByUserName(text_UserName.Text) == null)
+                            {
+                                NewStaff();
+                            }
+                            else
+                            {
+                                MessageBox.Show("El nombre de usuario que intenta registrar ya se encuntra registrado, favor de cambiarlo");
+                            }
+                            break;
+                        case 100:
+                            MessageBox.Show("El RFC ingresado ya ha sido registrado en el sistema, favor de registrar un RFC que no este en el sistema");
+                            break;
+                    }
                 }
-                
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show("Error al validar la existencia del cliente, favor de intentarlo más tarde");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error al conectarse a la base de datos, favor de intentarlo más tarde");
+                }
             }
         }
 
@@ -80,20 +88,17 @@ namespace View.Views
 
         private void ValidateRegisterNewStaff(Staff newStaff)
         {
-            switch (StaffDAO.RegisterStaff(newStaff))
+            try
             {
-                case 500:
-                    MessageBox.Show("No se ha podido conectar con la base de datos, favor de intentarlo más tarde");
-                    break;
-
-                case 400:
-                    MessageBox.Show("Error al realizar el registro, favor de intentarlo más tarde");
-                    break;
-
-                case 200:
-                    MessageBox.Show("Registro Exitoso");
-                    this.Content = null;
-                    break;
+                int resultRegister = StaffDAO.RegisterStaff(newStaff);
+                if(resultRegister == 200)
+                {
+                    MessageBox.Show("Registro exitoso ");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error no se ha podido registrar al cliente en el sistema, favor de intentarlo más tarde");
             }
         }
 
