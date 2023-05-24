@@ -12,29 +12,40 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace View.Views
 {
     /// <summary>
-    /// Lógica de interacción para SetBelongingArticlePrice.xaml
+    /// Lógica de interacción para AddPriceBelongingArticle.xaml
     /// </summary>
-    public partial class SetBelongingArticlePrice : Window
+    public partial class AddPriceBelongingArticle : Page
     {
         int id;
-        public SetBelongingArticlePrice(int idBelongingArticle)
+        public AddPriceBelongingArticle(int idBelonging)
         {
             InitializeComponent();
-            id=idBelongingArticle;
-
+            id=idBelonging;
         }
-
-        
-
         private void btn_SetPrice_Click(object sender, RoutedEventArgs e)
         {
-            saveBelongingArticle();
-            Console.WriteLine(id);
+            double price = Double.Parse(tbPrice.Text);
+            Belonging belonging = new Belonging();
+            Staff staff = new Staff();
+            double appraisalValue = belonging.appraisalValue;
+            if (price <= appraisalValue)
+            {
+                MessageBox.Show("No se pude asignar un precio menor al monto de avaluo");
+
+
+            }
+            else
+            {
+                saveBelongingArticle();
+            }
+            
+            
         }
         private void saveBelongingArticle()
         {
@@ -60,11 +71,10 @@ namespace View.Views
                 char character = Convert.ToChar(randomNumber < 10 ? randomNumber + 48 : randomNumber + 55);
                 barCode += character;
                 Zen.Barcode.Code128BarcodeDraw barcodeDraw = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
-                
-                
+
+
             }
             return barCode;
         }
-
     }
 }

@@ -33,7 +33,7 @@ namespace View.Views
         {
             InitializeComponent();
             loadBelongings();
-            InitializeDG(); 
+             
             
 
         }
@@ -43,12 +43,7 @@ namespace View.Views
             collectionView.Filter = (item) => true;
             dgBelonging.ItemsSource= collectionView;
         }
-        private void InitializeDG()
-        {
-            belongingsList = BelongingDAO.GetBelonging();
-            belongingsList.ForEach(belongings =>dateList.Add(belongings.DeadLine));
-            
-        }
+
         private void loadBelongings()
         {
             belongingsList = BelongingDAO.GetBelonging();
@@ -56,7 +51,6 @@ namespace View.Views
             dgBelonging.ItemsSource = belongingsList;
             
             loadDG();
-
         }
 
         private void btn_reload(object sender, RoutedEventArgs e)
@@ -78,8 +72,7 @@ namespace View.Views
                     Domain.BelongingCreation.Belonging belonging = (Domain.BelongingCreation.Belonging)item;
 
                 
-                    SetBelongingArticlePrice setBelongingArticlePrice = new SetBelongingArticlePrice(belonging.idBelonging);
-                    setBelongingArticlePrice.Show();
+                    
                     
                 }
             }
@@ -89,11 +82,18 @@ namespace View.Views
         {
             for (int i = 0; i < belongingsList.Count(); i++)
             {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = new MemoryStream(belongingsList[i].image);
-                bitmap.EndInit();
-                belongingsList[i].imageConverted = bitmap;
+                try
+                {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = new MemoryStream(belongingsList[i].image);
+                    bitmap.EndInit();
+                    belongingsList[i].imageConverted = bitmap;
+                }catch (Exception ex)
+                {
+                    
+                }
+                
 
             }
         }

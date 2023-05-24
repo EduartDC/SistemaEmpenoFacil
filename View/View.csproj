@@ -89,6 +89,9 @@
     <Compile Include="Views\AddCustomerBlackList.xaml.cs">
       <DependentUpon>AddCustomerBlackList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddPriceBelongingArticle.xaml.cs">
+      <DependentUpon>AddPriceBelongingArticle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ArticlesSellingPrice.xaml.cs">
       <DependentUpon>ArticlesSellingPrice.xaml</DependentUpon>
     </Compile>
@@ -156,6 +159,9 @@
     <Compile Include="Views\ModifyEmployee.xaml.cs">
       <DependentUpon>ModifyEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PayOffSetAside.xaml.cs">
+      <DependentUpon>PayOffSetAside.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegisterStaff.xaml.cs">
       <DependentUpon>RegisterStaff.xaml</DependentUpon>
     </Compile>
@@ -176,9 +182,6 @@
     </Compile>
     <Compile Include="Views\SetAsideView.xaml.cs">
       <DependentUpon>SetAsideView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SetBelongingArticlePrice.xaml.cs">
-      <DependentUpon>SetBelongingArticlePrice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StartShift.xaml.cs">
       <DependentUpon>StartShift.xaml</DependentUpon>
@@ -201,6 +204,10 @@
     <Page Include="Views\AddCustomerBlackList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AddPriceBelongingArticle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ArticlesSellingPrice.xaml">
       <SubType>Designer</SubType>
@@ -290,6 +297,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PayOffSetAside.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RegisterStaff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -315,10 +326,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SetAsideView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SetBelongingArticlePrice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

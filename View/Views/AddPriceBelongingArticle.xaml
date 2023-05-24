@@ -1,0 +1,19 @@
+﻿<Page x:Class="View.Views.AddPriceBelongingArticle"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:View.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="150" d:DesignWidth="250"
+      Title="AddPriceBelongingArticle" Background="White">
+
+
+    <Grid>
+        <Label Content="Asigna precio de venta" HorizontalAlignment="Left" Margin="58,25,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbPrice" HorizontalAlignment="Left" Margin="58,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <Button x:Name="btn_SetPrice" Content="Asignar precio" HorizontalAlignment="Left" Margin="125,105,0,0" VerticalAlignment="Top" Click="btn_SetPrice_Click"/>
+        <Button x:Name="btn_Cancel" Content="Cancelar" HorizontalAlignment="Left" Margin="32,105,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Page>

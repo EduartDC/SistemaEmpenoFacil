@@ -3,9 +3,11 @@ using DataAcces;
 using Domain.BelongingCreation;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.Entity.Migrations.Model;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -217,23 +219,23 @@ namespace BusinessLogic
         }
         public static List<Domain.BelongingCreation.Belonging> GetBelonging()
         {
-            DateTime actualTime = DateTime.Now.AddDays(-15);
+            DateTime actualTime = DateTime.ParseExact(DateTime.Now.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
             List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
            
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
-                    
-                    var resultSet = connection.Belongings.Where(b => b.Contract.deadlineDate < actualTime).ToList();
-                    
+
+                    //var resultSet = connection.Belongings.Where(b => b.Contract.deadlineDate.AddDays(15) > actualTime).ToList();
+                    var resultSet = connection.Belongings.Where(b => DbFunctions.AddDays(b.Contract.deadlineDate, 15) < actualTime).ToList();
                     foreach (var element in resultSet)
                     {
 
                         var verifyId = connection.Belongings_Articles.Where(a => a.idBelonging == element.idBelonging).FirstOrDefault();
-                        if(verifyId.idBelonging>0) 
+                        if (verifyId != null && verifyId.idBelonging > 0)
                         {
-                            
+                            Console.WriteLine(element.idBelonging);
                         } else
                         {
                             Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
@@ -251,14 +253,18 @@ namespace BusinessLogic
                             
                             
                             belongins.Add(belonging);
+                            Console.WriteLine("else"+belonging.DeadLine);
                         }
               
                     }
-                    for(int i =0; i< belongins.Count(); i++)
+                    for (int i = 0; i < belongins.Count(); i++)
                     {
                         var element = belongins[i];
-                        var image = connection.ImagesBelongings.Where(a=> a.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
-                        belongins[i].image = image.imagen;
+                        var image = connection.ImagesBelongings.Where(a => a.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
+                        if (image != null)
+                        {
+                            belongins[i].image = image.imagen;
+                        }
                     }
 
 
