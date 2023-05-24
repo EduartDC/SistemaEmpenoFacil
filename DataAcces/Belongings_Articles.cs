@@ -15,6 +15,7 @@ namespace DataAcces
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int idArticle { get; set; }
 
         public string barCode { get; set; }

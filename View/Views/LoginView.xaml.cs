@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -44,6 +45,7 @@ namespace View.Views
             {
                 var window = (MainWindow)App.Current.MainWindow;
                 window.PrimaryContainer.Navigate(new MenuView());
+                OpenStartShift();
             }
         }
 
@@ -71,7 +73,7 @@ namespace View.Views
                     result = true;
                     (App.Current as App)._staffInfo = user;
                     (App.Current as App)._staffShift = true;
-                    (App.Current as App)._cashOnHand = 10000;
+                    
                 }
             }
             catch (Exception)
@@ -80,6 +82,15 @@ namespace View.Views
             }
 
             return result;
+        }
+        private void OpenStartShift()
+        {
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Navigate(new StartShift());
+            window.PrimaryContainer.IsHitTestVisible = false;
         }
     }
 }
