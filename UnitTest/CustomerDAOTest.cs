@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +18,14 @@ namespace UnitTest
     public class CustomerDAOTest
     {
         public DataAcces.Customer newCustomer { get; set; }
+        public List<ImagesIdentification> imagesIdentifications { get; set; }
 
         [TestInitialize]
         public void TestInitialize()
         {
 
             newCustomer = new DataAcces.Customer();
+            imagesIdentifications = new List<ImagesIdentification>();
             newCustomer.blackList = false;
             newCustomer.firstName = "Test";
             newCustomer.lastName = "Test";
@@ -31,7 +34,22 @@ namespace UnitTest
             newCustomer.address = "San Pedro #405, Queretaro, Qro ";
             newCustomer.telephonNumber = 2256318989335548933;
             newCustomer.identification = "INE";
-
+            string imageRuteOne = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/budget.png";
+            byte[] bytesImagenOne = File.ReadAllBytes(imageRuteOne);
+            ImagesIdentification imagesIdentificationOne = new ImagesIdentification()
+            {
+                imagen = bytesImagenOne,
+                Customer_idCustomer = 20
+            };
+            string imageRuteTwo = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/Sale.png";
+            byte[] bytesImagenTwo = File.ReadAllBytes(imageRuteTwo);
+            ImagesIdentification imagesIdentificationTwo = new ImagesIdentification()
+            {
+                imagen = bytesImagenTwo,
+                Customer_idCustomer = 20
+            };
+            imagesIdentifications.Add(imagesIdentificationOne);
+            imagesIdentifications.Add(imagesIdentificationTwo);
         }
 
         [TestMethod]
@@ -269,7 +287,26 @@ namespace UnitTest
             Assert.AreEqual(0, idCustomerObtined);
         }
 
-        
+
+        [TestMethod]
+        public void TestAddTwoImageIdentificationSuccess()
+        {
+            Assert.AreEqual(200, CustomerDAO.AddTwoImageIdentification(imagesIdentifications));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestAddTwoImageIdentificationException()
+        {
+            Assert.AreEqual(500, CustomerDAO.AddTwoImageIdentification(imagesIdentifications));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DbUpdateException))]
+        public void TestAddTwoImageIdentification()
+        {
+            Assert.AreEqual(500, CustomerDAO.AddTwoImageIdentification(imagesIdentifications));
+        }
 
     }
 }
