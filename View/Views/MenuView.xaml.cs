@@ -143,5 +143,13 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new CashRegisterOperations());
         }
+        private void itemSearchBelongings_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new SearchBelonging());
+        }
+        private void itemPaySetAside_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new PayOffSetAside());
+        }
     }
 }

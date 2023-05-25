@@ -201,13 +201,20 @@ namespace BusinessLogic
                         belonging.ApraisalAmount = element.appraisalValue;
                         belonging.LoanAmount = element.loanAmount;
                         belonging.DeadLine = element.Contract.deadlineDate;
-                        
-                        var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
-                        if (imageInfo != null)
-                        {
-                            belonging.image = imageInfo.imagen;
-                        }
+                        belonging.State = element.Contract.stateContract;
+                        belonging.Contract_idConctract = element.Contract.idContract;
+
                         belongins.Add(belonging);
+                        
+                    }
+                    for (int i = 0; i < belongins.Count(); i++)
+                    {
+                        var element = belongins[i];
+                        var image = connection.ImagesBelongings.Where(a => a.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
+                        if (image != null)
+                        {
+                            belongins[i].image = image.imagen;
+                        }
                     }
                 }
             }
@@ -227,7 +234,7 @@ namespace BusinessLogic
                 using (var connection = new ConnectionModel())
                 {
 
-                    //var resultSet = connection.Belongings.Where(b => b.Contract.deadlineDate.AddDays(15) > actualTime).ToList();
+                    
                     var resultSet = connection.Belongings.Where(b => DbFunctions.AddDays(b.Contract.deadlineDate, 15) < actualTime).ToList();
                     foreach (var element in resultSet)
                     {
@@ -253,7 +260,7 @@ namespace BusinessLogic
                             
                             
                             belongins.Add(belonging);
-                            Console.WriteLine("else"+belonging.DeadLine);
+                            
                         }
               
                     }

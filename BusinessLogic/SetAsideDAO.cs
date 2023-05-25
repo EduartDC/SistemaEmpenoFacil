@@ -92,5 +92,31 @@ namespace BusinessLogic
 
             return (result, setAside);
         }
+        public static List<DataAcces.SetAside>GetSetAsidesByIdCustomer(int id)
+        {
+            List<DataAcces.SetAside>setAsides = new List<DataAcces.SetAside>();
+            if(Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var result = connection.SetAsides.Where(setAside  =>setAside.Customer_idCustomer == id).ToList();
+                    foreach(var item in result)
+                    {
+                        DataAcces.SetAside setAside= new DataAcces.SetAside();
+                        setAside.idSetAside= item.idSetAside;
+                        setAside.deadlineDate = item.deadlineDate;
+                        setAside.totalAmount = item.totalAmount;
+                        setAside.reaminingAmount = item.reaminingAmount;
+                        setAside.stateAside = item.stateAside;
+                        setAsides.Add(setAside);
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("Error de conexion");
+            }
+            return setAsides;
+        }
     }
 }

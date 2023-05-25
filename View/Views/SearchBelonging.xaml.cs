@@ -26,61 +26,61 @@ namespace View.Views
     /// </summary>
     public partial class SearchBelonging : Page
     {
-        private List<Belonging> belongings = new List<Belonging>();
+        
         
         private ICollectionView collectionView;
+        private List<Domain.BelongingCreation.Belonging> belongingsList = new List<Domain.BelongingCreation.Belonging>();
         public SearchBelonging()
         {
             InitializeComponent();
-            cbCategory.Items.Add("Buscar por ID de prenda");
-            cbCategory.Items.Add("Buscar por ID de contrato");
-            FilterTable();
+            loadBelongings();
             
             
         }
-        
-        
-        private void FilterTable()
-        {
-           
-            
-            if (cbCategory.SelectedIndex.ToString() =="Buscar por ID de prenda" )
-            {
-                
-               dgBelonging.ItemsSource= (System.Collections.IEnumerable)BelongingDAO.GetBelongingByID(int.Parse(tbID.Text));
-                ConverterImagesFormat();
 
-            }
-            
-            if (cbCategory.SelectedIndex.ToString()== "Buscar por ID de contrato")
-            {
-                belongings = BelongingDAO.GetBelongingByIdContract(int.Parse(tbID.Text));
-                
-                ConverterImagesFormat();
-                dgBelonging.ItemsSource= belongings;
-                
-            }
-            
+        private void loadDG()
+        {
+            collectionView = CollectionViewSource.GetDefaultView(belongingsList);
+            collectionView.Filter = (item) => true;
+            dgBelonging.ItemsSource = collectionView;
         }
 
-        private void btn_FilterArticles(object sender, RoutedEventArgs e)
+        private void loadBelongings()
         {
-            MessageBox.Show(tbID.Text);
-            Console.WriteLine(tbID.Text);
-            FilterTable();
+            Belonging belonging = new Belonging();
+            belongingsList = BelongingDAO.GetAllBelonging();
+            ConverterImagesFormat();
+            dgBelonging.ItemsSource = belongingsList;
+            
+            loadDG();
+        }
+
+        private void btn_Reload(object sender, RoutedEventArgs e)
+        {
+            loadDG();
+            loadBelongings();
         }
         private void ConverterImagesFormat()
+
         {
-            Console.WriteLine(belongings.Count());
-            for (int i = 0; i < belongings.Count(); i++)
+            for (int i = 0; i < belongingsList.Count(); i++)
             {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = new MemoryStream(belongings[i].image);
-                bitmap.EndInit();
-                belongings[i].imageConverted = bitmap;
+                try
+                {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = new MemoryStream(belongingsList[i].image);
+                    bitmap.EndInit();
+                    belongingsList[i].imageConverted = bitmap;
+                }
+                catch (Exception ex)
+                {
+
+                }
+
 
             }
         }
+
     }
 }
