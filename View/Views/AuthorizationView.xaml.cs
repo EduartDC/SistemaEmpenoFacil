@@ -84,11 +84,11 @@ namespace View.Views
                 {
                     ErrorManager.ShowWarning(MessageError.USER_NOT_FOUND);
                 }
-                else if (!infoStaff.userName.Equals(textUser.Text) || !infoStaff.password.Equals(textPassword.Password))
+                else if (!infoStaff.userName.Equals(userName) || !infoStaff.password.Equals(password))
                 {
                     ErrorManager.ShowWarning(MessageError.USER_NOT_FOUND);
                 }
-                else if(!infoStaff.rol.Equals("Gerente"))
+                else if (!infoStaff.rol.Equals("Gerente"))
                 {
                     ErrorManager.ShowInformation("No cuenta con la autorizacion para realizar esta operacion.");
                 }

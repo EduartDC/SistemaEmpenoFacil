@@ -33,20 +33,29 @@ namespace View.Views
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             Staff userLogin = GetInfoUser();
-            if (string.IsNullOrEmpty(userLogin.userName) || string.IsNullOrEmpty(userLogin.password))
+            try
             {
-                ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
+                if (string.IsNullOrEmpty(userLogin.userName) || string.IsNullOrEmpty(userLogin.password))
+                {
+                    ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
+                }
+                else if (!VerifyUserInfo(userLogin))
+                {
+                    ErrorManager.ShowInformation(MessageError.USER_AND_PASSWORD_NOT_FOUND);
+                }
+                else
+                {
+                    var window = (MainWindow)App.Current.MainWindow;
+                    window.PrimaryContainer.Navigate(new MenuView());
+                    OpenStartShift();
+                }
             }
-            else if (!VerifyUserInfo(userLogin))
+            catch (Exception)
             {
-                ErrorManager.ShowInformation(MessageError.USER_AND_PASSWORD_NOT_FOUND);
+
+                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
             }
-            else
-            {
-                var window = (MainWindow)App.Current.MainWindow;
-                window.PrimaryContainer.Navigate(new MenuView());
-                OpenStartShift();
-            }
+
         }
 
         private Staff GetInfoUser()
@@ -64,23 +73,19 @@ namespace View.Views
         private bool VerifyUserInfo(Staff userLoginInfo)
         {
             var result = false;
-            try
-            {
-                var pass = Utilities.Hash(userLoginInfo.password);
-                Staff user = StaffDAO.LogingStaff(userLoginInfo.userName, pass);
-                if (user != null && user.userName.Equals(userLoginInfo.userName) && user.password.Equals(pass))
-                {
-                    result = true;
-                    rol = user.rol;
-                    (App.Current as App)._staffInfo = user;
-                    (App.Current as App)._staffShift = true;
 
-                }
-            }
-            catch (Exception)
+            var pass = Utilities.Hash(userLoginInfo.password);
+            Staff user = StaffDAO.LogingStaff(userLoginInfo.userName, pass);
+            if (user != null && user.userName.Equals(userLoginInfo.userName) && user.password.Equals(pass))
             {
-                ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+                result = true;
+                rol = user.rol;
+                (App.Current as App)._staffInfo = user;
+                (App.Current as App)._staffShift = true;
+
             }
+
+
 
             return result;
         }
