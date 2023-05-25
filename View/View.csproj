@@ -113,6 +113,9 @@
     <Compile Include="Views\ConsultBlackList1.xaml.cs">
       <DependentUpon>ConsultBlackList1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsultContract.xaml.cs">
+      <DependentUpon>ConsultContract.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateBelongingRegister.xaml.cs">
       <DependentUpon>CreateBelongingRegister.xaml</DependentUpon>
     </Compile>
@@ -234,6 +237,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ConsultBlackList1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConsultContract.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
