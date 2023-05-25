@@ -73,6 +73,7 @@ namespace View.Views
                         else
                         {
                             labelInvalidInformation.Content = string.Empty;
+                            actualStaff.password = Utilities.Hash(emplyoee.password);
                             int successfulModification = StaffDAO.ModifyStaff(actualStaff.idStaff, emplyoee);
                             if (successfulModification != 300 && successfulModification != 0)
                             {
@@ -82,6 +83,7 @@ namespace View.Views
                                 MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                                 MessageBoxResult messageBox;
                                 messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                                this.NavigationService.GoBack();
                             }
                             else
                             {

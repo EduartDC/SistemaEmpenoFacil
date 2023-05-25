@@ -44,11 +44,18 @@ namespace View.Views
             Console.WriteLine(belongings.Count());
             for (int i = 0; i < belongings.Count(); i++)
             {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = new MemoryStream(belongings[i].image);
-                bitmap.EndInit();
-                belongings[i].imageConverted = bitmap;
+                try
+                {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = new MemoryStream(belongings[i].image);
+                    bitmap.EndInit();
+                    belongings[i].imageConverted = bitmap;
+                }
+                catch (ArgumentNullException)
+                {
+                    belongings[i].imageConverted = null;
+                }
 
             }
         }
@@ -124,6 +131,15 @@ namespace View.Views
                         break;
                     }
                 }
+
+                actualContract.idContractPrevious = actualContract.idContract;
+                actualContract.creationDate = DateTime.Now;
+                //actualContract.deadlineDate
+                actualContract.stateContract = "Activo";
+                //actualContract.endorsementSettlementDates
+                //actualContract.paymentsSettlement
+                //actualContract.paymentsEndorsement
+
                 BlurEffect blurEffect = new BlurEffect();
                 blurEffect.Radius = 5;
                 mainWindow.PrimaryContainer.Effect = blurEffect;
@@ -134,6 +150,34 @@ namespace View.Views
                 mainWindow.PrimaryContainer.IsHitTestVisible = false;
 
             }
+        }
+
+        private void LoadDatesEndorsementSettlement()
+        {
+            /*totalLoan = 0;
+            tbDateEndorsementSettlement.Text = "";
+            currentlyDate = DateTime.Now;
+            comercializationDate = DateTime.Now.AddMonths((int)cbTerm.SelectedItem).AddDays(15);
+            limitPaymentDate = DateTime.Now.AddMonths((int)cbTerm.SelectedItem);
+
+            tbDateComercialization.Text = comercializationDate.ToString();
+            tbPaymentLimit.Text = limitPaymentDate.ToString();
+            paymentDates = "";
+            for (int i = 1; i <= (int)cbTerm.SelectedItem; i++)
+            {
+                paymentDates += DateTime.Now.AddMonths(i).ToString("d") + ";\n";
+            }
+
+            tbDateEndorsementSettlement.Text = paymentDates.ToString();
+            double totalAppraisal = 0;
+            foreach (Domain.BelongingCreation.Belonging b in belongingList)
+            {
+                totalLoan += b.LoanAmount;
+                totalAppraisal += b.ApraisalAmount;
+            }
+            tbLoanAmount.Text = totalLoan.ToString();
+            tbAppraisalAmount.Text = totalAppraisal.ToString();
+            CalculateLoanPorcentage();*/
         }
 
         private void goBackButtonEvent(object sender, RoutedEventArgs e)
@@ -154,6 +198,7 @@ namespace View.Views
                     MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                     MessageBoxResult messageBox;
                     messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                    this.NavigationService.GoBack();
                 }
                 else
                 {

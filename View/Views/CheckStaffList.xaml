@@ -30,8 +30,8 @@
                         <DataGridTextColumn Header="Nombre" Binding="{Binding fisrtName}"/>
                         <DataGridTextColumn Header="Apellidos" Binding="{Binding lastName}"/>
                         <DataGridTextColumn Header="Nombre de usuario" Binding="{Binding userName}"/>
-                        <DataGridTextColumn Header="Rol" Binding="{Binding saleDate}"/>
-                        <DataGridTextColumn Header="Estatus" Binding="{Binding saleDate}"/>
+                        <DataGridTextColumn Header="Rol" Binding="{Binding rol}"/>
+                        <DataGridTextColumn Header="Estatus" Binding="{Binding statusStaff}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Rectangle Grid.Column="2" HorizontalAlignment="Center" Height="220" Margin="0,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="268"/>
