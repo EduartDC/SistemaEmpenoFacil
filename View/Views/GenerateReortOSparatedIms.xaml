@@ -24,11 +24,11 @@
                     <ColumnDefinition Width="250"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="1" Content="Generar reporte" HorizontalAlignment="Center" Margin="0,62,0,0" VerticalAlignment="Top" FontSize="18" Height="42" Width="148" Click="Button_Click"/>
-                <Button Grid.Column="1" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Height="42" Width="116" Margin="0,192,0,0"/>
+                <Button x:Name="goBackButton" Grid.Column="1" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Height="42" Width="116" Margin="0,192,0,0" Click="GoBackButtonEvent"/>
                 <Label Content="Fecha de inicio" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="16"/>
                 <Label Grid.Column="2" Content="Fecha de fin" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <DatePicker HorizontalAlignment="Center" Margin="0,46,0,0" VerticalAlignment="Top" FontSize="18"/>
-                <DatePicker HorizontalAlignment="Center" Margin="0,46,0,0" VerticalAlignment="Top" FontSize="18" Grid.Column="2"/>
+                <DatePicker x:Name="startDateDatePicker" HorizontalAlignment="Center" Margin="0,46,0,0" VerticalAlignment="Top" FontSize="18"/>
+                <DatePicker x:Name="endDateDatePicker" HorizontalAlignment="Center" Margin="0,46,0,0" VerticalAlignment="Top" FontSize="18" Grid.Column="2"/>
             </Grid>
             <Label Content="Generar reporte de articulos apartados" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
             <Label Content="Selecciona el rango de fechas para generar el reporte" HorizontalAlignment="Center" Margin="0,50,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>

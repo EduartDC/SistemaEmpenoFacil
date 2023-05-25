@@ -27,13 +27,35 @@ namespace View.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string message = "Se ha generado con exito el reporte de articulos apartados del periodo especificado"
+            if (startDateDatePicker.SelectedDate == null || endDateDatePicker.SelectedDate == null)
+            {
+                string message = "Selecicone por favor la fecha de inicio y la fecha de fin para generar el reporte";
+                string messageTitle = "Fechas no seleccionadas";
+                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                MessageBoxResult messageBox;
+                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+            }
+            else
+            {
+                string message = "Se ha generado con exito el reporte de articulos apartados del periodo especificado"
                 + " acontinuacion se descargara el reporte en tu ordenador";
-            string messageTitle = "Reporte generado con exito";
-            MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-            MessageBoxImage messageBoxImage = MessageBoxImage.Information;
-            MessageBoxResult messageBox;
-            messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                string messageTitle = "Reporte generado con exito";
+                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                MessageBoxResult messageBox;
+                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+            }
+        }
+
+        private void GoBackButtonEvent(object sender, RoutedEventArgs e)
+        {
+            this.Content = null;
+        }
+
+        private void GenerateSetAsideArticlesReport()
+        {
+
         }
     }
 }
