@@ -156,5 +156,25 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new CashRegisterOperations());
         }
+
+        private void ItemModifyStaff_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new CheckStaffList());
+        }
+
+        private void ItemCheckSales_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new CheckSalesRecords());
+        }
+
+        private void ItemMakeSale_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new MakeSale());
+        }
+
+        private void itemGenerateReport_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new GenerateReortOSparatedIms());
+        }
     }
 }

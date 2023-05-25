@@ -22,18 +22,42 @@
                 <RowDefinition
                     Height="100"/>
             </Grid.RowDefinitions>
-            <TextBlock x:Name="textBoxBarCode" HorizontalAlignment="Left" Margin="57,23,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Codigo de barras" VerticalAlignment="Top" Height="35" Width="239" FontSize="18"/>
-            <Button x:Name="searchArticleButton" Content="Buscar" HorizontalAlignment="Left" Margin="309,23,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="18" Width="97" Height="35"/>
-            <TextBlock x:Name="textBoxClientName" HorizontalAlignment="Left" Margin="469,23,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Nombre del cliente" VerticalAlignment="Top" FontSize="18" Height="35" Width="239"/>
-            <Button x:Name="searchClientButton" Content="Buscar" HorizontalAlignment="Left" Margin="720,23,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="18" Width="97" Height="35"/>
+            <Button x:Name="searchArticleButton" Content="Buscar" HorizontalAlignment="Left" Margin="309,23,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="18" Width="97" Height="35" Click="SearchArticleButtonEvent"/>
+            <Button x:Name="searchClientButton" Content="Buscar" HorizontalAlignment="Left" Margin="720,23,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="18" Width="97" Height="35" Click="SearchClientButtonEvent"/>
             <Rectangle HorizontalAlignment="Left" Height="326" Margin="10,0,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Center" Width="418"/>
-            <ScrollViewer Grid.Row="2" Margin="10,27,469,66"/>
-            <Button x:Name="addToCartButton" Content="agregar al carrito" HorizontalAlignment="Left" Margin="274,293,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="18"/>
+            <Button x:Name="addToCartButton" Content="agregar al carrito" HorizontalAlignment="Left" Margin="274,293,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="18" Click="AddToCartButtonEvent"/>
             <Rectangle HorizontalAlignment="Left" Height="326" Margin="469,0,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Center" Width="404"/>
-            <ScrollViewer Grid.Row="2" Margin="469,27,19,66"/>
-            <Button x:Name="cancelButton" Content="Cancelar" HorizontalAlignment="Left" Margin="23,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="18" Height="40" Width="104"/>
-            <Button x:Name="makeSaleButton" Content="Realizar venta" HorizontalAlignment="Left" Margin="729,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="18" Height="40" Width="135"/>
-            <Button x:Name="checkCarButton" Content="Revisar carrito" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" FontSize="18" Height="40" Width="145"/>
+            <Button x:Name="cancelButton" Content="Cancelar" HorizontalAlignment="Left" Margin="23,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="CancelButtonEvent"/>
+            <Button x:Name="makeSaleButton" Content="Realizar venta" HorizontalAlignment="Left" Margin="729,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="18" Height="40" Width="135" Click="MakeSaleButtonEvent"/>
+            <Button x:Name="checkCarButton" Content="Revisar carrito" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" FontSize="18" Height="40" Width="145" Click="CheckCarButtonEvent"/>
+            <DataGrid x:Name="dataGridArticles" Grid.Row="2" Margin="10,10,455,58">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Imagen">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Width="100" Height="100" Source="{Binding imageConverted}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Descripcion" Binding="{Binding description}"/>
+                    <DataGridTextColumn Header="Categoria" Binding="{Binding category}"/>
+                    <DataGridTextColumn Header="Precio de venta" Binding="{Binding sellingPrice}"/>
+                    <DataGridTextColumn Header="Estado del articulo" Binding="{Binding stateArticle}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <DataGrid x:Name="dataGridClients" Grid.Row="2" Margin="469,10,10,58" SelectionChanged="SelectClientForSaleEvent">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding firstName}"/>
+                    <DataGridTextColumn Header="Apellidos" Binding="{Binding lastName}"/>
+                    <DataGridTextColumn Header="Curp" Binding="{Binding curp}"/>
+                    <DataGridTextColumn Header="Direccion" Binding="{Binding address}"/>
+                    <DataGridTextColumn Header="Numero de cliente" Binding="{Binding idCustomer}"/>
+                    <DataGridTextColumn Header="Lista negra" Binding="{Binding blackList}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBox x:Name="textBoxBarCode" HorizontalAlignment="Left" Margin="56,23,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="233" Height="35" FontSize="18"/>
+            <TextBox x:Name="textBoxClientName" HorizontalAlignment="Left" Margin="469,23,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="235" Height="35" FontSize="18"/>
         </Grid>
     </ScrollViewer>
 

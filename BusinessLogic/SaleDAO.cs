@@ -62,5 +62,34 @@ namespace BusinessLogic
 
             return (result, sale);
         }
+
+        public static (int, int) MakeSale(Sale sale)
+        {
+
+            int result = MessageCode.ERROR;
+            int idSale = 0;
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var addNewSale = connection.Sales.Add(new Sale()
+                    {
+                        total = sale.total,
+                        subtotal = sale.subtotal,
+                        saleDate = sale.saleDate,
+                        discount = sale.discount,
+                        Customer_idCustomer= sale.Customer_idCustomer,
+                    });
+                    connection.SaveChanges();
+                    idSale = addNewSale.idSale;
+                    result = MessageCode.SUCCESS;
+                }
+            }
+            else
+            {
+                result = MessageCode.CONNECTION_ERROR;
+            }
+            return (result, idSale);
+        }
     }
 }

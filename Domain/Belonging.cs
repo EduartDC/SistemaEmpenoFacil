@@ -28,6 +28,8 @@ namespace Domain.BelongingCreation
         public DateTime DeadLine { get; set; }
         public String State { get; set; }
 
+        public double sellingPrice { get; set; }
+
         public byte[] image { get; set; }
 
         public ImageSource imageConverted { get; set; }

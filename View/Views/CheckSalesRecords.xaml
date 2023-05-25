@@ -32,7 +32,7 @@
                 <RadioButton x:Name="saleCodeRadioButton" Content="Codigo de venta" HorizontalAlignment="Left" Margin="3,102,0,0" VerticalAlignment="Top" Grid.Column="1" Checked="EventSaleCodeRadioButton" FontSize="18"/>
                 <DatePicker x:Name="salesDatePicker" Grid.Column="2" HorizontalAlignment="Left" Margin="70,21,0,0" VerticalAlignment="Top" Height="39" Width="207" FontSize="18"/>
                 <Button Grid.Column="3" Content="Buscar" HorizontalAlignment="Left" Margin="77,28,0,0" VerticalAlignment="Top" Height="32" Width="100" FontSize="18" Click="EventSearchButton"/>
-                <Button Grid.Column="3" Content="Regresar" HorizontalAlignment="Left" Margin="77,109,0,0" VerticalAlignment="Top" Height="31" Width="100" FontSize="18"/>
+                <Button x:Name="goBackButton" Grid.Column="3" Content="Regresar" HorizontalAlignment="Left" Margin="77,109,0,0" VerticalAlignment="Top" Height="31" Width="100" FontSize="18" Click="GoBackButtonEvent"/>
                 <DataGrid x:Name="dataGridSales" Grid.Column="4" Margin="10,10,10,680" SelectionChanged="DataGrid_SelectionChanged" GridLinesVisibility="Horizontal" AutoGenerateColumns="True" IsReadOnly="True" SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Codigo de venta" Binding="{Binding idSale}"/>

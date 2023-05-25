@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using DataAcces;
+using Domain;
 using Domain.BelongingCreation;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -22,17 +24,19 @@ namespace View.Views
     /// <summary>
     /// Lógica de interacción para EndorseContract.xaml
     /// </summary>
-    public partial class EndorseContract : Page
+    public partial class EndorseContract : Page, MessageService
     {
 
         private Contract actualContract = null;
         private List<Domain.BelongingCreation.Belonging> belongings= new List<Domain.BelongingCreation.Belonging>();
+        private double settlementAmount;
+        private double endorsementAmount;
 
-        public EndorseContract()
+        public EndorseContract(int IdContract)
         {
             InitializeComponent();
-            ShowContract(13);
-            GetBelongingsOfContract(13);
+            ShowContract(IdContract);
+            GetBelongingsOfContract(IdContract);
         }
 
         private void ConverterImagesFormat()
@@ -57,18 +61,15 @@ namespace View.Views
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ShowContract(int idContract)
         {
             Contract contract = ContractDAO.GetContract(idContract);
-            labelEndorsementAmount.Content = GetAmounts(contract.paymentsEndorsement, contract.endorsementSettlementDates) + " $"; // monto de refrendo buscar el monto de refrendo
+            endorsementAmount = double.Parse(GetAmounts(contract.paymentsEndorsement, contract.endorsementSettlementDates));
+            labelEndorsementAmount.Content = endorsementAmount + " $"; // monto de refrendo buscar el monto de refrendo
             labelLoanAmount.Content = contract.loanAmount.ToString() + " $"; // monto de prestamo
-            labelSettlementAmount.Content= GetAmounts(contract.paymentsSettlement, contract.endorsementSettlementDates) + " $"; //monto de liquidacion buscar el monto de liquidacion\
-            Customer customer = CustomerDAO.GetCustomer(contract.Customer_idCustomer);
+            settlementAmount = double.Parse(GetAmounts(contract.paymentsSettlement, contract.endorsementSettlementDates));
+            labelSettlementAmount.Content= settlementAmount + " $"; //monto de liquidacion buscar el monto de liquidacion\
+            DataAcces.Customer customer = CustomerDAO.GetCustomer(contract.Customer_idCustomer);
             labelClientName.Content = customer.firstName + " " + customer.lastName;
             labelPawnNumber.Content = contract.idContract;
             actualContract = contract;
@@ -114,13 +115,93 @@ namespace View.Views
             }
             else
             {
-                //ContractDAO.ModifyContract(actualContract, actualContract.idContract);
+                MainWindow mainWindow = null;
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window is MainWindow)
+                    {
+                        mainWindow = window as MainWindow;
+                        break;
+                    }
+                }
+                BlurEffect blurEffect = new BlurEffect();
+                blurEffect.Radius = 5;
+                mainWindow.PrimaryContainer.Effect = blurEffect;
+                (App.Current as App)._cashOnHand = 100000;
+                TransactionView newOperation = new TransactionView(OperationType.OPERATION_SEAL, endorsementAmount, int.Parse(labelPawnNumber.Content.ToString()));
+                newOperation.CommunicacionPages(this);
+                mainWindow.SecundaryContainer.Navigate(newOperation);
+                mainWindow.PrimaryContainer.IsHitTestVisible = false;
+
             }
         }
 
         private void goBackButtonEvent(object sender, RoutedEventArgs e)
         {
-            
+            this.NavigationService.GoBack();
+        }
+
+        public void Communication(bool result)
+        {
+            if (result) 
+            {
+                int operationResult = ContractDAO.ModifyContract(actualContract, actualContract.idContract);
+                if (operationResult != 0 && operationResult != 300)
+                {
+                    string message = "Se ha realizado la operacion correctamente";
+                    string messageTitle = "Operacion completada";
+                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                    MessageBoxResult messageBox;
+                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                }
+                else
+                {
+                    string message = "Actualizacion no completada \n\n No se ha podido actualizar la informacion del contrato correctamente";
+                    string messageTitle = "Operacion no completada";
+                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                    MessageBoxResult messageBox;
+                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                }
+            }
+            else
+            {
+                string message = "No se pudo completar la operacion \n\n ocurrio un error inesperado durante la operacion y no se realizo ningun cambio";
+                string messageTitle = "Operacion no realizada";
+                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                MessageBoxResult messageBox;
+                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+            }
+            throw new NotImplementedException();
+        }
+
+        public void ScanCommunication(ArticleDomain article)
+        {
+        }
+
+        private void CancelContractButtonEvent(object sender, RoutedEventArgs e)
+        {
+            actualContract.stateContract = "Cancelado";
+            MainWindow mainWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is MainWindow)
+                {
+                    mainWindow = window as MainWindow;
+                    break;
+                }
+            }
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            mainWindow.PrimaryContainer.Effect = blurEffect;
+            (App.Current as App)._cashOnHand = 100000;
+            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LIQUIDATE, settlementAmount, int.Parse(labelPawnNumber.Content.ToString()));
+            newOperation.CommunicacionPages(this);
+            mainWindow.SecundaryContainer.Navigate(newOperation);
+            mainWindow.PrimaryContainer.IsHitTestVisible = false;
+
         }
     }
 }

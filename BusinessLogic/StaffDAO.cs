@@ -177,5 +177,22 @@ namespace BusinessLogic
             }
             return result;
         }
+
+        public static List<Staff> GetAllStaff()
+        {
+            List<Staff> result = new List<Staff>();
+            if(Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    result = (from staff in connection.Staffs select staff).ToList();
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+            return result;
+        }
     }
 }
