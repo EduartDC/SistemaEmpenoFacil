@@ -38,7 +38,7 @@
                 <Label x:Name="labelEndorsementAmount" Grid.Column="1" Content="XXXXXX $" HorizontalAlignment="Center" VerticalAlignment="Top" Height="37" Width="118" FontSize="16" Margin="0,106,0,0"/>
                 <Button Grid.Column="3" Content="Refrendar" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" Height="26" Width="94" FontSize="16" Click="EndorseContractButtonEvent"/>
                 <Button Grid.Column="3" Content="regresar" HorizontalAlignment="Center" Margin="0,122,0,0" VerticalAlignment="Top" Height="26" Width="94" FontSize="16" Click="goBackButtonEvent"/>
-                <Button x:Name="buttonCancelContract" Grid.Column="2" Content="cancelarContrato" HorizontalAlignment="Center" Margin="0,14,0,0" VerticalAlignment="Top" Click="Button_Click" Height="29" Width="126" FontSize="16"/>
+                <Button x:Name="buttonCancelContract" Grid.Column="2" Content="cancelarContrato" HorizontalAlignment="Center" Margin="0,14,0,0" VerticalAlignment="Top" Click="CancelContractButtonEvent" Height="29" Width="126" FontSize="16"/>
             </Grid>
 
             <Grid Grid.Row="1">

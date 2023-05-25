@@ -25,12 +25,12 @@ namespace View.Views
     {
 
         private Staff actualStaff = null;
-        public ModifyEmployee()
+        public ModifyEmployee(int IdEmployee)
         {
             InitializeComponent();
             AddStatusComboBoxElements();
             AddRoleComboxBoxElements();
-            showStaffInformation(4);
+            showStaffInformation(IdEmployee);
         }
 
         private void clicModifyButton(object sender, RoutedEventArgs e)
@@ -174,6 +174,10 @@ namespace View.Views
             MessageBoxImage messageBoxImage = MessageBoxImage.Question;
             MessageBoxResult messageBox;
             messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+            if(messageBox == MessageBoxResult.Yes)
+            {
+                this.NavigationService.GoBack();
+            }
         }
 
         private void AddStatusComboBoxElements()
