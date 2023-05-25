@@ -107,6 +107,9 @@
     <Compile Include="Views\CheckShoppingCart.xaml.cs">
       <DependentUpon>CheckShoppingCart.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CheckStaffList.xaml.cs">
+      <DependentUpon>CheckStaffList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConfigureMetrics.xaml.cs">
       <DependentUpon>ConfigureMetrics.xaml</DependentUpon>
     </Compile>
@@ -226,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CheckShoppingCart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CheckStaffList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

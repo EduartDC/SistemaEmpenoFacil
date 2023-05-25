@@ -149,5 +149,10 @@ namespace View.Views
                 }
             }
         }
+
+        private void GoBackButtonEvent(object sender, RoutedEventArgs e)
+        {
+            this.Content= null;
+        }
     }
 }

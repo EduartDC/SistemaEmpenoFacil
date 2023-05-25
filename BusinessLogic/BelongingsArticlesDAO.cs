@@ -11,7 +11,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain;
 
 namespace BusinessLogic
 {
@@ -34,7 +33,6 @@ namespace BusinessLogic
             }
             return belongings_ArticlesSelled;
         }
-<<<<<<< HEAD
 
         public static Domain.ArticleDomain GetBelonging_Article(int idArticle)
         {
@@ -54,7 +52,7 @@ namespace BusinessLogic
                     articleDomain.storeProfit = belongings_Articles.storeProfit;
                     articleDomain.idBelonging = belongings_Articles.idBelonging;
                     
-                    Belonging belonging = new Belonging();
+                    DataAcces.Belonging belonging = new DataAcces.Belonging();
                     belonging = connection.Belongings.Find(articleDomain.idBelonging);
                     articleDomain.appraisalValue = belonging.appraisalValue;
                     articleDomain.category = belonging.category;
@@ -77,19 +75,6 @@ namespace BusinessLogic
             return articleDomain;
         }
 
-        public static int ModifyBelonging_Article(int idArticle, int idSale, double storeProfit)
-        {
-            int resultOperation = MessageCode.ERROR;
-            if (Utilities.VerifyConnection())
-            {
-                using(var connection = new ConnectionModel())
-                {
-                    var article = connection.Belongings_Articles.Find(idArticle);
-                    article.stateArticle = "Vendido";
-                    article.Sale_idSale= idSale;
-                    article.storeProfit = storeProfit;
-                    resultOperation = connection.SaveChanges();
-=======
         public static int AddBelongingArticle(Belongings_Articles newBelongingArticle)
         {
             var result = MessageCode.ERROR;
@@ -106,20 +91,35 @@ namespace BusinessLogic
                     {
                         throw new DbEntityValidationException();
                     }
->>>>>>> 9b8bce2dbaf676fb56dcc61a1b6e0d5a483b55ef
                 }
             }
             else
             {
                 throw new Exception(MessageError.CONNECTION_ERROR);
             }
-<<<<<<< HEAD
-            return resultOperation;
-        }
-
-=======
             return result;
         }
->>>>>>> 9b8bce2dbaf676fb56dcc61a1b6e0d5a483b55ef
+
+        public static int ModifyBelonging_Article(int idArticle, int idSale, double storeProfit)
+        {
+            int resultOperation = MessageCode.ERROR;
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var article = connection.Belongings_Articles.Find(idArticle);
+                    article.stateArticle = "Vendido";
+                    article.Sale_idSale = idSale;
+                    article.storeProfit = storeProfit;
+                    resultOperation = connection.SaveChanges();
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+
+            return  resultOperation;
+        }
     }
 }

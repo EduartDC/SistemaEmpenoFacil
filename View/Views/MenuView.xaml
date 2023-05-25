@@ -181,6 +181,11 @@
                         Click="itemNewSetAside_Click"
                         Header="Crear Apartado"
                         Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        Name="itemGenerateReport"
+                        Click="itemGenerateReport_Click"
+                        Header="Generar reporte"
+                        Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
                 <MenuItem x:Name="itemSales" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Header>
@@ -201,10 +206,12 @@
                     <MenuItem
                         Name="itemConsultSels"
                         Header="Consultar Ventas"
+                        Click="ItemCheckSales_Click"
                         Style="{StaticResource MenuItemStyle}" />
                     <MenuItem
                         Name="itemNewSale"
                         Header="Iniciar venta"
+                        Click="ItemMakeSale_Click"
                         Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
 
@@ -356,6 +363,11 @@
                         Name="itemOperationCashRegister"
                         Click="ItemOperationCashRegister_Click"
                         Header="Operacion de caja"
+                        Style="{StaticResource MenuItemStyle}"/>
+                    <MenuItem
+                        Name="itemModifyStaff"
+                        Click="ItemModifyStaff_Click"
+                        Header="Consultar Empleados"
                         Style="{StaticResource MenuItemStyle}"/>
 
                 </MenuItem>

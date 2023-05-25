@@ -137,7 +137,7 @@ namespace View.Views
 
         private void CancelButtonEvent(object sender, RoutedEventArgs e)
         {
-
+            this.Content= null;
         }
 
         private void MakeSaleButtonEvent(object sender, RoutedEventArgs e)

@@ -59,20 +59,14 @@ namespace View.Views
             customersList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
             customersList.ForEach(customer => _listCurpsCustomers.Add(customer.curp));
             tableCustomers.ItemsSource = customersList;
-<<<<<<< HEAD
             if (_listNamesCustomers.Count == 0)
             {
-<<<<<<< HEAD
                MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
-=======
 
                MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
 
->>>>>>> 4c089b427b63abeb196c3ed21b91c5ffd09c872a
                 this.Content = null;
             }
-=======
->>>>>>> d94f04de8c1f871d9d2135ffc49ed6b3f2ba1f1a
         }
 
 

@@ -130,20 +130,14 @@ namespace BusinessLogic
             return result;
         }
 
-<<<<<<< HEAD
         public static Domain.BelongingCreation.Belonging GetBelongingByID(int id)
         {
             Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
-=======
-        public static  DataAcces.Belonging GetBelongingByID(int id)
-        {
-            DataAcces.Belonging belonging = null;
->>>>>>> 9b8bce2dbaf676fb56dcc61a1b6e0d5a483b55ef
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
-                    Belonging resultQuery = connection.Belongings.Find(id);
+                    DataAcces.Belonging resultQuery = connection.Belongings.Find(id);
                     belonging.idBelonging = resultQuery.idBelonging;
                     belonging.Features = resultQuery.characteristics;
                     belonging.SerialNumber = resultQuery.serialNumber;
@@ -185,20 +179,17 @@ namespace BusinessLogic
                         belonging.Model = element.model;
                         belonging.ApraisalAmount = element.appraisalValue;
                         belonging.LoanAmount = element.loanAmount;
-<<<<<<< HEAD
-                            var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
-                            if (imageInfo != null)
+                            var imageResult = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
+                            if (imageResult != null)
                             {
-                                belonging.image = imageInfo.imagen;
+                                belonging.image = imageResult.imagen;
                             }
-=======
                         Console.WriteLine(element.idBelonging);
                         var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
                         if (imageInfo != null)
                         {
                             belonging.image = imageInfo.imagen;
                         }
->>>>>>> 9b8bce2dbaf676fb56dcc61a1b6e0d5a483b55ef
                         belongins.Add(belonging);
                     }
                 }
@@ -209,6 +200,7 @@ namespace BusinessLogic
             }
             return belongins;
         }
+
         public static List<Domain.BelongingCreation.Belonging> GetAllBelonging()
         {
             List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();

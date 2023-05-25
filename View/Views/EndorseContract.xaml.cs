@@ -29,12 +29,14 @@ namespace View.Views
 
         private Contract actualContract = null;
         private List<Domain.BelongingCreation.Belonging> belongings= new List<Domain.BelongingCreation.Belonging>();
+        private double settlementAmount;
+        private double endorsementAmount;
 
-        public EndorseContract()
+        public EndorseContract(int IdContract)
         {
             InitializeComponent();
-            ShowContract(13);
-            GetBelongingsOfContract(13);
+            ShowContract(IdContract);
+            GetBelongingsOfContract(IdContract);
         }
 
         private void ConverterImagesFormat()
@@ -59,17 +61,14 @@ namespace View.Views
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ShowContract(int idContract)
         {
             Contract contract = ContractDAO.GetContract(idContract);
-            labelEndorsementAmount.Content = GetAmounts(contract.paymentsEndorsement, contract.endorsementSettlementDates) + " $"; // monto de refrendo buscar el monto de refrendo
+            endorsementAmount = double.Parse(GetAmounts(contract.paymentsEndorsement, contract.endorsementSettlementDates));
+            labelEndorsementAmount.Content = endorsementAmount + " $"; // monto de refrendo buscar el monto de refrendo
             labelLoanAmount.Content = contract.loanAmount.ToString() + " $"; // monto de prestamo
-            labelSettlementAmount.Content= GetAmounts(contract.paymentsSettlement, contract.endorsementSettlementDates) + " $"; //monto de liquidacion buscar el monto de liquidacion\
+            settlementAmount = double.Parse(GetAmounts(contract.paymentsSettlement, contract.endorsementSettlementDates));
+            labelSettlementAmount.Content= settlementAmount + " $"; //monto de liquidacion buscar el monto de liquidacion\
             DataAcces.Customer customer = CustomerDAO.GetCustomer(contract.Customer_idCustomer);
             labelClientName.Content = customer.firstName + " " + customer.lastName;
             labelPawnNumber.Content = contract.idContract;
@@ -129,7 +128,7 @@ namespace View.Views
                 blurEffect.Radius = 5;
                 mainWindow.PrimaryContainer.Effect = blurEffect;
                 (App.Current as App)._cashOnHand = 100000;
-                TransactionView newOperation = new TransactionView(OperationType.OPERATION_SEAL, double.Parse(labelEndorsementAmount.Content.ToString()), int.Parse(labelPawnNumber.Content.ToString()));
+                TransactionView newOperation = new TransactionView(OperationType.OPERATION_SEAL, endorsementAmount, int.Parse(labelPawnNumber.Content.ToString()));
                 newOperation.CommunicacionPages(this);
                 mainWindow.SecundaryContainer.Navigate(newOperation);
                 mainWindow.PrimaryContainer.IsHitTestVisible = false;
@@ -139,7 +138,7 @@ namespace View.Views
 
         private void goBackButtonEvent(object sender, RoutedEventArgs e)
         {
-            
+            this.NavigationService.GoBack();
         }
 
         public void Communication(bool result)
@@ -149,7 +148,7 @@ namespace View.Views
                 int operationResult = ContractDAO.ModifyContract(actualContract, actualContract.idContract);
                 if (operationResult != 0 && operationResult != 300)
                 {
-                    string message = "Se ha realizado la operacion correctamente \n\n Se ha refrendado el contrato con exito";
+                    string message = "Se ha realizado la operacion correctamente";
                     string messageTitle = "Operacion completada";
                     MessageBoxButton messageBoxButton = MessageBoxButton.OK;
                     MessageBoxImage messageBoxImage = MessageBoxImage.Information;
@@ -180,6 +179,29 @@ namespace View.Views
 
         public void ScanCommunication(ArticleDomain article)
         {
+        }
+
+        private void CancelContractButtonEvent(object sender, RoutedEventArgs e)
+        {
+            actualContract.stateContract = "Cancelado";
+            MainWindow mainWindow = null;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is MainWindow)
+                {
+                    mainWindow = window as MainWindow;
+                    break;
+                }
+            }
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            mainWindow.PrimaryContainer.Effect = blurEffect;
+            (App.Current as App)._cashOnHand = 100000;
+            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LIQUIDATE, settlementAmount, int.Parse(labelPawnNumber.Content.ToString()));
+            newOperation.CommunicacionPages(this);
+            mainWindow.SecundaryContainer.Navigate(newOperation);
+            mainWindow.PrimaryContainer.IsHitTestVisible = false;
+
         }
     }
 }
