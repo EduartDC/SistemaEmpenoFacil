@@ -86,7 +86,7 @@ namespace View.Views
 
         private void GoBackButtonEvent(object sender, RoutedEventArgs e)
         {
-            
+            this.Close();
         }
 
         private void MakeSaleButtonEvent(object sender, RoutedEventArgs e)

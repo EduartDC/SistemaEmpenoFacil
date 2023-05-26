@@ -44,11 +44,18 @@ namespace View.Views
             Console.WriteLine(belongings.Count());
             for (int i = 0; i < belongings.Count(); i++)
             {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = new MemoryStream(belongings[i].image);
-                bitmap.EndInit();
-                belongings[i].imageConverted = bitmap;
+                try
+                {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = new MemoryStream(belongings[i].image);
+                    bitmap.EndInit();
+                    belongings[i].imageConverted = bitmap;
+                }
+                catch (ArgumentNullException)
+                {
+                    belongings[i].imageConverted = null;
+                }
 
             }
         }
@@ -124,6 +131,11 @@ namespace View.Views
                         break;
                     }
                 }
+
+                actualContract.idContractPrevious = actualContract.idContract;
+                actualContract.creationDate = DateTime.Now;
+                actualContract.stateContract = "Activo";
+                LoadDatesEndorsementSettlement();
                 BlurEffect blurEffect = new BlurEffect();
                 blurEffect.Radius = 5;
                 mainWindow.PrimaryContainer.Effect = blurEffect;
@@ -134,6 +146,21 @@ namespace View.Views
                 mainWindow.PrimaryContainer.IsHitTestVisible = false;
 
             }
+        }
+
+        private void LoadDatesEndorsementSettlement()
+        {
+            int duration = actualContract.duration;
+            DateTime currentlyDate = DateTime.Now;
+            DateTime limitPaymentDate = DateTime.Now.AddMonths(duration).AddDays(15);
+            actualContract.deadlineDate = limitPaymentDate;
+            actualContract.creationDate = currentlyDate;
+            String paymentDates = "";
+            for (int i = 1; i <= duration; i++)
+            {
+                paymentDates += DateTime.Now.AddMonths(i).ToString("d") + ";\n";
+            }
+            actualContract.endorsementSettlementDates = paymentDates;
         }
 
         private void goBackButtonEvent(object sender, RoutedEventArgs e)
@@ -154,6 +181,7 @@ namespace View.Views
                     MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                     MessageBoxResult messageBox;
                     messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                    this.NavigationService.GoBack();
                 }
                 else
                 {

@@ -42,13 +42,20 @@ namespace View.Views
 
         private void SelectStaffEvent(object sender, SelectionChangedEventArgs e)
         {
-            Staff staffSelected = dataGridStaff.SelectedItem as Staff;
-            firstNameLabel.Content = staffSelected.fisrtName;
-            lastNameLabel.Content = staffSelected.lastName;
-            userNameLabel.Content = staffSelected.userName;
-            statusLabel.Content = staffSelected.statusStaff;
-            rolLabel.Content = staffSelected.rol;
-            rfcLabel.Content = staffSelected.rfc;
+            try
+            {
+                Staff staffSelected = dataGridStaff.SelectedItem as Staff;
+                firstNameLabel.Content = staffSelected.fisrtName;
+                lastNameLabel.Content = staffSelected.lastName;
+                userNameLabel.Content = staffSelected.userName;
+                statusLabel.Content = staffSelected.statusStaff;
+                rolLabel.Content = staffSelected.rol;
+                rfcLabel.Content = staffSelected.rfc;
+            }
+            catch (NullReferenceException)
+            {
+                dataGridStaff.SelectedItem= null;
+            }
         }
 
         private void GoBackButtonEvent(object sender, RoutedEventArgs e)
