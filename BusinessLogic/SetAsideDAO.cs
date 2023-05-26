@@ -99,12 +99,20 @@ namespace BusinessLogic
 
         public static List<SetAside> GetSedAsidesByDate(DateTime startDate, DateTime endDate)
         {
-            List<SetAside> setAsides = new List<SetAside>();
+            List<SetAside> setAsides = null;
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
-                    //setAsides = connection.SetAsides.Where(setAside => setAside.creationDate.CompareTo);
+                    try
+                    {
+                        setAsides = new List<SetAside>();
+                        setAsides = connection.SetAsides.Where(setAside => setAside.creationDate.CompareTo(startDate) >= 0 && setAside.creationDate.CompareTo(endDate) <= 0).ToList();
+                    }catch(ArgumentNullException)
+                    {
+                        setAsides = null;
+                    }
+
                 }
             }
             else
