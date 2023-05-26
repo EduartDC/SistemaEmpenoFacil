@@ -18,75 +18,81 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using View.Properties;
 
 namespace View.Views
 {
     /// <summary>
     /// Lógica de interacción para PayOffSetAside.xaml
     /// </summary>
-    public partial class PayOffSetAside : Page
+    public partial class PayOffSetAside : Page, MessageService
     {
-        private List<DataAcces.SetAside> setAsidesList=new List<DataAcces.SetAside>();
+        private List<DataAcces.SetAside> setAsidesList = new List<DataAcces.SetAside>();
         private ICollectionView collectionView;
+        
         public PayOffSetAside()
         {
             InitializeComponent();
             loadDG();
         }
 
-        
+
 
         private void btn_Search_Click(object sender, RoutedEventArgs e)
         {
-            string curp = tbSearch.Text; 
+            string curp = tbSearch.Text;
             DataAcces.Customer customer = CustomerDAO.GetCustomerByCURP(curp);
-            
-            if (customer!=null)
+
+            if (customer != null)
             {
                 if (customer.blackList == false)
                 {
-                  loadSetAsides(customer.idCustomer);
+                    loadSetAsides(customer.idCustomer);
                 }
                 else
                 {
                     MessageBox.Show(MessageError.CUSTOMER_IN_BLACK_LIST);
                 }
-                
             }
             else
             {
-               MessageBox.Show (MessageError.ERROR_USER_NOT_FOUND);
+                MessageBox.Show(MessageError.ERROR_USER_NOT_FOUND);
             }
         }
         public void BtnPay_Click(object sender, RoutedEventArgs e)
         {
             DateTime actualTime = DateTime.ParseExact(DateTime.Now.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            Button btn= sender as Button;
+            Button btn = sender as Button;
 
-            if (btn!=null)
+            if (btn != null)
             {
                 var row = DataGridRow.GetRowContainingElement(btn);
                 var item = row.Item;
-                if(item!=null && dgSetAside.Items.Contains(item))
+                if (item != null && dgSetAside.Items.Contains(item))
                 {
                     DataAcces.SetAside setAside = (DataAcces.SetAside)item;
-                    if(setAside.deadlineDate> actualTime)
+                    if (setAside.deadlineDate > actualTime)
                     {
                         Operation operation = new Operation();
                         var window = (MainWindow)Application.Current.MainWindow;
                         BlurEffect blurEffect = new BlurEffect();
                         blurEffect.Radius = 5;
                         window.PrimaryContainer.Effect = blurEffect;
-                        window.SecundaryContainer.Navigate(new TransactionView(operation.idOperation,setAside.reaminingAmount,setAside.idSetAside));
-                        window.PrimaryContainer.IsHitTestVisible = false;
+                        TransactionView newOperation = new TransactionView(operation.idOperation, setAside.reaminingAmount, setAside.idSetAside);
+                        newOperation.CommunicacionPages(this);
+                        window.SecundaryContainer.Navigate(newOperation);
+                        window.PrimaryContainer.IsHitTestVisible = false; 
                     }
-                    else
-                    {
-                        MessageBox.Show("No se puede liquidar el apartado porque ya venció");
-                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("No se puede liquidar el apartado porque ya venció");
                 }
             }
         }
+    
+
         private void loadDG()
         {
             collectionView = CollectionViewSource.GetDefaultView(setAsidesList);
@@ -96,7 +102,6 @@ namespace View.Views
 
         private void loadSetAsides(int id)
         {
-            
             setAsidesList = SetAsideDAO.GetSetAsidesByIdCustomer(id);
             dgSetAside.ItemsSource= setAsidesList;
             if(setAsidesList.Count > 0)
@@ -109,6 +114,16 @@ namespace View.Views
             }
             
 
+            
+        }
+        public void Communication(bool result)
+        {
+           
+        }
+
+        public void ScanCommunication(ArticleDomain article)
+        {
+            
             
         }
     }

@@ -110,7 +110,6 @@ namespace View.Views
                     BlurEffect blurEffect = new BlurEffect();
                     blurEffect.Radius = 5;
                     window.PrimaryContainer.Effect = blurEffect;
-
                     window.SecundaryContainer.Navigate(new CustomerView(customer.idCustomer));
                     window.PrimaryContainer.IsHitTestVisible = false;
 

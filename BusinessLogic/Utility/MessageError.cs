@@ -30,5 +30,6 @@ namespace BusinessLogic
         public static string AMOUNT_RECEIVED_ERROR = "El monto ingresado es demasiodo grande, favor de verificar el monto ingresado.";
         public static string UPDATE_ERROR = "Error al actualizar la informacion.";
         public static string ERROR_ADD_ASIDE = "Error al registrar un nuevo apartado";
+        public static string ERROR_RENOVATION_CONTRACT = "El plazo de tiempo permitido para renovar el contrato es mayor a 24 horas";
     }
 }

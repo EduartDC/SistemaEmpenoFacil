@@ -236,6 +236,25 @@ namespace BusinessLogic
                 result = MessageCode.CONNECTION_ERROR;
             return result;
         }
+        public static int ReactiveContract(int idContract)
+        {
+            int result = 0;
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    Contract temp = connection.Contracts.Find(idContract);
+
+                    temp.stateContract = StatesContract.REACTIVED_CONTRACT;
+                    connection.SaveChanges();
+                    result = MessageCode.SUCCESS;
+
+                }
+            }
+            else
+                result = MessageCode.CONNECTION_ERROR;
+            return result;
+        }
 
     }
 }

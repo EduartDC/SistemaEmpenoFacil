@@ -13,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -65,7 +66,28 @@ namespace View.Views
 
         private void Button_Reactivate_Click(object sender, RoutedEventArgs e)
         {
-            
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                var row = DataGridRow.GetRowContainingElement(btn);
+                var item = row.Item;
+                if (item != null && tableCustomers.Items.Contains(item))
+                { 
+
+                    Domain.ContractDomain contract = new Domain.ContractDomain();
+                    DateTime dateTime = DateTime.Now.AddHours(-24);
+                    if(contract.deadlineDate.Hour< dateTime.Hour)
+                    {
+                        ContractDAO.ReactiveContract(contract.idContract);
+                    }
+                    else
+                    {
+                        MessageBox.Show(MessageError.ERROR_RENOVATION_CONTRACT);
+                    }
+                    
+                   
+                }
+            }
         }
 
         private void SearchByName()
