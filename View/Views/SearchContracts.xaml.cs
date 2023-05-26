@@ -151,7 +151,7 @@ namespace View.Views
                     var contractSelected = tableCustomers.SelectedItem as CompleteContract;
                     var window = (MainWindow)Application.Current.MainWindow;
                     var menu = new MenuView();
-                    //menu.Container.NavigationService.Navigate(new EndorseContract(contractSelected.idContract));
+                    menu.Container.NavigationService.Navigate(new EndorseContract(contractSelected.idContract));
                     window.PrimaryContainer.NavigationService.Navigate(menu);
                 }
             }
