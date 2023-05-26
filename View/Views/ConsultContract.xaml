@@ -1,0 +1,456 @@
+﻿<Window x:Class="View.Views.ConsultContract"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Views"
+        mc:Ignorable="d"
+        Title="ConsultContract" Height="600" Width="1200">
+    <ScrollViewer>
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="10"
+                    x:Name="Header" />
+                <RowDefinition
+                    Height="90"/>
+                <RowDefinition
+                    Height="150"/>
+                <RowDefinition
+                    Height="80*">
+
+                </RowDefinition>
+                <RowDefinition Height="11*"/>
+            </Grid.RowDefinitions>
+
+
+            <Grid  Grid.Row="3" Grid.RowSpan="2" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <!--SetColorHeader-->
+            <Grid
+                Grid.Row="0"
+                />
+
+            <!--SetComponentents-->
+
+
+
+            <TextBox x:Name="tbCustomerCurp" MaxLength="18" HorizontalAlignment="Left" Margin="20,27,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="145" BorderBrush="#00ABADB3"/>
+            <Label Content="Indetificación de Cliente" HorizontalAlignment="Left" Margin="14,1,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="2" Margin="24,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="149"/>
+            <TextBox x:Name="tbNameCustomer" HorizontalAlignment="Left" Margin="26,66,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="141" BorderBrush="#00ABADB3"/>
+            <Label Content="Indetificación de Cliente" HorizontalAlignment="Left" Margin="20,40,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="24,82,0,0" Grid.Row="1" VerticalAlignment="Top" Width="149"/>
+
+
+
+            <TextBox
+                x:Name="tbAppraisalAmount"
+                HorizontalAlignment="Left"
+                Margin="34,28,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                Text=""
+                VerticalAlignment="Top"
+                Width="120"
+                BorderBrush="#00ABADB3"
+                />
+            <Label
+                Content="Monto de avalúo total"
+                HorizontalAlignment="Left"
+                Margin="28,5,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <Border
+                BorderBrush="#FF330099"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                Height="1"
+                Margin="38,46,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Width="149"
+                />
+            <TextBox
+                x:Name="tbLoanPorcentage"
+                HorizontalAlignment="Left"
+                Margin="34,76,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="120"
+                BorderBrush="#00ABADB3"
+                Text=""/>
+            <Label
+                Content="% de préstamo sobre avalúo"
+                HorizontalAlignment="Left"
+                Margin="28,50,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <Border
+                BorderBrush="#FF330099"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                Height="1" Margin="38,94,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Width="149"/>
+            <TextBox
+                x:Name="tbTotalEndorsement"
+                HorizontalAlignment="Left"
+                Margin="34,122,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="120"
+                BorderBrush="#00ABADB3"
+                Text="1"
+                />
+            <Label
+                Content="Total de refrendos aplicables"
+                HorizontalAlignment="Left"
+                Margin="28,96,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"
+                />
+            <Border
+                BorderBrush="#FF330099"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                Height="1"
+                Margin="38,140,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Width="149"/>
+
+            <StackPanel
+                Grid.Row="2"
+                Background="AliceBlue"
+                >
+
+                <ScrollViewer Height="120">
+
+                    <DataGrid
+                        AutoGenerateColumns="False"
+                        Grid.Row="2"
+                        x:Name="dgBelongings"
+                        Margin="39,10,76,0"
+                        FontSize="15"
+                        >
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Descripción generica" Binding="{Binding description}" Width="150"/>
+                            <DataGridTextColumn Header="Caracteristicas" Width="*" Binding="{Binding characteristics}"/>
+                            <DataGridTextColumn Header="Serial(opt)" Binding="{Binding serialNumber}">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter  Property="Content" Value="{Binding}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding serialNumber}" Value="" >
+                                                <Setter  Property="Content" Value="N/A"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Avalúo" Width="100" Binding="{Binding appraisalValue}"/>
+                            <DataGridTextColumn Header="Prestamo" Width="100" Binding="{Binding loanAmount }"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+
+
+            </StackPanel>
+
+            <TextBox
+                x:Name="tbDateComercialization"
+                HorizontalAlignment="Left"
+                Margin="224,28,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="150"
+                BorderBrush="#00ABADB3"/>
+            <Label
+                Content="Fecha de comercialización"
+                HorizontalAlignment="Left"
+                Margin="216,7,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <Border
+                BorderBrush="#FF330099"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                Height="1"
+                Margin="225,45,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Width="149"/>
+            <TextBox
+                x:Name="tbPaymentLimit"
+                HorizontalAlignment="Left"
+                Margin="225,77,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="150"
+                BorderBrush="#00ABADB3"/>
+            <Label
+                Content="Fecha limite de pago"
+                HorizontalAlignment="Left"
+                Margin="218,52,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <Border
+                BorderBrush="#FF330099"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                Height="1"
+                Margin="226,94,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Width="148"/>
+            <TextBox
+                x:Name="tbDateEndorsementSettlement"
+                HorizontalAlignment="Left"
+                Margin="586,33,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="120"
+                BorderBrush="#00ABADB3"/>
+            <Label
+                Content="fecha refrendo/finiquito"
+                HorizontalAlignment="Left"
+                Margin="580,7,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <TextBox
+                x:Name="tbLoanAmount"
+                HorizontalAlignment="Left"
+                Margin="223,166,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="120"
+                BorderBrush="#00ABADB3"/>
+            <Label
+                Content="importe de préstamo"
+                HorizontalAlignment="Left"
+                Margin="218,144,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <Border
+                BorderBrush="#FF330099"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                Height="1"
+                Margin="224,188,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Width="150"/>
+            <TextBox
+                x:Name="tbInterests"
+                HorizontalAlignment="Left"
+                Margin="401,28,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="120"
+                BorderBrush="#00ABADB3"
+                />
+
+            <Label
+                Content="Intereses"
+                HorizontalAlignment="Left"
+                Margin="394,7,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <Border
+                BorderBrush="#FF330099"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                Height="1"
+                Margin="401,44,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Width="149"/>
+            <TextBox
+                x:Name="tbIVA"
+                HorizontalAlignment="Left"
+                Margin="398,76,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                Text=""
+                VerticalAlignment="Top"
+                Width="120"
+                BorderBrush="#00ABADB3"/>
+            <Label
+                Content="IVA"
+                HorizontalAlignment="Left"
+                Margin="395,51,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <Border
+
+                BorderBrush="#FF330099"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                Height="1"
+                Margin="401,95,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Width="149"/>
+            <TextBox
+                x:Name="tbAnnualInterestRate"
+                HorizontalAlignment="Left"
+                Margin="399,168,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="120"
+                BorderBrush="#00ABADB3"/>
+            <Label
+
+                Content="Tasa de interes anual"
+                HorizontalAlignment="Left"
+                Margin="395,148,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <Border
+                BorderBrush="#FF330099"
+                BorderThickness="1"
+                HorizontalAlignment="Left"
+                Height="1"
+                Margin="401,188,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Width="149"/>
+            <TextBox
+                x:Name="tbTotalPaymentForEndorsement"
+                HorizontalAlignment="Left"
+                Margin="755,33,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="120"
+                BorderBrush="#00ABADB3"/>
+            <Label
+                Content="Total de pago por refrendo"
+                HorizontalAlignment="Left"
+                Margin="747,7,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <TextBox
+                x:Name="tbTotalPerformancePay"
+                HorizontalAlignment="Left"
+                Margin="922,34,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="120" BorderBrush="#00ABADB3"/>
+            <Label
+                Content="Total de pago por desempeño"
+                HorizontalAlignment="Left"
+                Margin="914,7,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+            <Label
+                Content=""
+                HorizontalAlignment="Left"
+                Margin="218,5,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                FontWeight="Bold"/>
+
+            <Button
+                Foreground="White"
+                Background="#323D8F"
+                Content="Salir"
+                HorizontalAlignment="Left"
+                Margin="750,237,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Height="30" Width="180" FontSize="20" Click="Btn_Salir_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter  Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Label
+                Content=""
+                HorizontalAlignment="Left"
+                Margin="700,252,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"/>
+            <Rectangle HorizontalAlignment="Left" Height="160" Margin="580,45,0,0" Grid.Row="3" Stroke="#FF330099" VerticalAlignment="Top" Width="1" />
+            <Rectangle HorizontalAlignment="Left" Height="160" Margin="742,45,0,0" Grid.Row="3" Stroke="#FF330099" VerticalAlignment="Top" Width="1" />
+            <Rectangle HorizontalAlignment="Left" Height="160" Margin="908,45,0,0" Grid.Row="3" Stroke="#FF330099" VerticalAlignment="Top" Width="1" />
+            <MediaElement HorizontalAlignment="Left" Height="100" Margin="1287,355,0,0" Grid.Row="3" VerticalAlignment="Top" Width="100" Grid.RowSpan="2"/>
+            <TextBox
+
+                HorizontalAlignment="Left"
+                Margin="21,29,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                Text="$"
+                VerticalAlignment="Top"
+                Width="15"
+                BorderBrush="#00ABADB3"
+                />
+            <TextBox
+                Name="tbPercentage"
+                HorizontalAlignment="Left"
+                Margin="72,76,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                Text="%"
+                VerticalAlignment="Top"
+                Width="15"
+                BorderBrush="#00ABADB3"
+                />
+            <Button
+                Foreground="White"
+                Background="#323D8F"
+                Content="Imprimir"
+                HorizontalAlignment="Left"
+                Margin="982,237,0,0"
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                Height="30" Width="180" FontSize="20" Click="Btn_PrintContract_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter  Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <!--<TextBox x:Name="lbTextBox" Text="Introduce tu texto aquí"
+            Foreground="Gray"
+            GotFocus="TextBox_GotFocus"
+            LostFocus="TextBox_LostFocus" Margin="0,0,496,35"/>-->
+
+
+
+        </Grid>
+    </ScrollViewer>
+</Window>

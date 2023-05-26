@@ -96,6 +96,13 @@
                     MinWidth="150"
                     Binding="{Binding stateContract}"
                     Header="Estado del contrato" />
+                <DataGridTemplateColumn Header="Consultar">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="Button_Consult_Click" Content="Consultar"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Reactivar" MinWidth="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
