@@ -168,6 +168,7 @@
     <Compile Include="Views\PayOffSetAside.xaml.cs">
       <DependentUpon>PayOffSetAside.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PrintContract.cs" />
     <Compile Include="Views\RegisterStaff.xaml.cs">
       <DependentUpon>RegisterStaff.xaml</DependentUpon>
     </Compile>

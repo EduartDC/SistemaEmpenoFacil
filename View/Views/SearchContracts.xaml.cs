@@ -180,5 +180,21 @@ namespace View.Views
                     break;
             }
         }
+        private void Button_Consult_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                var row = DataGridRow.GetRowContainingElement(btn);
+                var item = row.Item;
+                if (item != null && tableCustomers.Items.Contains(item))
+                {
+                    var contractSelected = tableCustomers.SelectedItem as CompleteContract;
+                    var window = (MainWindow)Application.Current.MainWindow;
+                    ConsultContract consultContract = new ConsultContract(contractSelected.idContract);
+                    consultContract.ShowDialog();
+                }
+            }
+        }
     }
 }
