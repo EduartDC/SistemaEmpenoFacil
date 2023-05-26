@@ -70,6 +70,7 @@ namespace View.Views
                 if (result)
                 {
                     communication.Communication(result);
+                    
                 }
             }
         }
@@ -79,12 +80,13 @@ namespace View.Views
             var result = false;
             try
             {
-                var infoStaff = StaffDAO.LogingStaff(userName, Utilities.Hash(password));
+                var hashPassword = Utilities.Hash(password);
+                var infoStaff = StaffDAO.LogingStaff(userName, hashPassword);
                 if (infoStaff == null)
                 {
                     ErrorManager.ShowWarning(MessageError.USER_NOT_FOUND);
                 }
-                else if (!infoStaff.userName.Equals(userName) || !infoStaff.password.Equals(password))
+                else if (!infoStaff.userName.Equals(userName) || !infoStaff.password.Equals(hashPassword))
                 {
                     ErrorManager.ShowWarning(MessageError.USER_NOT_FOUND);
                 }
@@ -97,6 +99,7 @@ namespace View.Views
                     ErrorManager.ShowInformation(MessageError.USER_FOUND);
                     result = true;
                     ClosePage();
+                    
                 }
             }
             catch (Exception)
