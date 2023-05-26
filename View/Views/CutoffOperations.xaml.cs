@@ -105,6 +105,7 @@ namespace View.Views
             {
                 (App.Current as App)._staffShift = false;
                 ErrorManager.ShowInformation(MessageError.CUTOFF_SUCCESS);
+                this.Content = null;
             }
         }
 

@@ -75,9 +75,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Zen.Barcode.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.3.1.10729.1\lib\Zen.Barcode.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -89,26 +86,14 @@
     <Compile Include="Views\AddCustomerBlackList.xaml.cs">
       <DependentUpon>AddCustomerBlackList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AddPriceBelongingArticle.xaml.cs">
-      <DependentUpon>AddPriceBelongingArticle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ArticlesSellingPrice.xaml.cs">
-      <DependentUpon>ArticlesSellingPrice.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\AuthorizationView.xaml.cs">
       <DependentUpon>AuthorizationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CashRegisterOperations.xaml.cs">
-      <DependentUpon>CashRegisterOperations.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CheckSalesRecords.xaml.cs">
       <DependentUpon>CheckSalesRecords.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CheckShoppingCart.xaml.cs">
       <DependentUpon>CheckShoppingCart.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CheckStaffList.xaml.cs">
-      <DependentUpon>CheckStaffList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ConfigureMetrics.xaml.cs">
       <DependentUpon>ConfigureMetrics.xaml</DependentUpon>
@@ -162,9 +147,6 @@
     <Compile Include="Views\ModifyEmployee.xaml.cs">
       <DependentUpon>ModifyEmployee.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PayOffSetAside.xaml.cs">
-      <DependentUpon>PayOffSetAside.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\RegisterStaff.xaml.cs">
       <DependentUpon>RegisterStaff.xaml</DependentUpon>
     </Compile>
@@ -174,20 +156,11 @@
     <Compile Include="Views\ScanCodeView.xaml.cs">
       <DependentUpon>ScanCodeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SearchBelonging.xaml.cs">
-      <DependentUpon>SearchBelonging.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SearchContracts.xaml.cs">
       <DependentUpon>SearchContracts.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SearchCustomer.xaml.cs">
-      <DependentUpon>SearchCustomer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SetAsideView.xaml.cs">
       <DependentUpon>SetAsideView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\StartShift.xaml.cs">
-      <DependentUpon>StartShift.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TransactionView.xaml.cs">
       <DependentUpon>TransactionView.xaml</DependentUpon>
@@ -208,19 +181,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\AddPriceBelongingArticle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ArticlesSellingPrice.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AuthorizationView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CashRegisterOperations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -229,10 +190,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CheckShoppingCart.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CheckStaffList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -304,10 +261,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PayOffSetAside.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\RegisterStaff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -320,23 +273,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SearchBelonging.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SearchContracts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SearchCustomer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SetAsideView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StartShift.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
