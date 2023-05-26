@@ -33,6 +33,7 @@ namespace View.Views
             var staff = (App.Current as App)._staffInfo;
             _staff = staff;
             textStaffName.Text = staff.fisrtName + " " + staff.lastName;
+            adminAccesibility();
         }
 
         public void adminAccesibility()

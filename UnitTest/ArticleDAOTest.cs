@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Utility;
+using DataAcces;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -81,12 +82,33 @@ namespace UnitTest
             Assert.AreEqual(expectedResult, ArticleDAO.UpdateArticleState(0, ""));
         }
 
+
+        //Jonathan
         //CU16 findArticles
-        //[TestMethod]
-        //public void TestGetFindArticles()
-        //{
-        //    int resultCode = MessageCode.SUCCESS;
-        //    Assert.AreEqual((resultCode, List<ArticleDomain>));
-        //}
+        [TestMethod]
+        public void TestGetFindArticles()
+        {
+            List<ArticleDomain> articles = new List<ArticleDomain>();
+            int resultCode = MessageCode.SUCCESS;
+            Assert.AreEqual((resultCode, articles), ArticleDAO.getArticles());
+        }
+
+        [TestMethod]
+        public void  TestGetArticlesErrorConnection()
+        {
+            int expectedResult = MessageCode.CONNECTION_ERROR;
+            Assert.AreEqual((expectedResult, null), ArticleDAO.getArticles());
+        }
+
+        //Jonathan
+        //CUcrearticket venta
+        public void TestGetArticlesById()
+        {
+            int resultCode = MessageCode.SUCCESS;
+            List<Belongings_Articles> articles = new List<Belongings_Articles>();
+            List<int>  articlesId = new List<int> {1,2,3};
+            Assert.AreEqual((resultCode,));
+        }
+        
     }
 }
