@@ -73,6 +73,29 @@ namespace BusinessLogic
             }
             return result;
         }
+        public static int PayOffSetAside(string state, int idSetAside)
+        {
+            var result = MessageCode.ERROR;
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var article = connection.SetAsides.Where(a => a.idSetAside == idSetAside).FirstOrDefault();
+                    if (article != null)
+                    {
+                        article.stateAside = state;
+                        article.reaminingAmount = 0;
+                        
+                        result = connection.SaveChanges();
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("Error de conexión");
+            }
+            return result;
+        }
 
         public static List<SetAside> GetSedAsidesByDate(DateTime startDate, DateTime endDate)
         {

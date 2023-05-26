@@ -76,7 +76,7 @@ namespace View.Views
 
                     Domain.ContractDomain contract = new Domain.ContractDomain();
                     DateTime dateTime = DateTime.Now.AddHours(-24);
-                    if(contract.deadlineDate.Hour< dateTime.Hour)
+                    if(contract.stateContract==StatesContract.CANCELED_CONTRACT && contract.deadlineDate.Hour< dateTime.Hour)
                     {
                         ContractDAO.ReactiveContract(contract.idContract);
                     }

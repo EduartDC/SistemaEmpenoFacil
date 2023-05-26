@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using DataAcces;
 using Domain;
 using System;
@@ -19,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using View.Properties;
+using static iTextSharp.text.pdf.AcroFields;
 
 namespace View.Views
 {
@@ -29,7 +31,8 @@ namespace View.Views
     {
         private List<DataAcces.SetAside> setAsidesList = new List<DataAcces.SetAside>();
         private ICollectionView collectionView;
-        
+        DataAcces.SetAside setAside;
+
         public PayOffSetAside()
         {
             InitializeComponent();
@@ -70,25 +73,35 @@ namespace View.Views
                 var item = row.Item;
                 if (item != null && dgSetAside.Items.Contains(item))
                 {
-                    DataAcces.SetAside setAside = (DataAcces.SetAside)item;
-                    if (setAside.deadlineDate > actualTime)
+                     setAside = (DataAcces.SetAside)item;
+                    if (setAside.deadlineDate > actualTime )
                     {
-                        Operation operation = new Operation();
-                        var window = (MainWindow)Application.Current.MainWindow;
-                        BlurEffect blurEffect = new BlurEffect();
-                        blurEffect.Radius = 5;
-                        window.PrimaryContainer.Effect = blurEffect;
-                        TransactionView newOperation = new TransactionView(operation.idOperation, setAside.reaminingAmount, setAside.idSetAside);
-                        newOperation.CommunicacionPages(this);
-                        window.SecundaryContainer.Navigate(newOperation);
-                        window.PrimaryContainer.IsHitTestVisible = false; 
+                        if (setAside.reaminingAmount>0)
+                        {
+                            Operation operation = new Operation();
+                            OperationType operationType = new OperationType();
+                            var window = (MainWindow)Application.Current.MainWindow;
+                            BlurEffect blurEffect = new BlurEffect();
+                            blurEffect.Radius = 5;
+                            window.PrimaryContainer.Effect = blurEffect;
+                            TransactionView newOperation = new TransactionView(OperationType.OPERATION_SETASIDE, setAside.reaminingAmount, setAside.idSetAside);
+                            newOperation.CommunicacionPages(this);
+                            window.SecundaryContainer.Navigate(newOperation);
+                            window.PrimaryContainer.IsHitTestVisible = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show(MessageError.SETASIDE_ALREADY_PAID);
+                        }
+                       
+                        
+                    }else
+                    {
+                        MessageBox.Show(MessageError.SETASIDE_OVERDUE);
                     }
 
                 }
-                else
-                {
-                    MessageBox.Show("No se puede liquidar el apartado porque ya venció");
-                }
+                
             }
         }
     
@@ -118,13 +131,13 @@ namespace View.Views
         }
         public void Communication(bool result)
         {
-           
+           if (result== true)
+            {
+                SetAsideDAO.PayOffSetAside(StatesAside.COMPLETED_ASIDE, setAside.idSetAside);
+                loadDG();
+            }
         }
 
-        public void ScanCommunication(ArticleDomain article)
-        {
-            
-            
-        }
+        public void ScanCommunication(ArticleDomain article){}
     }
 }
