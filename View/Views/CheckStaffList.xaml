@@ -35,22 +35,22 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Rectangle Grid.Column="2" HorizontalAlignment="Center" Height="220" Margin="0,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="268"/>
-                <Label Grid.Column="2" Content="Nombre:" HorizontalAlignment="Left" Margin="26,98,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <Label Grid.Column="2" Content="Apellidos:" HorizontalAlignment="Left" Margin="26,129,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <Label Grid.Column="2" Content="Usuario:" HorizontalAlignment="Left" Margin="26,165,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <Label Grid.Column="2" Content="Estatus:" HorizontalAlignment="Left" Margin="26,198,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <Label Grid.Column="2" Content="Rol:" HorizontalAlignment="Left" Margin="30,234,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <Label Grid.Column="2" Content="RFC:" HorizontalAlignment="Left" Margin="28,266,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label Grid.Column="2" Content="Nombre:" HorizontalAlignment="Center" Margin="-140,98,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label Grid.Column="2" Content="Apellidos:" HorizontalAlignment="Center" Margin="-140,129,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label Grid.Column="2" Content="Usuario:" HorizontalAlignment="Center" Margin="-140,160,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label Grid.Column="2" Content="Estatus:" HorizontalAlignment="Center" Margin="-140,191,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label Grid.Column="2" Content="Rol:" HorizontalAlignment="Center" Margin="-140,225,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label Grid.Column="2" Content="RFC:" HorizontalAlignment="Center" Margin="-140,261,0,0" VerticalAlignment="Top" FontSize="16"/>
                 <Button Grid.Column="3" Content="Modificar personal" HorizontalAlignment="Center" Margin="0,68,0,0" VerticalAlignment="Top" FontSize="16" Click="ModifyEmployeeButtonEvent"/>
                 <Button x:Name="goBackButton" Grid.Column="3" Content="Regresar" HorizontalAlignment="Center" Margin="0,225,0,0" VerticalAlignment="Top" FontSize="18" Width="100" Click="GoBackButtonEvent"/>
                 <Label Grid.Column="1" Content="Lista de empleados" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
                 <Label Grid.Column="2" Content="Informacion de empleado" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
-                <Label x:Name="firstNameLabel" Grid.Column="2" Content="Nombres" HorizontalAlignment="Center" Margin="0,98,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <Label x:Name="lastNameLabel" Grid.Column="2" Content="Apellidos" HorizontalAlignment="Center" Margin="0,129,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <Label x:Name="userNameLabel" Grid.Column="2" Content="nombreUsuario" HorizontalAlignment="Left" Margin="111,165,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <Label x:Name="statusLabel" Grid.Column="2" Content="Estatus" HorizontalAlignment="Left" Margin="111,201,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <Label x:Name="rolLabel" Grid.Column="2" Content="Rol" HorizontalAlignment="Left" Margin="111,234,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <Label x:Name="rfcLabel" Grid.Column="2" Content="RFC" HorizontalAlignment="Left" Margin="111,266,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label x:Name="firstNameLabel" Grid.Column="2" Content="Nombres" HorizontalAlignment="Center" Margin="124,98,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label x:Name="lastNameLabel" Grid.Column="2" Content="Apellidos" HorizontalAlignment="Center" Margin="124,129,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label x:Name="userNameLabel" Grid.Column="2" Content="nombreUsuario" HorizontalAlignment="Center" Margin="124,165,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label x:Name="statusLabel" Grid.Column="2" Content="Estatus" HorizontalAlignment="Center" Margin="124,191,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label x:Name="rolLabel" Grid.Column="2" Content="Rol" HorizontalAlignment="Center" Margin="124,225,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label x:Name="rfcLabel" Grid.Column="2" Content="RFC" HorizontalAlignment="Center" Margin="124,261,0,0" VerticalAlignment="Top" FontSize="16"/>
             </Grid>
         </Grid>
     </ScrollViewer>

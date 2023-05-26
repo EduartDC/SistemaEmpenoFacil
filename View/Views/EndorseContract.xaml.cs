@@ -134,12 +134,8 @@ namespace View.Views
 
                 actualContract.idContractPrevious = actualContract.idContract;
                 actualContract.creationDate = DateTime.Now;
-                //actualContract.deadlineDate
                 actualContract.stateContract = "Activo";
-                //actualContract.endorsementSettlementDates
-                //actualContract.paymentsSettlement
-                //actualContract.paymentsEndorsement
-
+                LoadDatesEndorsementSettlement();
                 BlurEffect blurEffect = new BlurEffect();
                 blurEffect.Radius = 5;
                 mainWindow.PrimaryContainer.Effect = blurEffect;
@@ -154,30 +150,17 @@ namespace View.Views
 
         private void LoadDatesEndorsementSettlement()
         {
-            /*totalLoan = 0;
-            tbDateEndorsementSettlement.Text = "";
-            currentlyDate = DateTime.Now;
-            comercializationDate = DateTime.Now.AddMonths((int)cbTerm.SelectedItem).AddDays(15);
-            limitPaymentDate = DateTime.Now.AddMonths((int)cbTerm.SelectedItem);
-
-            tbDateComercialization.Text = comercializationDate.ToString();
-            tbPaymentLimit.Text = limitPaymentDate.ToString();
-            paymentDates = "";
-            for (int i = 1; i <= (int)cbTerm.SelectedItem; i++)
+            int duration = actualContract.duration;
+            DateTime currentlyDate = DateTime.Now;
+            DateTime limitPaymentDate = DateTime.Now.AddMonths(duration).AddDays(15);
+            actualContract.deadlineDate = limitPaymentDate;
+            actualContract.creationDate = currentlyDate;
+            String paymentDates = "";
+            for (int i = 1; i <= duration; i++)
             {
                 paymentDates += DateTime.Now.AddMonths(i).ToString("d") + ";\n";
             }
-
-            tbDateEndorsementSettlement.Text = paymentDates.ToString();
-            double totalAppraisal = 0;
-            foreach (Domain.BelongingCreation.Belonging b in belongingList)
-            {
-                totalLoan += b.LoanAmount;
-                totalAppraisal += b.ApraisalAmount;
-            }
-            tbLoanAmount.Text = totalLoan.ToString();
-            tbAppraisalAmount.Text = totalAppraisal.ToString();
-            CalculateLoanPorcentage();*/
+            actualContract.endorsementSettlementDates = paymentDates;
         }
 
         private void goBackButtonEvent(object sender, RoutedEventArgs e)
