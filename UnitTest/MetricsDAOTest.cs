@@ -76,7 +76,7 @@ namespace UnitTest
         [ExpectedException(typeof(Exception))]
         public void TestUpdateMetricsFailure()
         {
-            int resultForTest = MetricsDAO.RegisterMetrics("20", "16");
+            int resultForTest = MetricsDAO.UpdateMetrics("20", "16");
             int resultExpected = 500;
             Assert.AreEqual(resultExpected, resultForTest);
         }
@@ -85,7 +85,7 @@ namespace UnitTest
         [ExpectedException(typeof(InvalidOperationException))]
         public void TestUpdateMetricsFailureInvalidOperation()
         {
-            int resultForTest = MetricsDAO.RegisterMetrics("20", "16");
+            int resultForTest = MetricsDAO.UpdateMetrics("20", "16");
             int resultExpected = 400;
             Assert.AreEqual(resultExpected, resultForTest);
         }

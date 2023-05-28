@@ -103,5 +103,7 @@ namespace View.Views
         {
             PrintContract.NewPrintCotract(contract1);
         }
+
+        
     }
 }
