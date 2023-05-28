@@ -100,9 +100,8 @@ namespace View.Views
             if (SelectedItem())
             {
                 var idArticle = dgArticles.SelectedItem as ArticleDomain;
-
-                MessageBox.Show("llamando a Editar articulo, id: " + idArticle.idArticle);
-               // Container.NavigationService.Navigate(new SetAsideView());
+                EditArticle editArticle = new EditArticle(idArticle.idArticle);
+                editArticle.ShowDialog();
             }
             else
                 ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);

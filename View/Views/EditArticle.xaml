@@ -1,0 +1,16 @@
+﻿<Window x:Class="View.Views.EditArticle"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View.Views"
+        mc:Ignorable="d"
+        Title="EditArticle" Height="400" Width="800">
+    <Grid>
+        <Label Content="Ingrese los datos solicitados para editar al usuario" HorizontalAlignment="Left" Margin="26,29,0,0" VerticalAlignment="Top" FontSize="34"/>
+        <Label Content="Precio de Venta:" HorizontalAlignment="Left" Margin="26,140,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox Name="text_SellingPrice" HorizontalAlignment="Left" Margin="238,148,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270" FontSize="24"/>
+        <Button Name="btn_Exit" Content="Salir" HorizontalAlignment="Left" Margin="26,262,0,0" VerticalAlignment="Top" FontSize="24" Click="Btn_Exit_Click" Width="90"/>
+        <Button Name="btn_Modify" Content="Modificar" HorizontalAlignment="Left" Margin="496,262,0,0" VerticalAlignment="Top" FontSize="24" Click="Btn_Modify_Click"/>
+    </Grid>
+</Window>

@@ -94,6 +94,7 @@ namespace View.Views
                 if(resultRegister == 200)
                 {
                     MessageBox.Show("Registro exitoso ");
+                    this.Content = null;
                 }
             }
             catch (Exception)
