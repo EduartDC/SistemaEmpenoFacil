@@ -135,6 +135,9 @@
     <Compile Include="Views\CutoffOperations.xaml.cs">
       <DependentUpon>CutoffOperations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditArticle.xaml.cs">
+      <DependentUpon>EditArticle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EndorseContract.xaml.cs">
       <DependentUpon>EndorseContract.xaml</DependentUpon>
     </Compile>
@@ -269,6 +272,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CutoffOperations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditArticle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -386,7 +386,7 @@
                 Background="#323D8F"
                 Content="Salir"
                 HorizontalAlignment="Left"
-                Margin="750,237,0,0"
+                Margin="476,237,0,0"
                 Grid.Row="3"
                 VerticalAlignment="Top"
                 Height="30" Width="180" FontSize="20" Click="Btn_Salir_Click">
