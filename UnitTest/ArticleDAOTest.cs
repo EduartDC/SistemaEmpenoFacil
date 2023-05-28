@@ -88,5 +88,31 @@ namespace UnitTest
         //    int resultCode = MessageCode.SUCCESS;
         //    Assert.AreEqual((resultCode, List<ArticleDomain>));
         //}
+
+        [TestMethod]
+        public void TestRecoverSellingPriceSuccess()
+        {
+            Assert.AreEqual(6500, ArticleDAO.RecoverSellingPrice(6));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestRecoverSellingPriceException()
+        {
+            Assert.AreEqual(-1, ArticleDAO.RecoverSellingPrice(6));
+        }
+
+        [TestMethod]
+        public void TestModifySellingPriceSuccess()
+        {
+            Assert.AreEqual(200, ArticleDAO.ModifySellingPrice(7, 3000));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestModifySellingPriceException()
+        {
+            Assert.AreEqual(500, ArticleDAO.ModifySellingPrice(7, 3000));
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace UnitTest
         {
             Assert.IsNotNull(StaffDAO.GetStaff(4));
         }
-
+        [TestMethod]
         public void TestGetStaffError()
         {
             Assert.IsNull(StaffDAO.GetStaff(-1));
