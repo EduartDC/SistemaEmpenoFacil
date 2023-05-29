@@ -258,6 +258,7 @@ namespace BusinessLogic
                         ArticleDomain articleTemp = new ArticleDomain();
                         articleTemp.idArticle = util.idArticle;
                         articleTemp.description = util.Belonging.description;
+
                     }
                 }
             }
@@ -339,7 +340,39 @@ namespace BusinessLogic
             }
 
             return result;
-        } 
+        }
+
+        public static List<ArticleDomain> GetArticlesListByIdSetAside(int idSetAside)
+        {
+            int result = 0;
+            List<ArticleDomain> articles = new List<ArticleDomain>();
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    Console.WriteLine("Antes de foreach"+idSetAside);
+                    var articlesList = connection.ArticlesSetAsides.Where(a => a.SetAside_idSetAside == idSetAside).ToList();
+                    foreach (ArticlesSetAside util in articlesList)
+                    {
+                        var belongingArticle = connection.Belongings_Articles.Find(util.Article_idBelonging);
+                        ArticleDomain articleTemp = new ArticleDomain();
+                        articleTemp.idArticle = util.idArticlesSetAside;
+                        articleTemp.stateArticle = belongingArticle.stateArticle;
+                        articleTemp.idSetAside = util.SetAside_idSetAside;
+                        articleTemp.idBelonging = util.Article_idBelonging;
+                        articles.Add(articleTemp);
+                        
+                        
+                    }
+
+                }
+                result = MessageCode.SUCCESS;
+            }
+            else
+                result = MessageCode.CONNECTION_ERROR;
+
+            return articles;
+        }
 
     }
 }

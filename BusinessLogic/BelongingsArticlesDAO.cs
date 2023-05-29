@@ -38,9 +38,9 @@ namespace BusinessLogic
         {
             Domain.ArticleDomain articleDomain = null;
             Belongings_Articles belongings_Articles = new Belongings_Articles();
-            if(Utilities.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
-                using(var connection = new ConnectionModel())
+                using (var connection = new ConnectionModel())
                 {
                     belongings_Articles = connection.Belongings_Articles.Where(util => util.idArticle == idArticle).FirstOrDefault();
                     articleDomain = new Domain.ArticleDomain();
@@ -51,7 +51,7 @@ namespace BusinessLogic
                     articleDomain.customerProfit = belongings_Articles.customerProfit;
                     articleDomain.storeProfit = belongings_Articles.storeProfit;
                     articleDomain.idBelonging = belongings_Articles.idBelonging;
-                    
+
                     DataAcces.Belonging belonging = new DataAcces.Belonging();
                     belonging = connection.Belongings.Find(articleDomain.idBelonging);
                     articleDomain.appraisalValue = belonging.appraisalValue;
@@ -119,7 +119,10 @@ namespace BusinessLogic
                 throw new Exception(MessageError.CONNECTION_ERROR);
             }
 
-            return  resultOperation;
+            return resultOperation;
         }
-    }
+        
+    } 
+
+    
 }

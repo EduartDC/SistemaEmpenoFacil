@@ -274,6 +274,11 @@
                         Click="itemSearchBelongings_Click"
                         Header="Buscar prendas"
                         Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        x:Name="itemNewArticles"
+                        Click="itemNewArticles_Click"
+                        Header="Asignar precio de venta"
+                        Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
 
                 <MenuItem x:Name="itemCustomers" Style="{StaticResource MenuItemStyle}">

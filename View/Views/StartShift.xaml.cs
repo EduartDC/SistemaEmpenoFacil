@@ -36,7 +36,7 @@ namespace View.Views
         {
             string text = textAmountReceived.Text;
             double amount = Double.Parse(textAmountReceived.Text);
-            if (text.Length > 8)
+            if (text.Length > 9)
             {
                 ErrorManager.ShowWarning(MessageError.AMOUNT_RECEIVED_ERROR);
             }

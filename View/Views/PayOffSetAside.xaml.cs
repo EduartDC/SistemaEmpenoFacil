@@ -32,7 +32,9 @@ namespace View.Views
         private List<DataAcces.SetAside> setAsidesList = new List<DataAcces.SetAside>();
         private ICollectionView collectionView;
         DataAcces.SetAside setAside;
-
+        DataAcces.Customer customer;
+        int IdSetAside;
+        private List<Domain.ArticleDomain> articlesList = new List<Domain.ArticleDomain>();
         public PayOffSetAside()
         {
             InitializeComponent();
@@ -44,7 +46,7 @@ namespace View.Views
         private void btn_Search_Click(object sender, RoutedEventArgs e)
         {
             string curp = tbSearch.Text;
-            DataAcces.Customer customer = CustomerDAO.GetCustomerByCURP(curp);
+            customer = CustomerDAO.GetCustomerByCURP(curp);
 
             if (customer != null)
             {
@@ -78,6 +80,7 @@ namespace View.Views
                     {
                         if (setAside.reaminingAmount>0)
                         {
+                            IdSetAside= setAside.idSetAside;
                             Operation operation = new Operation();
                             OperationType operationType = new OperationType();
                             var window = (MainWindow)Application.Current.MainWindow;
@@ -133,11 +136,46 @@ namespace View.Views
         {
            if (result== true)
             {
-                SetAsideDAO.PayOffSetAside(StatesAside.COMPLETED_ASIDE, setAside.idSetAside);
-                loadDG();
+                List<ArticleDomain> articles = ArticleDAO.GetArticlesListByIdSetAside(IdSetAside);
+                int returnValue, idSale, idArticle;
+
+                Sale sale = new Sale();
+
+                sale.total = setAside.totalAmount;
+                sale.Customer_idCustomer = customer.idCustomer;
+                sale.saleDate = DateTime.Now;
+                sale.discount = "0";
+                sale.subtotal = setAside.totalAmount;
+                (returnValue, idSale) = SaleDAO.MakeSale(sale);
+
+                foreach (ArticleDomain article in articles)
+                {
+                    
+                    idArticle = article.idArticle;
+                    Belongings_Articles belongings_Articles = new Belongings_Articles();
+                    belongings_Articles.stateArticle= article.stateArticle; 
+                    belongings_Articles.idArticle = article.idBelonging;
+                    belongings_Articles.storeProfit = setAside.totalAmount;
+                    
+                    
+                    Console.WriteLine("sale "+idSale);
+
+                    BelongingsArticlesDAO.ModifyBelonging_Article(belongings_Articles.idArticle, idSale, belongings_Articles.storeProfit);
+                    SetAsideDAO.PayOffSetAside(StatesAside.COMPLETED_ASIDE, setAside.idSetAside);
+                }
+
+                
+                loadSetAsides(customer.idCustomer);
+                
+
+                Operation operation = new Operation();
+
+                
+                
             }
         }
 
         public void ScanCommunication(ArticleDomain article){}
+
     }
 }

@@ -184,5 +184,9 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new GenerateReortOSparatedIms());
         }
+        private void itemNewArticles_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new ArticlesSellingPrice());
+        }
     }
 }

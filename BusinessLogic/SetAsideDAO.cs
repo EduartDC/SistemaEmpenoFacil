@@ -86,6 +86,7 @@ namespace BusinessLogic
                         article.stateAside = state;
                         article.reaminingAmount = 0;
                         
+                        
                         result = connection.SaveChanges();
                     }
                 }
@@ -166,5 +167,6 @@ namespace BusinessLogic
             }
             return setAsides;
         }
+        
     }
 }
