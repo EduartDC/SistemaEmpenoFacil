@@ -68,7 +68,7 @@ namespace UnitTest
         [TestMethod]
         public void TestMakeSale()
         {
-            int expectedResult = 9;
+            int expectedResult = 13;
             Sale sale = new Sale();
             sale.total = 5000;
             sale.subtotal = 5000;

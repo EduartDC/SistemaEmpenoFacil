@@ -113,7 +113,7 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    var article = connection.Belongings_Articles.Find(idArticle);
+                    var article = connection.Belongings_Articles.Where(util => util.idArticle == idArticle).FirstOrDefault();
                     article.stateArticle = "Vendido";
                     article.Sale_idSale = idSale;
                     article.storeProfit = storeProfit;

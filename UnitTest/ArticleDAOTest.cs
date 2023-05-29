@@ -128,5 +128,16 @@ namespace UnitTest
             Domain.ArticleDomain articleDomain = BelongingsArticlesDAO.GetBelonging_Article(0);
             Assert.AreEqual(null, articleDomain);
         }
+
+        [TestMethod]
+        public void TestModifyBelonging_Article()
+        {
+            int idArticle = 11;
+            int idSale = 11;
+            double storeProfit = 232;
+            int expectedResult = 1;
+            int resultOperation = BelongingsArticlesDAO.ModifyBelonging_Article(idArticle, idSale, storeProfit);
+            Assert.AreEqual(expectedResult, resultOperation);
+        }
     }
 }
