@@ -114,5 +114,19 @@ namespace UnitTest
         {
             Assert.AreEqual(500, ArticleDAO.ModifySellingPrice(7, 3000));
         }
+
+        [TestMethod]
+        public void TestGetBelonging_Article()
+        {
+            Domain.ArticleDomain articleDomain = BelongingsArticlesDAO.GetBelonging_Article(8);
+            Assert.AreNotEqual(null, articleDomain);
+        }
+
+        [TestMethod]
+        public void TestGetBelonging_ArticleFailed()
+        {
+            Domain.ArticleDomain articleDomain = BelongingsArticlesDAO.GetBelonging_Article(0);
+            Assert.AreEqual(null, articleDomain);
+        }
     }
 }

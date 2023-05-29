@@ -39,7 +39,7 @@ namespace UnitTest
         [TestMethod]
         public void TestGetSaleByCodeFailed()
         {
-            int saleCode = 2;
+            int saleCode = 0;
             Sale sale = SaleDAO.GetSaleBySaleCode(saleCode);
             Assert.AreEqual(null, sale);
         }
@@ -58,11 +58,26 @@ namespace UnitTest
         [TestMethod]
         public void TestGetSaleByIdFailed()
         {
-            int saleCode = 2;
+            int saleCode = 0;
             int responseCode;
             Sale sale = new Sale();
             (responseCode, sale) = SaleDAO.getSaleById(saleCode);
             Assert.AreEqual(null, sale);
+        }
+
+        [TestMethod]
+        public void TestMakeSale()
+        {
+            int expectedResult = 9;
+            Sale sale = new Sale();
+            sale.total = 5000;
+            sale.subtotal = 5000;
+            sale.saleDate = DateTime.Now;
+            sale.discount = "0";
+            sale.Customer_idCustomer = 24;
+            int responseCode, idSale;
+            (responseCode, idSale) = SaleDAO.MakeSale(sale);
+            Assert.AreEqual(expectedResult, idSale);
         }
     }
 }
