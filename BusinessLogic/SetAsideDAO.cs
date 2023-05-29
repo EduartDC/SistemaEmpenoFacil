@@ -73,6 +73,8 @@ namespace BusinessLogic
             }
             return result;
         }
+
+        //Rafa
         public static int PayOffSetAside(string state, int idSetAside)
         {
             var result = MessageCode.ERROR;
@@ -141,6 +143,8 @@ namespace BusinessLogic
 
             return (result, setAside);
         }
+
+        //Rafa
         public static List<DataAcces.SetAside>GetSetAsidesByIdCustomer(int id)
         {
             List<DataAcces.SetAside>setAsides = new List<DataAcces.SetAside>();

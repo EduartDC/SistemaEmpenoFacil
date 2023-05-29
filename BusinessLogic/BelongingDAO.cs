@@ -200,7 +200,7 @@ namespace BusinessLogic
             }
             return belongins;
         }
-
+        //Rafa
         public static List<Domain.BelongingCreation.Belonging> GetAllBelonging()
         {
             List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
@@ -244,9 +244,11 @@ namespace BusinessLogic
             }
             return belongins;
         }
+
+        //Rafa
         public static List<Domain.BelongingCreation.Belonging> GetBelonging()
         {
-            //DateTime actualTime = DateTime.ParseExact(DateTime.Now.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            
             DateTime actualTime = DateTime.Now;
             List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
             Console.WriteLine(actualTime.ToString());

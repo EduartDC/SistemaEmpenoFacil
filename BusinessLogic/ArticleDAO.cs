@@ -341,7 +341,7 @@ namespace BusinessLogic
 
             return result;
         }
-
+        //Rafa
         public static List<ArticleDomain> GetArticlesListByIdSetAside(int idSetAside)
         {
             int result = 0;

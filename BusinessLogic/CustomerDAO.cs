@@ -410,6 +410,7 @@ namespace BusinessLogic
             else
                 return (MessageCode.CONNECTION_ERROR, null);
         }
+        //Rafa
         public static List<Domain.Customer> RecoverAllCustomers()
         {
             NewLog _log = new NewLog();
