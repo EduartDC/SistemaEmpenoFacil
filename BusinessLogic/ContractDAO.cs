@@ -79,7 +79,7 @@ namespace BusinessLogic
                         oldContract.idContractPrevious = idContract;
                         oldContract.deadlineDate = contract.deadlineDate;
                         oldContract.creationDate = contract.creationDate;
-                        oldContract.stateContract= contract.stateContract;
+                        oldContract.stateContract= "Activo";
                         oldContract.iva = contract.iva;
                         oldContract.interestRate = contract.interestRate;
                         oldContract.renewalFee= contract.renewalFee;

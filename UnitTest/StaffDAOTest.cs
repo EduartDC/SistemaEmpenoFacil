@@ -50,6 +50,15 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void TestGetAllStaffSuccess()
+        {
+            List<Staff> staffs;
+            int expectedResult = 16;
+            staffs = StaffDAO.GetAllStaff();
+            Assert.AreEqual(expectedResult, staffs.Count);
+        }
+
+        [TestMethod]
         public void TestModifyStaffSuccess()
         {
             Staff staff = new Staff();

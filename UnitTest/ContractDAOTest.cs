@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using DataAcces;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -96,6 +97,46 @@ namespace UnitTest
             List<Domain.CompleteContract> completeContracts = ContractDAO.RecoverContracts();
             int resultObtined = completeContracts.Count;
             Assert.AreEqual(0, resultObtined);
+        }
+
+        [TestMethod]
+        public void TestGetContractSucess()
+        {
+            int idContract = 13;
+            Contract contract = ContractDAO.GetContract(idContract);
+            Assert.AreNotEqual(null, contract);
+        }
+
+        [TestMethod]
+        public void TestGetContractFailed()
+        {
+            int idContract = 0;
+            Contract contract = ContractDAO.GetContract(idContract);
+            Assert.AreEqual(null, contract);
+        }
+
+        [TestMethod]
+        public void TestModifyContract()
+        {
+            Contract contract = new Contract();
+            contract.duration = 6;
+            contract.loanAmount = 6500;
+            contract.deadlineDate = DateTime.Now.AddMonths(contract.duration).AddDays(15);
+            contract.creationDate = DateTime.Now;
+            contract.stateContract = "Activo";
+            contract.iva = 16;
+            contract.interestRate = 8;
+            contract.renewalFee = 0;
+            contract.settlementAmount= 0;
+            contract.Customer_idCustomer = 14;
+            contract.endorsementSettlementDates = "- 29/07/2023;- 29/08/2023;- 29/09/2023;";
+            contract.paymentsSettlement = "3720;3960;4200;";
+            contract.paymentsEndorsement = "720;960;1200;";
+            contract.totalAnnualCost = "8";
+            int idContract = 14;
+            int ExpectedResult = 1;
+            int response = ContractDAO.ModifyContract(contract, idContract);
+            Assert.AreEqual(ExpectedResult, response);
         }
     }
 }
