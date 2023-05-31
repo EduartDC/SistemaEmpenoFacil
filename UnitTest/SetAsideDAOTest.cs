@@ -131,6 +131,28 @@ namespace UnitTest
             Assert.AreEqual(expectedResult, SetAsideDAO.UpdateSetAsideState("", 0));
         }
 
+        //Jonathan
+        //Cu Crear tickets
+        [TestMethod]
+        public void testGetSetasideById()
+        {
+            int expectedResult = MessageCode.SUCCESS;
+            SetAside setAside = new SetAside();
+            var a =new  SetAside();
+            Assert.AreEqual((expectedResult, a),SetAsideDAO.GetAsideById(7));
+        }
+
+        //Jonathan
+        //Cu Crear tickets
+        [TestMethod]
+        public void testGetSetasideByIdConnectionError()
+        {
+            int expectedResult = MessageCode.CONNECTION_ERROR;
+            SetAside setAside = new SetAside();
+            var result = SetAsideDAO.GetAsideById(7);
+            Assert.AreEqual((expectedResult, result.Item2), result);
+        }
+
         [TestMethod]
         public void TestGetSedAsidesByDate()
         {

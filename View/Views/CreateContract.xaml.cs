@@ -219,14 +219,14 @@ namespace View.Views
         private void LoadTotalPaymentoForSettlement()
         {
             /*
-             *  OPERACION:  capital + (capital * (plazoMeses *intereses*1 + (iva)))
-             */
+            *  OPERACION:  capital + (capital * (plazoMeses *intereses*1 + (iva)))
+            */
             int term = int.Parse(cbTerm.SelectedItem.ToString());
             string info = "";
             for (int i = 1; i <= term; i++)
             {
                 float loan = float.Parse(tbLoanAmount.Text);//capital
-                //i plazo
+                                                            //i plazo
                 float interestRate = float.Parse(metrics.interestRate) / 100;//intereses
                 float iva = float.Parse(metrics.IVA) / 100;//iva
                 float result = loan + (loan * (i * interestRate * 1 + (iva)));
@@ -289,15 +289,15 @@ namespace View.Views
         private void LoadTotalPaymentForEndorsement()//pagos de finiquito
         {
             /*
-             *  OPERACION:  capital * (plazoMeses *intereses* 1 + (iva))
-             */
+            *  OPERACION:  capital * (plazoMeses *intereses* 1 + (iva))
+            */
             tbTotalPaymentForEndorsement.Text = "";
             int term = int.Parse(cbTerm.SelectedItem.ToString());
             string info = "";
             for (int i = 1; i <= term; i++)
             {
                 float loan = float.Parse(tbLoanAmount.Text);//capital
-                //i plazo
+                                                            //i plazo
                 float interestRate = float.Parse(metrics.interestRate) / 100;//intereses
                 float iva = float.Parse(metrics.IVA) / 100;//iva
                 float result = loan * (i * interestRate * 1 + (iva));
@@ -344,7 +344,7 @@ namespace View.Views
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
             }
             else
-                if (operationResult == MessageCode.ERROR)
+            if (operationResult == MessageCode.ERROR)
                 ErrorManager.ShowError(MessageError.ERROR_ADD_OPERATION);
             else
             {
@@ -505,6 +505,19 @@ namespace View.Views
         private void dgBelongings_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
 
+        }
+
+        private void Btn_RegisterCustomer(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            mainWindow.PrimaryContainer.Effect = blurEffect;
+            //campos estaticos para pruebas
+            (App.Current as App)._cashOnHand = 1000;
+            CreateCustomerRecord registerCustomer = new CreateCustomerRecord();
+            mainWindow.SecundaryContainer.Navigate(registerCustomer);
+            mainWindow.PrimaryContainer.IsHitTestVisible = false;
         }
     }
 }

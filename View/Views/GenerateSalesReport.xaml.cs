@@ -26,6 +26,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using View.Properties;
+using static iTextSharp.text.pdf.AcroFields;
 using Document = iTextSharp.text.Document;
 
 
@@ -48,7 +49,7 @@ namespace View.Views
             InitializeComponent();
             LoadFilter();
         }
-
+       
         private void LoadFilter()
         {
             cbFilter.ItemsSource = filter;
@@ -153,7 +154,7 @@ namespace View.Views
             doc.Add(Chunk.NEWLINE);
             doc.Add(Chunk.NEWLINE);
 
-            PdfPTable tbArticles = new PdfPTable(9);
+            PdfPTable tbArticles = new PdfPTable(6);
             tbArticles.WidthPercentage = 95;
 
             PdfPCell c01 = new PdfPCell(new Phrase("Estado", _standardFontBold));
@@ -233,6 +234,7 @@ namespace View.Views
             doc.Add(tbArticles);
             doc.Close();
             writer.Close();
+            System.Diagnostics.Process.Start(fullPath);
         }
 
         private void GenerateReportArticlesStock()
@@ -388,6 +390,7 @@ namespace View.Views
             doc.Close();
             writer.Close();
             // PrintPDF(fullPath);
+            System.Diagnostics.Process.Start(fullPath);
         }
 
 

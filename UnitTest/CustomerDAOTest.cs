@@ -308,5 +308,24 @@ namespace UnitTest
             Assert.AreEqual(500, CustomerDAO.AddTwoImageIdentification(imagesIdentifications));
         }
 
+        //Jnathan
+        //CU dar ganancia a cliente
+        [TestMethod]
+        public void TestGetCustomersProfit()
+        {
+            int code = MessageCode.SUCCESS;
+            List<CustomerProfitDomain> customers = new List<CustomerProfitDomain>();
+            Assert.Equals((code, customers), CustomerDAO.GetCustomersProfit());
+        }
+
+        //Jnathan
+        //CU dar ganancia a cliente
+        [TestMethod]
+        public void TestGetCustomersProfitConnectionError()
+        {
+            int code = MessageCode.CONNECTION_ERROR;
+            List<CustomerProfitDomain> customers = new List<CustomerProfitDomain>();
+            Assert.Equals((code, customers), CustomerDAO.GetCustomersProfit());
+        }
     }
 }
