@@ -71,6 +71,8 @@
     <Compile Include="SetAsideDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaffDAOTest.cs" />
+    <Compile Include="SaleDAOTest.cs" />
+    <Compile Include="BelongingDAOTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -112,6 +112,7 @@ namespace View.Views
             if (result)
             {
                 ErrorManager.ShowInformation("El pago se concreto.");
+                CreateTickets.TicketLiquidateContract(_id,_total);
                 SaveChanges();
                 labelValidation.Visibility = Visibility.Visible;
                 btnLiquidate.IsEnabled = false;
@@ -122,7 +123,7 @@ namespace View.Views
             }
         }
 
-        private async Task SaveChanges()
+        private void SaveChanges()
         {
             try
             {

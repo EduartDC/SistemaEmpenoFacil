@@ -175,5 +175,24 @@ namespace UnitTest
             Assert.AreEqual(expectedResult2, expectedResult.Count);
         }
 
+
+        [TestMethod]
+        public void TestGetSedAsidesByDate()
+        {
+            int expectedResult = 15;
+            DateTime startDate = new DateTime(2023, 5, 2);
+            DateTime endDate = new DateTime(2023, 5, 13);
+            List<SetAside> setAsides = SetAsideDAO.GetSedAsidesByDate(startDate, endDate);
+            Assert.AreEqual(expectedResult, setAsides.Count);
+        }
+
+        [TestMethod]
+        public void TestGetSedAsidesByDateNull()
+        {
+            DateTime startDate = new DateTime(2023, 3, 23);
+            DateTime endDate = new DateTime(2023, 3, 17);
+            List<SetAside> setAsides = SetAsideDAO.GetSedAsidesByDate(startDate, endDate);
+            Assert.AreEqual(0, setAsides.Count);
+        }
     }
 }
