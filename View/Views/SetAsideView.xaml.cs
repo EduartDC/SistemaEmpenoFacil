@@ -428,7 +428,13 @@ namespace View.Views
             if (result)
             {
                 UpdateStates(true);
+                var listId = new List<int>();
+                foreach (var item in _listArticles)
+                {
+                    listId.Add(item.Article_idBelonging);
+                }
                 ErrorManager.ShowInformation("Operacion Exitosa");
+                CreateTickets.TicketSetAside(_idCustomer,_idSetAside, listId);
             }
             else
             {
