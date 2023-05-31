@@ -204,6 +204,21 @@
             VerticalAlignment="Top" Checked="Cb_CalendarEnabled" Unchecked="bt_dateUnabled"
             IsChecked="false"
             />
+        <Label
+            Content="Elementos encontrados"
+            HorizontalAlignment="Center"
+            FontSize="15"
+
+            Grid.Row="2"
+            VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label
+
+            Content="0"
+            HorizontalAlignment="center"
+            x:Name="lbCountArticles"
+            Grid.Row="2"
+            FontSize="15"
+            VerticalAlignment="center" FontWeight="Bold"/>
         <!--<CheckBox
         x:Name="cbCategoryEnabled"
         Grid.Column="2"

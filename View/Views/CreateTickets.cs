@@ -89,6 +89,7 @@ namespace View.Views
 
             doc.Close();
             writer.Close();
+            System.Diagnostics.Process.Start(fullPath);
         }
 
 
@@ -109,7 +110,7 @@ namespace View.Views
             else
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
         }
-
+        
         private void CreateSaleTicket(List<ArticleDomain> articles, Sale sale, DataAcces.Customer customer)
         {
             float ticketWidth = 80f;  // Ancho del ticket en mm
@@ -186,6 +187,7 @@ namespace View.Views
 
             doc.Close();
             writer.Close();
+            System.Diagnostics.Process.Start(fullPath);
 
         }
 
@@ -303,11 +305,12 @@ namespace View.Views
 
             doc.Close();
             writer.Close();
+            System.Diagnostics.Process.Start(fullPath);
         }
 
         public static  async void TicketLiquidateContract(int idContract, double payAmount)
         {
-
+            Console.WriteLine("ticket");
             ContractDomain contract =  await  ContractDAO.GetContractsDomainAsync(idContract);
             if(contract != null)
             {
@@ -389,6 +392,9 @@ namespace View.Views
             Paragraph pay = new Paragraph("PAGO                : " + payAmount, new Font(Font.FontFamily.HELVETICA, 8));
             // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(pay);
+            doc.Close();
+            writer.Close();
+            System.Diagnostics.Process.Start(fullPath);
 
         }
     }

@@ -37,7 +37,7 @@ namespace View.Views
             LoadCustomers();
             setFilter();
         }
-
+       
         private void setFilter()
         {
             collectionView = CollectionViewSource.GetDefaultView(customersList);

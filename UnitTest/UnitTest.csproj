@@ -68,6 +68,7 @@
     <Compile Include="CustomerDAOTest.cs" />
     <Compile Include="MetricsDAOTest.cs" />
     <Compile Include="OperationDAOTest.cs" />
+    <Compile Include="SaleDAOTest.cs" />
     <Compile Include="SetAsideDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaffDAOTest.cs" />

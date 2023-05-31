@@ -49,7 +49,7 @@
                 </Button.Resources>
             </Button>
             <Button Foreground="White"
-                    Background="#323D8F" Content="RegistrarCliente" Height="30" Width="120" FontSize="15" HorizontalAlignment="Left" Margin="309,18,0,0" Grid.Row="1" VerticalAlignment="Top">
+                    Background="#323D8F" Content="RegistrarCliente" Height="30" Width="120" FontSize="15" HorizontalAlignment="Left" Margin="309,18,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Btn_RegisterCustomer">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter  Property="CornerRadius" Value="10"/>
@@ -296,8 +296,9 @@
                 Grid.Row="3"
                 TextWrapping="Wrap"
                 VerticalAlignment="Top"
-                Width="120"
-                BorderBrush="#00ABADB3"/>
+                Width="141"
+                BorderBrush="#00ABADB3"
+                HorizontalContentAlignment="Center"/>
             <Label
                 Content="fecha refrendo/finiquito"
                 HorizontalAlignment="Left"
@@ -417,8 +418,9 @@
                 Grid.Row="3"
                 TextWrapping="Wrap"
                 VerticalAlignment="Top"
-                Width="120"
-                BorderBrush="#00ABADB3"/>
+                Width="148"
+                BorderBrush="#00ABADB3"
+                HorizontalContentAlignment="Center"/>
             <Label
                 Content="Total de pago por refrendo"
                 HorizontalAlignment="Left"
@@ -433,7 +435,8 @@
                 Grid.Row="3"
                 TextWrapping="Wrap"
                 VerticalAlignment="Top"
-                Width="120" BorderBrush="#00ABADB3"/>
+                Width="159" BorderBrush="#00ABADB3"
+                HorizontalContentAlignment="Center"/>
             <Label
                 Content="Total de pago por desempeño"
                 HorizontalAlignment="Left"
@@ -521,7 +524,7 @@
             <TextBox
 
                 HorizontalAlignment="Left"
-                Margin="72,76,0,0"
+                Margin="20,76,0,0"
                 Grid.Row="3"
                 TextWrapping="Wrap"
                 Text="%"
