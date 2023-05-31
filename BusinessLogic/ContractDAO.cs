@@ -253,23 +253,33 @@ namespace BusinessLogic
 
         public static List<Domain.ContractDomain> GetContractsByDate(DateTime startDate, DateTime endDate)
         {
-            List<Domain.ContractDomain> completeContracts = null;
+            List<Domain.ContractDomain> completeContracts = new List<ContractDomain>();
             try
             {
                 using (var database = new ConnectionModel())
                 {
                     var contracts = database.Contracts.Where(a => a.creationDate >= startDate && a.deadlineDate <= endDate).ToList();
-                    foreach (var contract in contracts)
+                    if (contracts.Count > 0)
                     {
-                        var newContract = new ContractDomain();
-                        newContract.idContract = contract.idContract;
-                        newContract.Customer_idCustomer = contract.Customer_idCustomer;
-                        newContract.Customer = contract.Customer;
-                        newContract.creationDate = contract.creationDate;
-                        newContract.deadlineDate = contract.deadlineDate;
-                        newContract.Belongings = (List<Belonging>)contract.Belongings;
-                        newContract.loanAmount = contract.settlementAmount;
+                        foreach (var contract in contracts)
+                        {
+
+                            ContractDomain newContract = new ContractDomain();
+                            newContract.idContract = contract.idContract;
+                            newContract.Customer_idCustomer = contract.Customer_idCustomer;
+                            newContract.Customer = contract.Customer;
+                            newContract.creationDate = contract.creationDate;
+                            newContract.deadlineDate = contract.deadlineDate;
+                            newContract.loanAmount = contract.loanAmount;
+                            newContract.Belongings = contract.Belongings.ToList();
+                            completeContracts.Add(newContract);
+                        }
                     }
+                    else
+                    {
+                        completeContracts = null;
+                    }
+                    
                 }
             }
             catch (Exception)

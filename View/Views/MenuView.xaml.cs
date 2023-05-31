@@ -176,5 +176,10 @@ namespace View.Views
         {
             Container.NavigationService.Navigate(new GenerateReortOSparatedIms());
         }
+
+        private void GenerateContractReport_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new GenerateReportContracts());
+        }
     }
 }

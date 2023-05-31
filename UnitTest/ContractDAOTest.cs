@@ -138,5 +138,24 @@ namespace UnitTest
             int response = ContractDAO.ModifyContract(contract, idContract);
             Assert.AreEqual(ExpectedResult, response);
         }
+
+        [TestMethod]
+        public void TestRecoverContractsByDatesSuccess()
+        {
+            Assert.IsNotNull(ContractDAO.GetContractsByDate(DateTime.Parse("01/05/2023 12:00:00 a. m."), DateTime.Parse("30/05/2023 12:00:00 a. m.")));
+        }
+
+        [TestMethod]
+        public void TestRecoverContractsByDatesNoContracts()
+        {
+            Assert.IsNull(ContractDAO.GetContractsByDate(DateTime.Parse("01/06/2023 12:00:00 a. m."), DateTime.Parse("30/06/2023 12:00:00 a. m.")));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestRecoverContractsByDatesException()
+        {
+            Assert.IsNull(ContractDAO.GetContractsByDate(DateTime.Parse("01/05/2023 12:00:00 a. m."), DateTime.Parse("30/05/2023 12:00:00 a. m.")));
+        }
     }
 }
