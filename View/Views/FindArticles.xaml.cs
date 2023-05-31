@@ -110,6 +110,8 @@ namespace View.Views
             List<int> idarticles  = new List<int> {1,4,8,6};
             var x =ArticleDAO.getArticlesById(idarticles);
             MessageBox.Show("articulos recuperados: " + x.Count);
+            foreach (var y in x)
+                Console.WriteLine(y.description);
         }
 
         private bool SelectedItem()
