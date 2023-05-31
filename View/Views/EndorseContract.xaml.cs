@@ -202,7 +202,6 @@ namespace View.Views
                 MessageBoxResult messageBox;
                 messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
             }
-            throw new NotImplementedException();
         }
 
         public void ScanCommunication(ArticleDomain article)
@@ -211,25 +210,37 @@ namespace View.Views
 
         private void CancelContractButtonEvent(object sender, RoutedEventArgs e)
         {
-            actualContract.stateContract = "Cancelado";
-            MainWindow mainWindow = null;
-            foreach (Window window in Application.Current.Windows)
+            if (actualContract.creationDate.AddHours(24) <= DateTime.Now)
             {
-                if (window is MainWindow)
+                actualContract.stateContract = "Cancelado";
+                actualContract.deadlineDate = DateTime.Now;
+                MainWindow mainWindow = null;
+                foreach (Window window in Application.Current.Windows)
                 {
-                    mainWindow = window as MainWindow;
-                    break;
+                    if (window is MainWindow)
+                    {
+                        mainWindow = window as MainWindow;
+                        break;
+                    }
                 }
+                BlurEffect blurEffect = new BlurEffect();
+                blurEffect.Radius = 5;
+                mainWindow.PrimaryContainer.Effect = blurEffect;
+                (App.Current as App)._cashOnHand = 100000;
+                TransactionView newOperation = new TransactionView(OperationType.OPERATION_LIQUIDATE, settlementAmount, int.Parse(labelPawnNumber.Content.ToString()));
+                newOperation.CommunicacionPages(this);
+                mainWindow.SecundaryContainer.Navigate(newOperation);
+                mainWindow.PrimaryContainer.IsHitTestVisible = false;
             }
-            BlurEffect blurEffect = new BlurEffect();
-            blurEffect.Radius = 5;
-            mainWindow.PrimaryContainer.Effect = blurEffect;
-            (App.Current as App)._cashOnHand = 100000;
-            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LIQUIDATE, settlementAmount, int.Parse(labelPawnNumber.Content.ToString()));
-            newOperation.CommunicacionPages(this);
-            mainWindow.SecundaryContainer.Navigate(newOperation);
-            mainWindow.PrimaryContainer.IsHitTestVisible = false;
-
+            else
+            {
+                string message = "No se puede cancelar un contrato despues de 24 horas desde su creacion";
+                string messageTitle = "Cancelarcion no disponible";
+                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                MessageBoxResult messageBox;
+                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+            }
         }
     }
 }

@@ -47,11 +47,17 @@ namespace View.Views
             Console.WriteLine(belongings.Count());
             for (int i = 0; i < belongings.Count(); i++)
             {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = new MemoryStream(belongings[i].image);
-                bitmap.EndInit();
-                belongings[i].imageConverted = bitmap;
+                try
+                {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = new MemoryStream(belongings[i].image);
+                    bitmap.EndInit();
+                    belongings[i].imageConverted = bitmap;
+                }catch(ArgumentNullException)
+                {
+                    belongings[i].imageConverted = null;
+                }
 
             }
         }

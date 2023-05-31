@@ -167,30 +167,37 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    var resultSet = connection.Belongings.Where(belongin => belongin.Contract_idContract == id).ToList();
-                    foreach (var element in resultSet)
+                    try
                     {
-                        Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
-                        belonging.idBelonging = element.idBelonging;
-                        belonging.Features = element.characteristics;
-                        belonging.SerialNumber = element.serialNumber;
-                        belonging.Category = element.category;
-                        belonging.GenericDescription = element.description;
-                        belonging.Model = element.model;
-                        belonging.ApraisalAmount = element.appraisalValue;
-                        belonging.LoanAmount = element.loanAmount;
+                        var resultSet = connection.Belongings.Where(belongin => belongin.Contract_idContract == id).ToList();
+                        foreach (var element in resultSet)
+                        {
+                            Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
+                            belonging.idBelonging = element.idBelonging;
+                            belonging.Features = element.characteristics;
+                            belonging.SerialNumber = element.serialNumber;
+                            belonging.Category = element.category;
+                            belonging.GenericDescription = element.description;
+                            belonging.Model = element.model;
+                            belonging.ApraisalAmount = element.appraisalValue;
+                            belonging.LoanAmount = element.loanAmount;
                             var imageResult = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
                             if (imageResult != null)
                             {
                                 belonging.image = imageResult.imagen;
                             }
-                        Console.WriteLine(element.idBelonging);
-                        var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
-                        if (imageInfo != null)
-                        {
-                            belonging.image = imageInfo.imagen;
+                            Console.WriteLine(element.idBelonging);
+                            var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
+                            if (imageInfo != null)
+                            {
+                                belonging.image = imageInfo.imagen;
+                            }
+                            belongins.Add(belonging);
                         }
-                        belongins.Add(belonging);
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        belongins= null;
                     }
                 }
             }
