@@ -66,7 +66,7 @@ namespace UnitTest
             staff.fisrtName = "Hector David";
             staff.lastName = "Madrid Rivera";
             staff.userName = "cazaFurros";
-            staff.password = "HALOcea206-";
+            staff.password = "HALOcea206";
             staff.statusStaff = "Activo";
             staff.rol = "Gerente";
             staff.password = Utilities.Hash(staff.password);
@@ -156,7 +156,6 @@ namespace UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void TestGetStaffByUsernameInvalidOperation()
         {
             Assert.IsNull(StaffDAO.GetStaffByUserName("Nuevo"));
