@@ -264,32 +264,6 @@ namespace BusinessLogic
                     foreach (var element in resultSet)
                     {
 
-                        //var verifyId = connection.Belongings_Articles.Where(a => a.idBelonging == element.idBelonging).FirstOrDefault();
-                        //if (verifyId != null && verifyId.idBelonging > 0)
-                        //{
-                        //    Console.WriteLine(element.idBelonging);
-                        //} else
-                        //{
-                        //    Console.WriteLine("validacion de id");
-                        //    Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
-                        //    belonging.idBelonging = element.idBelonging;
-                        //    belonging.Features = element.characteristics;
-                        //    belonging.SerialNumber = element.serialNumber;
-                        //    belonging.Category = element.category;
-                        //    belonging.GenericDescription = element.description;
-                        //    belonging.Model = element.model;
-                        //    belonging.ApraisalAmount = element.appraisalValue;
-                        //    belonging.LoanAmount = element.loanAmount;
-                        //    belonging.DeadLine = element.Contract.deadlineDate;
-                        //    belonging.State = element.Contract.stateContract;
-                        //    Console.WriteLine(belonging.DeadLine);
-                            
-                            
-                        //    belongins.Add(belonging);
-
-                            
-                        //}
-                        //GPT metodo
                         var verifyId = connection.Belongings_Articles.Where(a => a.idBelonging == element.idBelonging).FirstOrDefault();
                         if (verifyId == null)
                         {
@@ -310,7 +284,6 @@ namespace BusinessLogic
 
                             belongins.Add(belonging);
                         }
-
                         }
                     for (int i = 0; i < belongins.Count(); i++)
                     {
@@ -321,8 +294,6 @@ namespace BusinessLogic
                             belongins[i].image = image.imagen;
                         }
                     }
-
-
                 }
             }
             else

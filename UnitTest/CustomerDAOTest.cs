@@ -307,6 +307,11 @@ namespace UnitTest
         {
             Assert.AreEqual(500, CustomerDAO.AddTwoImageIdentification(imagesIdentifications));
         }
+        [TestMethod]
+        [ExpectedException(typeof(DbUpdateException))]
+        public void RecoverAllCustomerException(int customerId)
+        {
 
+        }
     }
 }

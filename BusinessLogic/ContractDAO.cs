@@ -260,6 +260,7 @@ namespace BusinessLogic
                     Contract temp = connection.Contracts.Find(idContract);
 
                     temp.stateContract = StatesContract.REACTIVED_CONTRACT;
+                    temp.deadlineDate = DateTime.Now.AddMonths(temp.duration);
                     connection.SaveChanges();
                     result = MessageCode.SUCCESS;
 
