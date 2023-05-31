@@ -251,6 +251,35 @@ namespace BusinessLogic
             return result;
         }
 
+        public static List<Domain.ContractDomain> GetContractsByDate(DateTime startDate, DateTime endDate)
+        {
+            List<Domain.ContractDomain> completeContracts = null;
+            try
+            {
+                using (var database = new ConnectionModel())
+                {
+                    var contracts = database.Contracts.Where(a => a.creationDate >= startDate && a.deadlineDate <= endDate).ToList();
+                    foreach (var contract in contracts)
+                    {
+                        var newContract = new ContractDomain();
+                        newContract.idContract = contract.idContract;
+                        newContract.Customer_idCustomer = contract.Customer_idCustomer;
+                        newContract.Customer = contract.Customer;
+                        newContract.creationDate = contract.creationDate;
+                        newContract.deadlineDate = contract.deadlineDate;
+                        newContract.Belongings = (List<Belonging>)contract.Belongings;
+                        newContract.loanAmount = contract.settlementAmount;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                completeContracts = null;
+                throw new Exception();
+            }
+            return completeContracts;
+        }
+
     }
 }
 
