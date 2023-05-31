@@ -107,8 +107,9 @@ namespace View.Views
             }
             else
                 ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);*/
-            Console.WriteLine("liquidar");
-            CreateTickets.TicketLiquidateContract(9,200);
+            List<int> idarticles  = new List<int> {1,4,8,6};
+            var x =ArticleDAO.getArticlesById(idarticles);
+            MessageBox.Show("articulos recuperados: " + x.Count);
         }
 
         private bool SelectedItem()
