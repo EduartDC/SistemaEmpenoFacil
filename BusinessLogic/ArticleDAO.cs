@@ -252,12 +252,13 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    var articlesFinded = connection.Belongings_Articles.Where(a => idArticles.Contains(a.idArticle)).ToList();
+                    var articlesFinded = connection.Belongings_Articles.Where(a=> idArticles.Contains(a.idArticle));
                     foreach (var util in articlesFinded)
                     {
                         ArticleDomain articleTemp = new ArticleDomain();
                         articleTemp.idArticle = util.idArticle;
                         articleTemp.description = util.Belonging.description;
+                        articles.Add(articleTemp);
                     }
                 }
             }
