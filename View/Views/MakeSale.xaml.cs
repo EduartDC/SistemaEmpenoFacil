@@ -123,7 +123,33 @@ namespace View.Views
             else
             {
                 Domain.ArticleDomain articleSelected = dataGridArticles.SelectedItem as Domain.ArticleDomain;
-                articlesDomain.Add(articleSelected);
+                if (!articleSelected.stateArticle.Equals("vendido"))
+                {
+                    string message = "Por favor seleccione un articulo que este disponible para venta";
+                    string messageTitle = "Seleccion no valida";
+                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                    MessageBoxResult messageBox;
+                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                }else if (articlesDomain.Contains(articleSelected))
+                {
+                    string message = "Este articulo ya ha sido añadido al carrito por favor seleccione otro";
+                    string messageTitle = "Seleccion no valida";
+                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                    MessageBoxResult messageBox;
+                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                }
+                else
+                {
+                    articlesDomain.Add(articleSelected);
+                    string message = "Se ha añadido el articulo al carrito correctamente";
+                    string messageTitle = "Articulo seleccionado";
+                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                    MessageBoxResult messageBox;
+                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                }
             }
             
         }
