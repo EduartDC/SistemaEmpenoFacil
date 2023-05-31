@@ -290,5 +290,56 @@ namespace BusinessLogic
             return (result ,articles);
         }
 
+        public static double RecoverSellingPrice(int id)
+        {
+            double resultSellingPrice = -1;
+            try
+            {
+                using ( var connection = new ConnectionModel() )
+                {
+                    var articleObtained = (from Belongings_Articles in connection.Belongings_Articles
+                                           where
+                                           Belongings_Articles.idArticle == id
+                                           select Belongings_Articles);
+                    foreach(Belongings_Articles articles in articleObtained)
+                    {
+                        resultSellingPrice = articles.sellingPrice;
+                    }
+                            
+
+                }
+            }
+            catch ( Exception)
+            {
+                throw new Exception();
+            }
+
+            return resultSellingPrice;
+        }
+
+        public static int ModifySellingPrice(int id, double newSellingPrice)
+        {
+            int result = 500;
+            try
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var articleObtained = (from Belongings_Articles in connection.Belongings_Articles
+                                           where
+                                           Belongings_Articles.idArticle == id
+                                           select Belongings_Articles);
+                    articleObtained.First().sellingPrice = newSellingPrice;
+                    connection.SaveChanges();
+                    result = 200;
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+
+            return result;
+        } 
+
     }
 }

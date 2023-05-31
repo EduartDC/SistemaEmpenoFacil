@@ -85,6 +85,7 @@ namespace UnitTest
 
         //Jonathan
         //CU16 findArticles
+
         [TestMethod]
         public void TestGetFindArticles()
         {
@@ -191,6 +192,64 @@ namespace UnitTest
             int code = MessageCode.CONNECTION_ERROR;
             var result = ArticleDAO.GiveProfitArticlesToCustomer(1);
             Assert.AreEqual(code, result);
+        }
+        //[TestMethod]
+        //public void TestGetFindArticles()
+        //{
+        //    int resultCode = MessageCode.SUCCESS;
+        //    Assert.AreEqual((resultCode, List<ArticleDomain>));
+        //}
+
+        [TestMethod]
+        public void TestRecoverSellingPriceSuccess()
+        {
+            Assert.AreEqual(6500, ArticleDAO.RecoverSellingPrice(6));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestRecoverSellingPriceException()
+        {
+            Assert.AreEqual(-1, ArticleDAO.RecoverSellingPrice(6));
+        }
+
+        [TestMethod]
+        public void TestModifySellingPriceSuccess()
+        {
+            Assert.AreEqual(200, ArticleDAO.ModifySellingPrice(7, 3000));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestModifySellingPriceException()
+        {
+            Assert.AreEqual(500, ArticleDAO.ModifySellingPrice(7, 3000));
+        }
+
+        [TestMethod]
+        public void TestGetBelonging_Article()
+        {
+            Domain.ArticleDomain articleDomain = BelongingsArticlesDAO.GetBelonging_Article(8);
+            Assert.AreNotEqual(null, articleDomain);
+        }
+
+        [TestMethod]
+        public void TestGetBelonging_ArticleFailed()
+        {
+            Domain.ArticleDomain articleDomain = BelongingsArticlesDAO.GetBelonging_Article(0);
+            Assert.AreEqual(null, articleDomain);
+        }
+
+        [TestMethod]
+        public void TestModifyBelonging_Article()
+        {
+            int idArticle = 11;
+            int idSale = 11;
+            double storeProfit = 232;
+            int expectedResult = 1;
+            int resultOperation = BelongingsArticlesDAO.ModifyBelonging_Article(idArticle, idSale, storeProfit);
+            Assert.AreEqual(expectedResult, resultOperation);
+
         }
     }
 }

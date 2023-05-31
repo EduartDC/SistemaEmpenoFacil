@@ -81,7 +81,7 @@ namespace View.Views
         {
             string text = textAmountReceived.Text;
 
-            if (text.Length > 6)
+            if (text.Length > 9)
             {
                 ErrorManager.ShowWarning(MessageError.AMOUNT_RECEIVED_ERROR);
             }

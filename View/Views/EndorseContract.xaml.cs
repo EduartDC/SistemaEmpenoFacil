@@ -44,11 +44,18 @@ namespace View.Views
             Console.WriteLine(belongings.Count());
             for (int i = 0; i < belongings.Count(); i++)
             {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = new MemoryStream(belongings[i].image);
-                bitmap.EndInit();
-                belongings[i].imageConverted = bitmap;
+                try
+                {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = new MemoryStream(belongings[i].image);
+                    bitmap.EndInit();
+                    belongings[i].imageConverted = bitmap;
+                }
+                catch (ArgumentNullException)
+                {
+                    belongings[i].imageConverted = null;
+                }
 
             }
         }
@@ -124,6 +131,11 @@ namespace View.Views
                         break;
                     }
                 }
+
+                actualContract.idContractPrevious = actualContract.idContract;
+                actualContract.creationDate = DateTime.Now;
+                actualContract.stateContract = "Activo";
+                LoadDatesEndorsementSettlement();
                 BlurEffect blurEffect = new BlurEffect();
                 blurEffect.Radius = 5;
                 mainWindow.PrimaryContainer.Effect = blurEffect;
@@ -134,6 +146,21 @@ namespace View.Views
                 mainWindow.PrimaryContainer.IsHitTestVisible = false;
 
             }
+        }
+
+        private void LoadDatesEndorsementSettlement()
+        {
+            int duration = actualContract.duration;
+            DateTime currentlyDate = DateTime.Now;
+            DateTime limitPaymentDate = DateTime.Now.AddMonths(duration).AddDays(15);
+            actualContract.deadlineDate = limitPaymentDate;
+            actualContract.creationDate = currentlyDate;
+            String paymentDates = "";
+            for (int i = 1; i <= duration; i++)
+            {
+                paymentDates += DateTime.Now.AddMonths(i).ToString("d") + ";\n";
+            }
+            actualContract.endorsementSettlementDates = paymentDates;
         }
 
         private void goBackButtonEvent(object sender, RoutedEventArgs e)
@@ -154,6 +181,7 @@ namespace View.Views
                     MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                     MessageBoxResult messageBox;
                     messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                    this.NavigationService.GoBack();
                 }
                 else
                 {
@@ -174,7 +202,6 @@ namespace View.Views
                 MessageBoxResult messageBox;
                 messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
             }
-            throw new NotImplementedException();
         }
 
         public void ScanCommunication(ArticleDomain article)
@@ -183,25 +210,37 @@ namespace View.Views
 
         private void CancelContractButtonEvent(object sender, RoutedEventArgs e)
         {
-            actualContract.stateContract = "Cancelado";
-            MainWindow mainWindow = null;
-            foreach (Window window in Application.Current.Windows)
+            if (actualContract.creationDate.AddHours(24) <= DateTime.Now)
             {
-                if (window is MainWindow)
+                actualContract.stateContract = "Cancelado";
+                actualContract.deadlineDate = DateTime.Now;
+                MainWindow mainWindow = null;
+                foreach (Window window in Application.Current.Windows)
                 {
-                    mainWindow = window as MainWindow;
-                    break;
+                    if (window is MainWindow)
+                    {
+                        mainWindow = window as MainWindow;
+                        break;
+                    }
                 }
+                BlurEffect blurEffect = new BlurEffect();
+                blurEffect.Radius = 5;
+                mainWindow.PrimaryContainer.Effect = blurEffect;
+                (App.Current as App)._cashOnHand = 100000;
+                TransactionView newOperation = new TransactionView(OperationType.OPERATION_LIQUIDATE, settlementAmount, int.Parse(labelPawnNumber.Content.ToString()));
+                newOperation.CommunicacionPages(this);
+                mainWindow.SecundaryContainer.Navigate(newOperation);
+                mainWindow.PrimaryContainer.IsHitTestVisible = false;
             }
-            BlurEffect blurEffect = new BlurEffect();
-            blurEffect.Radius = 5;
-            mainWindow.PrimaryContainer.Effect = blurEffect;
-            (App.Current as App)._cashOnHand = 100000;
-            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LIQUIDATE, settlementAmount, int.Parse(labelPawnNumber.Content.ToString()));
-            newOperation.CommunicacionPages(this);
-            mainWindow.SecundaryContainer.Navigate(newOperation);
-            mainWindow.PrimaryContainer.IsHitTestVisible = false;
-
+            else
+            {
+                string message = "No se puede cancelar un contrato despues de 24 horas desde su creacion";
+                string messageTitle = "Cancelarcion no disponible";
+                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                MessageBoxResult messageBox;
+                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using DataAcces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -42,23 +43,33 @@ namespace UnitTest
         {
             Assert.IsNotNull(StaffDAO.GetStaff(4));
         }
-
+        [TestMethod]
         public void TestGetStaffError()
         {
             Assert.IsNull(StaffDAO.GetStaff(-1));
         }
 
         [TestMethod]
+        public void TestGetAllStaffSuccess()
+        {
+            List<Staff> staffs;
+            int expectedResult = 16;
+            staffs = StaffDAO.GetAllStaff();
+            Assert.AreEqual(expectedResult, staffs.Count);
+        }
+
+        [TestMethod]
         public void TestModifyStaffSuccess()
         {
             Staff staff = new Staff();
-            staff.idStaff = 4;
+            staff.idStaff = 12;
             staff.fisrtName = "Hector David";
             staff.lastName = "Madrid Rivera";
-            staff.userName = "REV09";
-            staff.password = "HALOcea206-";
+            staff.userName = "cazaFurros";
+            staff.password = "HALOcea206";
             staff.statusStaff = "Activo";
-            staff.rol = "Cajero";
+            staff.rol = "Gerente";
+            staff.password = Utilities.Hash(staff.password);
             Assert.AreEqual(1, StaffDAO.ModifyStaff(staff.idStaff, staff));
         }
 
@@ -145,7 +156,6 @@ namespace UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void TestGetStaffByUsernameInvalidOperation()
         {
             Assert.IsNull(StaffDAO.GetStaffByUserName("Nuevo"));

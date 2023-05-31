@@ -116,6 +116,9 @@
     <Compile Include="Views\ConsultBlackList1.xaml.cs">
       <DependentUpon>ConsultBlackList1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsultContract.xaml.cs">
+      <DependentUpon>ConsultContract.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateBelongingRegister.xaml.cs">
       <DependentUpon>CreateBelongingRegister.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,9 @@
     <Compile Include="Views\CutoffOperations.xaml.cs">
       <DependentUpon>CutoffOperations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditArticle.xaml.cs">
+      <DependentUpon>EditArticle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EndorseContract.xaml.cs">
       <DependentUpon>EndorseContract.xaml</DependentUpon>
     </Compile>
@@ -140,6 +146,9 @@
     </Compile>
     <Compile Include="Views\GenerateReortOSparatedIms.xaml.cs">
       <DependentUpon>GenerateReortOSparatedIms.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GenerateReportContracts.xaml.cs">
+      <DependentUpon>GenerateReportContracts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GenerateSalesReport.xaml.cs">
       <DependentUpon>GenerateSalesReport.xaml</DependentUpon>
@@ -165,6 +174,7 @@
     <Compile Include="Views\PayOffSetAside.xaml.cs">
       <DependentUpon>PayOffSetAside.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PrintContract.cs" />
     <Compile Include="Views\RegisterStaff.xaml.cs">
       <DependentUpon>RegisterStaff.xaml</DependentUpon>
     </Compile>
@@ -244,6 +254,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ConsultContract.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CreateBelongingRegister.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -264,6 +278,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EditArticle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EndorseContract.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -273,6 +291,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GenerateReortOSparatedIms.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GenerateReportContracts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

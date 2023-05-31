@@ -26,12 +26,12 @@ namespace View.Views
     {
         private List<Domain.CompleteContract> contractList = new List<Domain.CompleteContract>();
         private List<string> _listNamesCustomers = new List<string>();
-        private List<int> _listNumberCustomers = new List<int>();
+        private List<int> _listNumberContracts = new List<int>();
 
         public SearchContracts()
         {
             InitializeComponent();
-            comBox_TypeSearch.Items.Add("Numero del cliente");
+            comBox_TypeSearch.Items.Add("Numero del contrato");
             comBox_TypeSearch.Items.Add("Nombre del cliente");
             try
             {
@@ -53,7 +53,7 @@ namespace View.Views
         {
             contractList = ContractDAO.RecoverContracts();
             contractList.ForEach(customer => _listNamesCustomers.Add(customer.firstName));
-            contractList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
+            contractList.ForEach(customer => _listNumberContracts.Add(customer.idContract));
             tableCustomers.ItemsSource = contractList;
             if(contractList.Count == 0)
             {
@@ -88,9 +88,9 @@ namespace View.Views
             if (!String.IsNullOrEmpty(text_SearchBy.Text.Trim()))
             {
                 int readNumer = int.Parse(text_SearchBy.Text.Trim());
-                List<Domain.CompleteContract> CustomersEquals = (_listNumberCustomers.Where(intNumber =>
+                List<Domain.CompleteContract> CustomersEquals = (_listNumberContracts.Where(intNumber =>
                 intNumber.Equals(readNumer))).Select(intNumber => contractList.Find(customerFind =>
-                customerFind.idCustomer.Equals(intNumber))).ToList();
+                customerFind.idContract.Equals(intNumber))).ToList();
                 tableCustomers.ItemsSource = CustomersEquals;
             }
             else if (text_SearchBy.Text.Trim() == "")
@@ -138,7 +138,7 @@ namespace View.Views
         private void Btn_Restore_Click(object sender, RoutedEventArgs e)
         {
             text_SearchBy.Text = "";
-            _listNumberCustomers.Clear();
+            _listNumberContracts.Clear();
             _listNamesCustomers.Clear();
             InitializeTable();
         }
@@ -178,6 +178,22 @@ namespace View.Views
                         SearchByName();
                     }
                     break;
+            }
+        }
+        private void Button_Consult_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                var row = DataGridRow.GetRowContainingElement(btn);
+                var item = row.Item;
+                if (item != null && tableCustomers.Items.Contains(item))
+                {
+                    var contractSelected = tableCustomers.SelectedItem as CompleteContract;
+                    var window = (MainWindow)Application.Current.MainWindow;
+                    ConsultContract consultContract = new ConsultContract(contractSelected.idContract);
+                    consultContract.ShowDialog();
+                }
             }
         }
     }
