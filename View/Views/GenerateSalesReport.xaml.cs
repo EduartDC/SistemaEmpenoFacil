@@ -49,7 +49,7 @@ namespace View.Views
             InitializeComponent();
             LoadFilter();
         }
-
+       
         private void LoadFilter()
         {
             cbFilter.ItemsSource = filter;
@@ -154,7 +154,7 @@ namespace View.Views
             doc.Add(Chunk.NEWLINE);
             doc.Add(Chunk.NEWLINE);
 
-            PdfPTable tbArticles = new PdfPTable(9);
+            PdfPTable tbArticles = new PdfPTable(6);
             tbArticles.WidthPercentage = 95;
 
             PdfPCell c01 = new PdfPCell(new Phrase("Estado", _standardFontBold));

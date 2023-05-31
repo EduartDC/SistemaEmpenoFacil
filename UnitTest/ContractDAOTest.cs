@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using DataAcces;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -96,6 +97,17 @@ namespace UnitTest
             List<Domain.CompleteContract> completeContracts = ContractDAO.RecoverContracts();
             int resultObtined = completeContracts.Count;
             Assert.AreEqual(0, resultObtined);
+        }
+
+        //jonathan
+        //Cu crear contrato
+        [TestMethod]
+        public void TestCreateContractConnectionError()
+        {
+            int code = MessageCode.CONNECTION_ERROR;
+            Contract contract = new Contract();
+            var resultContract = ContractDAO.RegisterContract(contract);
+            Assert.AreEqual((code,0),resultContract);
         }
     }
 }
