@@ -46,14 +46,14 @@ namespace View.Views
                 itemRegisterStaff.Visibility = Visibility.Collapsed;
                 itemOperationCashRegister.Visibility = Visibility.Collapsed;
                 itemReports.Visibility = Visibility.Collapsed;
+                itemModifyStaff.Visibility = Visibility.Collapsed;
             }
             else if (_staff.rol.Equals("Gerente"))
             {
                 itemRegisterStaff.Visibility = Visibility.Collapsed;
+                itemModifyStaff.Visibility = Visibility.Collapsed;
                 itemConfiguration.Visibility = Visibility.Collapsed;
             }
-
-
         }
         private void itemHome_Click(object sender, RoutedEventArgs e)
         {
