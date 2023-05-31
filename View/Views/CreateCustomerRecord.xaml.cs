@@ -108,7 +108,7 @@ namespace View.Views
                     };
                     if (CustomerDAO.AddTwoImageIdentification(imagesIdentifications) == 200)
                     {
-                        MessageBox.Show("Cliente registrado con exito");
+                        MessageBox.Show("Cliente registrado con exito   ");
                         this.Content = null;
                     }
                     else
