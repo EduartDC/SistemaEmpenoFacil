@@ -207,7 +207,7 @@ namespace BusinessLogic
             }
             return belongins;
         }
-
+        //Rafa
         public static List<Domain.BelongingCreation.Belonging> GetAllBelonging()
         {
             List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
@@ -228,43 +228,51 @@ namespace BusinessLogic
                         belonging.ApraisalAmount = element.appraisalValue;
                         belonging.LoanAmount = element.loanAmount;
                         belonging.DeadLine = element.Contract.deadlineDate;
-                        
-                        var imageInfo = connection.ImagesBelongings.Where(util => util.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
-                        if (imageInfo != null)
-                        {
-                            belonging.image = imageInfo.imagen;
-                        }
+                        belonging.State = element.Contract.stateContract;
+                        belonging.Contract_idConctract = element.Contract.idContract;
                         belongins.Add(belonging);
+                    }
+                    for (int i = 0; i < belongins.Count(); i++)
+                    {
+                        var element = belongins[i];
+                        var image = connection.ImagesBelongings.Where(a => a.Belonging_idBelonging == element.idBelonging).FirstOrDefault();
+                        if (image != null)
+                        {
+                            belongins[i].image = image.imagen;
+                        }
                     }
                 }
             }
             else
             {
-                throw new Exception("Error de conexion");
+                throw new Exception();
             }
             return belongins;
         }
+
+        //Rafa
         public static List<Domain.BelongingCreation.Belonging> GetBelonging()
         {
-            DateTime actualTime = DateTime.ParseExact(DateTime.Now.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            
+            DateTime actualTime = DateTime.Now;
             List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
+            
            
             if (Utilities.VerifyConnection())
             {
                 using (var connection = new ConnectionModel())
                 {
 
-                    //var resultSet = connection.Belongings.Where(b => b.Contract.deadlineDate.AddDays(15) > actualTime).ToList();
+                    
                     var resultSet = connection.Belongings.Where(b => DbFunctions.AddDays(b.Contract.deadlineDate, 15) < actualTime).ToList();
+                    
                     foreach (var element in resultSet)
                     {
 
                         var verifyId = connection.Belongings_Articles.Where(a => a.idBelonging == element.idBelonging).FirstOrDefault();
-                        if (verifyId != null && verifyId.idBelonging > 0)
+                        if (verifyId == null)
                         {
-                            Console.WriteLine(element.idBelonging);
-                        } else
-                        {
+                            
                             Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
                             belonging.idBelonging = element.idBelonging;
                             belonging.Features = element.characteristics;
@@ -276,14 +284,12 @@ namespace BusinessLogic
                             belonging.LoanAmount = element.loanAmount;
                             belonging.DeadLine = element.Contract.deadlineDate;
                             belonging.State = element.Contract.stateContract;
+                            Console.WriteLine(belonging.DeadLine);
 
-                            
-                            
+
                             belongins.Add(belonging);
-                            Console.WriteLine("else"+belonging.DeadLine);
                         }
-              
-                    }
+                        }
                     for (int i = 0; i < belongins.Count(); i++)
                     {
                         var element = belongins[i];
@@ -293,8 +299,6 @@ namespace BusinessLogic
                             belongins[i].image = image.imagen;
                         }
                     }
-
-
                 }
             }
             else

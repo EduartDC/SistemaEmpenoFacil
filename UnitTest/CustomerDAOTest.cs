@@ -23,33 +23,33 @@ namespace UnitTest
         [TestInitialize]
         public void TestInitialize()
         {
+            newCustomer = new DataAcces.Customer();
+            imagesIdentifications = new List<ImagesIdentification>();
+            newCustomer.blackList = false;
+            newCustomer.firstName = "Test";
+            newCustomer.lastName = "Test";
+            newCustomer.idCustomer = 1;
+            newCustomer.curp = "DCFFT25632DH43Y00";
+            newCustomer.address = "San Pedro #405, Queretaro, Qro ";
+            newCustomer.telephonNumber = 2256318989335548933;
+            newCustomer.identification = "INE";
 
-            //newCustomer = new DataAcces.Customer();
-            //imagesIdentifications = new List<ImagesIdentification>();
-            //newCustomer.blackList = false;
-            //newCustomer.firstName = "Test";
-            //newCustomer.lastName = "Test";
-            //newCustomer.idCustomer = 1;
-            //newCustomer.curp = "DCFFT25632DH43Y00";
-            //newCustomer.address = "San Pedro #405, Queretaro, Qro ";
-            //newCustomer.telephonNumber = 2256318989335548933;
-            //newCustomer.identification = "INE";
-            //string imageRuteOne = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/budget.png";
-            //byte[] bytesImagenOne = File.ReadAllBytes(imageRuteOne);
-            //ImagesIdentification imagesIdentificationOne = new ImagesIdentification()
-            //{
-            //    imagen = bytesImagenOne,
-            //    Customer_idCustomer = 23
-            //};
-            //string imageRuteTwo = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/Sale.png";
-            //byte[] bytesImagenTwo = File.ReadAllBytes(imageRuteTwo);
-            //ImagesIdentification imagesIdentificationTwo = new ImagesIdentification()
-            //{
-            //    imagen = bytesImagenTwo,
-            //    Customer_idCustomer = 23
-            //};
-            //imagesIdentifications.Add(imagesIdentificationOne);
-            //imagesIdentifications.Add(imagesIdentificationTwo);
+            string imageRuteOne = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/budget.png";
+            byte[] bytesImagenOne = File.ReadAllBytes(imageRuteOne);
+            ImagesIdentification imagesIdentificationOne = new ImagesIdentification()
+            {
+                imagen = bytesImagenOne,
+                Customer_idCustomer = 23
+            };
+            string imageRuteTwo = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/Sale.png";
+            byte[] bytesImagenTwo = File.ReadAllBytes(imageRuteTwo);
+            ImagesIdentification imagesIdentificationTwo = new ImagesIdentification()
+            {
+                imagen = bytesImagenTwo,
+                Customer_idCustomer = 23
+            };
+            imagesIdentifications.Add(imagesIdentificationOne);
+            imagesIdentifications.Add(imagesIdentificationTwo);
         }
 
         [TestMethod]
@@ -306,6 +306,41 @@ namespace UnitTest
         public void TestAddTwoImageIdentificationDbUpdateException()
         {
             Assert.AreEqual(500, CustomerDAO.AddTwoImageIdentification(imagesIdentifications));
+        }
+
+        [TestMethod]
+
+        public void TestRecoverAllCustomer()
+        {
+            List<Domain.Customer> resultCustomers = CustomerDAO.RecoverAllCustomers();
+            int expectedResult = resultCustomers.Count;
+            Assert.AreEqual(expectedResult, resultCustomers.Count);
+
+
+        }
+        [TestMethod]
+       
+        public void TestRecoverAllCustomerFailed()
+        {
+            try
+            {
+
+                List<Domain.Customer> customers = CustomerDAO.RecoverAllCustomers();
+                Assert.IsNotNull(customers);
+                Assert.IsTrue(customers.Count > 0);
+                
+            }
+            catch (ArgumentNullException ex)
+            {
+                
+                Assert.Fail("Se esperaba una excepción de tipo ArgumentNullException.");
+            }
+            catch (Exception ex)
+            {
+                
+                Assert.Fail("Se esperaba una excepción de tipo Exception.");
+            }
+
         }
 
         //Jnathan

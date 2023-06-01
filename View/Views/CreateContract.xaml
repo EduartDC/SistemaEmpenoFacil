@@ -289,6 +289,7 @@
                 Grid.Row="3"
                 VerticalAlignment="Top"
                 Width="148"/>
+
             <TextBox
                 x:Name="tbDateEndorsementSettlement"
                 HorizontalAlignment="Left"
@@ -299,6 +300,7 @@
                 Width="141"
                 BorderBrush="#00ABADB3"
                 HorizontalContentAlignment="Center"/>
+
             <Label
                 Content="fecha refrendo/finiquito"
                 HorizontalAlignment="Left"
@@ -412,6 +414,16 @@
                 VerticalAlignment="Top"
                 Width="149"/>
             <TextBox
+                x:Name="tbDollarPay"
+                HorizontalAlignment="Left"
+                Margin="785,33,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="20"
+                BorderBrush="#00ABADB3"
+                HorizontalContentAlignment="Center"/>
+            <TextBox
                 x:Name="tbTotalPaymentForEndorsement"
                 HorizontalAlignment="Left"
                 Margin="755,33,0,0"
@@ -428,6 +440,15 @@
                 Grid.Row="3"
                 VerticalAlignment="Top"
                 FontWeight="Bold"/>
+            <TextBox
+                x:Name="tbDollarPerformance"
+                HorizontalAlignment="Left"
+                Margin="960,34,0,0"
+                Grid.Row="3"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                Width="20" BorderBrush="#00ABADB3"
+                HorizontalContentAlignment="Center"/>
             <TextBox
                 x:Name="tbTotalPerformancePay"
                 HorizontalAlignment="Left"
@@ -480,12 +501,12 @@
             <Button
                 Foreground="White"
                 Background="#323D8F"
-                Content="Cancelar opearción"
+                Content="Cancelar operación"
                 HorizontalAlignment="Left"
                 Margin="750,237,0,0"
                 Grid.Row="3"
                 VerticalAlignment="Top"
-                Height="30" Width="180" FontSize="20">
+                Height="30" Width="180" FontSize="20" Click="ClickCancelOperation">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter  Property="CornerRadius" Value="10"/>
@@ -509,7 +530,6 @@
             <Rectangle HorizontalAlignment="Left" Height="160" Margin="742,45,0,0" Grid.Row="3" Stroke="#FF330099" VerticalAlignment="Top" Width="1" />
             <Rectangle HorizontalAlignment="Left" Height="160" Margin="908,45,0,0" Grid.Row="3" Stroke="#FF330099" VerticalAlignment="Top" Width="1" />
             <MediaElement HorizontalAlignment="Left" Height="100" Margin="1287,355,0,0" Grid.Row="3" VerticalAlignment="Top" Width="100"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="670,46,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Borrar"/>
             <TextBox
 
                 HorizontalAlignment="Left"

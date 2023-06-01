@@ -223,6 +223,7 @@ namespace View.Views
             */
             int term = int.Parse(cbTerm.SelectedItem.ToString());
             string info = "";
+            tbDollarPay.Text = "";
             for (int i = 1; i <= term; i++)
             {
                 float loan = float.Parse(tbLoanAmount.Text);//capital
@@ -231,6 +232,7 @@ namespace View.Views
                 float iva = float.Parse(metrics.IVA) / 100;//iva
                 float result = loan + (loan * (i * interestRate * 1 + (iva)));
                 info += result + ";\n";
+                tbDollarPay.Text += "$" + "\n";
             }
 
             tbTotalPerformancePay.Text = info;
@@ -291,6 +293,7 @@ namespace View.Views
             /*
             *  OPERACION:  capital * (plazoMeses *intereses* 1 + (iva))
             */
+            tbDollarPerformance.Text = "";
             tbTotalPaymentForEndorsement.Text = "";
             int term = int.Parse(cbTerm.SelectedItem.ToString());
             string info = "";
@@ -302,6 +305,7 @@ namespace View.Views
                 float iva = float.Parse(metrics.IVA) / 100;//iva
                 float result = loan * (i * interestRate * 1 + (iva));
                 info += result + ";\n";
+                tbDollarPerformance.Text += "$" + "\n";
             }
             tbTotalPaymentForEndorsement.Text = "";
             tbTotalPaymentForEndorsement.Text = info;
@@ -518,6 +522,14 @@ namespace View.Views
             CreateCustomerRecord registerCustomer = new CreateCustomerRecord();
             mainWindow.SecundaryContainer.Navigate(registerCustomer);
             mainWindow.PrimaryContainer.IsHitTestVisible = false;
+        }
+
+        private void ClickCancelOperation(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult resultMessage = MessageBox.Show("¿Desea cancelar la operación?, cualquier información introducida se perderá", "Confirmación",MessageBoxButton.OKCancel);
+            if (resultMessage == MessageBoxResult.OK)
+                this.Content = null;
+
         }
     }
 }

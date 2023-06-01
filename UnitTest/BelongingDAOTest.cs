@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -26,5 +27,17 @@ namespace UnitTest
             belongings = BelongingDAO.GetBelongingByIdContract(idContract);
             Assert.AreEqual(0, belongings.Count);
         }
+
+
+        [TestMethod]
+        public void TestGetAllBelonging()
+        {
+
+            var result = BelongingDAO.GetAllBelonging();
+
+            Assert.IsNotNull(result);
+        }
+        
     }
+    
 }

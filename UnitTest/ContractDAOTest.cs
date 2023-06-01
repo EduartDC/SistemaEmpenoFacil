@@ -174,6 +174,7 @@ namespace UnitTest
 
         }
 
+
         //Jonathan
         //CU crear contrato
         [TestMethod]
@@ -309,6 +310,25 @@ namespace UnitTest
             {
                 Console.WriteLine("Error al leer el archivo: " + e.Message);
             }
+        }
+
+
+        [TestMethod]
+        public void TestReactiveContract()
+        {
+            int idContract =9 ;
+            var contract = ContractDAO.ReactiveContract(idContract);
+            int expectedResult = 1;
+            Assert.AreEqual(expectedResult, contract);
+        }
+        [TestMethod]
+        [ExpectedException(typeof (NullReferenceException))]
+        public void TestReactiveContractFailed()
+        {
+            int idContract = 0;
+            var contract = ContractDAO.ReactiveContract(idContract);
+            int expectedResult = 0;
+            Assert.AreEqual(expectedResult, contract);
         }
 
     }

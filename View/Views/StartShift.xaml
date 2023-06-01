@@ -34,7 +34,7 @@
                     VerticalAlignment="Top"
                     FontSize="25"
                     FontWeight="Bold"
-                    
+                    GotFocus="textAmountReceived_GotFocus"
                     PreviewTextInput="textAmountReceived_PreviewTextInput"
                     Text="00.00"
                     TextAlignment="Right"  />

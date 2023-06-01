@@ -74,6 +74,32 @@ namespace BusinessLogic
             return result;
         }
 
+        //Rafa
+        public static int PayOffSetAside(string state, int idSetAside)
+        {
+            var result = MessageCode.ERROR;
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var article = connection.SetAsides.Where(a => a.idSetAside == idSetAside).FirstOrDefault();
+                    if (article != null)
+                    {
+                        article.stateAside = state;
+                        article.reaminingAmount = 0;
+                        
+                        
+                        result = connection.SaveChanges();
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("Error de conexión");
+            }
+            return result;
+        }
+
         public static List<SetAside> GetSedAsidesByDate(DateTime startDate, DateTime endDate)
         {
             List<SetAside> setAsides = null;
@@ -117,5 +143,36 @@ namespace BusinessLogic
 
             return (result, setAside);
         }
+
+        //Rafa
+        public static List<DataAcces.SetAside>GetSetAsidesByIdCustomer(int id)
+        {
+            List<DataAcces.SetAside>setAsides = new List<DataAcces.SetAside>();
+            
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var result = connection.SetAsides.Where(setAside  =>setAside.Customer_idCustomer == id).ToList();
+                    foreach(var item in result)
+                         
+                    {
+                        DataAcces.SetAside setAside= new DataAcces.SetAside();
+                        setAside.idSetAside= item.idSetAside;
+                        setAside.deadlineDate = item.deadlineDate;
+                        setAside.totalAmount = item.totalAmount;
+                        setAside.reaminingAmount = item.reaminingAmount;
+                        setAside.stateAside = item.stateAside;
+                        setAsides.Add(setAside);
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("Error de conexion");
+            }
+            return setAsides;
+        }
+        
     }
 }

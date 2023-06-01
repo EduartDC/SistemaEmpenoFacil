@@ -85,7 +85,7 @@
             </TextBox.Style>
         </TextBox>
         <Label Content="Modelo" HorizontalAlignment="Left" Margin="18,206,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbApraisalAmount" HorizontalAlignment="Left" Margin="24,297,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" FontSize="15" VerticalAlignment="Top" Width="225" BorderBrush="#00ABADB3"/>
+        <TextBox x:Name="tbApraisalAmount" HorizontalAlignment="Left" Margin="24,295,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" FontSize="15" VerticalAlignment="Top" Width="225" BorderBrush="#00ABADB3"/>
         <Label Content="valor maximo" HorizontalAlignment="Left" Margin="18,240,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="24,284,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225"/>
         <TextBox x:Name="tbMaxValue" HorizontalAlignment="Left" Margin="24,261,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" FontSize="14" VerticalAlignment="Top" Width="225" BorderBrush="#00ABADB3"/>

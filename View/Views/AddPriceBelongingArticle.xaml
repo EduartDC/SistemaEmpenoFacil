@@ -13,7 +13,7 @@
         <Label Content="Asigna precio de venta" HorizontalAlignment="Left" Margin="58,25,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbPrice" HorizontalAlignment="Left" Margin="58,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
         <Button x:Name="btn_SetPrice" Content="Asignar precio" HorizontalAlignment="Left" Margin="125,105,0,0" VerticalAlignment="Top" Click="btn_SetPrice_Click"/>
-        <Button x:Name="btn_Cancel" Content="Cancelar" HorizontalAlignment="Left" Margin="32,105,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn_Cancel" Content="Cancelar" HorizontalAlignment="Left" Margin="32,105,0,0" VerticalAlignment="Top" Click="btn_Cancel_Click"/>
 
     </Grid>
 </Page>

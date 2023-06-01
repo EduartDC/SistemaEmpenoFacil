@@ -250,6 +250,27 @@ namespace BusinessLogic
                 result = MessageCode.CONNECTION_ERROR;
             return result;
         }
+        //Rafa
+        public static int ReactiveContract(int idContract)
+        {
+            int result = 0;
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    Contract temp = connection.Contracts.Find(idContract);
+
+                    temp.stateContract = StatesContract.REACTIVED_CONTRACT;
+                    temp.deadlineDate = DateTime.Now.AddMonths(temp.duration);
+                    connection.SaveChanges();
+                    result = MessageCode.SUCCESS;
+
+                }
+            }
+            else
+                result = MessageCode.CONNECTION_ERROR;
+            return result;
+        }
 
         public static List<Domain.ContractDomain> GetContractsByDate(DateTime startDate, DateTime endDate)
         {

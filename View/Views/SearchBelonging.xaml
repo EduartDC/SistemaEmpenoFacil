@@ -23,31 +23,22 @@
 
 
         <Button
-            Content="Buscar artículo"
+            Content="Recargar tabla"
             HorizontalAlignment="Left"
-            Margin="121,28,0,0"
-            VerticalAlignment="Top"
+            Margin="100,0,0,0"
+            VerticalAlignment="Center"
             Height="34"
             Width="200"
             Foreground="White"
             Background="#323D8F"
             FontSize="20"
-            Grid.Column="2" Click="btn_FilterArticles" FontWeight="Bold" Grid.ColumnSpan="2">
+            Grid.Column="2" Click="btn_Reload" FontWeight="Bold" Grid.ColumnSpan="2">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter  Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <ComboBox
-
-            x:Name="cbCategory"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Width="200"
-            Height="32"
-            Grid.Column="1"
-            FontSize="15" Grid.ColumnSpan="2" Margin="90,0,0,0"/>
 
 
         <DataGrid
@@ -71,50 +62,11 @@
 
                 <DataGridTextColumn  FontSize="15" Header="Numero de serie" Width="180" Binding="{Binding SerialNumber}"/>
                 <DataGridTextColumn  FontSize="15" Header="Avaluo" Width="75" Binding="{Binding ApraisalAmount}"/>
-                <DataGridTextColumn  FontSize="15" Header="Categoria" Width="200" Binding="{Binding Category}"/>
-                <DataGridTextColumn  FontSize="15" Header="Contrato" Width="75" Binding="{Binding Contract_idContract}"/>
+                <DataGridTextColumn  FontSize="15" Header="Categoria" Width="120" Binding="{Binding Category}"/>
+                <DataGridTextColumn  FontSize="15" Header="Contrato" Width="95" Binding="{Binding Contract_idConctract}"/>
                 <DataGridTextColumn FontSize="15" Header="Estado" Width="75" Binding="{Binding State}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="tbID"
-                 HorizontalAlignment="Center"
-                 TextWrapping="Wrap"
-                 Text=""
-                 VerticalAlignment="Center"
-                 Width="200"
-                 Height="32"
-                 Grid.Column="0"
-                 FontSize="15"
-                 HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center">
-            <TextBox.Style>
-                <Style TargetType="{x:Type TextBox}">
-                    <Style.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="5" />
-                        </Style>
-                    </Style.Resources>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-
-        <Label
-            Content="ID"
-            Grid.Row="0"
-            Grid.Column="0"
-            FontWeight="Bold"
-            Margin="0,10,0,66"
-            HorizontalAlignment="Center"
-            Width="144"
-            HorizontalContentAlignment="Center"/>
-        <Label
-            Content="Categoria"
-            Grid.Row="0"
-            Grid.Column="1"
-            FontWeight="Bold"
-            VerticalAlignment="Top"
-            Margin="118,8,138,0"
-            Width="144" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
 
 
 
