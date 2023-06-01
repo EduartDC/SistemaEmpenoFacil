@@ -43,12 +43,7 @@ namespace View.Views
 
         private void Btn_Exit_Click(object sender, RoutedEventArgs e)
         {
-            var window = (MainWindow)Application.Current.MainWindow;
-            BlurEffect blurEffect = new BlurEffect();
-            blurEffect.Radius = 0;
-            window.PrimaryContainer.Effect = blurEffect;
-            window.SecundaryContainer.Content = null;
-            window.PrimaryContainer.IsHitTestVisible = true;
+            closePage();
         }
 
         private void Btn_Add_Click(object sender, RoutedEventArgs e)
@@ -81,8 +76,8 @@ namespace View.Views
                 {
                     MessageBox.Show("No se ha podido conectar a la base de datos, favor de intentarlo más tarde");
                 }
-                
-                
+
+
             }
         }
 
@@ -109,7 +104,8 @@ namespace View.Views
                     if (CustomerDAO.AddTwoImageIdentification(imagesIdentifications) == 200)
                     {
                         MessageBox.Show("Cliente registrado con exito   ");
-                        this.Content = null;
+
+                        closePage();
                     }
                     else
                     {
@@ -121,6 +117,16 @@ namespace View.Views
             {
                 MessageBox.Show("Error al registrar al cliente en la base de datos");
             }
+        }
+
+        private void closePage()
+        {
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 0;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Content = null;
+            window.PrimaryContainer.IsHitTestVisible = true;
         }
 
         private void ConvertToBytes(BitmapImage bitmap)
