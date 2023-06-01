@@ -99,6 +99,17 @@ namespace UnitTest
             Assert.AreEqual(0, resultObtined);
         }
 
+
+        //jonathan
+        //Cu crear contrato
+        [TestMethod]
+        public void TestCreateContractConnectionError()
+        {
+            int code = MessageCode.CONNECTION_ERROR;
+            Contract contract = new Contract();
+            var resultContract = ContractDAO.RegisterContract(contract);
+            Assert.AreEqual((code, 0), resultContract);
+        }
         [TestMethod]
         public void TestGetContractSucess()
         {
@@ -137,6 +148,26 @@ namespace UnitTest
             int ExpectedResult = 1;
             int response = ContractDAO.ModifyContract(contract, idContract);
             Assert.AreEqual(ExpectedResult, response);
+        }
+
+        [TestMethod]
+        public void TestRecoverContractsByDatesSuccess()
+        {
+            Assert.IsNotNull(ContractDAO.GetContractsByDate(DateTime.Parse("01/05/2023 12:00:00 a. m."), DateTime.Parse("30/05/2023 12:00:00 a. m.")));
+        }
+
+        [TestMethod]
+        public void TestRecoverContractsByDatesNoContracts()
+        {
+            Assert.IsNull(ContractDAO.GetContractsByDate(DateTime.Parse("01/06/2023 12:00:00 a. m."), DateTime.Parse("30/06/2023 12:00:00 a. m.")));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestRecoverContractsByDatesException()
+        {
+            Assert.IsNull(ContractDAO.GetContractsByDate(DateTime.Parse("01/05/2023 12:00:00 a. m."), DateTime.Parse("30/05/2023 12:00:00 a. m.")));
+
         }
     }
 }

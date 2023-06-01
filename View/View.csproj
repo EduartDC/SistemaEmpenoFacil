@@ -147,6 +147,9 @@
     <Compile Include="Views\GenerateReortOSparatedIms.xaml.cs">
       <DependentUpon>GenerateReortOSparatedIms.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GenerateReportContracts.xaml.cs">
+      <DependentUpon>GenerateReportContracts.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GenerateSalesReport.xaml.cs">
       <DependentUpon>GenerateSalesReport.xaml</DependentUpon>
     </Compile>
@@ -288,6 +291,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GenerateReortOSparatedIms.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GenerateReportContracts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

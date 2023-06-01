@@ -59,7 +59,7 @@ namespace View.Views
             contractList.ForEach(customer => _listNamesCustomers.Add(customer.firstName));
             contractList.ForEach(customer => _listNumberContracts.Add(customer.idContract));
             tableCustomers.ItemsSource = contractList;
-            if(contractList.Count == 0)
+            if (contractList.Count == 0)
             {
                 MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
                 this.Content = null;
@@ -145,11 +145,11 @@ namespace View.Views
         private void Button_Liquidate_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            if(btn != null)
+            if (btn != null)
             {
                 var row = DataGridRow.GetRowContainingElement(btn);
                 var item = row.Item;
-                if(item != null && tableCustomers.Items.Contains(item))
+                if (item != null && tableCustomers.Items.Contains(item))
                 {
                     var contractSelected = tableCustomers.SelectedItem as CompleteContract;
                     var window = (MainWindow)Application.Current.MainWindow;

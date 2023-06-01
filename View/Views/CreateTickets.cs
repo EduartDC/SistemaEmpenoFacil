@@ -89,6 +89,7 @@ namespace View.Views
 
             doc.Close();
             writer.Close();
+            System.Diagnostics.Process.Start(fullPath);
         }
 
 
@@ -109,7 +110,7 @@ namespace View.Views
             else
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
         }
-
+        
         private void CreateSaleTicket(List<ArticleDomain> articles, Sale sale, DataAcces.Customer customer)
         {
             float ticketWidth = 80f;  // Ancho del ticket en mm
@@ -176,16 +177,17 @@ namespace View.Views
             // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(dateInfo);
 
-            Paragraph subtotal = new Paragraph("SUBTOTAL           : $" + sale.total, new Font(Font.FontFamily.HELVETICA, 8));
+            Paragraph subtotal = new Paragraph("SUBTOTAL           : $" + sale.total.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
             // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(subtotal);
 
-            Paragraph total = new Paragraph("TOTAL              : $" + sale.subtotal, new Font(Font.FontFamily.HELVETICA, 8));
+            Paragraph total = new Paragraph("TOTAL              : $" + sale.subtotal.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
             // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(total);
 
             doc.Close();
             writer.Close();
+            System.Diagnostics.Process.Start(fullPath);
 
         }
 
@@ -265,9 +267,10 @@ namespace View.Views
             Paragraph infoArticle = new Paragraph("*INFORMACION ARTICULOS*", new Font(Font.FontFamily.HELVETICA, 8));
             infoArticle.Alignment = Element.ALIGN_CENTER;
             doc.Add(infoArticle);
-
+            Console.WriteLine("cantidad de articulos: " + articles.Count);
             foreach (var util in articles)
             {
+
                 Paragraph articleName = new Paragraph("- " + util.description.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
                 // infoArticle.Alignment = Element.ALIGN_CENTER;
                 doc.Add(articleName);
@@ -288,26 +291,27 @@ namespace View.Views
             // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(dateDeadline);
 
-            Paragraph total = new Paragraph("TOTAL              : $" + setAside.totalAmount, new Font(Font.FontFamily.HELVETICA, 8));
+            Paragraph total = new Paragraph("TOTAL              : $" + setAside.totalAmount.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
             // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(total);
 
-            Paragraph remaining = new Paragraph("RESTANTE           : $" + setAside.reaminingAmount, new Font(Font.FontFamily.HELVETICA, 8));
+            Paragraph remaining = new Paragraph("RESTANTE           : $" + setAside.reaminingAmount.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
             // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(remaining);
 
             double payAmount = setAside.totalAmount - setAside.reaminingAmount; 
-            Paragraph pay = new Paragraph("ANTICIPO           : $" + payAmount, new Font(Font.FontFamily.HELVETICA, 8));
+            Paragraph pay = new Paragraph("ANTICIPO           : $" + payAmount.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
             // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(pay);
 
             doc.Close();
             writer.Close();
+            System.Diagnostics.Process.Start(fullPath);
         }
 
         public static  async void TicketLiquidateContract(int idContract, double payAmount)
         {
-
+            Console.WriteLine("ticket");
             ContractDomain contract =  await  ContractDAO.GetContractsDomainAsync(idContract);
             if(contract != null)
             {
@@ -386,9 +390,12 @@ namespace View.Views
             // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(idContract);
 
-            Paragraph pay = new Paragraph("PAGO                : " + payAmount, new Font(Font.FontFamily.HELVETICA, 8));
+            Paragraph pay = new Paragraph("PAGO                : " + payAmount.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
             // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(pay);
+            doc.Close();
+            writer.Close();
+            System.Diagnostics.Process.Start(fullPath);
 
         }
     }

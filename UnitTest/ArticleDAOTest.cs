@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Utility;
+using DataAcces;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -81,7 +82,117 @@ namespace UnitTest
             Assert.AreEqual(expectedResult, ArticleDAO.UpdateArticleState(0, ""));
         }
 
+
+        //Jonathan
         //CU16 findArticles
+
+        [TestMethod]
+        public void TestGetFindArticles()
+        {
+            List<ArticleDomain> articles = new List<ArticleDomain>();
+            int resultCode = MessageCode.SUCCESS;
+            Assert.AreEqual((resultCode, articles), ArticleDAO.getArticles());
+        }
+
+        [TestMethod]
+        public void  TestGetArticlesErrorConnection()
+        {
+            int expectedResult = MessageCode.CONNECTION_ERROR;
+            var result = ArticleDAO.getArticles();
+            Assert.AreEqual((expectedResult, result.Item2),result);
+        }
+
+        //Jonathan
+        //CU-crear ticket venta
+        [TestMethod]
+        public void TestGetArticlesById()
+        {
+            int resultCode = MessageCode.SUCCESS;
+            List<Belongings_Articles> articles = new List<Belongings_Articles>();
+            List<int>  articlesId = new List<int> {1};
+            Assert.AreEqual((resultCode,articles),ArticleDAO.GetArticlesListById(articlesId));
+        }
+
+        //Jonathan
+        //CU-crear ticket venta
+        [TestMethod]
+        public void TestGetArticlesByIdConnectionError()
+        {
+            int resultCode = MessageCode.CONNECTION_ERROR;
+            List<Belongings_Articles> articles = new List<Belongings_Articles>();
+            List<int> articlesId = new List<int> { 1 };
+            var result = ArticleDAO.GetArticlesListById(articlesId);
+            Assert.AreEqual((resultCode, result.Item2), result);
+        }
+
+        //Jonathan
+        //Cu Crear reporte de ventas
+        [TestMethod]
+        public void testGetSaleList()
+        {
+            int resultCode = MessageCode.SUCCESS;
+            DateTime end = DateTime.Now;
+            DateTime Begin = DateTime.Now.AddMonths(-1);
+            List<SaledArticle> articles = new List<SaledArticle>();
+            Assert.Equals((resultCode, articles), ArticleDAO.GetSaledArticlesToReport(Begin, end));
+        }
+
+        //Jonathan
+        //Cu Crear reporte de ventas
+        [TestMethod]
+        public void testGetSaleListToReportConnectionError()
+        {
+            int resultCode = MessageCode.CONNECTION_ERROR;
+            DateTime end = DateTime.Now;
+            DateTime Begin = DateTime.Now.AddMonths(-1);
+            List<SaledArticle> articles = new List<SaledArticle>();
+            var result = ArticleDAO.GetSaledArticlesToReport(Begin, end);
+            Assert.AreEqual((resultCode, result.Item2), result); 
+        }
+
+        //Jonathan
+        //Cu Crear reporte de ventas
+        [TestMethod]
+        public void testGetArticlesStockToReport()
+        {
+            int resultCode = MessageCode.SUCCESS;
+            DateTime end = DateTime.Now;
+            DateTime Begin = DateTime.Now.AddMonths(-1);
+            List<SaledArticle> articles = new List<SaledArticle>();
+            Assert.Equals((resultCode, articles), ArticleDAO.GetSaledArticlesToReport(Begin, end));
+        }
+
+        //Jonathan
+        //Cu Crear reporte de ventas
+        [TestMethod]
+        public void testGetArticlesStockToReportConnectionError()
+        {
+            int resultCode = MessageCode.CONNECTION_ERROR;
+            DateTime end = DateTime.Now;
+            DateTime Begin = DateTime.Now.AddMonths(-1);
+            List<SaledArticle> articles = new List<SaledArticle>();
+            var result = ArticleDAO.GetSaledArticlesToReport(Begin, end);
+            Assert.AreEqual((resultCode, result.Item2),result);
+        }
+
+        //jonathan
+        //Cu dar ganancia a cliente
+        [TestMethod]
+        public void TestGiveProfitArticlesToCustomer()
+        {
+            int code = MessageCode.SUCCESS;
+            Assert.Equals(code, ArticleDAO.GiveProfitArticlesToCustomer(1));
+        }
+
+        //jonathan
+        //Cu dar ganancia a cliente
+        [TestMethod]
+        public void TestGiveProfitArticlesToCustomerConnectionError()
+        {
+            int code = MessageCode.CONNECTION_ERROR;
+            var result = ArticleDAO.GiveProfitArticlesToCustomer(1);
+            Assert.AreEqual(code, result);
+        }
         //[TestMethod]
         //public void TestGetFindArticles()
         //{
@@ -138,6 +249,7 @@ namespace UnitTest
             int expectedResult = 1;
             int resultOperation = BelongingsArticlesDAO.ModifyBelonging_Article(idArticle, idSale, storeProfit);
             Assert.AreEqual(expectedResult, resultOperation);
+
         }
         [TestMethod]
         public void TestGetArticlesListByIdSetAside()

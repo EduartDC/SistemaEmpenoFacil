@@ -92,11 +92,13 @@ namespace View.Views
             collectionView = CollectionViewSource.GetDefaultView(articles);
             collectionView.Filter = (item) => true;
             dgArticles.ItemsSource = collectionView;
+            CountArticles();
 
         }
 
         private void Btn_EditArticle(object sender, RoutedEventArgs e)
         {
+            /*
             if (SelectedItem())
             {
                 var idArticle = dgArticles.SelectedItem as ArticleDomain;
@@ -104,7 +106,12 @@ namespace View.Views
                 editArticle.ShowDialog();
             }
             else
-                ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);
+                ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);*/
+            List<int> idarticles  = new List<int> {1,4,8,6};
+            var x =ArticleDAO.getArticlesById(idarticles);
+            MessageBox.Show("articulos recuperados: " + x.Count);
+            foreach (var y in x)
+                Console.WriteLine(y.description);
         }
 
         private bool SelectedItem()
@@ -136,14 +143,20 @@ namespace View.Views
                     return false;
                 };
             }
-
+            CountArticles();
         }
 
         private void btn_FilterArticles(object sender, RoutedEventArgs e)
         {
 
             FilterTable();
+            CountArticles();   
 
+        }
+
+        private void CountArticles()
+        {
+            lbCountArticles.Content = dgArticles.Items.Count;
         }
 
         private void FilterTable()

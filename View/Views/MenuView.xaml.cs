@@ -46,14 +46,14 @@ namespace View.Views
                 itemRegisterStaff.Visibility = Visibility.Collapsed;
                 itemOperationCashRegister.Visibility = Visibility.Collapsed;
                 itemReports.Visibility = Visibility.Collapsed;
+                itemModifyStaff.Visibility = Visibility.Collapsed;
             }
             else if (_staff.rol.Equals("Gerente"))
             {
                 itemRegisterStaff.Visibility = Visibility.Collapsed;
+                itemModifyStaff.Visibility = Visibility.Collapsed;
                 itemConfiguration.Visibility = Visibility.Collapsed;
             }
-
-
         }
         private void itemHome_Click(object sender, RoutedEventArgs e)
         {
@@ -183,6 +183,11 @@ namespace View.Views
         private void itemGenerateReport_Click(object sender, RoutedEventArgs e)
         {
             Container.NavigationService.Navigate(new GenerateReortOSparatedIms());
+        }
+
+        private void GenerateContractReport_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new GenerateReportContracts());
         }
         private void itemNewArticles_Click(object sender, RoutedEventArgs e)
         {
