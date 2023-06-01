@@ -7,10 +7,10 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RegisterStaff"
-      Background="White">
+      >
 
     <ScrollViewer>
-        <Grid>
+        <Grid Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="10" x:Name="header"/>
                 <RowDefinition Height="50"/>

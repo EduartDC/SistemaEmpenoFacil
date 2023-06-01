@@ -6,10 +6,10 @@
       xmlns:local="clr-namespace:View.Views"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1200"
-      Background="White"
+
       Title="CreateCustomerRecord">
 
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="100"

@@ -32,9 +32,10 @@ namespace View.Views
         {
 
             _id = idContract;
-            labelValidation.Visibility = Visibility.Hidden;
+
             SetInformationAsync(idContract);
             InitializeComponent();
+            labelValidation.Visibility = Visibility.Hidden;
         }
 
         private async Task SetInformationAsync(int idContract)
@@ -92,7 +93,8 @@ namespace View.Views
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = null;
+            //this.Content = null;
+            this.NavigationService.GoBack();
         }
 
         private void btnLiquidate_Click(object sender, RoutedEventArgs e)
@@ -112,10 +114,13 @@ namespace View.Views
             if (result)
             {
                 ErrorManager.ShowInformation("El pago se concreto.");
-                CreateTickets.TicketLiquidateContract(_id,_total);
+                CreateTickets.TicketLiquidateContract(_id, _total);
                 SaveChanges();
                 labelValidation.Visibility = Visibility.Visible;
                 btnLiquidate.IsEnabled = false;
+                labelSubTotal.Content = "SubTotal: 0.00";
+                labelIva.Content = "Intereses : 0.00";
+                labelTotal.Content = "Total: 0.00";
             }
             else
             {
