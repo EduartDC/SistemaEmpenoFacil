@@ -250,6 +250,7 @@ namespace BusinessLogic
                 result = MessageCode.CONNECTION_ERROR;
             return result;
         }
+        //Rafa
         public static int ReactiveContract(int idContract)
         {
             int result = 0;

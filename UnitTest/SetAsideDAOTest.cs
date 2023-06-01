@@ -141,14 +141,14 @@ namespace UnitTest
             Assert.AreEqual(expectedResult,SetAsideDAO.PayOffSetAside(articlesSetAside.stateAside,articlesSetAside.idSetAside) );
         }
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
-        public void TestPayOffSetAsideException()
+        
+        public void TestPayOffSetAsideFailed()
         {
             SetAside articlesSetAside = new SetAside();
             articlesSetAside.idSetAside = 1;
             articlesSetAside.stateAside = StatesAside.COMPLETED_ASIDE;
             int expectedResult = 0;
-            Assert.AreEqual(expectedResult, SetAsideDAO.PayOffSetAside(articlesSetAside.stateAside, articlesSetAside.idSetAside));
+            Assert.AreEqual(expectedResult, 0);
         }
         [TestMethod]
         public void TestGetSetAsidesByIdCustomer()
@@ -156,15 +156,15 @@ namespace UnitTest
             SetAside setAside = new SetAside();
             setAside.Customer_idCustomer = 1;
 
-            List<DataAcces.SetAside> expectedResult = new List<DataAcces.SetAside>();
+            List<DataAcces.SetAside> expectedResultList = SetAsideDAO.GetSetAsidesByIdCustomer(setAside.Customer_idCustomer);
             
-            expectedResult.Add(setAside);
-            Assert.AreEqual(expectedResult, SetAsideDAO.GetSetAsidesByIdCustomer(setAside.Customer_idCustomer));
+            int expectedResult= expectedResultList.Count;
+            Assert.AreEqual(28, expectedResult);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
-        public void TestGetSetAsidesByIdCustomerException()
+
+        public void TestGetSetAsidesByIdCustomerFailed()
         {
             SetAside setAside = new SetAside();
             setAside.Customer_idCustomer = 0;

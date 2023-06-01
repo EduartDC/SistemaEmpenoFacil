@@ -438,17 +438,13 @@ namespace BusinessLogic
                     }
                 }
             }
-            catch (SqlException ex)
+            catch (ArgumentNullException)
             {
-                _log.Add(ex.ToString());
+                throw new ArgumentNullException();
             }
-            catch (ArgumentNullException ex)
+            catch (Exception)
             {
-                _log.Add(ex.ToString());
-            }
-            catch (DataException ex)
-            {
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
             return resultCustomers;
         }

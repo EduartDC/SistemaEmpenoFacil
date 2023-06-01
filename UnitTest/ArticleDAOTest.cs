@@ -139,5 +139,29 @@ namespace UnitTest
             int resultOperation = BelongingsArticlesDAO.ModifyBelonging_Article(idArticle, idSale, storeProfit);
             Assert.AreEqual(expectedResult, resultOperation);
         }
+        [TestMethod]
+        public void TestGetArticlesListByIdSetAside()
+        {
+            int idsetAside = 13;
+
+            List<ArticleDomain> expectedResultList = ArticleDAO.GetArticlesListByIdSetAside(idsetAside);
+            int expectedResult = expectedResultList.Count;
+
+
+            Assert.AreEqual(expectedResult,1);
+
+        }
+        [TestMethod]
+        public void TestGetArticlesListByIdSetAsideFailed()
+        {
+            int idsetAside = 0;
+
+            List<ArticleDomain> expectedResultList = ArticleDAO.GetArticlesListByIdSetAside(idsetAside);
+            int expectedResult = expectedResultList.Count;
+
+
+            Assert.AreEqual(expectedResult, 0);
+
+        }
     }
 }

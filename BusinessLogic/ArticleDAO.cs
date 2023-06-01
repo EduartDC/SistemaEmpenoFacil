@@ -350,7 +350,7 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    Console.WriteLine("Antes de foreach"+idSetAside);
+                    
                     var articlesList = connection.ArticlesSetAsides.Where(a => a.SetAside_idSetAside == idSetAside).ToList();
                     foreach (ArticlesSetAside util in articlesList)
                     {
@@ -368,8 +368,10 @@ namespace BusinessLogic
                 }
                 result = MessageCode.SUCCESS;
             }
-            else
+            else {
                 result = MessageCode.CONNECTION_ERROR;
+            }
+                
 
             return articles;
         }
