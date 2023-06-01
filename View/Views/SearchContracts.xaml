@@ -8,10 +8,9 @@
     Title="SearchContracts"
     d:DesignHeight="800"
     d:DesignWidth="1300"
-    Background="White"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="130" />
             <RowDefinition Height="200*" />

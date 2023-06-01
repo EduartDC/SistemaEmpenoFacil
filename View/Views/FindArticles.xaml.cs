@@ -98,7 +98,7 @@ namespace View.Views
 
         private void Btn_EditArticle(object sender, RoutedEventArgs e)
         {
-            /*
+            
             if (SelectedItem())
             {
                 var idArticle = dgArticles.SelectedItem as ArticleDomain;
@@ -106,12 +106,8 @@ namespace View.Views
                 editArticle.ShowDialog();
             }
             else
-                ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);*/
-            List<int> idarticles  = new List<int> {1,4,8,6};
-            var x =ArticleDAO.getArticlesById(idarticles);
-            MessageBox.Show("articulos recuperados: " + x.Count);
-            foreach (var y in x)
-                Console.WriteLine(y.description);
+                ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);
+            
         }
 
         private bool SelectedItem()
