@@ -8,7 +8,7 @@
       d:DesignHeight="800" d:DesignWidth="1200"
       Title="SearchCustomer">
 
-    <Grid Background="White">
+    <Grid Background="White" Margin="0,0,0,231">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="275"/>
@@ -118,19 +118,19 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        
+
         <Button
             Grid.Row="2"
             Grid.Column="1"
-            Margin="0,186,129,0"
+            Margin="0,107,0,0"
             Content="Agregar a lista negra"
             Height="36"
-            Width="225"
+            Width="224"
             FontSize="20"
             VerticalAlignment="Top"
             Foreground="White"
             Background="#FF272938"
-            HorizontalAlignment="Right" Click="Button_AddBlackList" FontWeight="Bold">
+            HorizontalAlignment="Center" Click="Button_AddBlackList" FontWeight="Bold">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter  Property="CornerRadius" Value="10"/>

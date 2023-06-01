@@ -130,6 +130,51 @@ namespace UnitTest
             int expectedResult = 0;
             Assert.AreEqual(expectedResult, SetAsideDAO.UpdateSetAsideState("", 0));
         }
+        [TestMethod]
+       
+        public void TestPayOffSetAside()
+        {
+            SetAside articlesSetAside = new SetAside();
+            articlesSetAside.idSetAside = 1;
+            articlesSetAside.stateAside= StatesAside.COMPLETED_ASIDE;
+            int expectedResult = 0;
+            Assert.AreEqual(expectedResult,SetAsideDAO.PayOffSetAside(articlesSetAside.stateAside,articlesSetAside.idSetAside) );
+        }
+        [TestMethod]
+        
+        public void TestPayOffSetAsideFailed()
+        {
+            SetAside articlesSetAside = new SetAside();
+            articlesSetAside.idSetAside = 1;
+            articlesSetAside.stateAside = StatesAside.COMPLETED_ASIDE;
+            int expectedResult = 0;
+            Assert.AreEqual(expectedResult, 0);
+        }
+        [TestMethod]
+        public void TestGetSetAsidesByIdCustomer()
+        {
+            SetAside setAside = new SetAside();
+            setAside.Customer_idCustomer = 1;
+
+            List<DataAcces.SetAside> expectedResultList = SetAsideDAO.GetSetAsidesByIdCustomer(setAside.Customer_idCustomer);
+            
+            int expectedResult= expectedResultList.Count;
+            Assert.AreEqual(28, expectedResult);
+        }
+
+        [TestMethod]
+
+        public void TestGetSetAsidesByIdCustomerFailed()
+        {
+            SetAside setAside = new SetAside();
+            setAside.Customer_idCustomer = 0;
+
+            List<DataAcces.SetAside> expectedResult = SetAsideDAO.GetSetAsidesByIdCustomer(setAside.Customer_idCustomer);
+
+            int expectedResult2 = 0;
+            Assert.AreEqual(expectedResult2, expectedResult.Count);
+        }
+
 
         //Jonathan
         //Cu Crear tickets

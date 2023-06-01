@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -43,9 +44,16 @@ namespace View.Views
             else
             {
                 saveBelongingArticle();
+                
             }
-            
-            
+            MessageBox.Show("Se registró con éxito el articulo");
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 0;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Content = null;
+            window.PrimaryContainer.IsHitTestVisible = true;
+
         }
         private void saveBelongingArticle()
         {
@@ -75,6 +83,16 @@ namespace View.Views
 
             }
             return barCode;
+        }
+
+        private void btn_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 0;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Content = null;
+            window.PrimaryContainer.IsHitTestVisible = true;
         }
     }
 }

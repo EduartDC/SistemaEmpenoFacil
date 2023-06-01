@@ -410,9 +410,10 @@ namespace BusinessLogic
             else
                 return (MessageCode.CONNECTION_ERROR, null);
         }
-        public static List<Domain.Customer> RecoverAllCustomers()
+        //Rafa
+        public static  List<Domain.Customer> RecoverAllCustomers()
         {
-            NewLog _log = new NewLog();
+            //NewLog _log = new NewLog();
             List<Domain.Customer> resultCustomers = new List<Domain.Customer>();
             try
             {
@@ -437,17 +438,13 @@ namespace BusinessLogic
                     }
                 }
             }
-            catch (SqlException ex)
+            catch (ArgumentNullException)
             {
-                _log.Add(ex.ToString());
+                throw new ArgumentNullException();
             }
-            catch (ArgumentNullException ex)
+            catch (Exception)
             {
-                _log.Add(ex.ToString());
-            }
-            catch (DataException ex)
-            {
-                _log.Add(ex.ToString());
+                throw new Exception();
             }
             return resultCustomers;
         }

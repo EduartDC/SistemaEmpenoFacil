@@ -182,6 +182,11 @@
                         Header="Crear Apartado"
                         Style="{StaticResource MenuItemStyle}" />
                     <MenuItem
+                        Name="itemPayOffSetAside"
+                        Click="itemPaySetAside_Click"
+                        Header="Liquidar Apartado"
+                        Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
                         Name="itemGenerateReport"
                         Click="itemGenerateReport_Click"
                         Header="Generar reporte"
@@ -263,6 +268,16 @@
                         x:Name="itemFindArticles"
                         Click="itemFindArticles_Click"
                         Header="Buscar artículos"
+                        Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        x:Name="itemSearchBelongings"
+                        Click="itemSearchBelongings_Click"
+                        Header="Buscar prendas"
+                        Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        x:Name="itemNewArticles"
+                        Click="itemNewArticles_Click"
+                        Header="Asignar precio de venta"
                         Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
 

@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using DataAcces;
+using Domain;
 using Domain.BelongingCreation;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -70,10 +72,15 @@ namespace View.Views
                 {
 
                     Domain.BelongingCreation.Belonging belonging = (Domain.BelongingCreation.Belonging)item;
+                    var window = (MainWindow)Application.Current.MainWindow;
+                    BlurEffect blurEffect = new BlurEffect();
+                    blurEffect.Radius = 5;
+                    window.PrimaryContainer.Effect = blurEffect;
+                    window.SecundaryContainer.Navigate(new AddPriceBelongingArticle(belonging.idBelonging));
+                    window.PrimaryContainer.IsHitTestVisible = false;
 
-                
-                    
-                    
+
+
                 }
             }
         }

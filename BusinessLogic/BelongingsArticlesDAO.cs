@@ -38,9 +38,9 @@ namespace BusinessLogic
         {
             Domain.ArticleDomain articleDomain = null;
             Belongings_Articles belongings_Articles = new Belongings_Articles();
-            if(Utilities.VerifyConnection())
+            if (Utilities.VerifyConnection())
             {
-                using(var connection = new ConnectionModel())
+                using (var connection = new ConnectionModel())
                 {
                     try
                     {
@@ -125,7 +125,10 @@ namespace BusinessLogic
                 throw new Exception(MessageError.CONNECTION_ERROR);
             }
 
-            return  resultOperation;
+            return resultOperation;
         }
-    }
+        
+    } 
+
+    
 }

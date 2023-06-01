@@ -1,9 +1,11 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Utility;
+using DataAcces;
 using Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -22,11 +25,12 @@ namespace View.Views
     /// <summary>
     /// Lógica de interacción para SearchContracts.xaml
     /// </summary>
-    public partial class SearchContracts : Page
+    public partial class SearchContracts : Page, MessageService
     {
         private List<Domain.CompleteContract> contractList = new List<Domain.CompleteContract>();
         private List<string> _listNamesCustomers = new List<string>();
         private List<int> _listNumberContracts = new List<int>();
+        private int idContract;
 
         public SearchContracts()
         {
@@ -65,7 +69,46 @@ namespace View.Views
 
         private void Button_Reactivate_Click(object sender, RoutedEventArgs e)
         {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                var row = DataGridRow.GetRowContainingElement(btn);
+                var item = row.Item;
+                if (item != null && tableCustomers.Items.Contains(item))
+                {
 
+                    
+                    Domain.CompleteContract contractCompleted= (Domain.CompleteContract)item;
+                    DataAcces.Contract contract = ContractDAO.GetContract(contractCompleted.idContract);
+                    idContract = contract.idContract;
+                    DateTime dateTime = DateTime.Now;
+
+                    TimeSpan difference = contract.deadlineDate.Subtract(dateTime);
+                    
+                    if (contract.stateContract == StatesContract.CANCELED_CONTRACT && dateTime.Subtract(contract.deadlineDate).TotalHours < 24)
+                    {
+                        Operation operation = new Operation();
+                        OperationType operationType = new OperationType();
+                        var window = (MainWindow)Application.Current.MainWindow; ;
+                        BlurEffect blurEffect = new BlurEffect();
+                        blurEffect.Radius = 5;
+                        window.PrimaryContainer.Effect = blurEffect;
+                        TransactionView newOperation = new TransactionView(OperationType.OPERATION_LOAND, contract.settlementAmount, contract.idContract);
+                        newOperation.CommunicacionPages(this);
+                        window.SecundaryContainer.Navigate(newOperation);
+                        window.PrimaryContainer.IsHitTestVisible = false;
+
+                        
+
+                    }
+                    else
+                    {
+                        MessageBox.Show(MessageError.ERROR_RENOVATION_CONTRACT);
+                    }
+                    
+                   
+                }
+            }
         }
 
         private void SearchByName()
@@ -195,6 +238,23 @@ namespace View.Views
                     consultContract.ShowDialog();
                 }
             }
+        }
+
+        public void Communication(bool result)
+        {
+            if (result == true)
+            {
+                ContractDAO.ReactiveContract(idContract);
+            }
+            else
+            {
+                MessageBox.Show(MessageError.CANCEL_OPERATION);
+            }
+        }
+
+        public void ScanCommunication(ArticleDomain article)
+        {
+            throw new NotImplementedException();
         }
     }
 }
