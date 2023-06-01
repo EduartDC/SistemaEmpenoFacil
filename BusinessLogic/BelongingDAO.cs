@@ -230,9 +230,7 @@ namespace BusinessLogic
                         belonging.DeadLine = element.Contract.deadlineDate;
                         belonging.State = element.Contract.stateContract;
                         belonging.Contract_idConctract = element.Contract.idContract;
-
                         belongins.Add(belonging);
-                        
                     }
                     for (int i = 0; i < belongins.Count(); i++)
                     {
@@ -247,7 +245,7 @@ namespace BusinessLogic
             }
             else
             {
-                throw new Exception("Error de conexion");
+                throw new Exception();
             }
             return belongins;
         }
@@ -258,7 +256,7 @@ namespace BusinessLogic
             
             DateTime actualTime = DateTime.Now;
             List<Domain.BelongingCreation.Belonging> belongins = new List<Domain.BelongingCreation.Belonging>();
-            Console.WriteLine(actualTime.ToString());
+            
            
             if (Utilities.VerifyConnection())
             {
@@ -274,7 +272,7 @@ namespace BusinessLogic
                         var verifyId = connection.Belongings_Articles.Where(a => a.idBelonging == element.idBelonging).FirstOrDefault();
                         if (verifyId == null)
                         {
-                            Console.WriteLine("validacion de id");
+                            
                             Domain.BelongingCreation.Belonging belonging = new Domain.BelongingCreation.Belonging();
                             belonging.idBelonging = element.idBelonging;
                             belonging.Features = element.characteristics;

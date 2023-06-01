@@ -169,5 +169,22 @@ namespace UnitTest
             Assert.IsNull(ContractDAO.GetContractsByDate(DateTime.Parse("01/05/2023 12:00:00 a. m."), DateTime.Parse("30/05/2023 12:00:00 a. m.")));
 
         }
+        [TestMethod]
+        public void TestReactiveContract()
+        {
+            int idContract =9 ;
+            var contract = ContractDAO.ReactiveContract(idContract);
+            int expectedResult = 1;
+            Assert.AreEqual(expectedResult, contract);
+        }
+        [TestMethod]
+        [ExpectedException(typeof (NullReferenceException))]
+        public void TestReactiveContractFailed()
+        {
+            int idContract = 0;
+            var contract = ContractDAO.ReactiveContract(idContract);
+            int expectedResult = 0;
+            Assert.AreEqual(expectedResult, contract);
+        }
     }
 }

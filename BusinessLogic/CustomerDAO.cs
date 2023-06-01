@@ -411,9 +411,9 @@ namespace BusinessLogic
                 return (MessageCode.CONNECTION_ERROR, null);
         }
         //Rafa
-        public static List<Domain.Customer> RecoverAllCustomers()
+        public static  List<Domain.Customer> RecoverAllCustomers()
         {
-            NewLog _log = new NewLog();
+            //NewLog _log = new NewLog();
             List<Domain.Customer> resultCustomers = new List<Domain.Customer>();
             try
             {
