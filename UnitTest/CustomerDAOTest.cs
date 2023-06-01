@@ -23,7 +23,6 @@ namespace UnitTest
         [TestInitialize]
         public void TestInitialize()
         {
-
             newCustomer = new DataAcces.Customer();
             imagesIdentifications = new List<ImagesIdentification>();
             newCustomer.blackList = false;
@@ -34,22 +33,23 @@ namespace UnitTest
             newCustomer.address = "San Pedro #405, Queretaro, Qro ";
             newCustomer.telephonNumber = 2256318989335548933;
             newCustomer.identification = "INE";
-            //string imageRuteOne = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/budget.png";
-            //byte[] bytesImagenOne = File.ReadAllBytes(imageRuteOne);
-            //ImagesIdentification imagesIdentificationOne = new ImagesIdentification()
-            //{
-            //    imagen = bytesImagenOne,
-            //    Customer_idCustomer = 23
-            //};
-            //string imageRuteTwo = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/Sale.png";
-            //byte[] bytesImagenTwo = File.ReadAllBytes(imageRuteTwo);
-            //ImagesIdentification imagesIdentificationTwo = new ImagesIdentification()
-            //{
-            //    imagen = bytesImagenTwo,
-            //    Customer_idCustomer = 23
-            //};
-            //imagesIdentifications.Add(imagesIdentificationOne);
-            //imagesIdentifications.Add(imagesIdentificationTwo);
+
+            string imageRuteOne = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/budget.png";
+            byte[] bytesImagenOne = File.ReadAllBytes(imageRuteOne);
+            ImagesIdentification imagesIdentificationOne = new ImagesIdentification()
+            {
+                imagen = bytesImagenOne,
+                Customer_idCustomer = 23
+            };
+            string imageRuteTwo = "C:/Users/super/source/repos/WindowsFormsApp1/NewEmpeños/SistemaEmpenoFacil/View/Icons/Sale.png";
+            byte[] bytesImagenTwo = File.ReadAllBytes(imageRuteTwo);
+            ImagesIdentification imagesIdentificationTwo = new ImagesIdentification()
+            {
+                imagen = bytesImagenTwo,
+                Customer_idCustomer = 23
+            };
+            imagesIdentifications.Add(imagesIdentificationOne);
+            imagesIdentifications.Add(imagesIdentificationTwo);
         }
 
         [TestMethod]
@@ -362,5 +362,78 @@ namespace UnitTest
             List<CustomerProfitDomain> customers = new List<CustomerProfitDomain>();
             Assert.Equals((code, customers), CustomerDAO.GetCustomersProfit());
         }
+
+        //Jonathan
+        //CU dar ganancia a cliente
+       [TestMethod]
+        public void TestGiveProfitArticlesToCustomer()
+        {
+            int curp = 27;
+            int result =  ArticleDAO.GiveProfitArticlesToCustomer(curp);
+            Assert.AreEqual(MessageCode.SUCCESS, result);
+        }
+
+        //Jonathan
+        //CU dar ganancia a cliente
+        [TestMethod]
+        public void TestGiveProfitArticlesToCustomerConnectionError()
+        {
+            int curp = 27;
+            int result = ArticleDAO.GiveProfitArticlesToCustomer(curp);
+            Assert.AreEqual(MessageCode.CONNECTION_ERROR, result);
+        }
+
+        //Jonathan
+        //CU dar ganancia a cliente
+        [TestMethod]
+        public void TestGiveProfitArticlesToCustomerErrorUpdate()
+        {
+            int curp = 27;
+            int result = ArticleDAO.GiveProfitArticlesToCustomer(curp);
+            Assert.AreEqual(MessageCode.ERROR_UPDATE, result);
+        }
+
+        //Jonathan
+        //CU dar ganancia a cliente
+        [TestMethod]
+        public void TestGiveProfitCustomer()
+        {
+            int curp = 27;
+            int result = CustomerDAO.GiveProfitCustomer(curp);
+            Assert.AreEqual(MessageCode.SUCCESS, result);
+        }
+
+        //Jonathan
+        //CU dar ganancia a cliente
+        [TestMethod]
+        public void TestGiveProfitCustomerConnectionError()
+        {
+            int curp = 27;
+            int result = CustomerDAO.GiveProfitCustomer(curp);
+            Assert.AreEqual(MessageCode.CONNECTION_ERROR, result);
+        }
+
+        //Jonathan
+        //CU crear contrato
+        [TestMethod]
+        public void TestFindCustomer()
+        {
+            string curp = "OEFP770826HQRRRD35";
+            var result = CustomerDAO.FindCustomer(curp);
+            string customerName = result.Item2.firstName;
+            Assert.AreEqual ("Jose", customerName);
+        }
+
+        //Jonathan
+        //CU crear contrato
+        [TestMethod]
+        public void TestFindCustomerConnectionError()
+        {
+            string curp = "OEFP770826HQRRRD35";
+            var result = CustomerDAO.FindCustomer(curp);          
+            Assert.AreEqual(MessageCode.CONNECTION_ERROR, result.Item1);
+        }
+
+
     }
 }
