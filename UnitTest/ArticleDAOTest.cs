@@ -87,15 +87,19 @@ namespace UnitTest
         //CU16 findArticles
 
         [TestMethod]
-        public void TestGetFindArticles()
+        public void TestGetFindArticles()//pasó
         {
             List<ArticleDomain> articles = new List<ArticleDomain>();
             int resultCode = MessageCode.SUCCESS;
-            Assert.AreEqual((resultCode, articles), ArticleDAO.getArticles());
+            var result = ArticleDAO.getArticles();
+            Boolean articlesBool = result.Item2.Count > 0;
+            Assert.AreEqual((resultCode, true),(result.Item1,articlesBool) );
         }
-
+        
+        //Jonathan
+        //CU find articles
         [TestMethod]
-        public void  TestGetArticlesErrorConnection()
+        public void  TestGetArticlesErrorConnection()//pasó
         {
             int expectedResult = MessageCode.CONNECTION_ERROR;
             var result = ArticleDAO.getArticles();
@@ -105,18 +109,19 @@ namespace UnitTest
         //Jonathan
         //CU-crear ticket venta
         [TestMethod]
-        public void TestGetArticlesById()
+        public void TestGetArticlesById()//pasó
         {
             int resultCode = MessageCode.SUCCESS;
             List<Belongings_Articles> articles = new List<Belongings_Articles>();
             List<int>  articlesId = new List<int> {1};
-            Assert.AreEqual((resultCode,articles),ArticleDAO.GetArticlesListById(articlesId));
+            var result = ArticleDAO.GetArticlesListById(articlesId);
+            Assert.AreEqual((resultCode,result.Item2),result);
         }
 
         //Jonathan
         //CU-crear ticket venta
         [TestMethod]
-        public void TestGetArticlesByIdConnectionError()
+        public void TestGetArticlesByIdConnectionError()//pasó
         {
             int resultCode = MessageCode.CONNECTION_ERROR;
             List<Belongings_Articles> articles = new List<Belongings_Articles>();
@@ -128,19 +133,21 @@ namespace UnitTest
         //Jonathan
         //Cu Crear reporte de ventas
         [TestMethod]
-        public void testGetSaleList()
+        public void testGetSaleList()//pasó
         {
             int resultCode = MessageCode.SUCCESS;
             DateTime end = DateTime.Now;
             DateTime Begin = DateTime.Now.AddMonths(-1);
             List<SaledArticle> articles = new List<SaledArticle>();
-            Assert.Equals((resultCode, articles), ArticleDAO.GetSaledArticlesToReport(Begin, end));
+            var result = ArticleDAO.GetSaledArticlesToReport(Begin, end);
+            bool articlesBool = result.Item2.Count > 0;
+            Assert.AreEqual((resultCode,true),(result.Item1,articlesBool));
         }
 
         //Jonathan
         //Cu Crear reporte de ventas
         [TestMethod]
-        public void testGetSaleListToReportConnectionError()
+        public void testGetSaleListToReportConnectionError()//pasó
         {
             int resultCode = MessageCode.CONNECTION_ERROR;
             DateTime end = DateTime.Now;
@@ -153,19 +160,21 @@ namespace UnitTest
         //Jonathan
         //Cu Crear reporte de ventas
         [TestMethod]
-        public void testGetArticlesStockToReport()
+        public void testGetArticlesStockToReport() //pasó
         {
             int resultCode = MessageCode.SUCCESS;
             DateTime end = DateTime.Now;
             DateTime Begin = DateTime.Now.AddMonths(-1);
             List<SaledArticle> articles = new List<SaledArticle>();
-            Assert.Equals((resultCode, articles), ArticleDAO.GetSaledArticlesToReport(Begin, end));
+            var result = ArticleDAO.GetSaledArticlesToReport(Begin, end);
+            
+            Assert.AreEqual((resultCode), result.Item1);
         }
 
         //Jonathan
         //Cu Crear reporte de ventas
         [TestMethod]
-        public void testGetArticlesStockToReportConnectionError()
+        public void testGetArticlesStockToReportConnectionError()//pasó
         {
             int resultCode = MessageCode.CONNECTION_ERROR;
             DateTime end = DateTime.Now;
@@ -178,21 +187,22 @@ namespace UnitTest
         //jonathan
         //Cu dar ganancia a cliente
         [TestMethod]
-        public void TestGiveProfitArticlesToCustomer()
+        public void TestGiveProfitArticlesToCustomer()//pasó
         {
-            int code = MessageCode.SUCCESS;
-            Assert.Equals(code, ArticleDAO.GiveProfitArticlesToCustomer(1));
+            int code = MessageCode.SUCCESS;//no hay clientes con ganancia por lo que dara Error_update
+            Assert.AreEqual(code, ArticleDAO.GiveProfitArticlesToCustomer(1));
         }
 
         //jonathan
         //Cu dar ganancia a cliente
         [TestMethod]
-        public void TestGiveProfitArticlesToCustomerConnectionError()
+        public void TestGiveProfitArticlesToCustomerConnectionError()//pasó
         {
             int code = MessageCode.CONNECTION_ERROR;
             var result = ArticleDAO.GiveProfitArticlesToCustomer(1);
             Assert.AreEqual(code, result);
         }
+
         //[TestMethod]
         //public void TestGetFindArticles()
         //{

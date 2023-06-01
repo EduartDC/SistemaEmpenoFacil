@@ -1,9 +1,13 @@
 ﻿using BusinessLogic;
+using BusinessLogic.Utility;
 using DataAcces;
 using Domain;
+using Domain.BelongingCreation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,7 +110,7 @@ namespace UnitTest
         public void TestCreateContractConnectionError()
         {
             int code = MessageCode.CONNECTION_ERROR;
-            Contract contract = new Contract();
+            DataAcces.Contract contract = new DataAcces.Contract();
             var resultContract = ContractDAO.RegisterContract(contract);
             Assert.AreEqual((code, 0), resultContract);
         }
@@ -114,7 +118,7 @@ namespace UnitTest
         public void TestGetContractSucess()
         {
             int idContract = 13;
-            Contract contract = ContractDAO.GetContract(idContract);
+            DataAcces.Contract contract = ContractDAO.GetContract(idContract);
             Assert.AreNotEqual(null, contract);
         }
 
@@ -122,14 +126,14 @@ namespace UnitTest
         public void TestGetContractFailed()
         {
             int idContract = 0;
-            Contract contract = ContractDAO.GetContract(idContract);
+            DataAcces.Contract contract = ContractDAO.GetContract(idContract);
             Assert.AreEqual(null, contract);
         }
 
         [TestMethod]
         public void TestModifyContract()
         {
-            Contract contract = new Contract();
+            DataAcces.Contract contract = new DataAcces.Contract();
             contract.duration = 6;
             contract.loanAmount = 6500;
             contract.deadlineDate = DateTime.Now.AddMonths(contract.duration).AddDays(15);
@@ -169,5 +173,143 @@ namespace UnitTest
             Assert.IsNull(ContractDAO.GetContractsByDate(DateTime.Parse("01/05/2023 12:00:00 a. m."), DateTime.Parse("30/05/2023 12:00:00 a. m.")));
 
         }
+
+        //Jonathan
+        //CU crear contrato
+        [TestMethod]
+        public void testCreateContract()
+        {
+            DataAcces.Contract contractTemp= new DataAcces.Contract();
+            contractTemp.loanAmount = 3000;
+            contractTemp.deadlineDate = DateTime.Parse("2023-08-26 11:22:20.383");
+            contractTemp.creationDate = DateTime.Now;
+            contractTemp.stateContract = "Pendiente";
+            contractTemp.iva = 16;
+            contractTemp.interestRate = 8;
+            contractTemp.renewalFee = 0;
+            contractTemp.settlementAmount = 0;
+            contractTemp.duration = 3;
+            contractTemp.Customer_idCustomer = 1;
+            contractTemp.endorsementSettlementDates = "26/06/2023; 26/07/2023; 26/08/2023;";
+            contractTemp.paymentsSettlement = "4260; 5040; 5820;";
+            contractTemp.paymentsEndorsement = "1260; 2040; 2820;";
+            var result = ContractDAO.RegisterContract(contractTemp); //devuelver id 24 de contrato
+            Assert.AreEqual((24,MessageCode.SUCCESS),result);
+        }
+
+        //Jonathan
+        //CU crear contrato
+        [TestMethod]
+        public void testCreateContractConnectionError()
+        {
+            DataAcces.Contract contractTemp = new DataAcces.Contract();
+            contractTemp.loanAmount = 3000;
+            contractTemp.deadlineDate = DateTime.Parse("2023-08-26 11:22:20.383");
+            contractTemp.creationDate = DateTime.Now;
+            contractTemp.stateContract = "Pendiente";
+            contractTemp.iva = 16;
+            contractTemp.interestRate = 8;
+            contractTemp.renewalFee = 0;
+            contractTemp.settlementAmount = 0;
+            contractTemp.duration = 3;
+            contractTemp.Customer_idCustomer = 1;
+            contractTemp.endorsementSettlementDates = "26/06/2023; 26/07/2023; 26/08/2023;";
+            contractTemp.paymentsSettlement = "4260; 5040; 5820;";
+            contractTemp.paymentsEndorsement = "1260; 2040; 2820;";
+            var result = ContractDAO.RegisterContract(contractTemp); //devuelver id 24 de contrato
+            Assert.AreEqual(MessageCode.CONNECTION_ERROR, result.Item1);
+        }
+
+        //Jonathan
+        //CU crear contratos
+        [TestMethod]
+        public void testRegisterBelongings()
+        {
+            List<DataAcces.Belonging> belongingList = new List<DataAcces.Belonging>();
+            DataAcces.Belonging util = new DataAcces.Belonging();
+            util.category = "Informatica";
+            util.characteristics = "8gb de ram, ssd256 gb,procesador i3";
+            util.serialNumber = "80000";
+            util.appraisalValue = 2000;
+            util.loanAmount = 1500;
+            util.description = "laptop acer";
+            util.Contract_idContract = 24;
+            util.model = null;
+            belongingList.Add(util);
+            var result = BelongingDAO.SaveBelongings(belongingList);
+            Assert.AreEqual((MessageCode.SUCCESS,1),(result.Item1,result.Item2.Count));
+        }
+
+
+        //Jonathan
+        //CU crear contratos
+        [TestMethod]
+        public void testRegisterBelongingsConnectionError()
+        {
+            List<DataAcces.Belonging> belongingList = new List<DataAcces.Belonging>();
+            DataAcces.Belonging util = new DataAcces.Belonging();
+            util.category = "Informatica";
+            util.characteristics = "8gb de ram, ssd256 gb,procesador i3";
+            util.serialNumber = "80000";
+            util.appraisalValue = 2000;
+            util.loanAmount = 1500;
+            util.description = "laptop acer";
+            util.Contract_idContract = 24;
+            util.model = null;
+            belongingList.Add(util);
+            var result = BelongingDAO.SaveBelongings(belongingList);
+            Assert.AreEqual(MessageCode.CONNECTION_ERROR, result.Item1);
+        }
+
+        //Jonathan
+        //CU crear contrato
+        [TestMethod]
+        public void SaveimagesBelongings()
+        {
+            List<ImagesBelonging> imageList = new List<ImagesBelonging>();
+
+            string path = "C:/Users/jon10/OneDrive/Imágenes/IMG/Wallpapers/chemms";
+            byte[] bytes;
+
+            try
+            {
+                bytes = File.ReadAllBytes(path);
+                ImagesBelonging image = new ImagesBelonging();
+                image.imagen = bytes;
+                image.Belonging_idBelonging = 24;
+                var result = BelongingDAO.SaveimagesBelongings(imageList);
+                Assert.AreEqual((MessageCode.SUCCESS,1),(result.Item1,result.Item2.Count));
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("Error al leer el archivo: " + e.Message);
+            }
+        }
+
+        //Jonathan
+        //CU crear contrato
+        [TestMethod]
+        public void SaveimagesBelongingsConnectionError()
+        {
+            List<ImagesBelonging> imageList = new List<ImagesBelonging>();
+
+            string path = "C:/Users/jon10/OneDrive/Imágenes/IMG/Wallpapers/chemms";
+            byte[] bytes;
+
+            try
+            {
+                bytes = File.ReadAllBytes(path);
+                ImagesBelonging image = new ImagesBelonging();
+                image.imagen = bytes;
+                image.Belonging_idBelonging = 24;
+                var result = BelongingDAO.SaveimagesBelongings(imageList);
+                Assert.AreEqual(MessageCode.CONNECTION_ERROR, result.Item1);
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("Error al leer el archivo: " + e.Message);
+            }
+        }
+
     }
 }

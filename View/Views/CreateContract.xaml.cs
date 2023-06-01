@@ -26,7 +26,7 @@ using System.Windows.Media.Effects;
 
 namespace View.Views
 {
-
+    
     public partial class CreateContract : Page, Communication, MessageService
     {
         private DataAcces.Customer customer = null;
@@ -352,7 +352,7 @@ namespace View.Views
                 SaveBelongings(idContract);
             }
         }
-
+        
         private void SaveBelongings(int idContract)
         {
 
