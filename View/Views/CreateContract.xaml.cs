@@ -528,7 +528,7 @@ namespace View.Views
         {
             MessageBoxResult resultMessage = MessageBox.Show("¿Desea cancelar la operación?, cualquier información introducida se perderá", "Confirmación",MessageBoxButton.OKCancel);
             if (resultMessage == MessageBoxResult.OK)
-                this.Content = null;
+                this.Content = null ;
 
         }
     }
