@@ -281,6 +281,7 @@ namespace BusinessLogic
                     {
                         ArticleDomain articleTemp = new ArticleDomain();
                         articleTemp.description = util.Belonging.description;
+                        articles.Add(articleTemp);
                     }
                 
                 }

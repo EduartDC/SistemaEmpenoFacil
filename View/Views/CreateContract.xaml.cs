@@ -26,7 +26,7 @@ using System.Windows.Media.Effects;
 
 namespace View.Views
 {
-    
+
     public partial class CreateContract : Page, Communication, MessageService
     {
         private DataAcces.Customer customer = null;
@@ -178,10 +178,10 @@ namespace View.Views
         private void BtnFindCustomer(object sender, RoutedEventArgs e)
         {
             int operationCode;
-            if (tbCustomerCurp.Text != "")
+            if (!string.IsNullOrEmpty(tbCustomerCurp.Text))
             {
                 (operationCode, customer) = CustomerDAO.FindCustomer(tbCustomerCurp.Text);
-                if (operationCode == 1)
+                if (operationCode == MessageCode.SUCCESS)
                 {
                     if (customer.blackList == false)
                     {
@@ -193,7 +193,9 @@ namespace View.Views
                         //enviar a menu
                     }
                 }
-                else
+                else if (operationCode == MessageCode.ERROR_USER_NOT_FOUND)
+                    ErrorManager.ShowError(MessageError.ERROR_USER_NOT_FOUND);
+                else if (operationCode == MessageCode.CONNECTION_ERROR)
                     ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
             }
             else
@@ -337,6 +339,7 @@ namespace View.Views
             newContract.loanProcentage = tbLoanPorcentage.Text;
             //newContract.totalAnnualCost = tbTotalAnnualCost.Text;
             newContract.annualInterestRate = tbAnnualInterestRate.Text;
+            newContract.duration = int.Parse(cbTerm.SelectedItem.ToString());
             SaveInfo(newContract);
         }
 
@@ -356,7 +359,7 @@ namespace View.Views
                 SaveBelongings(idContract);
             }
         }
-        
+
         private void SaveBelongings(int idContract)
         {
 
@@ -458,18 +461,18 @@ namespace View.Views
         }
 
         //metodo de interfaz par transactionView
-        public void Communication(bool result)
+        public async void Communication(bool result)
         {
             if (result)
             {
-                Console.WriteLine("deontro de if");
                 int resultActive = ContractDAO.activeContract(idContractSaved);
-                Console.WriteLine("despues de dao");
+
                 Console.WriteLine(resultActive);
                 if (resultActive == MessageCode.SUCCESS)
                 {
                     MessageBox.Show("Contrato Creado exitosamente");
-                    MessageBox.Show("Llamando a impresion de contrato");
+                    PrintContract.NewPrintCotract(await ContractDAO.GetContractsDomainAsync(idContractSaved));
+
                 }
             }
             else
@@ -526,9 +529,9 @@ namespace View.Views
 
         private void ClickCancelOperation(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult resultMessage = MessageBox.Show("¿Desea cancelar la operación?, cualquier información introducida se perderá", "Confirmación",MessageBoxButton.OKCancel);
+            MessageBoxResult resultMessage = MessageBox.Show("¿Desea cancelar la operación?, cualquier información introducida se perderá", "Confirmación", MessageBoxButton.OKCancel);
             if (resultMessage == MessageBoxResult.OK)
-                this.Content = null ;
+                this.Content = null;
 
         }
     }

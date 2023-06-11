@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:View.Views"
         mc:Ignorable="d"
         Title="CreateBelongingRegister" Height="500" Width="800">
-    <Grid>
+    <Grid Margin="0,-2,0,2">
         <!--ajuntando celdas-->
         <Grid.RowDefinitions>
             <RowDefinition Height="90" x:Name="Header1"/>
@@ -36,7 +36,7 @@
 
             />
         <ComboBox x:Name="cbCategory" HorizontalAlignment="Left" Margin="19,17,0,0" Grid.Row="1" VerticalAlignment="Top" Width="229"/>
-        <Label Content="Categoria" HorizontalAlignment="Left" Margin="13,87,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Label Content="Categoría*" HorizontalAlignment="Left" Margin="13,87,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
         <TextBox x:Name="tbDescription" HorizontalAlignment="Left" Margin="20,55,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="227" Height="22">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
@@ -48,7 +48,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Label Content="Description" HorizontalAlignment="Left" Margin="17,35,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="Descripción*" HorizontalAlignment="Left" Margin="17,35,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <TextBox x:Name="tbFeature"  HorizontalAlignment="Left" Margin="21,93,0,0" Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="227" Height="74">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
@@ -60,8 +60,8 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Label Content="caracteristicas" HorizontalAlignment="Left" Margin="18,73,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbSerialNumber" HorizontalAlignment="Left" Margin="21,189,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="227" Height="22">
+        <Label Content="características*" HorizontalAlignment="Left" Margin="18,73,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbSerialNumber" HorizontalAlignment="Left" Margin="21,182,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="227" Height="22">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Style.Resources>
@@ -72,8 +72,8 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Label Content="Serial" HorizontalAlignment="Left" Margin="18,168,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbModel" FontSize="15" HorizontalAlignment="Left" Margin="21,227,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="227" Height="22">
+        <Label Content="Serial*" HorizontalAlignment="Left" Margin="18,162,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbModel" FontSize="15" HorizontalAlignment="Left" Margin="21,218,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="227" Height="22">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Style.Resources>
@@ -84,13 +84,13 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Label Content="Modelo" HorizontalAlignment="Left" Margin="18,206,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbApraisalAmount" HorizontalAlignment="Left" Margin="24,295,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" FontSize="15" VerticalAlignment="Top" Width="225" BorderBrush="#00ABADB3"/>
-        <Label Content="valor maximo" HorizontalAlignment="Left" Margin="18,240,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="24,284,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225"/>
-        <TextBox x:Name="tbMaxValue" HorizontalAlignment="Left" Margin="24,261,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" FontSize="14" VerticalAlignment="Top" Width="225" BorderBrush="#00ABADB3"/>
-        <Label Content="prestamo" HorizontalAlignment="Left" Margin="18,278,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="23,321,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225"/>
+        <Label Content="Modelo" HorizontalAlignment="Left" Margin="18,198,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbApraisalAmount" HorizontalAlignment="Left" Margin="24,291,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" FontSize="15" VerticalAlignment="Top" Width="225" BorderBrush="#00ABADB3"/>
+        <Label Content="valor máximo*" HorizontalAlignment="Left" Margin="18,235,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="24,278,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225"/>
+        <TextBox x:Name="tbMaxValue" HorizontalAlignment="Left" Margin="24,254,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" FontSize="14" VerticalAlignment="Top" Width="225" BorderBrush="#00ABADB3"/>
+        <Label Content="préstamo*" HorizontalAlignment="Left" Margin="18,272,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="23,316,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225"/>
         <Button
             Content="Cerrar registro"
             HorizontalAlignment="Left"

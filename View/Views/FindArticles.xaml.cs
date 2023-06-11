@@ -98,15 +98,18 @@ namespace View.Views
 
         private void Btn_EditArticle(object sender, RoutedEventArgs e)
         {
-            
-            if (SelectedItem())
-            {
-                var idArticle = dgArticles.SelectedItem as ArticleDomain;
-                EditArticle editArticle = new EditArticle(idArticle.idArticle);
-                editArticle.ShowDialog();
-            }
-            else
-                ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);
+
+            //if (SelectedItem())
+            //{
+            //    var idArticle = dgArticles.SelectedItem as ArticleDomain;
+            //    EditArticle editArticle = new EditArticle(idArticle.idArticle);
+            //    editArticle.ShowDialog();
+            //}
+            //else
+            //    ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);
+            List<int> articles = new List<int> { 1, 4, 12 };
+
+            CreateTickets.TicketSetAside(1,7,articles);
             
         }
 
