@@ -92,7 +92,7 @@ namespace View.Views
 
         private void LoadCategories()
         {
-            List<string> categoriesList = new List<string> { "Selecciona una categoria", "Joyeria", "Relojeria", "Herramientas" };
+            List<string> categoriesList = new List<string> { "Selecciona una categoria", "Joyería", "Relojería", "Herramientas","Electrónica", "Línea blanca","Instrumentos" };
             cbCategory.ItemsSource = categoriesList;
             cbCategory.SelectedIndex = 0;
         }
@@ -184,32 +184,39 @@ namespace View.Views
         private void ClickSaveBelonging(object sender, RoutedEventArgs e)
         {
 
-            if (cbCategory.SelectedIndex > 0 &&
-                string.IsNullOrEmpty(tbDescription.Text) &&
-                string.IsNullOrEmpty(tbFeature.Text) &&
-                string.IsNullOrEmpty(tbMaxValue.Text) &&
-                string.IsNullOrEmpty(tbApraisalAmount.Text)
+            if (cbCategory.SelectedIndex <=0 ||
+                string.IsNullOrEmpty(tbDescription.Text) ||
+                string.IsNullOrEmpty(tbFeature.Text) ||
+                string.IsNullOrEmpty(tbMaxValue.Text) ||
+                string.IsNullOrEmpty(tbApraisalAmount.Text ) ||
+                string.IsNullOrEmpty(tbSerialNumber.Text)
                 )
                 ErrorManager.ShowError("Campos vacios");
             else
             {
                 if (IsNumeric(tbApraisalAmount.Text) && IsNumeric(tbMaxValue.Text))
                 {
-                    if (float.Parse(tbMaxValue.Text) > float.Parse(tbApraisalAmount.Text))
+                    if (double.Parse(tbApraisalAmount.Text) > 0 && double.Parse(tbMaxValue.Text) > 0)
                     {
-                        if (imageBool[0] && imageBool[1] && imageBool[2] && imageBool[3])
+                        if (float.Parse(tbMaxValue.Text) > float.Parse(tbApraisalAmount.Text))
                         {
-                            if (!edition)
-                                //if (belongingsList.Count() <= 5)
+                            if (imageBool[0] && imageBool[1] && imageBool[2] && imageBool[3])
+                            {
+                                if (!edition)
+                                    //if (belongingsList.Count() <= 5)
                                     SaveBelongingInList();
                                 //else
-                                  //  ErrorManager.ShowError("maximo de prendas alcanzada");
-                            else
-                                SaveBelongingEdition();
+                                //  ErrorManager.ShowError("maximo de prendas alcanzada");
+                                else
+                                    SaveBelongingEdition();
+                            }
                         }
+                        else
+                            ErrorManager.ShowError("El valor de avaluo debe ser menor o igual al valor estimado del costo real de la prenda");
                     }
                     else
-                        ErrorManager.ShowError("El valor de avaluo debe ser menor o igual al valor estimado del costo real de la prenda");
+                        ErrorManager.ShowError("No se admiten valores negativos. Favor de verificar");
+                    
                 }
                 else
                     ErrorManager.ShowError("Los valores de prestamo y valor maximo deben ser numericos");
@@ -242,7 +249,7 @@ namespace View.Views
             {
                 belongingsList[idEtition] = newBelonging;
                 CleanComponents();
-                MessageBox.Show("Prendada  temporal modificada con exito ");
+                MessageBox.Show("Prenda temporal modificada con exito ");
                 communication.refreshBelongings(belongingsList);
                 this.Close();
             }

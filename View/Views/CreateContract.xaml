@@ -59,9 +59,9 @@
             <TextBox x:Name="tbCustomerCurp" MaxLength="18" HorizontalAlignment="Left" Margin="20,27,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="145" BorderBrush="#00ABADB3"/>
             <Label Content="Indetificación de Cliente" HorizontalAlignment="Left" Margin="14,1,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold"/>
             <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="24,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="149"/>
-            <TextBox x:Name="tbNameCustomer" HorizontalAlignment="Left" Margin="26,66,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="141" BorderBrush="#00ABADB3"/>
+            <TextBox x:Name="tbNameCustomer" HorizontalAlignment="Left" Margin="26,66,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="294" BorderBrush="#00ABADB3"/>
             <Label Content="Indetificación de Cliente" HorizontalAlignment="Left" Margin="20,40,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold"/>
-            <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="24,75,0,0" Grid.Row="1" VerticalAlignment="Center" Width="149"/>
+            <Border BorderBrush="#FF330099" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="24,75,0,0" Grid.Row="1" VerticalAlignment="Center" Width="249"/>
 
 
 
@@ -209,6 +209,7 @@
                         x:Name="dgBelongings"
                         Margin="39,10,76,0"
                         FontSize="15"
+                        IsReadOnly="True"
                         >
 
                         <DataGrid.Columns>
