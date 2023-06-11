@@ -168,22 +168,38 @@ namespace BusinessLogic
         }
         public static (int, Customer) FindCustomer(string curp)
         {
-            List<Customer> customers = new List<Customer>();
-            if (Utilities.VerifyConnection())
+            //List<Customer> customers = new List<Customer>();
+            //if (Utilities.VerifyConnection())
+            //{
+            //    using (var connection = new ConnectionModel())
+            //    {
+            //        customers = connection.Customers.ToList();
+            //    }
+            //    foreach (var customer in customers)
+            //    {
+            //        if (customer.curp.Equals(curp))
+            //        {
+            //            return (1, customer);
+            //        }
+            //    }
+            //}
+            //return (MessageCode.CONNECTION_ERROR, null);
+            int result = 0;
+            Customer customer = null;
+            if(Utilities.VerifyConnection())
             {
-                using (var connection = new ConnectionModel())
+                using (var connection = new ConnectionModel() )
                 {
-                    customers = connection.Customers.ToList();
+                    customer  = connection.Customers.Where(a => a.curp .Equals(curp)).FirstOrDefault();
+                    if (customer!= null)
+                        result = MessageCode.SUCCESS;
+                    else
+                        result = MessageCode.ERROR_USER_NOT_FOUND;
                 }
-                foreach (var customer in customers)
-                {
-                    if (customer.curp.Equals(curp))
-                    {
-                        return (1, customer);
-                    }
-                }
-            }
-            return (MessageCode.CONNECTION_ERROR, null);
+            }else
+                result = MessageCode.CONNECTION_ERROR;
+
+            return (result,customer);
         }
 
         public static List<Domain.Customer> RecoverCustomers()
