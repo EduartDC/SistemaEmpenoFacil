@@ -26,18 +26,17 @@ namespace View.Views
     {
         double _amount;
         int _operation;
+        string balanceAmount= (App.Current as App)._cashOnHand.ToString();
         
         public CashRegisterOperations()
         {
             InitializeComponent();
-            
-            
             var staff = (App.Current as App)._staffInfo;
             cbConcept.Items.Add("Aumentar monto en caja");
             cbConcept.Items.Add("Retirar de caja");
-            
-        }
+            updateBalance();
 
+        }
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             string text = textAmountReceived.Text;
@@ -58,12 +57,11 @@ namespace View.Views
             }
             else
             {
-                
                 saveOperation();
+                updateBalance();
+                
             }
-
         }
-
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             var window = (MainWindow)Application.Current.MainWindow;
@@ -73,28 +71,11 @@ namespace View.Views
             window.SecundaryContainer.Content = null;
             window.PrimaryContainer.IsHitTestVisible = true;
         }
-        private void textAmountReceived_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            string inputText = e.Text;
-
-            if (!string.IsNullOrEmpty(inputText) && !decimal.TryParse(inputText, out _) && inputText != ".")
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textAmountReceived_GotFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = sender as TextBox;
-            textBox.Text = string.Empty;
-        }
-
         private void saveOperation()
         {
             var operationType = _operation;
             var operation = new Operation();
             var result = MessageCode.ERROR;
-            
             
             if (cbConcept.SelectedItem.ToString() == "Aumentar monto en caja")
             {
@@ -107,8 +88,8 @@ namespace View.Views
                 result = OperationDAO.AddOperation(operation);
                 (App.Current as App)._cashOnHand +=amount;
                 MessageBox.Show("Se realizó con 'exito la operación");
-
-
+                updateBalance();
+                lb_Balance.UpdateLayout();
             }
             else if (cbConcept.SelectedItem.ToString() == "Retirar de caja")
             {
@@ -125,19 +106,24 @@ namespace View.Views
                     result = OperationDAO.AddOperation(operation);
                     (App.Current as App)._cashOnHand -= withdraw;
                     MessageBox.Show("Se realizó con 'exito la operación");
-                    
+                    updateBalance();
+                    lb_Balance.UpdateLayout();
                 }
                 else
                 {
                     ErrorManager.ShowWarning(MessageError.INSUFFICIENT_AMOUNT);
                 }
-                
-
-
-
             }
         }
 
+        
+        private void updateBalance()
+        {
+            
+                lb_Balance.Content = balanceAmount;
+                lb_Balance.UpdateLayout();
+
+        }
         private double ParseAmount(string text)
         {
             var amountReceived = 0.0;
@@ -150,6 +136,20 @@ namespace View.Views
                 ErrorManager.ShowWarning(MessageError.DECIMAL_FORMAT_ERROR);
             }
             return amountReceived;
+        }
+        private void textAmountReceived_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            textBox.Text = string.Empty;
+        }
+        private void textAmountReceived_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            string inputText = e.Text;
+
+            if (!string.IsNullOrEmpty(inputText) && !decimal.TryParse(inputText, out _) && inputText != ".")
+            {
+                e.Handled = true;
+            }
         }
     }
 }
