@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="800"
+      d:DesignHeight="768" d:DesignWidth="1366"
       Title="ModifyEmployee"
       Background="White">
 
@@ -13,32 +13,52 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10" x:Name="header"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
             </Grid.RowDefinitions>
-            <Label Content="Modifica los datos del empleado para continuar" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Height="34" Width="414"/>
-            <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="18"/>
-            <Label Content="Apellidos:" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="18"/>
-            <Label Content="Nombre de usuario:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" FontSize="18"/>
-            <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" FontSize="18"/>
-            <Label Content="Estatus" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" FontSize="18"/>
-            <Label Content="Rol:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="7" VerticalAlignment="Center" FontSize="18"/>
-            <Button Content="Modificar" HorizontalAlignment="Left" Margin="613,0,0,0" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="clicModifyButton"/>
-            <Button Content="Cancelar" HorizontalAlignment="Left" Margin="62,0,0,0" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="ClicCancelButton"/>
-            <TextBox x:Name="textBoxName" HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="173" FontSize="18"/>
-            <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="173" FontSize="18"/>
-            <TextBox x:Name="textBoxUserName" HorizontalAlignment="Left" Margin="200,0,0,0" Grid.Row="4" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="174" FontSize="18"/>
-            <ComboBox x:Name="comboBoxStatus" HorizontalAlignment="Left" Margin="106,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="181" FontSize="18"/>
-            <ComboBox x:Name="comboBoxRole" HorizontalAlignment="Left" Margin="94,8,0,0" Grid.Row="7" VerticalAlignment="Top" Width="181" FontSize="18"/>
-            <PasswordBox x:Name="passwordBoxPassword" HorizontalAlignment="Left" Margin="124,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="163" FontSize="18"/>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300*"/>
+                <ColumnDefinition Width="800*"/>
+                <ColumnDefinition Width="200*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Modifica los datos del empleado para continuar" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Height="34" Width="414"/>
+            <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" FontSize="18"/>
+            <Label Content="Apellidos:" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" FontSize="18"/>
+            <Label Content="Nombre de usuario:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" FontSize="18"/>
+            <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" FontSize="18"/>
+            <Label Content="Estatus" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" FontSize="18"/>
+            <Label Content="Rol:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" FontSize="18"/>
+            <Button Content="Modificar" Background="#323D8F" Foreground="White" HorizontalAlignment="Left" Margin="613,0,0,0" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="clicModifyButton">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter  Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Content="Cancelar" Background="#323D8F" Foreground="White" HorizontalAlignment="Left" Margin="62,0,0,0" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="ClicCancelButton">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter  Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <TextBox x:Name="textBoxName" HorizontalAlignment="Left" Margin="114,0,0,0" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="173" FontSize="18" BorderBrush="Black" BorderThickness="0,0,0,2"/>
+            <TextBox x:Name="textBoxLastName" HorizontalAlignment="Left" Margin="114,15,0,0" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" FontSize="18" BorderBrush="Black" BorderThickness="0,0,0,2"/>
+            <TextBox x:Name="textBoxUserName" HorizontalAlignment="Left" Margin="200,0,0,0" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="174" FontSize="18" BorderBrush="Black" BorderThickness="0,0,0,2"/>
+            <ComboBox x:Name="comboBoxStatus" HorizontalAlignment="Left" Margin="106,0,0,0" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" Width="181" FontSize="18"/>
+            <ComboBox x:Name="comboBoxRole" HorizontalAlignment="Left" Margin="94,8,0,0" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" Width="181" FontSize="18"/>
+            <PasswordBox x:Name="passwordBoxPassword" HorizontalAlignment="Left" Margin="124,0,0,0" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Width="163" FontSize="18" BorderBrush="Black" BorderThickness="0,0,0,2"/>
             <Label x:Name="labelInvalidInformation" Content="" HorizontalAlignment="Left" Margin="360,0,0,0" Grid.Row="3" VerticalAlignment="Center" Foreground="Red" FontSize="18"/>
-            <Label x:Name="rfcLabel" Content="rfc" HorizontalAlignment="Left" Margin="403,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="18"/>
+            <Label x:Name="rfcLabel" Content="rfc" HorizontalAlignment="Left" Margin="403,0,0,0" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" FontSize="18"/>
         </Grid>
     </ScrollViewer>
 
