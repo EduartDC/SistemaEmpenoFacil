@@ -30,7 +30,7 @@ namespace View.Views
 
         private void Btn_Add_Click(object sender, RoutedEventArgs e)
         {
-            if (!Utilities.ValidateFormat(text_CURP.Text, "^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{5}[0-9]{2}$")) 
+            if (!Utilities.ValidateFormat(text_CURP.Text, "^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{6}[0-9]{1}$")) 
             {
                 try
                 {
