@@ -9,8 +9,20 @@
     <Grid>
         <Label Content="Ingrese los datos solicitados para editar al usuario" HorizontalAlignment="Left" Margin="26,29,0,0" VerticalAlignment="Top" FontSize="34"/>
         <Label Content="Precio de Venta:" HorizontalAlignment="Left" Margin="26,140,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox Name="text_SellingPrice" HorizontalAlignment="Left" Margin="238,148,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270" FontSize="24"/>
-        <Button Name="btn_Exit" Content="Salir" HorizontalAlignment="Left" Margin="26,262,0,0" VerticalAlignment="Top" FontSize="24" Click="Btn_Exit_Click" Width="90"/>
-        <Button Name="btn_Modify" Content="Modificar" HorizontalAlignment="Left" Margin="496,262,0,0" VerticalAlignment="Top" FontSize="24" Click="Btn_Modify_Click"/>
+        <TextBox Name="text_SellingPrice" HorizontalAlignment="Left" Margin="238,148,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270" FontSize="24" BorderThickness="0,0,0,2" BorderBrush="Black"/>
+        <Button Foreground="White" Background="#323D8F" Name="btn_Exit" Content="Salir" HorizontalAlignment="Left" Margin="26,262,0,0" VerticalAlignment="Top" FontSize="24" Click="Btn_Exit_Click" Width="90">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Foreground="White" Background="#323D8F" Name="btn_Modify" Content="Modificar" HorizontalAlignment="Left" Margin="660,262,0,0" VerticalAlignment="Top" FontSize="24" Click="Btn_Modify_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>

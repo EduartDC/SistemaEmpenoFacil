@@ -27,9 +27,9 @@ namespace View.Views
         public RegisterStaff()
         {
             InitializeComponent();
-            comBox_Role.Items.Add("Cajero");
-            comBox_Role.Items.Add("Gerente");
-            comBox_Role.Items.Add("Administrador");
+            comboBoxRole.Items.Add("Cajero");
+            comboBoxRole.Items.Add("Gerente");
+            comboBoxRole.Items.Add("Administrador");
         }
 
 
@@ -44,10 +44,10 @@ namespace View.Views
             {
                 try
                 {
-                    switch (StaffDAO.ExistStaff(text_RFC.Text))
+                    switch (StaffDAO.ExistStaff(textBoxRFC.Text))
                     {
                         case 200:
-                            if (StaffDAO.GetStaffByUserName(text_UserName.Text) == null)
+                            if (StaffDAO.GetStaffByUserName(textBoxUserName.Text) == null)
                             {
                                 NewStaff();
                             }
@@ -75,14 +75,14 @@ namespace View.Views
         private void NewStaff()
         {
             Staff newStaff = new Staff();
-            newStaff.fisrtName = text_Name.Text;
-            newStaff.lastName = text_LastName.Text;
+            newStaff.fisrtName = textBoxName.Text;
+            newStaff.lastName = textBoxLastName.Text;
             newStaff.statusStaff = "Activo";
-            String passwordEncode = Utilities.Hash(textPassword_Password.Password);
-            newStaff.userName = text_UserName.Text;
+            String passwordEncode = Utilities.Hash(passwordBoxPassword.Password);
+            newStaff.userName = textBoxUserName.Text;
             newStaff.password = passwordEncode;
-            newStaff.rol = comBox_Role.SelectedItem.ToString();
-            newStaff.rfc = text_RFC.Text;
+            newStaff.rol = comboBoxRole.SelectedItem.ToString();
+            newStaff.rfc = textBoxRFC.Text;
             ValidateRegisterNewStaff(newStaff);
         }
 
@@ -110,31 +110,31 @@ namespace View.Views
             bool result = true;
             ResetLabelsError();
 
-            if (!Utilities.ValidateFormat(text_Name.Text.Trim(), "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
+            if (!Utilities.ValidateFormat(textBoxName.Text.Trim(), "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
             {
                 label_ErrorName.Visibility = Visibility.Visible;
                 result = false;
             } 
-            if(!Utilities.ValidateFormat(text_LastName.Text.Trim(), "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
+            if(!Utilities.ValidateFormat(textBoxLastName.Text.Trim(), "^[a-zA-Z]+([ \\-][a-zA-Z]+)*$"))
             {
                 label_ErrorLastName.Visibility = Visibility.Visible;
                 result = false;
             }
-            if(!Utilities.ValidateFormat(text_UserName.Text.Trim(), "^[a-zA-Z]+$"))
+            if(!Utilities.ValidateFormat(textBoxUserName.Text.Trim(), "^[a-zA-Z]+$"))
             {
                 label_ErrorUsername.Visibility = Visibility.Visible;
                 result=false;
             }
-            if (!Utilities.ValidatePassword(textPassword_Password.Password.Trim()))
+            if (!Utilities.ValidatePassword(passwordBoxPassword.Password.Trim()))
             {
                 label_ErrorPassword.Visibility = Visibility.Visible;
                 result = false;
             }
-            if(comBox_Role.SelectedIndex == -1)
+            if(comboBoxRole.SelectedIndex == -1)
             {
                 MessageBox.Show("Favor de seleccionar el rol del empleado");
             }
-            if(!Utilities.ValidateFormat(text_RFC.Text.Trim(), "^[A-ZÑ&]{3,4}[0-9]{6}[A-Z0-9]{3}$"))
+            if(!Utilities.ValidateFormat(textBoxRFC.Text.Trim(), "^[A-ZÑ&]{3,4}[0-9]{6}[A-Z0-9]{3}$"))
             {
                 label_ErrorRFC.Visibility = Visibility.Visible;
                 result = false;
