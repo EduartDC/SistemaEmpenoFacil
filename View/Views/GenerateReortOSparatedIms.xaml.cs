@@ -115,10 +115,10 @@ namespace View.Views
 
             document.Add(new iTextSharp.text.Paragraph("Reporte de articulos apartados", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
             document.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------------------------------------------------"));
-            document.Add(new iTextSharp.text.Paragraph(string.Format("Fecha de inicio de busqueda:------{0}", startDateDatePicker.SelectedDate)));
-            document.Add(new iTextSharp.text.Paragraph(string.Format("Fecha de fin de busqueda:---{0}", endDateDatePicker.SelectedDate)));
+            document.Add(new iTextSharp.text.Paragraph(string.Format("Fecha de inicio de busqueda:------{0}", startDateDatePicker.SelectedDate?.ToString("dd/MM/yyyy"))));
+            document.Add(new iTextSharp.text.Paragraph(string.Format("Fecha de fin de busqueda:---{0}", endDateDatePicker.SelectedDate?.ToString("dd/MM/yyyy"))));
             document.Add(new iTextSharp.text.Paragraph(string.Format("Elementos mostrados---------{0} articulos", setAsides.Count.ToString())));
-            document.Add(new iTextSharp.text.Paragraph(string.Format("Fecha de creacion:----------{0}", DateTime.Now.ToString("dd/MM/yyyy"))));
+            document.Add(new iTextSharp.text.Paragraph(string.Format("Fecha de creacion:----------{0}", DateTime.Now.ToString())));
 
             document.Add(Chunk.NEWLINE);
             document.Add(Chunk.NEWLINE);

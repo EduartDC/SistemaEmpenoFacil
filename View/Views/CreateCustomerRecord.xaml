@@ -23,15 +23,15 @@
         <Label Content="Agregue los datos necesarios para registrar a un nuevo cliente" HorizontalAlignment="Left" Margin="64,26,0,0" VerticalAlignment="Top" FontSize="18" Grid.Row="0"/>
         <Label Content="* Campos obligatorios" HorizontalAlignment="Left" Margin="64,60,0,0" VerticalAlignment="Top" FontSize="14" Foreground="#FFF70000" Grid.Row="0" />
         <Label Content="Nombre*:" HorizontalAlignment="Left" Margin="64,10,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox Name="text_Name"  MaxLength="25" HorizontalAlignment="Left" Margin="186,16,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" FontSize="16"/>
+        <TextBox Name="text_Name"  MaxLength="25" HorizontalAlignment="Left" Margin="186,16,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" FontSize="16" BorderThickness="0,0,0,2" BorderBrush="Black"/>
         <Label Content="Apellidos*:" HorizontalAlignment="Left" Margin="64,68,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox Name="text_LastName" MaxLength="50" HorizontalAlignment="Left" Margin="186,72,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" FontSize="16"/>
+        <TextBox Name="text_LastName" MaxLength="50" HorizontalAlignment="Left" Margin="186,72,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" FontSize="16" BorderThickness="0,0,0,2" BorderBrush="Black"/>
         <Label Content="CURP*:" HorizontalAlignment="Left" Margin="64,124,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox Name="text_CURP" MaxLength="18" HorizontalAlignment="Left" Margin="186,132,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" FontSize="16"/>
+        <TextBox Name="text_CURP" MaxLength="18" HorizontalAlignment="Left" Margin="186,132,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" FontSize="16" BorderThickness="0,0,0,2" BorderBrush="Black"/>
         <Label Content="Dirección*:" HorizontalAlignment="Left" Margin="64,186,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox Name="text_Address" MaxLength="50" HorizontalAlignment="Left" Margin="186,190,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" FontSize="16"/>
+        <TextBox Name="text_Address" MaxLength="50" HorizontalAlignment="Left" Margin="186,190,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="218" FontSize="16" BorderThickness="0,0,0,2" BorderBrush="Black"/>
         <Label Content="Telefono*:" HorizontalAlignment="Left" Margin="64,243,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox Name="text_telephonNumber"  MaxLength="10" HorizontalAlignment="Left" Margin="186,251,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" FontSize="16" />
+        <TextBox Name="text_telephonNumber"  MaxLength="10" HorizontalAlignment="Left" Margin="186,251,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" FontSize="16" BorderThickness="0,0,0,2" BorderBrush="Black"/>
         <Label Content="Identificación*:" HorizontalAlignment="Left" Margin="64,302,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
         <ComboBox Name="comBox_Identification" HorizontalAlignment="Left" Margin="186,299,0,0" Grid.Row="1" VerticalAlignment="Top" Width="218" FontSize="16" Height="37"/>
         <Image x:Name="componentImageOne" Height="138" Margin="590,54,310,0" Grid.Row="1" VerticalAlignment="Top" Width="300" Source="/Icons/photo.png" />
@@ -44,7 +44,19 @@
         <Label Name="label_ErrorAddress" Content="La dirección debe incluir primero numero de la casa seguido del nombre de la calle" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,208,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="14" Foreground="Red"/>
         <Label Name="label_ErrorTelephonNumber" Content="El telefono solo acepta numeros" Visibility="Hidden" HorizontalAlignment="Left" Margin="177,270,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="14" Foreground="Red"/>
         <Label Name="label_ErrorIdentification" Content="Selecciona un tipo de identificación" Visibility="Hidden" HorizontalAlignment="Left" Margin="212,333,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="14" Foreground="Red"/>
-        <Button Content="Salir" HorizontalAlignment="Left" Margin="60,30,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Width="97" Click="Btn_Exit_Click"/>
-        <Button  Content="Agregar" HorizontalAlignment="Right" Margin="0,30,50,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Width="111" Click="Btn_Add_Click"/>
+        <Button Foreground="White" Background="#323D8F" Content="Salir" HorizontalAlignment="Left" Margin="60,30,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Width="97" Click="Btn_Exit_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Foreground="White" Background="#323D8F" Content="Agregar" HorizontalAlignment="Right" Margin="0,30,50,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Width="111" Click="Btn_Add_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Page>

@@ -61,7 +61,7 @@ namespace View.Views
                     {
                         emplyoee.password = actualStaff.password;
                         Staff existinStaff = StaffDAO.GetStaffByUserName(emplyoee.userName);
-                        if (existinStaff != null && !existinStaff.rfc.Equals(emplyoee.rfc))
+                        if (existinStaff != null && existinStaff.rfc != null && !existinStaff.rfc.Equals(emplyoee.rfc))
                         {
                             string message = "Ya existe un empleado con este nombre de usuario por favor utilice otro";
                             string messageTitle = "Nombre de usuario ocupado";
@@ -102,7 +102,7 @@ namespace View.Views
                             emplyoee.password = passwordBoxPassword.Password.ToString();
                             emplyoee.password = Utilities.Hash(emplyoee.password);
                             Staff existinStaff = StaffDAO.GetStaffByUserName(emplyoee.userName);
-                            if (existinStaff != null && !existinStaff.rfc.Equals(emplyoee.rfc))
+                            if (existinStaff != null && existinStaff.rfc != null && !existinStaff.rfc.Equals(emplyoee.rfc))
                             {
                                 string message = "Ya existe un empleado con este nombre de usuario por favor utilice otro";
                                 string messageTitle = "Nombre de usuario ocupado";
