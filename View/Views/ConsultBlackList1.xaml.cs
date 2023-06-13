@@ -42,12 +42,10 @@ namespace View.Views
             catch (ArgumentNullException)
             {
                 MessageBox.Show("No existen clientes registrados en la lista negra");
-                this.Content = null;
             }
             catch (Exception)
             {
                 MessageBox.Show("Error al conectarse a la base de datos, favor de intentarlo más tarde");
-                this.Content = null;
             }
             
         }
@@ -59,14 +57,7 @@ namespace View.Views
             customersList.ForEach(customer => _listNumberCustomers.Add(customer.idCustomer));
             customersList.ForEach(customer => _listCurpsCustomers.Add(customer.curp));
             tableCustomers.ItemsSource = customersList;
-            if (_listNamesCustomers.Count == 0)
-            {
-               MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
 
-               MessageBox.Show("Error al recuperar los registros de la base de datos, favor de intentarlo más tarde");
-
-                this.Content = null;
-            }
         }
 
 
