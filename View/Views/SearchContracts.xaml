@@ -24,7 +24,9 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             FontSize="16"
-            TextWrapping="Wrap" />
+            TextWrapping="Wrap" 
+            BorderThickness="0,0,0,2" 
+            BorderBrush="Black"/>
         <Button
             Name="btn_Search"
             Grid.Row="0"
@@ -34,7 +36,15 @@
             VerticalAlignment="Top"
             Click="Btn_Search_Click"
             Content="Buscar"
-            FontSize="16" />
+            FontSize="16"  
+            Foreground="White" 
+            Background="#323D8F" >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <DataGrid
             x:Name="tableCustomers"
             Grid.Row="1"
@@ -135,7 +145,15 @@
             Click="Btn_Restore_Click"
             Content="Restablecer"
             FontSize="16"
-            RenderTransformOrigin="0.228,1.827" />
+            RenderTransformOrigin="0.228,1.827"  
+            Foreground="White" 
+            Background="#323D8F" >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Label
             Grid.Row="0"
             Margin="25,10,0,0"
@@ -153,7 +171,15 @@
             VerticalAlignment="Top"
             Click="Btn_Salir_Click"
             Content="Salir"
-            FontSize="16" />
+            FontSize="16"  
+            Foreground="White" 
+            Background="#323D8F">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>   
         <ComboBox
             Name="comBox_TypeSearch"
             Grid.Row="0"
