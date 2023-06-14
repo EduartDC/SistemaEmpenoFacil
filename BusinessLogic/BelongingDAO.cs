@@ -36,14 +36,22 @@ namespace BusinessLogic
 
             if (Utilities.VerifyConnection())
             {
-                using (var connection = new ConnectionModel())
+                try
                 {
+                    using (var connection = new ConnectionModel())
+                    {
 
-                    connection.Belongings.AddRange(belongingList);
-                    connection.SaveChanges();
-                    foreach (var util in belongingList)
-                        idBelongings.Add(util.idBelonging);
+                        connection.Belongings.AddRange(belongingList);
+                        connection.SaveChanges();
+                        foreach (var util in belongingList)
+                            idBelongings.Add(util.idBelonging);
+                    }
                 }
+                catch(Exception)
+                { 
+                    return (MessageCode.CONNECTION_ERROR,null); 
+                }
+               
             }
             else
                 return (MessageCode.CONNECTION_ERROR, idBelongings);
@@ -56,15 +64,23 @@ namespace BusinessLogic
             List<int> idImages = new List<int>();
             if (Utilities.VerifyConnection())
             {
-                using (var connection = new ConnectionModel())
+                try
                 {
-                    connection.ImagesBelongings.AddRange(imagesList);
-                    connection.SaveChanges();
-                    foreach (var util in imagesList)
+                    using (var connection = new ConnectionModel())
                     {
-                        idImages.Add(util.idImagenBelonging);
+                        connection.ImagesBelongings.AddRange(imagesList);
+                        connection.SaveChanges();
+                        foreach (var util in imagesList)
+                        {
+                            idImages.Add(util.idImagenBelonging);
+                        }
                     }
                 }
+                catch (Exception)
+                {
+                    return (MessageCode.CONNECTION_ERROR, idImages);
+                }
+               
             }
             else
                 return (MessageCode.CONNECTION_ERROR, idImages);

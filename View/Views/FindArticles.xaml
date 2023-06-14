@@ -6,10 +6,10 @@
       xmlns:local="clr-namespace:View.Views"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="FindArticles" Background="white">
+      Title="FindArticles" >
 
 
-    <Grid>
+    <Grid Background="white">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition  Height="275*"/>
@@ -131,24 +131,24 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <!--<Button
-        Content="Cerrar"
-        HorizontalAlignment="Center"
-        Margin="-280,-20,0,0"
-        Grid.Row="2"
-        VerticalAlignment="Center"
-        Width="128"
-        Height="34"
-        FontSize="20"
-        Foreground="White"
-        Background="#321D8F"
-        Grid.Column="3"  FontWeight="Bold" Click="Button_Click">
-        <Button.Resources>
-        <Style TargetType="Border">
-        <Setter  Property="CornerRadius" Value="10"/>
-        </Style>
-        </Button.Resources>
-        </Button>-->
+        <Button
+            Content="Cerrar"
+            HorizontalAlignment="Center"
+            Margin="-280,-20,0,0"
+            Grid.Row="2"
+            VerticalAlignment="Center"
+            Width="128"
+            Height="34"
+            FontSize="20"
+            Foreground="White"
+            Background="#321D8F"
+            Grid.Column="3"  FontWeight="Bold" Click="Button_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Label
             Content="Serie,Modelo,Etc"
             Grid.Row="0"

@@ -50,12 +50,20 @@ namespace BusinessLogic
             int result = 0;
             if (Utilities.VerifyConnection())
             {
-                using (var connection = new ConnectionModel())
+                try
                 {
-                    sale = connection.Sales.Where(a => a.idSale == idSale).FirstOrDefault();
+                    using (var connection = new ConnectionModel())
+                    {
+                        sale = connection.Sales.Where(a => a.idSale == idSale).FirstOrDefault();
+                    }
+                    if (sale != null)
+                        result = MessageCode.SUCCESS;
                 }
-                if (sale != null)
-                    result = MessageCode.SUCCESS;
+                catch(Exception)
+                {
+                    result = MessageCode.CONNECTION_ERROR;
+
+                }
             }
             else
                 result = MessageCode.CONNECTION_ERROR;

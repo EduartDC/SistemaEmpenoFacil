@@ -42,7 +42,7 @@ namespace View.Views
         {
             collectionView = CollectionViewSource.GetDefaultView(customersList);
             collectionView.Filter = (item) => true;
-            dgCustomers.ItemsSource = collectionView;//pasando la lista con funcion de filtro al dg
+            dgCustomers.ItemsSource = collectionView;
         }
 
         private void LoadCustomers()
@@ -54,11 +54,7 @@ namespace View.Views
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
                 this.Content = null;
             }
-            //else
-            //{
-            //    LoadTable();
 
-            //}
         }
 
         private void LoadTable()
@@ -141,19 +137,18 @@ namespace View.Views
         //Metodo de interfaz para transactionView
         public void Communication(bool result)
         {
-            Console.WriteLine("en communicaction " + result);
             if (result)
             {
-                /*
-                 * agregagr en este espacio el cxodigo para generar el ticket
-                 */
+                
                 int resultArticleDao =  ArticleDAO.GiveProfitArticlesToCustomer(idCustomerSelected);
                 int resultCustomerDAO = CustomerDAO.GiveProfitCustomer(idCustomerSelected);
-            Console.WriteLine("" + resultArticleDao +"   "+ resultCustomerDAO);
-                if (resultArticleDao == MessageCode.ERROR_UPDATE && resultCustomerDAO == MessageCode.SUCCESS)
+                if (resultArticleDao == MessageCode.SUCCESS && resultCustomerDAO == MessageCode.SUCCESS)
                 {
                     MessageBox.Show("Generando ticket");
                     CallTicket();
+                }else
+                {
+                    ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
                 }
             }
 

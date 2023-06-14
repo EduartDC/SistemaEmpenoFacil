@@ -22,42 +22,49 @@ namespace BusinessLogic
             List<ArticleDomain> articlesDomain = new List<ArticleDomain>();//lista purgada
             if (Utilities.VerifyConnection())
             {
-                using (var connection = new ConnectionModel())
+                try
                 {
-                    articles = connection.Belongings_Articles.Where(a => a.stateArticle.Equals("Disponible")).ToList();
-                    foreach (var item in articles)
+                    using (var connection = new ConnectionModel())
                     {
-                        ArticleDomain newArticle = new ArticleDomain();
-                        newArticle.idBelonging = item.Belonging.idBelonging;
-                        newArticle.appraisalValue = item.Belonging.appraisalValue;
-                        newArticle.category = item.Belonging.category;
-                        newArticle.description = item.Belonging.description;
-                        newArticle.characteristics = item.Belonging.characteristics;
-                        newArticle.loanAmount = item.Belonging.loanAmount;
-                        newArticle.serialNumber = item.Belonging.serialNumber;
-                        newArticle.idContract = item.Belonging.Contract_idContract;
-                        //atributos de Article
-                        newArticle.idArticle = item.idArticle;
-                        newArticle.barCode = item.barCode;
-                        newArticle.sellingPrice = item.sellingPrice;
-                        newArticle.stateArticle = item.stateArticle;
-                        newArticle.customerProfit = item.customerProfit;
-                        newArticle.storeProfit = item.storeProfit;
-                        string createDate = item.creationDate.ToString("dd/MM/yyyy");
-                        newArticle.createDate = DateTime.Parse(createDate);
-                        articlesDomain.Add(newArticle);
-                        using (var imgConnection = new ConnectionModel())
+                        articles = connection.Belongings_Articles.Where(a => a.stateArticle.Equals("Disponible")).ToList();
+                        foreach (var item in articles)
                         {
-                            var imageInfo = imgConnection.ImagesBelongings.Where(util => util.idImagenBelonging == item.idBelonging).FirstOrDefault();
-                            if (imageInfo != null)
+                            ArticleDomain newArticle = new ArticleDomain();
+                            newArticle.idBelonging = item.Belonging.idBelonging;
+                            newArticle.appraisalValue = item.Belonging.appraisalValue;
+                            newArticle.category = item.Belonging.category;
+                            newArticle.description = item.Belonging.description;
+                            newArticle.characteristics = item.Belonging.characteristics;
+                            newArticle.loanAmount = item.Belonging.loanAmount;
+                            newArticle.serialNumber = item.Belonging.serialNumber;
+                            newArticle.idContract = item.Belonging.Contract_idContract;
+                            
+                            newArticle.idArticle = item.idArticle;
+                            newArticle.barCode = item.barCode;
+                            newArticle.sellingPrice = item.sellingPrice;
+                            newArticle.stateArticle = item.stateArticle;
+                            newArticle.customerProfit = item.customerProfit;
+                            newArticle.storeProfit = item.storeProfit;
+                            string createDate = item.creationDate.ToString("dd/MM/yyyy");
+                            newArticle.createDate = DateTime.Parse(createDate);
+                            articlesDomain.Add(newArticle);
+                            using (var imgConnection = new ConnectionModel())
                             {
-                                newArticle.imageOne = imageInfo.imagen;
+                                var imageInfo = imgConnection.ImagesBelongings.Where(util => util.Belonging_idBelonging == item.idBelonging).FirstOrDefault();
+                                if (imageInfo != null)
+                                {
+                                    newArticle.imageOne = imageInfo.imagen;
+                                }
                             }
-
                         }
                     }
+                    return (MessageCode.SUCCESS, articlesDomain);
                 }
-                return (MessageCode.SUCCESS, articlesDomain);
+                catch (Exception)
+                {
+                    return (MessageCode.CONNECTION_ERROR, null);
+
+                }
             }
             return (MessageCode.CONNECTION_ERROR, null);
         }
@@ -133,7 +140,6 @@ namespace BusinessLogic
                         articlesList = connection.Belongings_Articles.Where(a => a.Belonging.Contract.Customer_idCustomer == idCustomer).ToList();
                         for(int i = 0; i < articlesList.Count(); i++)
                         {
-                            Console.WriteLine("Cliente: " + articlesList[i].Belonging.Contract.Customer_idCustomer);
                             if (articlesList[i].customerProfit > 0)//CAMBIAR A >, el == lo puse para pruebas de ticket
                                 articlesList[i].customerProfit = 0;
                         }
@@ -142,13 +148,12 @@ namespace BusinessLogic
                             result = MessageCode.SUCCESS;
                         else
                             result = MessageCode.ERROR_UPDATE;
-                        Console.WriteLine("Cambios: " + changes);
 
                     }
                 }
-                catch (DbUpdateException )
+                catch (Exception )
                 {
-                    result = MessageCode.ERROR_UPDATE;
+                    result = MessageCode.CONNECTION_ERROR;
                 }
             }
             else
@@ -193,9 +198,9 @@ namespace BusinessLogic
                     }
                     result = MessageCode.SUCCESS;
                 }
-                catch (DbUpdateException)
+                catch (Exception)
                 {
-                    result = MessageCode.ERROR_UPDATE;
+                    result = MessageCode.CONNECTION_ERROR;
                 }
             }
             else
@@ -212,29 +217,36 @@ namespace BusinessLogic
             {
                 using (var connection = new ConnectionModel())
                 {
-                    var sales = connection.Sales.Where(a => a.saleDate >= dateBegin && a.saleDate <= dateEnd).ToList();
-                    foreach (var util in sales)
+                    try
                     {
-                        foreach (var obj in util.Belongings_Articles)
+                        var sales = connection.Sales.Where(a => a.saleDate >= dateBegin && a.saleDate <= dateEnd).ToList();
+                        foreach (var util in sales)
                         {
-                            SaledArticle saledArticle = new SaledArticle();
-                            saledArticle.idSale = util.idSale;
-                            saledArticle.saleDate = util.saleDate;
+                            foreach (var obj in util.Belongings_Articles)
+                            {
+                                SaledArticle saledArticle = new SaledArticle();
+                                saledArticle.idSale = util.idSale;
+                                saledArticle.saleDate = util.saleDate;
 
 
-                            saledArticle.article.stateArticle = obj.stateArticle;
-                            saledArticle.article.loanAmount = obj.Belonging.loanAmount;
-                            saledArticle.article.barCode = obj.barCode;
-                            saledArticle.article.createDate = obj.creationDate;
-                            saledArticle.article.description = obj.Belonging.description;
-                            saledArticle.article.sellingPrice = obj.sellingPrice;
-                            saledArticle.customer = util.Customer.firstName + " " + util.Customer.lastName;
+                                saledArticle.article.stateArticle = obj.stateArticle;
+                                saledArticle.article.loanAmount = obj.Belonging.loanAmount;
+                                saledArticle.article.barCode = obj.barCode;
+                                saledArticle.article.createDate = obj.creationDate;
+                                saledArticle.article.description = obj.Belonging.description;
+                                saledArticle.article.sellingPrice = obj.sellingPrice;
+                                saledArticle.customer = util.Customer.firstName + " " + util.Customer.lastName;
 
-                            articlesSales.Add(saledArticle);
+                                articlesSales.Add(saledArticle);
+                            }
                         }
+                        result = MessageCode.SUCCESS;
                     }
-                    result = MessageCode.SUCCESS;
+                    catch(Exception)
+                    {
+                        result = MessageCode.CONNECTION_ERROR;
 
+                    }
                 }
             }
             else
@@ -276,14 +288,21 @@ namespace BusinessLogic
             {
                 using ( var connection = new ConnectionModel() )
                 {
-                    var articlesList = connection.Belongings_Articles.Where( a => idArticles.Contains( a.idArticle ) ).ToList() ;
-                    foreach (var util in articlesList)
+                    try
                     {
-                        ArticleDomain articleTemp = new ArticleDomain();
-                        articleTemp.description = util.Belonging.description;
-                        articles.Add(articleTemp);
+                        var articlesList = connection.Belongings_Articles.Where(a => idArticles.Contains(a.idArticle)).ToList();
+                        foreach (var util in articlesList)
+                        {
+                            ArticleDomain articleTemp = new ArticleDomain();
+                            articleTemp.description = util.Belonging.description;
+                            articles.Add(articleTemp);
+                        }
                     }
-                
+                    catch(Exception)
+                    {
+                        result = MessageCode.CONNECTION_ERROR;
+
+                    }
                 }
                 result = MessageCode.SUCCESS;
             }else

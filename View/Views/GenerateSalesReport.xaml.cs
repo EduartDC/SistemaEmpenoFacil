@@ -49,7 +49,7 @@ namespace View.Views
             InitializeComponent();
             LoadFilter();
         }
-       
+
         private void LoadFilter()
         {
             cbFilter.ItemsSource = filter;
@@ -91,11 +91,11 @@ namespace View.Views
             (result, SaledArticlesList) = ArticleDAO.GetSaledArticlesToReport(DateTime.Parse(dpDateBegin.Text), DateTime.Parse(dpDateEnd.Text));
             if (result == MessageCode.CONNECTION_ERROR)
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
-            else if (result == MessageCode.SUCCESS) ;
+            else if (result == MessageCode.SUCCESS) 
             GenerateReportSaledArticles();
         }
 
-        
+
 
         public void GetStockList()
         {
@@ -106,14 +106,10 @@ namespace View.Views
             {
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
             }
-            else if (result == MessageCode.ERROR_UPDATE)
-            {
-                ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
-            }
             else if (result == MessageCode.SUCCESS)
             {
                 GenerateReportArticlesStock();
-                MessageBox.Show("reporte creado, falta imprimir");
+                MessageBox.Show("reporte creado");
             }
         }
 
@@ -250,7 +246,7 @@ namespace View.Views
             Document doc = new Document(PageSize.LETTER);
             PdfWriter writer = PdfWriter.GetInstance(
                 doc, new FileStream(fullPath, FileMode.Create));
-            doc.AddTitle(string.Format("Reporte articulos stock{0}",  DateTime.Now.Ticks));
+            doc.AddTitle(string.Format("Reporte articulos stock{0}", DateTime.Now.Ticks));
             doc.Open();
             //editando encabezados
             iTextSharp.text.Paragraph title = new iTextSharp.text.Paragraph("Empeño Facil", new Font(Font.FontFamily.HELVETICA, 23, Font.BOLD));
@@ -463,12 +459,12 @@ namespace View.Views
 
         private void SelectionComboBox(object sender, SelectionChangedEventArgs e)
         {
-            if(cbFilter.SelectedIndex == 0)
+            if (cbFilter.SelectedIndex == 0)
             {
                 lbBegin.Content = "Fecha de inicio de busqueda";
                 lbEnd.Content = "Fecha de fin de busqueda";
             }
-            else if(cbFilter.SelectedIndex == 1)
+            else if (cbFilter.SelectedIndex == 1)
             {
                 lbBegin.Content = "Fecha de comercializacion menor";
                 lbEnd.Content = "Fecha de comercizalicacion mayor";

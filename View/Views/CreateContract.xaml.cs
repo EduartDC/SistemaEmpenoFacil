@@ -35,16 +35,16 @@ namespace View.Views
         private List<Domain.BelongingCreation.Belonging> belongingList = new List<Domain.BelongingCreation.Belonging>();
         private List<byte[]> byteImages = new List<byte[]>();
 
-        private DateTime currentlyDate;//fecha actual
-        private DateTime comercializationDate;//fecha de comercializacion-NO ESTA EN LA BD
+        private DateTime currentlyDate;
+        private DateTime comercializationDate;
         private DateTime limitPaymentDate;
-        private double totalAppraiseAmmount = 0;//total de avaluo
+        private double totalAppraiseAmmount = 0;
         private string paymentDates = "";
         private double totalLoan = 0;
 
-        private string totalPaymentForEndorsement = "";// total de pago por refrendo
+        private string totalPaymentForEndorsement = "";
 
-        //parametros en caso de cancelacionn o algun error
+        //parametros en caso de cancelacion o algun error
         private int idContractSaved = 0;
         private List<int> idBelongingsSaved = new List<int>();
         private List<int> idImagesSaved = new List<int>();
@@ -87,15 +87,12 @@ namespace View.Views
             tbDateComercialization.IsEnabled = false;
             tbLoanAmount.IsEnabled = false;
             tbPaymentLimit.IsEnabled = false;
-            //tbMountPaymentTerm.IsEnabled = false;
             tbDateEndorsementSettlement.IsEnabled = false;
-            //tbTotalAnnualCost.IsEnabled = false;
             tbAnnualInterestRate.IsEnabled = false;
             tbTotalPaymentForEndorsement.IsEnabled = false;
             tbTotalPerformancePay.IsEnabled = false;
         }
 
-        //Incluye a CU06-Crear registro prendario
         private void ClicCreatePledgeRegister(object sender, RoutedEventArgs e)
         {
             CreateBelongingRegister createBelongingRegister = new CreateBelongingRegister();
@@ -127,7 +124,6 @@ namespace View.Views
             {
                 for (int i = 0; i < belongingList.Count; i++)
                     totalAppraiseAmmount += belongingList[i].ApraisalAmount;
-                // tbAppraisalAmount.Text = totalAppraiseAmmount.ToString();
             }
         }
 
@@ -164,15 +160,27 @@ namespace View.Views
 
         private void LoadMetrics()
         {
-            metrics = MetricsDAO.RecoverMetrics();
-            if (metrics != null)
+            try
             {
-                tbInterests.Text = metrics.interestRate + "%";
-                tbIVA.Text = metrics.IVA + "%";
-                tbAnnualInterestRate.Text = "" + (int.Parse(metrics.IVA) / 2);
+                metrics = MetricsDAO.RecoverMetrics();
+                if (metrics != null)
+                {
+                    tbInterests.Text = metrics.interestRate + "%";
+                    tbIVA.Text = metrics.IVA + "%";
+                    tbAnnualInterestRate.Text = "" + (int.Parse(metrics.IVA) / 2);
+                }
+                else
+                {
+                    ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+                    this.Content = null;
+                }
             }
-            else
+            catch (Exception)
+            {
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+                this.Content = null;
+            }
+
         }
 
         private void BtnFindCustomer(object sender, RoutedEventArgs e)
@@ -190,13 +198,16 @@ namespace View.Views
                     else
                     {
                         ErrorManager.ShowError(MessageError.CUSTOMER_IN_BLACK_LIST);
-                        //enviar a menu
+                        this.Content = null;
                     }
                 }
                 else if (operationCode == MessageCode.ERROR_USER_NOT_FOUND)
                     ErrorManager.ShowError(MessageError.ERROR_USER_NOT_FOUND);
                 else if (operationCode == MessageCode.CONNECTION_ERROR)
+                {
                     ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+                    this.Content = null;
+                }
             }
             else
             {
@@ -228,10 +239,10 @@ namespace View.Views
             tbDollarPay.Text = "";
             for (int i = 1; i <= term; i++)
             {
-                float loan = float.Parse(tbLoanAmount.Text);//capital
-                                                            //i plazo
-                float interestRate = float.Parse(metrics.interestRate) / 100;//intereses
-                float iva = float.Parse(metrics.IVA) / 100;//iva
+                float loan = float.Parse(tbLoanAmount.Text);
+                                                           
+                float interestRate = float.Parse(metrics.interestRate) / 100;
+                float iva = float.Parse(metrics.IVA) / 100;
                 float result = loan + (loan * (i * interestRate * 1 + (iva)));
                 info += result + ";\n";
                 tbDollarPay.Text += "$" + "\n";
@@ -301,10 +312,9 @@ namespace View.Views
             string info = "";
             for (int i = 1; i <= term; i++)
             {
-                float loan = float.Parse(tbLoanAmount.Text);//capital
-                                                            //i plazo
-                float interestRate = float.Parse(metrics.interestRate) / 100;//intereses
-                float iva = float.Parse(metrics.IVA) / 100;//iva
+                float loan = float.Parse(tbLoanAmount.Text);
+                float interestRate = float.Parse(metrics.interestRate) / 100;
+                float iva = float.Parse(metrics.IVA) / 100;
                 float result = loan * (i * interestRate * 1 + (iva));
                 info += result + ";\n";
                 tbDollarPerformance.Text += "$" + "\n";
@@ -324,20 +334,20 @@ namespace View.Views
         private void RegisterContract()
         {
             Contract newContract = new Contract();
-            newContract.loanAmount = float.Parse(tbLoanAmount.Text);//loanAmount
-            newContract.deadlineDate = limitPaymentDate;//deadlineDate
-            newContract.creationDate = currentlyDate;//CreationDate
+            newContract.loanAmount = float.Parse(tbLoanAmount.Text);
+            newContract.deadlineDate = limitPaymentDate;
+            newContract.creationDate = currentlyDate;
             newContract.stateContract = BusinessLogic.StatesContract.PENDING_CONTRACT;
             newContract.iva = int.Parse(metrics.IVA);
             newContract.interestRate = int.Parse(metrics.interestRate);
-            newContract.renewalFee = 0;//lo hace otro //renawalFee
-            newContract.settlementAmount = 0;//lo hace otro //settlementAmount
-            newContract.Customer_idCustomer = customer.idCustomer;//Customer_idCustomer
+            newContract.renewalFee = 0;
+            newContract.settlementAmount = 0;
+            newContract.Customer_idCustomer = customer.idCustomer;
             newContract.endorsementSettlementDates = tbDateEndorsementSettlement.Text;
-            newContract.paymentsSettlement = tbTotalPerformancePay.Text;//tbTotalPaymentForEndorsement
+            newContract.paymentsSettlement = tbTotalPerformancePay.Text;
             newContract.paymentsEndorsement = tbTotalPaymentForEndorsement.Text;
             newContract.loanProcentage = tbLoanPorcentage.Text;
-            //newContract.totalAnnualCost = tbTotalAnnualCost.Text;
+            newContract.totalAnnualCost = "" + (int.Parse(metrics.interestRate) * 2);
             newContract.annualInterestRate = tbAnnualInterestRate.Text;
             newContract.duration = int.Parse(cbTerm.SelectedItem.ToString());
             SaveInfo(newContract);
@@ -349,10 +359,8 @@ namespace View.Views
             if (operationResult == MessageCode.CONNECTION_ERROR)
             {
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
+                this.Content = null;
             }
-            else
-            if (operationResult == MessageCode.ERROR)
-                ErrorManager.ShowError(MessageError.ERROR_ADD_OPERATION);
             else
             {
                 idContractSaved = idContract;
@@ -382,7 +390,7 @@ namespace View.Views
             if (result == MessageCode.CONNECTION_ERROR)
             {
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
-                //cerrar frame
+                this.Content = null;
             }
             else
             {
@@ -395,11 +403,10 @@ namespace View.Views
         {
             List<ImagesBelonging> imagesPrepared = new List<ImagesBelonging>();
             ConvertImagesToBytes();
-            for (int i = 0; i < idBelongingsSaved.Count(); i++)//recorrer lista de id
+            for (int i = 0; i < idBelongingsSaved.Count(); i++)
             {
-                for (int j = 0; j < 4; j++)//recorrer prendas
+                for (int j = 0; j < 4; j++)
                 {
-                    Console.WriteLine("numero de id de prenda: " + idBelongingsSaved[i]);
                     ImagesBelonging imagesBelonging = new ImagesBelonging();
                     imagesBelonging.Belonging_idBelonging = idBelongingsSaved[i];
                     imagesBelonging.imagen = belongingList[i].imagesBytes[j];
@@ -411,18 +418,18 @@ namespace View.Views
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
             else if (result == MessageCode.SUCCESS)
             {
-                MessageBox.Show("IMAGENES REGISTRADAS");
                 idImagesSaved = idImages;
                 CallTransaction();
             }
             else
-                ErrorManager.ShowWarning("Error critico");
+            {
+                ErrorManager.ShowWarning("Error con la Base de datos");
+                this.Content = null;
+            }
         }
 
-        private void CallTransaction() //llamado a metodo de dircio
+        private void CallTransaction() 
         {
-            //MainWindow mainWindow = new MainWindow();
-            //copiar de setAside 292
             MainWindow mainWindow = null;
 
             foreach (Window window in Application.Current.Windows)
@@ -433,12 +440,10 @@ namespace View.Views
                     break;
                 }
             }
-            //var window = Application.Current.MainWindow as MainWindow;
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
             mainWindow.PrimaryContainer.Effect = blurEffect;
-            //campos estaticos para pruebas
-            (App.Current as App)._cashOnHand = 100000;
+            (App.Current as App)._cashOnHand = 11000;
             TransactionView newOperation = new TransactionView(OperationType.OPERATION_LOAND, double.Parse(tbLoanAmount.Text), idContractSaved);
             newOperation.CommunicacionPages(this);
             mainWindow.SecundaryContainer.Navigate(newOperation);
@@ -472,7 +477,7 @@ namespace View.Views
                 {
                     MessageBox.Show("Contrato Creado exitosamente");
                     PrintContract.NewPrintCotract(await ContractDAO.GetContractsDomainAsync(idContractSaved));
-
+                    this.Content = null;
                 }
             }
             else
@@ -481,7 +486,12 @@ namespace View.Views
                 int resultBelonging = BelongingDAO.DeletePendingBelongings(idBelongingsSaved);
                 int resultContract = ContractDAO.DeletePendingContrat(idContractSaved);
                 if (resultimg == MessageCode.SUCCESS && resultBelonging == MessageCode.SUCCESS && resultContract == MessageCode.SUCCESS)
+                {
                     MessageBox.Show("Contrato cancelado exitosamente");
+                    this.Content = null;
+                }
+                   
+                
 
             }
         }
@@ -489,24 +499,6 @@ namespace View.Views
         //metodo de interfaz TransactionView que no se usa
         public void ScanCommunication(ArticleDomain article)
         {
-        }
-
-        private void Borrar(object sender, RoutedEventArgs e)
-        {
-
-
-
-
-            var mainWindow = Application.Current.MainWindow as MainWindow;
-            BlurEffect blurEffect = new BlurEffect();
-            blurEffect.Radius = 5;
-            mainWindow.PrimaryContainer.Effect = blurEffect;
-            //campos estaticos para pruebas
-            (App.Current as App)._cashOnHand = 1000;
-            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LOAND, 1000, 13);
-            newOperation.CommunicacionPages(this);
-            mainWindow.SecundaryContainer.Navigate(newOperation);
-            mainWindow.PrimaryContainer.IsHitTestVisible = false;
         }
 
         private void dgBelongings_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -520,8 +512,6 @@ namespace View.Views
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
             mainWindow.PrimaryContainer.Effect = blurEffect;
-            //campos estaticos para pruebas
-            (App.Current as App)._cashOnHand = 1000;
             CreateCustomerRecord registerCustomer = new CreateCustomerRecord();
             mainWindow.SecundaryContainer.Navigate(registerCustomer);
             mainWindow.PrimaryContainer.IsHitTestVisible = false;
@@ -533,6 +523,11 @@ namespace View.Views
             if (resultMessage == MessageBoxResult.OK)
                 this.Content = null;
 
+        }
+
+        public void refreshArticles()//metodo de interfaz no util en este cu
+        {
+           
         }
     }
 }

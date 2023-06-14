@@ -131,11 +131,18 @@ namespace BusinessLogic
             SetAside setAside = new SetAside();
             if (Utilities.VerifyConnection())
             {
-                using (var connection = new ConnectionModel())
+                try
                 {
-                    setAside = connection.SetAsides.Where( a => a.idSetAside == id).FirstOrDefault();
-                    if (setAside != null)
-                        result = MessageCode.SUCCESS;
+                    using (var connection = new ConnectionModel())
+                    {
+                        setAside = connection.SetAsides.Where(a => a.idSetAside == id).FirstOrDefault();
+                        if (setAside != null)
+                            result = MessageCode.SUCCESS;
+                    }
+                }
+                catch(Exception)
+                {
+                    result = MessageCode.CONNECTION_ERROR;
                 }
             }
             else
