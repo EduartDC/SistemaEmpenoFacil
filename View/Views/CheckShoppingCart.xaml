@@ -22,11 +22,29 @@
                     <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Carrito de compras" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-                <Button x:Name="makeSaleButton" Content="Realizar venta" HorizontalAlignment="Center" Margin="0,59,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="18" Height="36" Width="130" Click="MakeSaleButtonEvent"/>
-                <Button x:Name="goBackButton" Grid.Column="1" Content="Regresar" HorizontalAlignment="Center" Margin="0,289,0,0" VerticalAlignment="Top" FontSize="18" Height="38" Width="130" Click="GoBackButtonEvent"/>
+                <Button x:Name="makeSaleButton" Background="#323D8F" Foreground="White" Content="Realizar venta" HorizontalAlignment="Center" Margin="0,59,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="18" Height="36" Width="130" Click="MakeSaleButtonEvent">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter  Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button x:Name="goBackButton" Background="#323D8F" Foreground="White" Grid.Column="1" Content="Regresar" HorizontalAlignment="Center" Margin="0,289,0,0" VerticalAlignment="Top" FontSize="18" Height="38" Width="130" Click="GoBackButtonEvent">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter  Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
                 <Label Content="Monto final:" HorizontalAlignment="Left" Margin="20,371,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
                 <Label x:Name="labelFinalSellingAmount" Content="XXXXXX $" HorizontalAlignment="Left" Margin="461,371,0,0" VerticalAlignment="Top" FontSize="20"/>
-                <Button x:Name="deleteArticleButton" Content="Eliminar articulo" HorizontalAlignment="Left" Margin="427,332,0,0" VerticalAlignment="Top" FontSize="18" Click="DeleteArticuleButtonEvent"/>
+                <Button x:Name="deleteArticleButton" Background="#323D8F" Foreground="White" Content="Eliminar articulo" HorizontalAlignment="Left" Margin="427,332,0,0" VerticalAlignment="Top" FontSize="18" Click="DeleteArticuleButtonEvent">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter  Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
                 <DataGrid x:Name="dataGridShoppingCart"  Margin="20,59,25,132" Background="Wheat">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Imagen">
@@ -41,7 +59,8 @@
                         <DataGridTextColumn Header="Precio de venta" Binding="{Binding sellingPrice}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <TextBox x:Name="textBoxDiscount" Grid.Column="1" HorizontalAlignment="Center" Margin="0,171,0,0" TextWrapping="Wrap" Text="descuento" VerticalAlignment="Top" Width="120" FontSize="18"/>
+                <TextBox x:Name="textBoxDiscount" Grid.Column="1"  HorizontalAlignment="Center" Margin="0,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="18" BorderBrush="Black" BorderThickness="0,0,0,2"/>
+                <Label Grid.Column="1" Content="Descuento" HorizontalAlignment="Left" Margin="15,137,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
             </Grid>
 
         </Grid>

@@ -34,7 +34,7 @@ namespace BusinessLogic
             return belongings_ArticlesSelled;
         }
 
-        public static Domain.ArticleDomain GetBelonging_Article(int idArticle)
+        public static Domain.ArticleDomain GetBelonging_Article(string barCode)
         {
             Domain.ArticleDomain articleDomain = null;
             Belongings_Articles belongings_Articles = new Belongings_Articles();
@@ -44,7 +44,7 @@ namespace BusinessLogic
                 {
                     try
                     {
-                        belongings_Articles = connection.Belongings_Articles.Where(util => util.idArticle == idArticle).FirstOrDefault();
+                        belongings_Articles = connection.Belongings_Articles.Where(util => util.barCode == barCode).FirstOrDefault();
                         articleDomain = new Domain.ArticleDomain();
                         articleDomain.idArticle = belongings_Articles.idArticle;
                         articleDomain.barCode = belongings_Articles.barCode;
@@ -106,7 +106,7 @@ namespace BusinessLogic
             return result;
         }
 
-        public static int ModifyBelonging_Article(int idArticle, int idSale, double storeProfit)
+        public static int ModifyBelonging_Article(int idArticle, int idSale, double storeProfit, double finalSellingPrice)
         {
             int resultOperation = MessageCode.ERROR;
             if (Utilities.VerifyConnection())
@@ -117,6 +117,7 @@ namespace BusinessLogic
                     article.stateArticle = "Vendido";
                     article.Sale_idSale = idSale;
                     article.storeProfit = storeProfit;
+                    article.customerProfit = finalSellingPrice - (finalSellingPrice * .6);
                     resultOperation = connection.SaveChanges();
                 }
             }

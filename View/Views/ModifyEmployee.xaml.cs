@@ -30,10 +30,10 @@ namespace View.Views
             InitializeComponent();
             AddStatusComboBoxElements();
             AddRoleComboxBoxElements();
-            showStaffInformation(IdEmployee);
+            ShowStaffInformation(IdEmployee);
         }
 
-        private void clicModifyButton(object sender, RoutedEventArgs e)
+        private void ClicModifyButton(object sender, RoutedEventArgs e)
         {
             Staff emplyoee = new Staff();
             emplyoee.fisrtName = textBoxName.Text;
@@ -54,14 +54,14 @@ namespace View.Views
                 && emplyoee.statusStaff.Length != 0 && emplyoee.rol.Length != 0)
             {
 
-                if (Utilities.ValidateFormat(emplyoee.fisrtName, "[A-Za-z]+\\s+[A-Za-z]+") && Utilities.ValidateFormat(emplyoee.lastName, "[A-Za-z]+\\s+[A-Za-z]+") &&
+                if ((Utilities.ValidateFormat(emplyoee.fisrtName, "[A-Za-z]+\\s+[A-Za-z]+") || Utilities.ValidateFormat(emplyoee.fisrtName, "[A-Za-z]+")) && Utilities.ValidateFormat(emplyoee.lastName, "[A-Za-z]+\\s+[A-Za-z]+") &&
                     Utilities.ValidateInput(emplyoee.userName))
                 {
                     if(emplyoee.password.Length == 0)
                     {
                         emplyoee.password = actualStaff.password;
                         Staff existinStaff = StaffDAO.GetStaffByUserName(emplyoee.userName);
-                        if (existinStaff != null && existinStaff.rfc != null && !existinStaff.rfc.Equals(emplyoee.rfc))
+                        if (existinStaff != null && existinStaff.rfc != null && existinStaff.rfc != rfcLabel.Content.ToString())
                         {
                             string message = "Ya existe un empleado con este nombre de usuario por favor utilice otro";
                             string messageTitle = "Nombre de usuario ocupado";
@@ -74,7 +74,7 @@ namespace View.Views
                         {
                             labelInvalidInformation.Content = string.Empty;
                             int successfulModification = StaffDAO.ModifyStaff(actualStaff.idStaff, emplyoee);
-                            if (successfulModification != 300 && successfulModification != 0)
+                            if (successfulModification != 300)
                             {
                                 string message = "La informacion ha sido actualizada correctamente";
                                 string messageTitle = "Modificacion exitosa";
@@ -97,12 +97,12 @@ namespace View.Views
                     }
                     else
                     {
-                        if (Utilities.ValidatePassword(emplyoee.password))
+                        if (Utilities.ValidatePassword(emplyoee.password.Trim()))
                         {
                             emplyoee.password = passwordBoxPassword.Password.ToString();
                             emplyoee.password = Utilities.Hash(emplyoee.password);
                             Staff existinStaff = StaffDAO.GetStaffByUserName(emplyoee.userName);
-                            if (existinStaff != null && existinStaff.rfc != null && !existinStaff.rfc.Equals(emplyoee.rfc))
+                            if (existinStaff != null && existinStaff.rfc != null && existinStaff.rfc != rfcLabel.Content.ToString())
                             {
                                 string message = "Ya existe un empleado con este nombre de usuario por favor utilice otro";
                                 string messageTitle = "Nombre de usuario ocupado";
@@ -115,7 +115,7 @@ namespace View.Views
                             {
                                 labelInvalidInformation.Content = string.Empty;
                                 int successfulModification = StaffDAO.ModifyStaff(actualStaff.idStaff, emplyoee);
-                                if (successfulModification != 300 && successfulModification != 0)
+                                if (successfulModification != 300)
                                 {
                                     string message = "La informacion ha sido actualizada correctamente";
                                     string messageTitle = "Modificacion exitosa";
@@ -144,7 +144,7 @@ namespace View.Views
                 }
                 else
                 {
-                    if (!Utilities.ValidateFormat(emplyoee.fisrtName, "[A-Za-z]+\\s+[A-Za-z]+"))
+                    if ((!Utilities.ValidateFormat(emplyoee.fisrtName, "[A-Za-z]+\\s+[A-Za-z]+") || !Utilities.ValidateFormat(emplyoee.fisrtName, "[A-Za-z]+")))
                     {
                         labelInvalidInformation.Content = "Por favor solo ingrese letras y espacios en el nombre";
                     }
@@ -202,7 +202,7 @@ namespace View.Views
             }
         }
 
-        private void showStaffInformation(int idUser)
+        private void ShowStaffInformation(int idUser)
         {
             Staff staff = StaffDAO.GetStaff(idUser);
             textBoxName.Text = staff.fisrtName;

@@ -111,7 +111,7 @@ namespace View.Views
 
         private void EndorseContractButtonEvent(object sender, RoutedEventArgs e)
         {
-            if (actualContract.idContractPrevious != null)
+            if (actualContract.idContractPrevious != null && (actualContract.stateContract == "Activo" || actualContract.stateContract == "Reactivado"))
             {
                 string message = "Ya se ha refrendado anteiormente este contrato, solo dispone de liquidacion";
                 string messageTitle = "No se puede volver a refrendar";
