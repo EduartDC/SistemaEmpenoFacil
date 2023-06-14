@@ -7,7 +7,7 @@
       mc:Ignorable="d" d:DesignWidth="800"
       Title="CashRegisterOperations" Height="590">
 
-    <Grid Background="#F0F0F0">
+    <Grid Background="#F0F0F0" Margin="0,0,0,-229">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="81*" />
@@ -18,7 +18,7 @@
                     x:Name="labelAmount"
                     Width="Auto"
                     Height="60"
-                    Margin="256,100,0,0"
+                    Margin="256,35,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Formulario de Pago"
@@ -32,7 +32,7 @@
                     MinWidth="200"
                     MinHeight="30"
                     MaxHeight="200"
-                    Margin="300,267,0,0"
+                    Margin="300,338,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     FontSize="25"
@@ -43,14 +43,14 @@
                     TextAlignment="Right" Grid.ColumnSpan="2" />
 
         <Label
-                    Margin="312,220,0,0"
+                    Margin="289,269,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Cantidad recibida"
-                    FontSize="20"
+                    FontSize="26"
                     FontWeight="Bold" Grid.ColumnSpan="2" />
         <Label
-                    Margin="276,356,0,0"
+                    Margin="276,427,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Concepto de operación"
@@ -63,7 +63,7 @@
                     x:Name="btnCancel"
                     Width="153"
                     Height="40"
-                    Margin="199,498,0,0"     
+                    Margin="197,571,0,0"     
             HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Background="Gray"
@@ -72,13 +72,13 @@
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="White"/>
-        <ComboBox x:Name="cbConcept" HorizontalAlignment="Left" Margin="300,412,0,0" VerticalAlignment="Top" Width="200" Grid.ColumnSpan="2" 
+        <ComboBox x:Name="cbConcept" HorizontalAlignment="Left" Margin="300,483,0,0" VerticalAlignment="Top" Width="200" Grid.ColumnSpan="2" 
                   />
         <Button
             x:Name="btnRegister"
             Width="171"
             Height="40"
-            Margin="67,498,0,0"     
+            Margin="65,571,0,0"     
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Background="#215ECA"
@@ -87,6 +87,20 @@
             FontSize="16"
             FontWeight="Bold"
             Foreground="White" Grid.Column="1"/>
+        <Label
+            Margin="301,136,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Balance de caja"
+            FontSize="26"
+            FontWeight="Bold" Grid.ColumnSpan="2" />
+        <Label x:Name="lb_Balance"
+            Margin="395,206,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+           
+            FontSize="20"
+            FontWeight="Bold" IsEnabled="False" />
 
 
 

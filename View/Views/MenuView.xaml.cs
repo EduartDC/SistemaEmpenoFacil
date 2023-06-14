@@ -154,7 +154,13 @@ namespace View.Views
         }
         private void ItemOperationCashRegister_Click(object sender, RoutedEventArgs e)
         {
-            Container.NavigationService.Navigate(new CashRegisterOperations());
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Navigate(new CashRegisterOperations());
+            window.PrimaryContainer.IsHitTestVisible = false;
+            
         }
         private void itemSearchBelongings_Click(object sender, RoutedEventArgs e)
         {
@@ -192,6 +198,10 @@ namespace View.Views
         private void itemNewArticles_Click(object sender, RoutedEventArgs e)
         {
             Container.NavigationService.Navigate(new ArticlesSellingPrice());
+        }
+        private void itemPrintLabel_Click(object sender, RoutedEventArgs e)
+        {
+            Container.NavigationService.Navigate(new PrintPriceLabel());
         }
     }
 }

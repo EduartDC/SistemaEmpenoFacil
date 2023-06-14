@@ -8,11 +8,11 @@
       d:DesignHeight="800" d:DesignWidth="1200"
       Title="SearchCustomer">
 
-    <Grid Background="White" Margin="0,0,0,231">
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="275"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="409"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -24,9 +24,9 @@
             Grid.Column="1"
             Grid.Row="0"
             Content="Buscar Cliente"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Margin="0,0,100,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Margin="0,55,0,0"
             Height="35" Width="200"
             FontSize="20"
             Foreground="White"
@@ -80,7 +80,7 @@
             x:Name="dgCustomers"
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            Margin="80,50"
+            Margin="80,50,80,50"
             AutoGenerateColumns="False"
             ItemsSource="{Binding customersList}" 
             
@@ -122,12 +122,11 @@
         <Button
             Grid.Row="2"
             Grid.Column="1"
-            Margin="0,107,0,0"
             Content="Agregar a lista negra"
             Height="36"
             Width="224"
             FontSize="20"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             Foreground="White"
             Background="#FF272938"
             HorizontalAlignment="Center" Click="Button_AddBlackList" FontWeight="Bold">
