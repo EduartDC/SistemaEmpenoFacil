@@ -71,7 +71,6 @@ namespace View.Views
                 ModifyEmployee modifyEmployee = new ModifyEmployee(selectedStaff.idStaff);
                 CheckStaffList contentOfPage = new CheckStaffList();
                 this.NavigationService.Navigate(modifyEmployee);
-                GetAllStaff();
             }
             else
             {
@@ -82,6 +81,17 @@ namespace View.Views
                 MessageBoxResult messageBox;
                 messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
             }
+        }
+
+        private void UpdateInformationButtonEvent(object sender, RoutedEventArgs e)
+        {
+            GetAllStaff();
+            firstNameLabel.Content = null;
+            lastNameLabel.Content = null;
+            userNameLabel.Content = null;
+            statusLabel.Content = null;
+            rolLabel.Content = null;
+            rfcLabel.Content = null;
         }
     }
 }

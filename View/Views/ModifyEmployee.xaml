@@ -37,7 +37,7 @@
             <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" FontSize="18"/>
             <Label Content="Estatus" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" FontSize="18"/>
             <Label Content="Rol:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" FontSize="18"/>
-            <Button Content="Modificar" Background="#323D8F" Foreground="White" HorizontalAlignment="Left" Margin="613,0,0,0" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="clicModifyButton">
+            <Button Content="Modificar" Background="#323D8F" Foreground="White" HorizontalAlignment="Left" Margin="613,0,0,0" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Height="40" Width="104" Click="ClicModifyButton">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter  Property="CornerRadius" Value="10"/>

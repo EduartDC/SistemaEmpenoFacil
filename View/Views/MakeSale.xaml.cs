@@ -41,17 +41,18 @@ namespace View.Views
             bitmap.StreamSource = new MemoryStream(article.imageOne);
             bitmap.EndInit();
             article.imageConverted = bitmap;
+            article.imageConverted = null;
         }
 
         private void SearchArticleButtonEvent(object sender, RoutedEventArgs e)
         {
-            string idArticle = textBoxBarCode.Text;
-            if(Utilities.ValidateFormat(idArticle, "[0-9]+"))
+            string barCode = textBoxBarCode.Text;
+            if(Utilities.ValidateFormat(barCode, "[A-Za-z0-9]+"))
             {
-                Domain.ArticleDomain articleDomain = BelongingsArticlesDAO.GetBelonging_Article(int.Parse(idArticle));
-                ConverterImagesFormat(articleDomain);
-                if (articlesDomain != null)
+                Domain.ArticleDomain articleDomain = BelongingsArticlesDAO.GetBelonging_Article(barCode);
+                if (articleDomain != null)
                 {
+                    ConverterImagesFormat(articleDomain);
                     dataGridArticles.Items.Clear();
                     dataGridArticles.Items.Add(articleDomain);
                 }
@@ -123,17 +124,9 @@ namespace View.Views
             else
             {
                 Domain.ArticleDomain articleSelected = dataGridArticles.SelectedItem as Domain.ArticleDomain;
-                if (!articleSelected.stateArticle.Equals("vendido"))
+                if (articleSelected.stateArticle.Equals("vendido"))
                 {
                     string message = "Por favor seleccione un articulo que este disponible para venta";
-                    string messageTitle = "Seleccion no valida";
-                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
-                    MessageBoxResult messageBox;
-                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
-                }else if (articlesDomain.Contains(articleSelected))
-                {
-                    string message = "Este articulo ya ha sido añadido al carrito por favor seleccione otro";
                     string messageTitle = "Seleccion no valida";
                     MessageBoxButton messageBoxButton = MessageBoxButton.OK;
                     MessageBoxImage messageBoxImage = MessageBoxImage.Information;
@@ -142,13 +135,25 @@ namespace View.Views
                 }
                 else
                 {
-                    articlesDomain.Add(articleSelected);
-                    string message = "Se ha añadido el articulo al carrito correctamente";
-                    string messageTitle = "Articulo seleccionado";
-                    MessageBoxButton messageBoxButton = MessageBoxButton.OK;
-                    MessageBoxImage messageBoxImage = MessageBoxImage.Information;
-                    MessageBoxResult messageBox;
-                    messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                    if (articlesDomain.Contains(articleSelected))
+                    {
+                        string message = "Este articulo ya ha sido añadido al carrito por favor seleccione otro";
+                        string messageTitle = "Seleccion no valida";
+                        MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                        MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                        MessageBoxResult messageBox;
+                        messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                    }
+                    else
+                    {
+                        articlesDomain.Add(articleSelected);
+                        string message = "Se ha añadido el articulo al carrito correctamente";
+                        string messageTitle = "Articulo seleccionado";
+                        MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                        MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                        MessageBoxResult messageBox;
+                        messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                    }
                 }
             }
             
