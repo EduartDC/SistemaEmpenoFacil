@@ -59,7 +59,7 @@ namespace View.Views
 
         private void LoadTable()
         {
-            Console.WriteLine("Load table" + customersList.Count());
+            
             dgCustomers.ItemsSource = customersList;
         }
 
@@ -78,7 +78,7 @@ namespace View.Views
                 };
         }
 
-
+        private double amount = 0;
 
         private void Btn_GiveProfitCustomer(object sender, RoutedEventArgs e)
         {
@@ -89,6 +89,7 @@ namespace View.Views
                 var customerSelected = dgCustomers.SelectedItem as Domain.CustomerProfitDomain;
                 idCustomerSelected = customerSelected.idCustomer;
                 articleCustomer = customerSelected.articlesProfit;
+                amount = customerSelected.profitCustomer;
                 CallTtransactionView(customerSelected);
             }
 
@@ -156,7 +157,7 @@ namespace View.Views
 
         private void CallTicket()
         {
-            CreateTickets.TicketProfitCustomer(idCustomerSelected, articleCustomer);
+            CreateTickets.TicketProfitCustomer(idCustomerSelected, articleCustomer,amount);
         }
 
         //metodo de interfaz que no se usa
