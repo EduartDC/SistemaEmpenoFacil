@@ -22,11 +22,12 @@ using System.Windows.Controls.Primitives;
 using Domain;
 using System.ComponentModel;
 using System.IO;
+using Domain.Communitation;
 
 namespace View.Views
 {
 
-    public partial class FindArticles : Page
+    public partial class FindArticles : Page, Communication
     {
         private List<ArticleDomain> articles = new List<ArticleDomain>();
         private Boolean datePickerEnabled = true;
@@ -46,8 +47,9 @@ namespace View.Views
             dpDate.Text = DateTime.Now.ToString();
         }
 
-        private   void LoadArticles()
+        private   void LoadArticles() 
         {
+            articles.Clear();
             int code = 0;
             articles.Clear();
             (code, articles) =  ArticleDAO.getArticles() ;
@@ -86,7 +88,6 @@ namespace View.Views
             cbCategory.SelectedIndex = 0;
         }
 
-        //True:ListaOriginal - False:listafiltrada
         private void LoadTable()
         {
             collectionView = CollectionViewSource.GetDefaultView(articles);
@@ -102,14 +103,12 @@ namespace View.Views
             if (SelectedItem())
             {
                 var idArticle = dgArticles.SelectedItem as ArticleDomain;
-                EditArticle editArticle = new EditArticle(idArticle.idArticle);
+                EditArticle editArticle = new EditArticle(idArticle.idArticle,this);
                 editArticle.ShowDialog();
+                
             }
             else
                 ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);
-            //List<int> articles = new List<int> { 1, 4, 12 };
-
-            //CreateTickets.TicketSales(1,1,articles);
             
         }
 
@@ -185,16 +184,16 @@ namespace View.Views
                     if (article != null)
                     {
                         return string.IsNullOrEmpty(filterTb) ||
-                        article.description.Contains(filterTb) ||
+                        article.description.ToUpper().Contains(filterTb.ToUpper()) ||
                         article.idContract.ToString().Equals(filterTb) ||
-                        article.serialNumber.Equals(filterTb) ||
-                        article.barCode.Equals(filterTb);
+                        article.serialNumber.ToUpper().Contains(filterTb.ToUpper()) ||
+                        article.barCode.ToUpper().Contains(filterTb.ToUpper());
 
                     }
                     return false;
                 };
             }
-            if (cbCategory.SelectedIndex >= 1 && string.IsNullOrEmpty(tbSearchField.Text))//solo categoria
+            if (cbCategory.SelectedIndex >= 1 && string.IsNullOrEmpty(tbSearchField.Text))
             {
                 collectionView.Filter = (item) =>
                 {
@@ -218,11 +217,11 @@ namespace View.Views
                     if (article != null)
                     {
                         return
-                        article.description.Contains(filterTb) &&
+                        article.description.ToUpper().Contains(filterTb.ToUpper()) &&
                         article.category.Equals(filterCategory) ||
-                        article.serialNumber.Equals(filterTb) &&
+                        article.serialNumber.ToUpper().Contains(filterTb.ToUpper()) &&
                         article.category.Equals(filterCategory) ||
-                        article.barCode.Equals(filterTb) &&
+                        article.barCode.ToUpper().Contains(filterTb.ToUpper()) &&
                         article.category.Equals(filterCategory) ||
                         article.idContract.ToString().Equals(filterTb) &&
                         article.category.Equals(filterCategory);
@@ -256,13 +255,13 @@ namespace View.Views
                     if (article != null)
                     {
                         return
-                        article.description.Contains(filterTb) && 
+                        article.description.ToUpper().Contains(filterTb.ToUpper()) && 
                         article.createDate >= DateTime.Parse(dpDate.Text) ||
                         article.idContract.ToString().Equals(filterTb) &&
                         article.createDate >= DateTime.Parse(dpDate.Text) ||
-                        article.barCode.Equals(filterTb) &&
+                        article.barCode.ToUpper().Contains(filterTb.ToUpper()) &&
                         article.createDate >= DateTime.Parse(dpDate.Text) ||
-                        article.serialNumber.Equals(filterTb) &&
+                        article.serialNumber.ToUpper().Contains(filterTb.ToUpper()) &&
                         article.createDate >= DateTime.Parse(dpDate.Text);
                     }
                     return false;
@@ -292,16 +291,16 @@ namespace View.Views
                     if (article != null)
                     {
                         return
-                        article.description.Contains(filterTb) &&
+                        article.description.ToUpper().Contains(filterTb.ToUpper()) &&
                         article.category.Equals(cbCategory.SelectedItem.ToString()) &&
                         article.createDate >= DateTime.Parse(dpDate.Text) ||
                         article.idContract.ToString().Equals(filterTb) &&
                         article.category.Equals(cbCategory.SelectedItem.ToString()) &&
                         article.createDate >= DateTime.Parse(dpDate.Text) ||
-                        article.barCode.Equals(filterTb) &&
+                        article.barCode.ToUpper().Contains(filterTb.ToUpper()) &&
                         article.category.Equals(cbCategory.SelectedItem.ToString()) &&
                         article.createDate >= DateTime.Parse(dpDate.Text) ||
-                        article.serialNumber.Equals(filterTb) &&
+                        article.serialNumber.ToUpper().Contains(filterTb.ToUpper()) &&
                         article.category.Equals(cbCategory.SelectedItem.ToString()) &&
                         article.createDate >= DateTime.Parse(dpDate.Text);
                     }
@@ -343,6 +342,16 @@ namespace View.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Content = null;
+        }
+
+        public void refreshBelongings(List<Domain.BelongingCreation.Belonging> belongingsList)//metodo de interfaz no util en este cu
+        {
+            
+        }
+
+        public void refreshArticles()
+        {
+            LoadArticles();
         }
     }
 }

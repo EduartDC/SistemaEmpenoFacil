@@ -38,7 +38,7 @@ namespace BusinessLogic
                             newArticle.loanAmount = item.Belonging.loanAmount;
                             newArticle.serialNumber = item.Belonging.serialNumber;
                             newArticle.idContract = item.Belonging.Contract_idContract;
-                            //atributos de Article
+                            
                             newArticle.idArticle = item.idArticle;
                             newArticle.barCode = item.barCode;
                             newArticle.sellingPrice = item.sellingPrice;
@@ -50,7 +50,7 @@ namespace BusinessLogic
                             articlesDomain.Add(newArticle);
                             using (var imgConnection = new ConnectionModel())
                             {
-                                var imageInfo = imgConnection.ImagesBelongings.Where(util => util.idImagenBelonging == item.idBelonging).FirstOrDefault();
+                                var imageInfo = imgConnection.ImagesBelongings.Where(util => util.Belonging_idBelonging == item.idBelonging).FirstOrDefault();
                                 if (imageInfo != null)
                                 {
                                     newArticle.imageOne = imageInfo.imagen;

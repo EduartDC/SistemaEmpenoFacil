@@ -24,7 +24,6 @@ namespace View.Views
             try
             {
                 DataAcces.Customer customer = CustomerDAO.GetCustomer(idCustomer);
-                //List<ArticleDomain> articles = ArticleDAO.getArticlesById(idArticles);
                 float ticketWidth = 80f;  // Ancho del ticket en mm
                 float ticketHeight = 150f;
                 float ticketWidthPoints = ticketWidth * 2.83465f;
@@ -49,7 +48,6 @@ namespace View.Views
                 Font _standardFont = new Font(Font.FontFamily.HELVETICA, 4, Font.NORMAL, BaseColor.BLACK);
                 Font _standardFontBold = new Font(Font.FontFamily.HELVETICA, 4, Font.BOLD, BaseColor.BLACK);
 
-                // doc.Add( new iTextSharp.text.Paragraph("Av. Manuel Avila Camacho 291 a Esq,\n Jose Azueta, Jose Cardel,\n91030 Xalapa-Enriquez,Ver.", new Font(Font.FontFamily.HELVETICA, 8)));
                 Paragraph paragraph = new Paragraph("Av. Manuel Avila Camacho 291 a Esq,\n Jose Azueta, Jose Cardel,\n91030 Xalapa-Enriquez,Ver.", new Font(Font.FontFamily.HELVETICA, 9));
                 paragraph.Alignment = Element.ALIGN_CENTER;
                 doc.Add(paragraph);
@@ -63,11 +61,9 @@ namespace View.Views
                 doc.Add(typeOp);
 
                 Paragraph name = new Paragraph("NOMBRE      :" + customer.firstName.ToUpper() + " " + customer.lastName.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-                //name.Alignment = Element.ALIGN_CENTER;
                 doc.Add(name);
 
                 Paragraph curp = new Paragraph("CURP           :" + customer.curp.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-                //curp.Alignment = Element.ALIGN_CENTER;
                 doc.Add(curp);
 
                 doc.Add(spaceInfo);
@@ -77,17 +73,14 @@ namespace View.Views
                 doc.Add(infoArticle);
 
                 Paragraph articles = new Paragraph(articleCustomer.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-                // articles.Alignment = Element.ALIGN_CENTER;
                 doc.Add(articles);
 
                 doc.Add(spaceInfo);
 
                 Paragraph dateInfo = new Paragraph("FECHA              : " + DateTime.Now.ToString("dd/MM/yyyy"), new Font(Font.FontFamily.HELVETICA, 8));
-                // articles.Alignment = Element.ALIGN_CENTER;
                 doc.Add(dateInfo);
 
                 Paragraph total = new Paragraph("TOTAL              : $" + customer.cumulativeProfit, new Font(Font.FontFamily.HELVETICA, 8));
-                // articles.Alignment = Element.ALIGN_CENTER;
                 doc.Add(total);
 
                 doc.Close();
@@ -146,14 +139,12 @@ namespace View.Views
                 doc, new FileStream(fullPath, FileMode.Create));
             doc.AddTitle(string.Format("TicketSale{0}", DateTime.Now.Ticks));
             doc.Open();
-            //editando encabezados
             iTextSharp.text.Paragraph title = new iTextSharp.text.Paragraph("Empeño Facil", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD));
             title.Alignment = Element.ALIGN_CENTER;
             doc.Add(title);
             Font _standardFont = new Font(Font.FontFamily.HELVETICA, 4, Font.NORMAL, BaseColor.BLACK);
             Font _standardFontBold = new Font(Font.FontFamily.HELVETICA, 4, Font.BOLD, BaseColor.BLACK);
 
-            // doc.Add( new iTextSharp.text.Paragraph("Av. Manuel Avila Camacho 291 a Esq,\n Jose Azueta, Jose Cardel,\n91030 Xalapa-Enriquez,Ver.", new Font(Font.FontFamily.HELVETICA, 8)));
             Paragraph paragraph = new Paragraph("Av. Manuel Avila Camacho 291 a Esq,\n Jose Azueta, Jose Cardel,\n91030 Xalapa-Enriquez,Ver.", new Font(Font.FontFamily.HELVETICA, 9));
             paragraph.Alignment = Element.ALIGN_CENTER;
             doc.Add(paragraph);
@@ -167,11 +158,9 @@ namespace View.Views
             doc.Add(typeOp);
 
             Paragraph name = new Paragraph("NOMBRE      :" + customer.firstName.ToUpper() + " " + customer.lastName.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-            //name.Alignment = Element.ALIGN_CENTER;
             doc.Add(name);
 
             Paragraph curp = new Paragraph("CURP           :" + customer.curp.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-            //curp.Alignment = Element.ALIGN_CENTER;
             doc.Add(curp);
 
             doc.Add(spaceInfo);
@@ -183,22 +172,18 @@ namespace View.Views
             foreach (var util in articles)
             {
                 Paragraph articleName = new Paragraph("- " + util.description.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-                // infoArticle.Alignment = Element.ALIGN_CENTER;
                 doc.Add(articleName);
             }
 
             doc.Add(spaceInfo);
 
             Paragraph dateInfo = new Paragraph("FECHA              : " + DateTime.Now.ToString("dd/MM/yyyy"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(dateInfo);
 
             Paragraph subtotal = new Paragraph("SUBTOTAL           : $" + sale.total.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(subtotal);
 
             Paragraph total = new Paragraph("TOTAL              : $" + sale.subtotal.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(total);
 
             doc.Close();
@@ -248,14 +233,12 @@ namespace View.Views
                 doc, new FileStream(fullPath, FileMode.Create));
             doc.AddTitle(string.Format("TicketSetAside{0}", DateTime.Now.Ticks));
             doc.Open();
-            //editando encabezados
             iTextSharp.text.Paragraph title = new iTextSharp.text.Paragraph("Empeño Facil", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD));
             title.Alignment = Element.ALIGN_CENTER;
             doc.Add(title);
             Font _standardFont = new Font(Font.FontFamily.HELVETICA, 4, Font.NORMAL, BaseColor.BLACK);
             Font _standardFontBold = new Font(Font.FontFamily.HELVETICA, 4, Font.BOLD, BaseColor.BLACK);
 
-            // doc.Add( new iTextSharp.text.Paragraph("Av. Manuel Avila Camacho 291 a Esq,\n Jose Azueta, Jose Cardel,\n91030 Xalapa-Enriquez,Ver.", new Font(Font.FontFamily.HELVETICA, 8)));
             Paragraph paragraph = new Paragraph("Av. Manuel Avila Camacho 291 a Esq,\n Jose Azueta, Jose Cardel,\n91030 Xalapa-Enriquez,Ver.", new Font(Font.FontFamily.HELVETICA, 9));
             paragraph.Alignment = Element.ALIGN_CENTER;
             doc.Add(paragraph);
@@ -279,11 +262,9 @@ namespace View.Views
 
 
             Paragraph name = new Paragraph("NOMBRE      :" + customer.firstName.ToUpper() + " " + customer.lastName.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-            //name.Alignment = Element.ALIGN_CENTER;
             doc.Add(name);
 
             Paragraph curp = new Paragraph("CURP           :" + customer.curp.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-            //curp.Alignment = Element.ALIGN_CENTER;
             doc.Add(curp);
 
             doc.Add(spaceInfo);
@@ -296,36 +277,29 @@ namespace View.Views
             {
 
                 Paragraph articleName = new Paragraph("- " + util.description.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-                // infoArticle.Alignment = Element.ALIGN_CENTER;
                 doc.Add(articleName);
             }
 
             doc.Add(spaceInfo);
 
             Paragraph dateInfo = new Paragraph("FECHA              : " + DateTime.Now.ToString("dd/MM/yyyy"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(dateInfo);
 
 
             Paragraph dateCreateSetAside = new Paragraph("FECHA DE APARTADO  : " + setAside.creationDate.ToString("dd/MM/yyyy"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(dateCreateSetAside);
 
             Paragraph dateDeadline = new Paragraph("FECHA LIMITE       : " + setAside.deadlineDate.ToString("dd/MM/yyyy"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(dateDeadline);
 
             Paragraph total = new Paragraph("TOTAL              : $" + setAside.totalAmount.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(total);
 
             Paragraph remaining = new Paragraph("RESTANTE           : $" + setAside.reaminingAmount.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(remaining);
 
             double payAmount = setAside.totalAmount - setAside.reaminingAmount; 
             Paragraph pay = new Paragraph("ANTICIPO           : $" + payAmount.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(pay);
 
             doc.Close();
@@ -365,14 +339,12 @@ namespace View.Views
                 doc, new FileStream(fullPath, FileMode.Create));
             doc.AddTitle(string.Format("TicketLiquidateCOntract{0}", DateTime.Now.Ticks));
             doc.Open();
-            //editando encabezados
             iTextSharp.text.Paragraph title = new iTextSharp.text.Paragraph("Empeño Facil", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD));
             title.Alignment = Element.ALIGN_CENTER;
             doc.Add(title);
             Font _standardFont = new Font(Font.FontFamily.HELVETICA, 4, Font.NORMAL, BaseColor.BLACK);
             Font _standardFontBold = new Font(Font.FontFamily.HELVETICA, 4, Font.BOLD, BaseColor.BLACK);
 
-            // doc.Add( new iTextSharp.text.Paragraph("Av. Manuel Avila Camacho 291 a Esq,\n Jose Azueta, Jose Cardel,\n91030 Xalapa-Enriquez,Ver.", new Font(Font.FontFamily.HELVETICA, 8)));
             Paragraph paragraph = new Paragraph("Av. Manuel Avila Camacho 291 a Esq,\n Jose Azueta, Jose Cardel,\n91030 Xalapa-Enriquez,Ver.", new Font(Font.FontFamily.HELVETICA, 9));
             paragraph.Alignment = Element.ALIGN_CENTER;
             doc.Add(paragraph);
@@ -386,11 +358,9 @@ namespace View.Views
             doc.Add(typeOp);
 
             Paragraph name = new Paragraph("NOMBRE      :" + contract.Customer.firstName.ToUpper() + " " + contract.Customer.lastName.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-            //name.Alignment = Element.ALIGN_CENTER;
             doc.Add(name);
 
             Paragraph curp = new Paragraph("CURP           :" + contract.Customer.curp.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-            //curp.Alignment = Element.ALIGN_CENTER;
             doc.Add(curp);
 
             doc.Add(spaceInfo);
@@ -402,22 +372,18 @@ namespace View.Views
             foreach (var util in contract.Belongings)
             {
                 Paragraph articleName = new Paragraph("- " + util.description.ToUpper(), new Font(Font.FontFamily.HELVETICA, 8));
-                // infoArticle.Alignment = Element.ALIGN_CENTER;
                 doc.Add(articleName);
             }
 
             doc.Add(spaceInfo);
 
             Paragraph dateInfo = new Paragraph("FECHA              : " + DateTime.Now.ToString("dd/MM/yyyy"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(dateInfo);
 
             Paragraph idContract = new Paragraph("NUMERO DE CONTRATO : " + contract.idContract, new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(idContract);
 
             Paragraph pay = new Paragraph("PAGO                : " + payAmount.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 8));
-            // articles.Alignment = Element.ALIGN_CENTER;
             doc.Add(pay);
             doc.Close();
             writer.Close();

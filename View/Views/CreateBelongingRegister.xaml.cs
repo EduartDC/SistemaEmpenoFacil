@@ -230,12 +230,12 @@ namespace View.Views
             newBelonging.GenericDescription = tbDescription.Text;
             newBelonging.Features = tbFeature.Text;
             newBelonging.SerialNumber = tbSerialNumber.Text;
-            newBelonging.Model = tbModel.Text;//no está en la BD
+            newBelonging.Model = tbModel.Text;
             newBelonging.ApraisalAmount = int.Parse(tbMaxValue.Text);
             newBelonging.LoanAmount = int.Parse(tbApraisalAmount.Text);
             decimal resultTemp= ((decimal.Parse(tbApraisalAmount.Text)) * 100) / (decimal.Parse(tbMaxValue.Text));
             float loan = (float)resultTemp;
-            newBelonging.PorcentLoan =float.Parse( loan.ToString("0.00"));//no esta en la BD
+            newBelonging.PorcentLoan =float.Parse( loan.ToString("0.00"));
             imageTemp.Add(componentImageOne.Source as BitmapImage);
             imageTemp.Add(componentImageTwo.Source as BitmapImage);
             imageTemp.Add(componentImageThree.Source as BitmapImage);
@@ -262,7 +262,7 @@ namespace View.Views
             newBelonging.GenericDescription = tbDescription.Text;
             newBelonging.Features = tbFeature.Text;
             newBelonging.SerialNumber = tbSerialNumber.Text;
-            newBelonging.Model = tbModel.Text;//no está en la BD
+            newBelonging.Model = tbModel.Text;
             newBelonging.ApraisalAmount = int.Parse(tbMaxValue.Text);
             newBelonging.LoanAmount = int.Parse(tbApraisalAmount.Text);
             newBelonging.PorcentLoan = ((float.Parse(tbApraisalAmount.Text)) * 100) / (float.Parse(tbMaxValue.Text));//no esta en la BD
@@ -306,8 +306,8 @@ namespace View.Views
 
         private bool IsNumeric(string texto)
         {
-            Regex regex = new Regex("[^0-9.-]+"); // Patrón que solo permite números enteros, decimales y negativos
-            return !regex.IsMatch(texto); // Devuelve true si el texto solo contiene números, de lo contrario devuelve false.
+            Regex regex = new Regex("[^0-9.-]+"); 
+            return !regex.IsMatch(texto); 
         }
 
         private void ClicClosePage(object sender, RoutedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Utility;
+using Domain.Communitation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,13 @@ namespace View.Views
     public partial class EditArticle : Window
     {
         int _idArticle;
-
-        public EditArticle(int idArticle)
+        private Communication communication;
+        public EditArticle(int idArticle,Communication communication)
         {
             InitializeComponent();
             _idArticle = idArticle;
             InitializeTextBox();
+            this.communication = communication;
         }
 
         private void InitializeTextBox()
@@ -62,6 +64,7 @@ namespace View.Views
                     if (resultModify == 200)
                     {
                         MessageBox.Show("Se ha modificado el precio de venta del articulo de manera exitosa");
+                        communication.refreshArticles();
                         Close();
                     }
                 }

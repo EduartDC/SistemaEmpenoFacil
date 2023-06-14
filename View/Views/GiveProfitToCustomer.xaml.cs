@@ -42,7 +42,7 @@ namespace View.Views
         {
             collectionView = CollectionViewSource.GetDefaultView(customersList);
             collectionView.Filter = (item) => true;
-            dgCustomers.ItemsSource = collectionView;//pasando la lista con funcion de filtro al dg
+            dgCustomers.ItemsSource = collectionView;
         }
 
         private void LoadCustomers()
