@@ -372,6 +372,7 @@ namespace BusinessLogic
                                           Belongings_Articles = article,
                                           Customer = customer
                                       }).ToList();
+                        Console.WriteLine(result.Count);
                         foreach (var util in result)
                         {
                             //                        for (int i = 0; i < result.Count(); i++)
@@ -380,17 +381,17 @@ namespace BusinessLogic
                                 DateTime limitDate = DateTime.Now.AddYears(-1);
                                 if (util.Belongings_Articles.creationDate >= limitDate)
                                 {
-                                    Domain.CustomerProfitDomain newCustomerProfit = new Domain.CustomerProfitDomain();
-                                    newCustomerProfit.idCustomer = util.Customer.idCustomer;
-                                    newCustomerProfit.curp = util.Customer.curp;
-                                    newCustomerProfit.firstname = util.Customer.firstName;
-                                    newCustomerProfit.lastName = util.Customer.lastName;
-                                    newCustomerProfit.profitCustomer = float.Parse(util.Customer.cumulativeProfit);
-                                    newCustomerProfit.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description + "\n";
-                                    // Console.WriteLine(newCustomerProfit.articlesProfit);
-
-                                    if (util.Belongings_Articles.customerProfit == 0)
+                                    if (util.Belongings_Articles.customerProfit > 0 && double.Parse(util.Customer.cumulativeProfit) > 0)
+                                    {
+                                        Domain.CustomerProfitDomain newCustomerProfit = new Domain.CustomerProfitDomain();
+                                        newCustomerProfit.idCustomer = util.Customer.idCustomer;
+                                        newCustomerProfit.curp = util.Customer.curp;
+                                        newCustomerProfit.firstname = util.Customer.firstName;
+                                        newCustomerProfit.lastName = util.Customer.lastName;
+                                        newCustomerProfit.profitCustomer = float.Parse(util.Customer.cumulativeProfit);
+                                        newCustomerProfit.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description + "\n";
                                         CustomersProfitList.Add(newCustomerProfit);
+                                    }
 
                                 }
                             }
@@ -404,10 +405,10 @@ namespace BusinessLogic
                                 }
                                 if (customerFinded)//agregarlo a existente
                                 {
-                                    foreach (var obj in CustomersProfitList)
+                                    for (int i = 0; i < CustomersProfitList.Count; i++)
                                     {
-                                        if (util.Customer.idCustomer == obj.idCustomer && util.Belongings_Articles.customerProfit > 0)
-                                            obj.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description;
+                                        if (util.Customer.idCustomer == CustomersProfitList[i].idCustomer && util.Belongings_Articles.customerProfit > 0)
+                                            CustomersProfitList[i].articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description + "\n";
 
                                     }
                                 }
@@ -432,9 +433,7 @@ namespace BusinessLogic
                 catch(Exception)
                 {
                     return (MessageCode.CONNECTION_ERROR, null);
-
                 }
-
             }
             else
                 return (MessageCode.CONNECTION_ERROR, null);

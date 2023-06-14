@@ -18,7 +18,7 @@ namespace View.Views
     public class CreateTickets
     {
 
-        public static void TicketProfitCustomer(int idCustomer, string articleCustomer)
+        public static void TicketProfitCustomer(int idCustomer, string articleCustomer,double amount)
         {
 
             try
@@ -80,7 +80,7 @@ namespace View.Views
                 Paragraph dateInfo = new Paragraph("FECHA              : " + DateTime.Now.ToString("dd/MM/yyyy"), new Font(Font.FontFamily.HELVETICA, 8));
                 doc.Add(dateInfo);
 
-                Paragraph total = new Paragraph("TOTAL              : $" + customer.cumulativeProfit, new Font(Font.FontFamily.HELVETICA, 8));
+                Paragraph total = new Paragraph("TOTAL              : $" + amount, new Font(Font.FontFamily.HELVETICA, 8));
                 doc.Add(total);
 
                 doc.Close();
