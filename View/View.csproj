@@ -63,6 +63,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -175,6 +176,9 @@
       <DependentUpon>PayOffSetAside.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PrintContract.cs" />
+    <Compile Include="Views\PrintPriceLabel.xaml.cs">
+      <DependentUpon>PrintPriceLabel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegisterStaff.xaml.cs">
       <DependentUpon>RegisterStaff.xaml</DependentUpon>
     </Compile>
@@ -327,6 +331,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PayOffSetAside.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PrintPriceLabel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

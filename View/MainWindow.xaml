@@ -22,6 +22,15 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             NavigationUIVisibility="Hidden" />
+        <Frame
+            x:Name="ThirdContainer"
+            MinWidth="900"
+            MinHeight="600"
+            MaxWidth="1080"
+            MaxHeight="720"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            NavigationUIVisibility="Hidden" />
 
     </Grid>
 </Window>
