@@ -106,7 +106,7 @@ namespace BusinessLogic
             return result;
         }
 
-        public static int ModifyBelonging_Article(int idArticle, int idSale, double storeProfit)
+        public static int ModifyBelonging_Article(int idArticle, int idSale, double storeProfit, double finalSellingPrice)
         {
             int resultOperation = MessageCode.ERROR;
             if (Utilities.VerifyConnection())
@@ -117,6 +117,7 @@ namespace BusinessLogic
                     article.stateArticle = "Vendido";
                     article.Sale_idSale = idSale;
                     article.storeProfit = storeProfit;
+                    article.customerProfit = finalSellingPrice - (finalSellingPrice * .6);
                     resultOperation = connection.SaveChanges();
                 }
             }

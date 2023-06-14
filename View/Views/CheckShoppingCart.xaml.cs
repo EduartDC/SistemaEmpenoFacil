@@ -41,7 +41,7 @@ namespace View.Views
                 customerForSale = customer;
             }
             InitializeComponent();
-            showShoppingItems(cartItems);
+            ShowShoppingItems(cartItems);
             DisableButtonMakeSale();
         }
 
@@ -57,17 +57,17 @@ namespace View.Views
             }
         }
 
-        private void showShoppingItems(List<Domain.ArticleDomain> articlesList)
+        private void ShowShoppingItems(List<Domain.ArticleDomain> articlesList)
         {
             dataGridShoppingCart.Items.Clear();
             foreach(Domain.ArticleDomain article in articlesList)
             {
                 dataGridShoppingCart.Items.Add(article);
             }
-            getFinalSellingAmount(articlesList);
+            GetFinalSellingAmount(articlesList);
         }
 
-        private void getFinalSellingAmount(List<Domain.ArticleDomain> articles)
+        private void GetFinalSellingAmount(List<Domain.ArticleDomain> articles)
         {
             double finalSellingAmount = 0;
             foreach(Domain.ArticleDomain article in articles)
@@ -81,7 +81,7 @@ namespace View.Views
         {
             Domain.ArticleDomain articleSelected = dataGridShoppingCart.SelectedItem as Domain.ArticleDomain;
             cartItems.Remove(articleSelected);
-            showShoppingItems(cartItems);
+            ShowShoppingItems(cartItems);
         }
 
         private void GoBackButtonEvent(object sender, RoutedEventArgs e)
@@ -179,7 +179,8 @@ namespace View.Views
                 {
                     int discount = int.Parse(textBoxDiscount.Text);
                     double finalSellingPrice = (article.sellingPrice - ((article.sellingPrice * discount) / 100));
-                    BelongingsArticlesDAO.ModifyBelonging_Article(article.idArticle, idSale, finalSellingPrice);
+                    double storeProfit = (finalSellingPrice * 0.6) - (finalSellingPrice * 0.16);
+                    BelongingsArticlesDAO.ModifyBelonging_Article(article.idArticle, idSale, storeProfit, finalSellingPrice);
                 }
                 string message = "Operacion completada con exito\nSe ha realizado la venta correctamente";
                 string messageTitle = "Operacion exitosa";
