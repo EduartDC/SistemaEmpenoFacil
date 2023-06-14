@@ -52,7 +52,7 @@ namespace BusinessLogic
                 }
                 catch (DbUpdateException)
                 {
-                    resutl = MessageCode.ERROR;
+                    resutl = MessageCode.ERROR_UPDATE;
                 }
             }
             return resutl;

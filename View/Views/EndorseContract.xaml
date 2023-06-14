@@ -31,7 +31,7 @@
                     <ColumnDefinition Width="196*"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Prestamo:" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" Height="35" Width="102" FontSize="18" FontWeight="Bold"/>
-                <Label Content="Liquida con:" HorizontalAlignment="Left" Margin="38,67,0,0" VerticalAlignment="Top" Height="36" Width="112" FontSize="18" FontWeight="Bold"/>
+                <Label Content="Liquida con:" HorizontalAlignment="Center" Margin="0,67,0,0" VerticalAlignment="Top" Height="36" Width="112" FontSize="18" FontWeight="Bold"/>
                 <Label Content="Refrendo:" HorizontalAlignment="Center" Margin="0,104,0,0" VerticalAlignment="Top" Height="35" Width="92" FontSize="18" FontWeight="Bold"/>
                 <Label x:Name="labelLoanAmount" Grid.Column="1" Content="XXXXXX $" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="30" Width="118" FontSize="16"/>
                 <Label x:Name="labelSettlementAmount" Grid.Column="1" Content="XXXXXX $" HorizontalAlignment="Center" Margin="0,64,0,0" VerticalAlignment="Top" Height="30" Width="118" FontSize="16"/>
