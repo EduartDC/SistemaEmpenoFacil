@@ -93,7 +93,7 @@ namespace View.Views
             }
             else if (cbConcept.SelectedItem.ToString() == "Retirar de caja")
             {
-                // Código para sacar dinero de la caja registradora
+                
                 double withdraw = Double.Parse(textAmountReceived.Text);
                 if((App.Current as App)._cashOnHand > withdraw)
                 {

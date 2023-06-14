@@ -279,6 +279,11 @@
                         Click="itemNewArticles_Click"
                         Header="Asignar precio de venta"
                         Style="{StaticResource MenuItemStyle}" />
+                    <MenuItem
+                        x:Name="itemPrintLabel"
+                        Click="itemPrintLabel_Click"
+                        Header="Imprimir etiquetas"
+                        Style="{StaticResource MenuItemStyle}" />
                 </MenuItem>
 
                 <MenuItem x:Name="itemCustomers" Style="{StaticResource MenuItemStyle}">

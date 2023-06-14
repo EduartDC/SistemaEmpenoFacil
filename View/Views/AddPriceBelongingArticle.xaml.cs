@@ -15,6 +15,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using View.Properties;
 
 namespace View.Views
 {
@@ -31,28 +32,42 @@ namespace View.Views
         }
         private void btn_SetPrice_Click(object sender, RoutedEventArgs e)
         {
-            double price = Double.Parse(tbPrice.Text);
+           
             Belonging belonging = new Belonging();
             Staff staff = new Staff();
             double appraisalValue = belonging.appraisalValue;
-            if (price <= appraisalValue)
+            string text=tbPrice.Text;
+
+            if (String.IsNullOrEmpty(tbPrice.Text))
             {
+               ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
+               
+            }
+            else if (text.Length > 9)
+            {
+                ErrorManager.ShowWarning(MessageError.AMOUNT_RECEIVED_ERROR);
+            }
+            else if (string.IsNullOrEmpty(text))
+            {
+                ErrorManager.ShowWarning(MessageError.FIELDS_EMPTY);
+            }
+            else if (!text.Contains("."))
+            {
+                ErrorManager.ShowWarning(MessageError.DECIMAL_FORMAT_ERROR);
+                tbPrice.Focus();
+            }else if (Double.Parse(tbPrice.Text)<= appraisalValue)
+            {
+                
                 MessageBox.Show("No se pude asignar un precio menor al monto de avaluo");
-
-
             }
             else
             {
+
+                var amountReceived = ParseAmount(text);
                 saveBelongingArticle();
                 
             }
-            MessageBox.Show("Se registró con éxito el articulo");
-            var window = (MainWindow)Application.Current.MainWindow;
-            BlurEffect blurEffect = new BlurEffect();
-            blurEffect.Radius = 0;
-            window.PrimaryContainer.Effect = blurEffect;
-            window.SecundaryContainer.Content = null;
-            window.PrimaryContainer.IsHitTestVisible = true;
+           
 
         }
         private void saveBelongingArticle()
@@ -66,6 +81,13 @@ namespace View.Views
             belongingArticle.idBelonging = id;
             belongingArticle.barCode = createbarCode();
             result = BelongingsArticlesDAO.AddBelongingArticle(belongingArticle);
+            MessageBox.Show("Se registró con éxito el articulo");
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 0;
+            window.PrimaryContainer.Effect = blurEffect;
+            window.SecundaryContainer.Content = null;
+            window.PrimaryContainer.IsHitTestVisible = true;
 
 
         }
@@ -78,7 +100,7 @@ namespace View.Views
                 int randomNumber = random.Next(0, 36);
                 char character = Convert.ToChar(randomNumber < 10 ? randomNumber + 48 : randomNumber + 55);
                 barCode += character;
-                Zen.Barcode.Code128BarcodeDraw barcodeDraw = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
+               
 
 
             }
@@ -93,6 +115,19 @@ namespace View.Views
             window.PrimaryContainer.Effect = blurEffect;
             window.SecundaryContainer.Content = null;
             window.PrimaryContainer.IsHitTestVisible = true;
+        }
+        private double ParseAmount(string text)
+        {
+            var amountReceived = 0.0;
+            try
+            {
+                amountReceived = double.Parse(text);
+            }
+            catch (FormatException)
+            {
+                ErrorManager.ShowWarning(MessageError.DECIMAL_FORMAT_ERROR);
+            }
+            return amountReceived;
         }
     }
 }

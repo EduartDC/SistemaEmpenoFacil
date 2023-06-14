@@ -3,6 +3,7 @@ using Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,18 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
+using Document = iTextSharp.text.Document;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using View.Properties;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.Xml.Linq;
+using ceTe.DynamicPDF.Printing;
+using System.Diagnostics;
 
 namespace View.Views
 {
@@ -51,7 +58,7 @@ namespace View.Views
 
             if (code == MessageCode.SUCCESS)
             {
-                ConverterImagesFormat();
+                
                 LoadTable();
             }
             else
@@ -62,19 +69,7 @@ namespace View.Views
             }
         }
 
-        private void ConverterImagesFormat()
-
-        {
-            for (int i = 0; i < articles.Count(); i++)
-            {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = new MemoryStream(articles[i].imageOne);
-                bitmap.EndInit();
-                articles[i].imageConverted = bitmap;
-
-            }
-        }
+       
 
         private void LoadCategories()
         {
@@ -94,13 +89,7 @@ namespace View.Views
         }
 
       
-        private bool SelectedItem()
-        {
-            if (dgArticles.SelectedIndex >= 0)
-                return true;
-            else
-                return false;
-        }
+        
 
         private void btn_CleanFilters(object sender, RoutedEventArgs e)
         {
@@ -282,6 +271,8 @@ namespace View.Views
                         article.serialNumber.Equals(filterTb) &&
                         article.category.Equals(cbCategory.SelectedItem.ToString()) &&
                         article.createDate >= DateTime.Parse(dpDate.Text);
+
+                        
                     }
                     return false;
                 };
@@ -319,15 +310,79 @@ namespace View.Views
 
         private void Btn_PrintLabel(object sender, RoutedEventArgs e)
         {
-            foreach (DataGridViewRow row in dgArticles.ItemsSource)
-            {
-                bool bChecked = Convert.ToBoolean(row.Cells["Seleccionar"].Value);
-                if (bChecked)
-                {
-                    // Tu código aquí
-                }
-            }
-            
+
+            //string date = DateTime.Now.Ticks.ToString();
+            //string pdfName = string.Format("EtiquetasArtiuclos-{0}.pdf", date);
+            //string pathBase = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+            //string path = string.Format("{0}\\pdfs", pathBase);
+            //bool exists = Directory.Exists(path);
+            //if (!exists)
+            //    Directory.CreateDirectory(path);
+            //string fullPath = string.Format("{0}\\{1}", path, pdfName);
+            //Document doc = new Document(PageSize.LETTER);
+            //PdfWriter writer = PdfWriter.GetInstance(
+            //    doc, new FileStream(fullPath, FileMode.Create));
+            //doc.Open();
+            //doc.Close();
+            //writer.Close();
+            //System.Diagnostics.Process.Start(fullPath);
+
+            //foreach (var article in articles)
+            //{
+            //    Zen.Barcode.Code128BarcodeDraw draw = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
+
+            //    System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(draw.Draw(article.barCode, 60));
+            //    iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(bitmap, System.Drawing.Imaging.ImageFormat.Bmp);
+
+            //}
+            print();
+
+
         }
+        
+        private void print()
+        {
+
+            Document document = new Document(PageSize.A4);
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream("etiqueta.pdf", FileMode.Create));
+            document.Open();
+
+            PdfContentByte cb = writer.DirectContent;
+            float x = 150f;
+            float y = 750f;
+            float width = 140f;
+            float height = 55f;
+
+            foreach (var article in articles)
+            {
+                cb.Rectangle(x, y, width, height);
+                cb.Stroke();
+
+
+                BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                cb.SetFontAndSize(bf, 12);
+
+                cb.BeginText();
+                cb.ShowTextAligned(PdfContentByte.ALIGN_LEFT, article.description, x + 5f, y + 35f, 0);
+                cb.ShowTextAligned(PdfContentByte.ALIGN_LEFT, article.characteristics, x + 5f, y + 20f, 0);
+                cb.ShowTextAligned(PdfContentByte.ALIGN_LEFT, "$" + article.sellingPrice.ToString(), x + 5f, y + 5, 0);
+                cb.EndText();
+
+                Zen.Barcode.Code128BarcodeDraw draw = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
+                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(draw.Draw(article.barCode, 60));
+                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(bitmap, System.Drawing.Imaging.ImageFormat.Bmp);
+                img.ScaleAbsolute(50f, 50f);
+                img.SetAbsolutePosition(x + 85f, y +3f);
+                document.Add(img);
+
+                //document.NewPage();
+                x += width + 10f;
+            }
+
+            document.Close();
+            Process.Start("etiqueta.pdf");
+        }
+
+       
     }
 }

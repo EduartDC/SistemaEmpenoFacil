@@ -4,16 +4,172 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:View.Views"
-      mc:Ignorable="d" 
-      d:DesignHeight="150" d:DesignWidth="250"
-      Title="AddPriceBelongingArticle" Background="White">
+     
+      Title="AddPriceBelongingArticle" 
+      d:DesignHeight="600"
+    d:DesignWidth="900"
+    mc:Ignorable="d">
 
-
+    <Page.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                    To="1.1"
+                                    Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                    To="1.1"
+                                    Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                                    To="1"
+                                    Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                                    To="1"
+                                    Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
     <Grid>
-        <Label Content="Asigna precio de venta" HorizontalAlignment="Left" Margin="58,25,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbPrice" HorizontalAlignment="Left" Margin="58,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <Button x:Name="btn_SetPrice" Content="Asignar precio" HorizontalAlignment="Left" Margin="125,105,0,0" VerticalAlignment="Top" Click="btn_SetPrice_Click"/>
-        <Button x:Name="btn_Cancel" Content="Cancelar" HorizontalAlignment="Left" Margin="32,105,0,0" VerticalAlignment="Top" Click="btn_Cancel_Click"/>
-
+        <Grid
+            MaxWidth="500"
+            MaxHeight="300"
+            Background="#D4E4FF">
+            <Label
+                Margin="158,96,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Precio de venta"
+                FontSize="16"
+                FontWeight="Bold" />
+            <TextBox
+                x:Name="tbPrice"
+                Width="184"
+                Height="26"
+                Margin="158,127,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="16"
+                TextWrapping="Wrap" />
+            <Label
+                Margin="123,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Asignar precio de venta"
+                FontSize="22"
+                FontWeight="Bold" />
+            <Button
+                x:Name="btnSetPrice"
+                Width="116"
+                Height="29"
+                Margin="312,250,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="#215ECA"
+                Click="btn_SetPrice_Click"
+                Content="Asignar"
+                FontSize="16"
+                FontWeight="Bold"
+                Foreground="White"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Green"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="#215ECA"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button
+                x:Name="btnCancel"
+                Width="116"
+                Height="29"
+                Margin="65,250,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="Gray"
+                Click="btn_Cancel_Click"
+                Content="Cancelar"
+                FontSize="16"
+                FontWeight="Bold"
+                Foreground="White"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Red"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                    To="Gray"
+                                    Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </Grid>
     </Grid>
 </Page>

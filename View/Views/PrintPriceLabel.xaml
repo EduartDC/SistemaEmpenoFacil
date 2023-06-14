@@ -56,33 +56,23 @@
             Grid.Row="1"
             Grid.ColumnSpan="4"
             AutoGenerateColumns="False"
-            IsReadOnly="true"
             FontSize="18"
-            FontWeight="Bold">
+            FontWeight="Bold" IsReadOnly="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False">
+
             <DataGrid.Columns >
-                <DataGridCheckBoxColumn Header="Seleccionar"/>
-                <DataGridTextColumn Header="Descripcion" Width="200" Binding="{Binding description}"/>
-                <!--<DataGridTextColumn Header="Imagen" Width="200" Binding="{Binding imageOne}"/>-->
-                <DataGridTemplateColumn Header="Imagen" Width="200">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Width="100" Height="100" Source="{Binding imageConverted}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn  FontSize="15" Header="Codigo de barras" Width="200" Binding="{Binding barCode}"/>
-                <DataGridTextColumn  FontSize="15" Header="Numero de serie" Width="180" Binding="{Binding serialNumber}"/>
-                <DataGridTextColumn  FontSize="15" Header="Bolsa" Width="70" Binding="{Binding idContract}"/>
-                <DataGridTextColumn  FontSize="15" Header="Precio" Width="75">
-                    <DataGridTextColumn.Binding>
-                        <Binding  Path="sellingPrice" StringFormat="{}${0}"/>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
-                <DataGridTextColumn  FontSize="15" Header="Categoria" Width="200" Binding="{Binding category}"/>
-                <DataGridTextColumn  FontSize="15" Header="Fecha de comercializacion" Width="230" Binding="{Binding createDate, StringFormat=dd/MM/yyyy}" />
-                
+
+                <DataGridTextColumn Header="Descripcion" Width="200" Binding="{Binding description}" IsReadOnly="True" />
+                <DataGridTextColumn  FontSize="15" Header="Codigo de barras" Width="200" Binding="{Binding barCode}" IsReadOnly="True"/>
+                <DataGridTextColumn  FontSize="15" Header="Numero de serie" Width="180" Binding="{Binding serialNumber}" IsReadOnly="True"/>
+                <DataGridTextColumn  FontSize="15" Header="Bolsa" Width="70" Binding="{Binding idContract}" IsReadOnly="True"/>
+                <DataGridTextColumn  FontSize="15" Header="Precio" Width="75" IsReadOnly="True" Binding="{Binding sellingPrice, StringFormat=$\{0\}}"/>
+                <DataGridTextColumn  FontSize="15" Header="Categoria" Width="200" Binding="{Binding category}" IsReadOnly="True"/>
+                <DataGridTextColumn  FontSize="15" Header="Fecha de comercializacion" Width="230" Binding="{Binding createDate, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+
+
+
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid >
 
         <DatePicker
             x:Name="dpDate"
@@ -116,6 +106,7 @@
             </TextBox.Style>
         </TextBox>
         <Button
+            x:Name="printLabel"
             Content="Imprimir etiqueta"
             HorizontalAlignment="Center"
             Margin="0,11,0,0"
