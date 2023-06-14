@@ -45,8 +45,7 @@ namespace BusinessLogic
                             newArticle.stateArticle = item.stateArticle;
                             newArticle.customerProfit = item.customerProfit;
                             newArticle.storeProfit = item.storeProfit;
-                            string createDate = item.creationDate.ToString("dd/MM/yyyy");
-                            newArticle.createDate = DateTime.Parse(createDate);
+                            newArticle.createDate = DateTime.Parse(item.creationDate.ToString("dd/MM/yyyy"));
                             articlesDomain.Add(newArticle);
                             using (var imgConnection = new ConnectionModel())
                             {
