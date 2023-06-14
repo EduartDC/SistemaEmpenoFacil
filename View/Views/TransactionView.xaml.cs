@@ -229,7 +229,8 @@ namespace View.Views
                 }
                 else
                 {
-                    //llamar caso de uso para ingresar dinero
+                    ErrorManager.ShowInformation("No hay suficiente dinero en caja");
+                    openDepositMoney();
                 }
             }
             else
@@ -256,9 +257,20 @@ namespace View.Views
                 }
                 else
                 {
-                    //llamar caso de uso para ingresar dinero
+                    ErrorManager.ShowInformation("No hay suficiente dinero en caja");
+                    openDepositMoney();
                 }
             }
+        }
+
+        private void openDepositMoney()
+        {
+            var window = (MainWindow)Application.Current.MainWindow;
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 5;
+            window.SecundaryContainer.Effect = blurEffect;
+            window.ThirdContainer.NavigationService.Navigate(new CashRegisterOperations());
+
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -273,7 +285,6 @@ namespace View.Views
                     communication.Communication(false);
                 }
             }
-
         }
 
         private void CloseView()

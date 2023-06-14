@@ -156,11 +156,9 @@ namespace View.Views
         {
             var window = (MainWindow)Application.Current.MainWindow;
             BlurEffect blurEffect = new BlurEffect();
-            blurEffect.Radius = 5;
-            window.PrimaryContainer.Effect = blurEffect;
-            window.SecundaryContainer.Navigate(new CashRegisterOperations());
-            window.PrimaryContainer.IsHitTestVisible = false;
-            
+            window.ThirdContainer.Navigate(new CashRegisterOperations());
+
+
         }
         private void itemSearchBelongings_Click(object sender, RoutedEventArgs e)
         {

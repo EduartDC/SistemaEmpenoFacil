@@ -26,8 +26,8 @@ namespace View.Views
     {
         double _amount;
         int _operation;
-        string balanceAmount= (App.Current as App)._cashOnHand.ToString();
-        
+        string balanceAmount = (App.Current as App)._cashOnHand.ToString();
+
         public CashRegisterOperations()
         {
             InitializeComponent();
@@ -59,7 +59,7 @@ namespace View.Views
             {
                 saveOperation();
                 updateBalance();
-                
+
             }
         }
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -67,42 +67,42 @@ namespace View.Views
             var window = (MainWindow)Application.Current.MainWindow;
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 0;
-            window.PrimaryContainer.Effect = blurEffect;
-            window.SecundaryContainer.Content = null;
-            window.PrimaryContainer.IsHitTestVisible = true;
+            window.SecundaryContainer.Effect = blurEffect;
+            window.ThirdContainer.Content = null;
+
         }
         private void saveOperation()
         {
             var operationType = _operation;
             var operation = new Operation();
             var result = MessageCode.ERROR;
-            
+
             if (cbConcept.SelectedItem.ToString() == "Aumentar monto en caja")
             {
                 double amount = Double.Parse(textAmountReceived.Text);
-               
-                operation.receivedAmount =amount;
+
+                operation.receivedAmount = amount;
                 operation.operationDate = DateTime.Now;
                 operation.concept = "Aumento de capital";
                 operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
                 result = OperationDAO.AddOperation(operation);
-                (App.Current as App)._cashOnHand +=amount;
+                (App.Current as App)._cashOnHand += amount;
                 MessageBox.Show("Se realizó con 'exito la operación");
                 updateBalance();
                 lb_Balance.UpdateLayout();
             }
             else if (cbConcept.SelectedItem.ToString() == "Retirar de caja")
             {
-                
+
                 double withdraw = Double.Parse(textAmountReceived.Text);
-                if((App.Current as App)._cashOnHand > withdraw)
+                if ((App.Current as App)._cashOnHand > withdraw)
                 {
                     operation.paymentAmount = withdraw;
-                    
+
                     operation.operationDate = DateTime.Now;
                     operation.concept = "Retiro de efectivo";
                     operation.Staff_idStaff = (App.Current as App)._staffInfo.idStaff;
-                    
+
                     result = OperationDAO.AddOperation(operation);
                     (App.Current as App)._cashOnHand -= withdraw;
                     MessageBox.Show("Se realizó con 'exito la operación");
@@ -116,12 +116,12 @@ namespace View.Views
             }
         }
 
-        
+
         private void updateBalance()
         {
-            
-                lb_Balance.Content = balanceAmount;
-                lb_Balance.UpdateLayout();
+
+            lb_Balance.Content = balanceAmount;
+            lb_Balance.UpdateLayout();
 
         }
         private double ParseAmount(string text)
