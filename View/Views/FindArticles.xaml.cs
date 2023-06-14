@@ -81,7 +81,7 @@ namespace View.Views
 
         private void LoadCategories()
         {
-            List<string> categoriesList = new List<string> { "Selecciona una categoria", "Joyeria", "Relojeria", "Informatica","Electrodomesticos","linea blanca","Instrumentos","Herramientas", "Telefonia"};
+            List<string> categoriesList = new List<string> { "Selecciona una categoria", "Joyería", "Relojería", "Herramientas", "Electrónica", "Línea blanca", "Instrumentos" };
             cbCategory.ItemsSource = categoriesList;
             cbCategory.SelectedIndex = 0;
         }
@@ -99,17 +99,17 @@ namespace View.Views
         private void Btn_EditArticle(object sender, RoutedEventArgs e)
         {
 
-            //if (SelectedItem())
-            //{
-            //    var idArticle = dgArticles.SelectedItem as ArticleDomain;
-            //    EditArticle editArticle = new EditArticle(idArticle.idArticle);
-            //    editArticle.ShowDialog();
-            //}
-            //else
-            //    ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);
-            List<int> articles = new List<int> { 1, 4, 12 };
+            if (SelectedItem())
+            {
+                var idArticle = dgArticles.SelectedItem as ArticleDomain;
+                EditArticle editArticle = new EditArticle(idArticle.idArticle);
+                editArticle.ShowDialog();
+            }
+            else
+                ErrorManager.ShowError(MessageError.ITEM_NOT_SELECTED);
+            //List<int> articles = new List<int> { 1, 4, 12 };
 
-            CreateTickets.TicketSetAside(1,7,articles);
+            //CreateTickets.TicketSales(1,1,articles);
             
         }
 
@@ -340,9 +340,9 @@ namespace View.Views
         }
 
 
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.Content = null;
-        //}
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = null;
+        }
     }
 }

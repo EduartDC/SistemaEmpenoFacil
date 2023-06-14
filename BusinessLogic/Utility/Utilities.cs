@@ -27,6 +27,7 @@ namespace BusinessLogic.Utility
             }
             return result;
         }
+
         public static string Hash(string password)
         {
             var crypt = new System.Security.Cryptography.SHA256Managed();

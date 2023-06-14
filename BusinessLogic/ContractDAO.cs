@@ -55,13 +55,16 @@ namespace BusinessLogic
                         idObject = contract.idContract;
                     }
                 }
-                catch (DbUpdateException)
+                catch (Exception)
                 {
-                    return (MessageCode.ERROR, idObject);
+                    return (MessageCode.CONNECTION_ERROR, idObject);
                 }
             }
             else
+            {
                 return (MessageCode.CONNECTION_ERROR, idObject);
+            }
+               
             return (MessageCode.SUCCESS, idObject);
         }
 
@@ -237,16 +240,24 @@ namespace BusinessLogic
             int result = 0;
             if(Utilities.VerifyConnection())
             {
-                using (var connection = new ConnectionModel())
+                try
                 {
-                    Contract temp = connection.Contracts.Find(idContract);
+                    using (var connection = new ConnectionModel())
+                    {
+                        Contract temp = connection.Contracts.Find(idContract);
 
-                    temp.stateContract = StatesContract.ACTIVED_CONTRACT;
-                    connection.SaveChanges();
-                    result = MessageCode.SUCCESS;
+                        temp.stateContract = StatesContract.ACTIVED_CONTRACT;
+                        connection.SaveChanges();
+                        result = MessageCode.SUCCESS;
+                    }
+                }
+                catch (Exception)
+                {
+                    result = MessageCode.CONNECTION_ERROR;
 
                 }
-            }else
+            }
+            else
                 result = MessageCode.CONNECTION_ERROR;
             return result;
         }

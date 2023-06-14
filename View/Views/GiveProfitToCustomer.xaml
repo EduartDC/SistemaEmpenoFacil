@@ -121,24 +121,24 @@
             Height="80"
             Margin="75,20" FontWeight="Bold"
             />
-        <!--<Button
-        Grid.Row="2"
-        Grid.Column="1"
-        Margin="0,20,280,0"
-        Content="Regresar"
-        Width="100"
-        Height="35"
-        VerticalAlignment="Top"
-        FontSize="20"
-        Foreground="White"
-        Background="#696969"
-        HorizontalAlignment="Right" Click="Btn_ClosePage" FontWeight="Bold">
-        <Button.Resources>
-        <Style TargetType="Border">
-        <Setter  Property="CornerRadius" Value="10"/>
-        </Style>
-        </Button.Resources>
-        </Button>-->
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="0,20,280,0"
+            Content="Regresar"
+            Width="100"
+            Height="35"
+            VerticalAlignment="Top"
+            FontSize="20"
+            Foreground="White"
+            Background="#321D8F"
+            HorizontalAlignment="Right" Click="Btn_ClosePage" FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter  Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Button
             Grid.Row="2"
             Grid.Column="1"

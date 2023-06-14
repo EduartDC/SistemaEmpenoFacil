@@ -164,15 +164,27 @@ namespace View.Views
 
         private void LoadMetrics()
         {
-            metrics = MetricsDAO.RecoverMetrics();
-            if (metrics != null)
+            try
             {
-                tbInterests.Text = metrics.interestRate + "%";
-                tbIVA.Text = metrics.IVA + "%";
-                tbAnnualInterestRate.Text = "" + (int.Parse(metrics.IVA) / 2);
+                metrics = MetricsDAO.RecoverMetrics();
+                if (metrics != null)
+                {
+                    tbInterests.Text = metrics.interestRate + "%";
+                    tbIVA.Text = metrics.IVA + "%";
+                    tbAnnualInterestRate.Text = "" + (int.Parse(metrics.IVA) / 2);
+                }
+                else
+                {
+                    ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+                    this.Content = null;
+                }
             }
-            else
+            catch (Exception)
+            {
                 ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+                this.Content = null;
+            }
+
         }
 
         private void BtnFindCustomer(object sender, RoutedEventArgs e)
@@ -190,13 +202,16 @@ namespace View.Views
                     else
                     {
                         ErrorManager.ShowError(MessageError.CUSTOMER_IN_BLACK_LIST);
-                        //enviar a menu
+                        this.Content = null;
                     }
                 }
                 else if (operationCode == MessageCode.ERROR_USER_NOT_FOUND)
                     ErrorManager.ShowError(MessageError.ERROR_USER_NOT_FOUND);
                 else if (operationCode == MessageCode.CONNECTION_ERROR)
+                {
                     ErrorManager.ShowError(MessageError.CONNECTION_ERROR);
+                    this.Content = null;
+                }
             }
             else
             {
@@ -337,7 +352,7 @@ namespace View.Views
             newContract.paymentsSettlement = tbTotalPerformancePay.Text;//tbTotalPaymentForEndorsement
             newContract.paymentsEndorsement = tbTotalPaymentForEndorsement.Text;
             newContract.loanProcentage = tbLoanPorcentage.Text;
-            //newContract.totalAnnualCost = tbTotalAnnualCost.Text;
+            newContract.totalAnnualCost = "" + (int.Parse(metrics.interestRate) * 2);
             newContract.annualInterestRate = tbAnnualInterestRate.Text;
             newContract.duration = int.Parse(cbTerm.SelectedItem.ToString());
             SaveInfo(newContract);
@@ -349,10 +364,8 @@ namespace View.Views
             if (operationResult == MessageCode.CONNECTION_ERROR)
             {
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
+                this.Content = null;
             }
-            else
-            if (operationResult == MessageCode.ERROR)
-                ErrorManager.ShowError(MessageError.ERROR_ADD_OPERATION);
             else
             {
                 idContractSaved = idContract;
@@ -382,7 +395,7 @@ namespace View.Views
             if (result == MessageCode.CONNECTION_ERROR)
             {
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
-                //cerrar frame
+                this.Content = null;
             }
             else
             {
@@ -399,7 +412,6 @@ namespace View.Views
             {
                 for (int j = 0; j < 4; j++)//recorrer prendas
                 {
-                    Console.WriteLine("numero de id de prenda: " + idBelongingsSaved[i]);
                     ImagesBelonging imagesBelonging = new ImagesBelonging();
                     imagesBelonging.Belonging_idBelonging = idBelongingsSaved[i];
                     imagesBelonging.imagen = belongingList[i].imagesBytes[j];
@@ -411,12 +423,14 @@ namespace View.Views
                 ErrorManager.ShowWarning(MessageError.CONNECTION_ERROR);
             else if (result == MessageCode.SUCCESS)
             {
-                MessageBox.Show("IMAGENES REGISTRADAS");
                 idImagesSaved = idImages;
                 CallTransaction();
             }
             else
-                ErrorManager.ShowWarning("Error critico");
+            {
+                ErrorManager.ShowWarning("Error con la Base de datos");
+                this.Content = null;
+            }
         }
 
         private void CallTransaction() //llamado a metodo de dircio
@@ -433,12 +447,11 @@ namespace View.Views
                     break;
                 }
             }
-            //var window = Application.Current.MainWindow as MainWindow;
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
             mainWindow.PrimaryContainer.Effect = blurEffect;
             //campos estaticos para pruebas
-            (App.Current as App)._cashOnHand = 100000;
+            (App.Current as App)._cashOnHand = 11000;
             TransactionView newOperation = new TransactionView(OperationType.OPERATION_LOAND, double.Parse(tbLoanAmount.Text), idContractSaved);
             newOperation.CommunicacionPages(this);
             mainWindow.SecundaryContainer.Navigate(newOperation);
@@ -472,7 +485,7 @@ namespace View.Views
                 {
                     MessageBox.Show("Contrato Creado exitosamente");
                     PrintContract.NewPrintCotract(await ContractDAO.GetContractsDomainAsync(idContractSaved));
-
+                    this.Content = null;
                 }
             }
             else
@@ -481,7 +494,12 @@ namespace View.Views
                 int resultBelonging = BelongingDAO.DeletePendingBelongings(idBelongingsSaved);
                 int resultContract = ContractDAO.DeletePendingContrat(idContractSaved);
                 if (resultimg == MessageCode.SUCCESS && resultBelonging == MessageCode.SUCCESS && resultContract == MessageCode.SUCCESS)
+                {
                     MessageBox.Show("Contrato cancelado exitosamente");
+                    this.Content = null;
+                }
+                   
+                
 
             }
         }
@@ -489,24 +507,6 @@ namespace View.Views
         //metodo de interfaz TransactionView que no se usa
         public void ScanCommunication(ArticleDomain article)
         {
-        }
-
-        private void Borrar(object sender, RoutedEventArgs e)
-        {
-
-
-
-
-            var mainWindow = Application.Current.MainWindow as MainWindow;
-            BlurEffect blurEffect = new BlurEffect();
-            blurEffect.Radius = 5;
-            mainWindow.PrimaryContainer.Effect = blurEffect;
-            //campos estaticos para pruebas
-            (App.Current as App)._cashOnHand = 1000;
-            TransactionView newOperation = new TransactionView(OperationType.OPERATION_LOAND, 1000, 13);
-            newOperation.CommunicacionPages(this);
-            mainWindow.SecundaryContainer.Navigate(newOperation);
-            mainWindow.PrimaryContainer.IsHitTestVisible = false;
         }
 
         private void dgBelongings_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -521,7 +521,7 @@ namespace View.Views
             blurEffect.Radius = 5;
             mainWindow.PrimaryContainer.Effect = blurEffect;
             //campos estaticos para pruebas
-            (App.Current as App)._cashOnHand = 1000;
+         
             CreateCustomerRecord registerCustomer = new CreateCustomerRecord();
             mainWindow.SecundaryContainer.Navigate(registerCustomer);
             mainWindow.PrimaryContainer.IsHitTestVisible = false;

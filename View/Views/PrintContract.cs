@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Document = iTextSharp.text.Document;
 
 namespace View.Views
@@ -16,6 +17,7 @@ namespace View.Views
     {
         public static void NewPrintCotract(ContractDomain contract)
         {
+            
             string date = DateTime.Now.Ticks.ToString();
             string pdfName = string.Format("ContractPawn-{0}.pdf", date);
             string pathBase = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;

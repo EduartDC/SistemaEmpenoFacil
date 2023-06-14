@@ -186,7 +186,7 @@ namespace BusinessLogic
             //return (MessageCode.CONNECTION_ERROR, null);
             int result = 0;
             Customer customer = null;
-            if(Utilities.VerifyConnection())
+            try
             {
                 using (var connection = new ConnectionModel() )
                 {
@@ -196,8 +196,12 @@ namespace BusinessLogic
                     else
                         result = MessageCode.ERROR_USER_NOT_FOUND;
                 }
-            }else
+            }
+            catch
+            {
                 result = MessageCode.CONNECTION_ERROR;
+
+            }
 
             return (result,customer);
         }
@@ -350,78 +354,87 @@ namespace BusinessLogic
             List<Customer> list = new List<Customer>();
             if (Utilities.VerifyConnection())
             {
-                using (var connection = new ConnectionModel())
-                {//recuperando todos los articulos vendidos
-                    var result = (from contract in connection.Contracts
-                                  join belonging in connection.Belongings
-                                    on contract.idContract equals belonging.Contract_idContract
-                                  join article in connection.Belongings_Articles
-                                    on belonging.idBelonging equals article.idBelonging
-                                  join customer in connection.Customers
-                                    on contract.Customer_idCustomer equals customer.idCustomer
-                                  select new
-                                  {
-                                      Contract = contract,
-                                      Belonging = belonging,
-                                      Belongings_Articles = article,
-                                      Customer = customer
-                                  }).ToList();
-                    foreach (var util in result)
-                    {
-                        //                        for (int i = 0; i < result.Count(); i++)
-                        if (CustomersProfitList.Count() == 0)//el primer objeto de la lista
+                try
+                {
+                    using (var connection = new ConnectionModel())
+                    {//recuperando todos los articulos vendidos
+                        var result = (from contract in connection.Contracts
+                                      join belonging in connection.Belongings
+                                        on contract.idContract equals belonging.Contract_idContract
+                                      join article in connection.Belongings_Articles
+                                        on belonging.idBelonging equals article.idBelonging
+                                      join customer in connection.Customers
+                                        on contract.Customer_idCustomer equals customer.idCustomer
+                                      select new
+                                      {
+                                          Contract = contract,
+                                          Belonging = belonging,
+                                          Belongings_Articles = article,
+                                          Customer = customer
+                                      }).ToList();
+                        foreach (var util in result)
                         {
-                            DateTime limitDate = DateTime.Now.AddYears(-1);
-                            if (util.Belongings_Articles.creationDate >= limitDate)
+                            //                        for (int i = 0; i < result.Count(); i++)
+                            if (CustomersProfitList.Count() == 0)//el primer objeto de la lista
                             {
-                                Domain.CustomerProfitDomain newCustomerProfit = new Domain.CustomerProfitDomain();
-                                newCustomerProfit.idCustomer = util.Customer.idCustomer;
-                                newCustomerProfit.curp = util.Customer.curp;
-                                newCustomerProfit.firstname = util.Customer.firstName;
-                                newCustomerProfit.lastName = util.Customer.lastName;
-                                newCustomerProfit.profitCustomer = float.Parse(util.Customer.cumulativeProfit);
-                                newCustomerProfit.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description + "\n";
-                                // Console.WriteLine(newCustomerProfit.articlesProfit);
-
-                                if (util.Belongings_Articles.customerProfit == 0)
-                                    CustomersProfitList.Add(newCustomerProfit);
-
-                            }
-                        }
-                        else//verificar que no exista el cliente, o agregarlo a uno existente
-                        {
-                            bool customerFinded = false;
-                            foreach (var obj in CustomersProfitList)
-                            {
-                                if (util.Customer.idCustomer == obj.idCustomer)//verificar existencia
-                                    customerFinded = true;
-                            }
-                            if (customerFinded)//agregarlo a existente
-                            {
-                                foreach (var obj in CustomersProfitList)
+                                DateTime limitDate = DateTime.Now.AddYears(-1);
+                                if (util.Belongings_Articles.creationDate >= limitDate)
                                 {
-                                    if (util.Customer.idCustomer == obj.idCustomer && util.Belongings_Articles.customerProfit > 0)
-                                        obj.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description;
+                                    Domain.CustomerProfitDomain newCustomerProfit = new Domain.CustomerProfitDomain();
+                                    newCustomerProfit.idCustomer = util.Customer.idCustomer;
+                                    newCustomerProfit.curp = util.Customer.curp;
+                                    newCustomerProfit.firstname = util.Customer.firstName;
+                                    newCustomerProfit.lastName = util.Customer.lastName;
+                                    newCustomerProfit.profitCustomer = float.Parse(util.Customer.cumulativeProfit);
+                                    newCustomerProfit.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description + "\n";
+                                    // Console.WriteLine(newCustomerProfit.articlesProfit);
+
+                                    if (util.Belongings_Articles.customerProfit == 0)
+                                        CustomersProfitList.Add(newCustomerProfit);
 
                                 }
                             }
-                            else//registrarlo
+                            else//verificar que no exista el cliente, o agregarlo a uno existente
                             {
-                                Domain.CustomerProfitDomain newCustomerProfit = new Domain.CustomerProfitDomain();
-                                newCustomerProfit.idCustomer = util.Customer.idCustomer;
-                                newCustomerProfit.curp = util.Customer.curp;
-                                newCustomerProfit.firstname = util.Customer.firstName;
-                                newCustomerProfit.lastName = util.Customer.lastName;
-                                newCustomerProfit.profitCustomer = float.Parse(util.Customer.cumulativeProfit);
-                                newCustomerProfit.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description + "\n";
-                                if(util.Belongings_Articles.customerProfit > 0)
+                                bool customerFinded = false;
+                                foreach (var obj in CustomersProfitList)
+                                {
+                                    if (util.Customer.idCustomer == obj.idCustomer)//verificar existencia
+                                        customerFinded = true;
+                                }
+                                if (customerFinded)//agregarlo a existente
+                                {
+                                    foreach (var obj in CustomersProfitList)
+                                    {
+                                        if (util.Customer.idCustomer == obj.idCustomer && util.Belongings_Articles.customerProfit > 0)
+                                            obj.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description;
 
-                                CustomersProfitList.Add(newCustomerProfit);
+                                    }
+                                }
+                                else//registrarlo
+                                {
+                                    Domain.CustomerProfitDomain newCustomerProfit = new Domain.CustomerProfitDomain();
+                                    newCustomerProfit.idCustomer = util.Customer.idCustomer;
+                                    newCustomerProfit.curp = util.Customer.curp;
+                                    newCustomerProfit.firstname = util.Customer.firstName;
+                                    newCustomerProfit.lastName = util.Customer.lastName;
+                                    newCustomerProfit.profitCustomer = float.Parse(util.Customer.cumulativeProfit);
+                                    newCustomerProfit.articlesProfit += "-" + "[" + util.Belonging.idBelonging + "]" + util.Belonging.description + "\n";
+                                    if (util.Belongings_Articles.customerProfit > 0)
+
+                                        CustomersProfitList.Add(newCustomerProfit);
+                                }
                             }
                         }
                     }
+                    return (MessageCode.SUCCESS, CustomersProfitList);
                 }
-                return (MessageCode.SUCCESS, CustomersProfitList);
+                catch(Exception)
+                {
+                    return (MessageCode.CONNECTION_ERROR, null);
+
+                }
+
             }
             else
                 return (MessageCode.CONNECTION_ERROR, null);
@@ -470,12 +483,20 @@ namespace BusinessLogic
             int result = 0;
             if (Utilities.VerifyConnection())
             {
-                using (var connection = new ConnectionModel())
+                try
                 {
-                    Customer customerFinded = connection.Customers.FirstOrDefault(a => a.idCustomer == idCustomer);
-                    customerFinded.cumulativeProfit = "0";
-                    connection.SaveChanges();
-                    result = MessageCode.SUCCESS;
+                    using (var connection = new ConnectionModel())
+                    {
+                        Customer customerFinded = connection.Customers.FirstOrDefault(a => a.idCustomer == idCustomer);
+                        customerFinded.cumulativeProfit = "0";
+                        connection.SaveChanges();
+                        result = MessageCode.SUCCESS;
+                    }
+                }
+                catch(Exception)
+                {
+                    result = MessageCode.CONNECTION_ERROR;
+
                 }
             }
             else
