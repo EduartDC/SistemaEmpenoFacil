@@ -48,7 +48,7 @@
                 <DataGrid x:Name="dataGridSales" FontSize="15" Grid.Column="4" Margin="10,10,10,680" SelectionChanged="DataGrid_SelectionChanged" GridLinesVisibility="Horizontal" AutoGenerateColumns="True" IsReadOnly="True" SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Codigo de venta" Binding="{Binding idSale}"/>
-                        <DataGridTextColumn Header="Hora de venta" Binding="{Binding saleDate}"/>
+                        <DataGridTextColumn Header="Hora de venta" Binding="{Binding saleDate, StringFormat=dd/MM/yyyy}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                     <TextBox x:Name="saleCodeTextBox" Grid.Column="2" HorizontalAlignment="Left" Margin="70,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" FontSize="18" Height="32" Visibility="Hidden" BorderBrush="Black" BorderThickness="0,0,0,2"/>

@@ -17,7 +17,8 @@ namespace BusinessLogic
             {
                 using(var connection = new ConnectionModel())
                 {
-                    listSales = connection.Sales.Where(sales => sales.saleDate == saleDate).ToList();
+                    DateTime limitDate = saleDate.AddHours(23).AddMinutes(59);
+                    listSales = connection.Sales.Where(sales => sales.saleDate > saleDate && sales.saleDate <= limitDate).ToList();
                 }
             }
             else
