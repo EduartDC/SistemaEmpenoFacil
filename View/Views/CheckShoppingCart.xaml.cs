@@ -121,14 +121,25 @@ namespace View.Views
                                     break;
                                 }
                             }
-                            BlurEffect blurEffect = new BlurEffect();
-                            blurEffect.Radius = 5;
-                            mainWindow.PrimaryContainer.Effect = blurEffect;
-                            (App.Current as App)._cashOnHand = 100000;
-                            TransactionView newOperation = new TransactionView(OperationType.OPERATION_INCREASECASHREGISTERAMOUNT, double.Parse(labelFinalSellingAmount.Content.ToString()), idSale);
-                            newOperation.CommunicacionPages(this);
-                            mainWindow.SecundaryContainer.Navigate(newOperation);
-                            mainWindow.PrimaryContainer.IsHitTestVisible = false;
+                            if((App.Current as App)._cashOnHand < double.Parse(labelFinalSellingAmount.Content.ToString()))
+                            {
+                                string message = "Por favor agrege mas dinero en la caja para continuar la operacion";
+                                string messageTitle = "Insuficiente dinero en caja";
+                                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                                MessageBoxImage messageBoxImage = MessageBoxImage.Information;
+                                MessageBoxResult messageBox;
+                                messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                            }
+                            else
+                            {
+                                BlurEffect blurEffect = new BlurEffect();
+                                blurEffect.Radius = 5;
+                                mainWindow.PrimaryContainer.Effect = blurEffect;
+                                TransactionView newOperation = new TransactionView(OperationType.OPERATION_INCREASECASHREGISTERAMOUNT, double.Parse(labelFinalSellingAmount.Content.ToString()), idSale);
+                                newOperation.CommunicacionPages(this);
+                                mainWindow.SecundaryContainer.Navigate(newOperation);
+                                mainWindow.PrimaryContainer.IsHitTestVisible = false;
+                            }
                         }
                         else
                         {
@@ -181,6 +192,7 @@ namespace View.Views
                     double finalSellingPrice = (article.sellingPrice - ((article.sellingPrice * discount) / 100));
                     double storeProfit = (finalSellingPrice * 0.6) - (finalSellingPrice * 0.16);
                     BelongingsArticlesDAO.ModifyBelonging_Article(article.idArticle, idSale, storeProfit, finalSellingPrice);
+                    this.Close();
                 }
                 string message = "Operacion completada con exito\nSe ha realizado la venta correctamente";
                 string messageTitle = "Operacion exitosa";

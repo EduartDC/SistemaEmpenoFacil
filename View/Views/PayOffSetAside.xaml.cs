@@ -160,7 +160,7 @@ namespace View.Views
                     
                     Console.WriteLine("sale "+idSale);
 
-                    BelongingsArticlesDAO.ModifyBelonging_Article(belongings_Articles.idArticle, idSale, belongings_Articles.storeProfit);
+                    BelongingsArticlesDAO.ModifyBelonging_ArticleSetAside(belongings_Articles.idArticle, idSale, belongings_Articles.storeProfit);
                     SetAsideDAO.PayOffSetAside(StatesAside.COMPLETED_ASIDE, setAside.idSetAside);
                 }
 
