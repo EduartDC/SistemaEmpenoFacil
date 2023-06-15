@@ -31,6 +31,8 @@ namespace View.Views
         private List<Domain.BelongingCreation.Belonging> belongings= new List<Domain.BelongingCreation.Belonging>();
         private double settlementAmount;
         private double endorsementAmount;
+        private String operationType;
+        Domain.ContractDomain contractDomain = new Domain.ContractDomain();
 
         public EndorseContract(int IdContract)
         {
@@ -135,6 +137,7 @@ namespace View.Views
                 actualContract.idContractPrevious = actualContract.idContract;
                 actualContract.creationDate = DateTime.Now;
                 actualContract.stateContract = "Activo";
+                operationType = "Refrendo";
                 LoadDatesEndorsementSettlement();
                 BlurEffect blurEffect = new BlurEffect();
                 blurEffect.Radius = 5;
@@ -143,9 +146,7 @@ namespace View.Views
                 newOperation.CommunicacionPages(this);
                 mainWindow.SecundaryContainer.Navigate(newOperation);
                 mainWindow.PrimaryContainer.IsHitTestVisible = false;
-                Domain.ContractDomain contractDomain = new Domain.ContractDomain();
                 contractDomain = await ContractDAO.GetContractsDomainAsync(actualContract.idContract);
-                PrintContract.NewPrintCotract(contractDomain);
             }
         }
 
@@ -182,6 +183,10 @@ namespace View.Views
                     MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                     MessageBoxResult messageBox;
                     messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                    if(operationType.Equals("Refrendo"))
+                    {
+                        PrintContract.NewPrintCotract(contractDomain);
+                    }
                     this.NavigationService.GoBack();
                 }
                 else
@@ -235,7 +240,7 @@ namespace View.Views
             else
             {
                 string message = "No se puede cancelar un contrato despues de 24 horas desde su creacion";
-                string messageTitle = "Cancelarcion no disponible";
+                string messageTitle = "Cancelacion no disponible";
                 MessageBoxButton messageBoxButton = MessageBoxButton.OK;
                 MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                 MessageBoxResult messageBox;
