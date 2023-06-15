@@ -109,7 +109,7 @@ namespace View.Views
             return listAmounts[indexAmount];
         }
 
-        private void EndorseContractButtonEvent(object sender, RoutedEventArgs e)
+        private async void EndorseContractButtonEvent(object sender, RoutedEventArgs e)
         {
             if (actualContract.idContractPrevious != null && (actualContract.stateContract == "Activo" || actualContract.stateContract == "Reactivado"))
             {
@@ -139,12 +139,13 @@ namespace View.Views
                 BlurEffect blurEffect = new BlurEffect();
                 blurEffect.Radius = 5;
                 mainWindow.PrimaryContainer.Effect = blurEffect;
-                (App.Current as App)._cashOnHand = 100000;
-                TransactionView newOperation = new TransactionView(OperationType.OPERATION_SEAL, endorsementAmount, int.Parse(labelPawnNumber.Content.ToString()));
+                TransactionView newOperation = new TransactionView(OperationType.OPERATION_RENEWAL, endorsementAmount, int.Parse(labelPawnNumber.Content.ToString()));
                 newOperation.CommunicacionPages(this);
                 mainWindow.SecundaryContainer.Navigate(newOperation);
                 mainWindow.PrimaryContainer.IsHitTestVisible = false;
-
+                Domain.ContractDomain contractDomain = new Domain.ContractDomain();
+                contractDomain = await ContractDAO.GetContractsDomainAsync(actualContract.idContract);
+                PrintContract.NewPrintCotract(contractDomain);
             }
         }
 
@@ -226,7 +227,6 @@ namespace View.Views
                 BlurEffect blurEffect = new BlurEffect();
                 blurEffect.Radius = 5;
                 mainWindow.PrimaryContainer.Effect = blurEffect;
-                (App.Current as App)._cashOnHand = 100000;
                 TransactionView newOperation = new TransactionView(OperationType.OPERATION_LIQUIDATE, settlementAmount, int.Parse(labelPawnNumber.Content.ToString()));
                 newOperation.CommunicacionPages(this);
                 mainWindow.SecundaryContainer.Navigate(newOperation);

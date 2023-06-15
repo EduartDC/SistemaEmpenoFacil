@@ -300,7 +300,6 @@ namespace BusinessLogic
                             belonging.LoanAmount = element.loanAmount;
                             belonging.DeadLine = element.Contract.deadlineDate;
                             belonging.State = element.Contract.stateContract;
-                            Console.WriteLine(belonging.DeadLine);
 
 
                             belongins.Add(belonging);

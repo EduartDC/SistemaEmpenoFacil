@@ -67,7 +67,7 @@ namespace View.Views
             double totalReceivedAmount = 0.0;
             foreach (var item in _list)
             {
-                if (item.concept.Equals("Inicio de Turno"))
+                if (item.concept.Equals("Importe inicial"))
                 {
                     startAmount = item.receivedAmount;
                 }

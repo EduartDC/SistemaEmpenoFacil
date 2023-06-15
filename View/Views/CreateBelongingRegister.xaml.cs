@@ -198,7 +198,7 @@ namespace View.Views
                 {
                     if (double.Parse(tbApraisalAmount.Text) > 0 && double.Parse(tbMaxValue.Text) > 0)
                     {
-                        if (float.Parse(tbMaxValue.Text) > float.Parse(tbApraisalAmount.Text))
+                        if (float.Parse(tbMaxValue.Text) >= float.Parse(tbApraisalAmount.Text))
                         {
                             if (imageBool[0] && imageBool[1] && imageBool[2] && imageBool[3])
                             {

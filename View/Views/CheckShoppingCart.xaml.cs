@@ -189,7 +189,7 @@ namespace View.Views
                 foreach(Domain.ArticleDomain article in cartItems) 
                 {
                     int discount = int.Parse(textBoxDiscount.Text);
-                    double finalSellingPrice = (article.sellingPrice - ((article.sellingPrice * discount) / 100));
+                    double finalSellingPrice = article.sellingPrice - ((article.sellingPrice * discount) / 100);
                     double storeProfit = (finalSellingPrice * 0.6) - (finalSellingPrice * 0.16);
                     BelongingsArticlesDAO.ModifyBelonging_Article(article.idArticle, idSale, storeProfit, finalSellingPrice);
                     this.Close();
@@ -200,6 +200,12 @@ namespace View.Views
                 MessageBoxImage messageBoxImage = MessageBoxImage.Information;
                 MessageBoxResult messageBox;
                 messageBox = MessageBox.Show(message, messageTitle, messageBoxButton, messageBoxImage, MessageBoxResult.Yes);
+                List<int> idArticles = new List<int>();
+                foreach(Domain.ArticleDomain article in cartItems)
+                {
+                    idArticles.Add(article.idArticle);
+                }
+                CreateTickets.TicketSales(customerForSale.idCustomer, idSale, idArticles);
             }
         }
 
