@@ -443,7 +443,6 @@ namespace View.Views
             BlurEffect blurEffect = new BlurEffect();
             blurEffect.Radius = 5;
             mainWindow.PrimaryContainer.Effect = blurEffect;
-            (App.Current as App)._cashOnHand = 11000;
             TransactionView newOperation = new TransactionView(OperationType.OPERATION_LOAND, double.Parse(tbLoanAmount.Text), idContractSaved);
             newOperation.CommunicacionPages(this);
             mainWindow.SecundaryContainer.Navigate(newOperation);
