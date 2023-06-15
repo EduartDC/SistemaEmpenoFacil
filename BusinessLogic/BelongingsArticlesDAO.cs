@@ -128,7 +128,28 @@ namespace BusinessLogic
 
             return resultOperation;
         }
-        
+
+        public static int ModifyBelonging_ArticleSetAside(int idArticle, int idSale, double storeProfit)
+        {
+            int resultOperation = MessageCode.ERROR;
+            if (Utilities.VerifyConnection())
+            {
+                using (var connection = new ConnectionModel())
+                {
+                    var article = connection.Belongings_Articles.Where(util => util.idArticle == idArticle).FirstOrDefault();
+                    article.stateArticle = "Vendido";
+                    article.Sale_idSale = idSale;
+                    article.storeProfit = storeProfit;
+                    resultOperation = connection.SaveChanges();
+                }
+            }
+            else
+            {
+                throw new Exception(MessageError.CONNECTION_ERROR);
+            }
+
+            return resultOperation;
+        }
     } 
 
     

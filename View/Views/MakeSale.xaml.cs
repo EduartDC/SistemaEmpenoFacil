@@ -124,7 +124,7 @@ namespace View.Views
             else
             {
                 Domain.ArticleDomain articleSelected = dataGridArticles.SelectedItem as Domain.ArticleDomain;
-                if (articleSelected.stateArticle.Equals("vendido"))
+                if (articleSelected.stateArticle.Equals("Vendido"))
                 {
                     string message = "Por favor seleccione un articulo que este disponible para venta";
                     string messageTitle = "Seleccion no valida";
