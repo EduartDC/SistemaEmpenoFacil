@@ -9,7 +9,7 @@
     <Grid>
         <Label Content="Ingrese el CURP que desea agregar a la lista negra" HorizontalAlignment="Left" Margin="32,32,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="CURP:" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Center" FontSize="18"/>
-        <TextBox Name="text_CURP" MaxLength="18" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18" BorderBrush="Black" BorderThickness="0,0,0,2" Margin="95,0,204,0"/>
+        <TextBox Name="text_CURP" MaxLength="18" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18" BorderBrush="Black" BorderThickness="0,0,0,2" Margin="95,0,133,0"/>
         <Button Foreground="White" Background="#323D8F" Name="btn_Cancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="32,190,0,0" VerticalAlignment="Top" FontSize="18" Width="114" Click="Btn_Cancelar_Click">
             <Button.Resources>
                 <Style TargetType="Border">

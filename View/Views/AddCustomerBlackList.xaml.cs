@@ -30,7 +30,7 @@ namespace View.Views
 
         private void Btn_Add_Click(object sender, RoutedEventArgs e)
         {
-            if (!Utilities.ValidateFormat(text_CURP.Text, "^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{6}[0-9]{1}$")) 
+            if (Utilities.ValidateFormat(text_CURP.Text.Trim(), "^[A-Z]{4}\\d{6}[HM]{1}[A-Z]{6}[0-9]{1}$")) 
             {
                 try
                 {
@@ -51,7 +51,7 @@ namespace View.Views
             }
             else
             {
-                MessageBox.Show("Favor de llenar el campo solicitado");
+                MessageBox.Show("Favor de corroborar el formado del CURP ingresado");
             }
             
         }
@@ -60,7 +60,7 @@ namespace View.Views
         {
             try
             {
-                int resultChangeStatus = CustomerDAO.ChangeStatusBlackList(text_CURP.Text);
+                int resultChangeStatus = CustomerDAO.ChangeStatusBlackList(text_CURP.Text.Trim());
                 if (resultChangeStatus == 200)
                 {
                     MessageBox.Show("Se agrego un nuevo cliente a la lista negra");
